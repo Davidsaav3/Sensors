@@ -1,0 +1,11 @@
+.container-fluid{
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 2em;
+}
+
+thead{
+    background-color: #F2F2F2;
+}

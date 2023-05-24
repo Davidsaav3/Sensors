@@ -1,0 +1,53 @@
+<div class="container-fluid"> <!-- Sensors -->
+	
+    <div class="row">
+		<div class="col-2"> <!-- Buscar -->
+		    <div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="ua.multiSensor.raw" aria-label="Recipient's username" aria-describedby="basic-addon2">
+				<div class="input-group-append">
+				  <button class="btn btn-outline-secondary" type="button">Search</button>
+				</div>
+			</div>
+		</div> 
+		<div class="col-8"> <!-- Nuevo sensor -->
+			<button type="button" class="btn btn-info">New sensor</button>
+		</div>
+        <div class="col-2"> <!-- Paginador -->
+            <nav aria-label="Page navigation example">
+				<ul class="pagination">
+				  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				  <li class="page-item"><a class="page-link" href="#">1</a></li>
+				  <li class="page-item"><a class="page-link" href="#">2</a></li>
+				  <li class="page-item"><a class="page-link" href="#">3</a></li>
+				  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
+        </div>
+	</div>	
+
+	<div class="row">
+		<div class="col-12"> 
+			<table class="table">
+				<thead>
+				  <tr>
+					<th scope="col">Id</th>
+					<th scope="col">Type</th>
+					<th scope="col">Metric</th>
+					<th scope="col">Description</th>
+					<th scope="col">Edit</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr *ngFor="let _ of [].constructor(20)">
+					<th scope="col">1</th>
+					<td>Temperatura</td>
+                    <td>ppm</td>
+					<td>Sensorización CO2</td>
+					<td style="color: black;"><i class="bi bi-pencil" ></i></td>
+				  </tr>
+				</tbody>
+			  </table>
+		</div> 
+	</div>	
+
+</div> <!-- end Sensors -->
