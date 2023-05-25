@@ -1,0 +1,50 @@
+.nav{
+    margin: 1em;
+}
+
+.navb{
+    width: 31%;
+}
+
+.cont{
+    background-color: white;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 10px;
+    height: 90vh;
+}
+
+.cont0{
+    margin: 1em;
+}
+
+.cont1{
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    height: 90vh;
+}
+
+.cont2{
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    height: 90vh;
+}
+
+.over{
+    overflow-y: scroll; 
+}
+
+thead{
+    background-color: #F2F2F2;
+    border-radius: 10px;
+}
+
+.half{
+    width: 50%;
+}
+
+app-devices-edit{
+    display: flex;
+}
