@@ -40,11 +40,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let _ of [].constructor(20)" >
-                    <a scope="col" routerLink="/devices/1/edit">1</a>
-                    <td>ua.multiSensor.raw</td>
-                    <td>ua-sensor</td>
-                    <td><span class="badge rounded-pill text-bg-success"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span></td>
+                  <tr *ngFor="let quote of data">
+                    <a scope="col" routerLink="/devices/{{ quote.id }}/edit">{{ quote.uid }}</a>
+                    <td>{{ quote.topic_name }}</td>
+                    <td>{{ quote.application_id }}</td>
+                    <td><span class="badge rounded-pill text-bg-success"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote.enable }}</p></span></td>
                     <td class="d-none d-md-none d-lg-block">
                         <span class="badge rounded-pill text-bg-success me-2">CO2</span>
                         <span class="badge rounded-pill text-bg-success me-2">Temperatura</span>
