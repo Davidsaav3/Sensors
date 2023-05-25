@@ -7,13 +7,11 @@
                     <div class="col"> 
                         <h2>Devices</h2>
                     </div> 
-                    <div class="col"> 
-                        <td class="d-flex">
+                    <div class="col d-flex justify-content-end"> 
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                             <span class="badge rounded-pill text-bg-success me-2">Enable</span>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            </div>   
-                        </td> 
+                        </div>   
                     </div> 
                 </div>
 
@@ -55,13 +53,12 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <label for="typemeter" class="form-label">Typemeter</label>
                         <input type="text" class="form-control" id="typemeter">
                     </div>
-                    <div class="col-md-3" >
-                        <label for="" class="form-label"> E</label>
-                        <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar</button>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-danger navb me-3 mt-4" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar device</button>
                     </div>
                 </div>
 
@@ -76,10 +73,10 @@
         </div>
         
         <div class="row c3">
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <a type="button navb" routerLink="/devices" class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mt-3">
                 <button type="button navb" class="btn btn-info me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal2">Save</button>
 
             </div>
@@ -110,11 +107,11 @@
         </div>	
 
         <div class="c5 p-0 m-0" >
-            <img src="https://web.ua.es/ar/sigua/imagenes/carrusel/sigua.png" height="100%" style="width: -webkit-fill-available;">
+            <img src="https://web.ua.es/ar/sigua/imagenes/carrusel/sigua.png" height="100%" style="width: 100%">
         </div>
 
         <div class="row c6">
-            <div class="col-6"> 
+            <div class="col-12 col-lg-6 col-md-12 col-12"> 
                 <div class="row">
                     <div class="col-md-4">
                         <label for="longitud" class="form-label">Longitud</label>
@@ -130,7 +127,7 @@
                     </div>
                 </div>
             </div> 
-            <div class="col-6"> 
+            <div class="col-12 col-lg-6 col-md-12 col-12"> 
                 <label for="zona" class="form-label">Zona horaría</label>
                 <select class="form-select" aria-label="Default select example">
                     <option selected>España, Madrid</option>
@@ -141,6 +138,13 @@
 
     </div> <!-- end Devices -->
 </div>
+
+
+
+
+
+
+
 
 
 

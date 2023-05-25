@@ -16,19 +16,21 @@
 
 .cont0{
     margin: 1em;
+    margin-bottom: 0em;
 }
 
 .cont1{
     background-color: white;
     padding: 1em;
     border-radius: 10px;
-    height: 90vh;
+    margin-bottom: 1em;
 }
 
 .cont2{
     background-color: white;
     border-radius: 10px;
-    height: 90vh;
+    height: max-content;
+    margin-bottom: 1em;
 }
 
 .over{
@@ -54,15 +56,18 @@ a{
 }
 
 .c1{
-    height: 50%;
+    height: min-content;
 }
 
 .c2{
-    height: 40%;
+    margin-top: 2em;
+    height: max-content;
+    max-height: 380px;
 }
 
 .c3{
-    height: fit-content;}
+    height: fit-content;
+}
 
 .c4{
     padding: 1em;
@@ -72,14 +77,13 @@ a{
 }
 
 .c5{
-    height: 83%;
+    height: 75vh;
 }
 
 .c6{
     padding: 1em;    
     padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    height: fit-content;
+    padding-bottom: 1em;
 }
 
 .nuevo{
