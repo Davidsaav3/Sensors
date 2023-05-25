@@ -9,7 +9,7 @@
 			</div>
 		</div> 
 		<div class="col-2"> <!-- Nuevo sensor -->
-			<button type="button" class="btn btn-info">New device</button>
+			<button type="button" class="btn btn-info" (click)="mostrar=true">New device</button>
 		</div>
 		<div class="col-5"> <!-- Paginador -->
 			<nav aria-label="Page navigation example">
@@ -24,6 +24,60 @@
 		</div>
 	</div>	
 
+	
+	<div class="row nuevo" *ngIf="mostrar">
+		<div class="col-12"> 
+			<div class="col-12">
+				<div class="row">
+					<h1>New Device</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<label for="longitud" class="form-label">Id</label>
+					<input type="text" class="form-control" id="longitud">
+				</div>
+				<div class="col-md-3">
+					<label for="latitud" class="form-label">Type</label>
+					<input type="text" class="form-control" id="latitud">
+				</div>
+				<div class="col-md-6">
+					<label for="altura" class="form-label">Metric</label>
+					<input type="text" class="form-control" id="altura">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<label for="longitud" class="form-label">Description</label>
+					<input type="text" class="form-control" id="longitud">
+				</div>
+				<div class="col-md-4">
+					<label for="altura" class="form-label">Error value</label>
+					<input type="text" class="form-control" id="altura">
+				</div>
+				<div class="col-md-1">
+					<label for="altura" class="form-label">Value min</label>
+					<input type="text" class="form-control" id="altura">
+				</div>
+				<div class="col-md-1">
+					<label for="altura" class="form-label">Value max</label>
+					<input type="text" class="form-control" id="altura">
+				</div>
+			</div>
+
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<a ng-click="ocultar = true" type="button navb"(click)="mostrar=false"  class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
+				</div>
+				<div class="col-md-6">
+					<a ng-click="ocultar = true" type="button navb" (click)="mostrar=false" class="btn btn-info navb me-3" style="width: 100%">Save</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<div class="row">
 		<div class="col-12"> 
 			<table class="table">
@@ -36,16 +90,70 @@
 					<th scope="col">Edit</th>
 				  </tr>
 				</thead>
-				<tbody>
-				  <tr *ngFor="let _ of [].constructor(20)">
+				<tbody *ngFor="let _ of [].constructor(1)">
+				  <tr (click)="mostrar2=true">
 					<th scope="col">1</th>
 					<td>Temperatura</td>
                     <td>ppm</td>
 					<td>Sensorización CO2</td>
 					<td style="color: black;"><i class="bi bi-pencil" ></i></td>
-				  </tr>
+				  </tr>	
 				</tbody>
 			  </table>
+						
+
+			  <div *ngIf="mostrar2" class="row nuevo">
+				<div class="col-12">
+					<div class="col-12">
+						<div class="row">
+							<h1>CO2</h1>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<label for="longitud" class="form-label">Id</label>
+							<input type="text" class="form-control" id="longitud">
+						</div>
+						<div class="col-md-3">
+							<label for="latitud" class="form-label">Type</label>
+							<input type="text" class="form-control" id="latitud">
+						</div>
+						<div class="col-md-6">
+							<label for="altura" class="form-label">Metric</label>
+							<input type="text" class="form-control" id="altura">
+						</div>
+					</div>
+		
+					<div class="row">
+						<div class="col-md-6">
+							<label for="longitud" class="form-label">Description</label>
+							<input type="text" class="form-control" id="longitud">
+						</div>
+						<div class="col-md-4">
+							<label for="altura" class="form-label">Error value</label>
+							<input type="text" class="form-control" id="altura">
+						</div>
+						<div class="col-md-1">
+							<label for="altura" class="form-label">Value min</label>
+							<input type="text" class="form-control" id="altura">
+						</div>
+						<div class="col-md-1">
+							<label for="altura" class="form-label">Value max</label>
+							<input type="text" class="form-control" id="altura">
+						</div>
+					</div>
+		
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<a ng-click="ocultar = true" type="button navb"(click)="mostrar2=false"  class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
+						</div>
+						<div class="col-md-6">
+							<a ng-click="ocultar = true" type="button navb" (click)="mostrar2=false" class="btn btn-info navb me-3" style="width: 100%">Save</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 		</div> 
 	</div>	
 

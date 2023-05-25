@@ -27,7 +27,6 @@
 
 .cont2{
     background-color: white;
-    padding: 1em;
     border-radius: 10px;
     height: 90vh;
 }
@@ -47,4 +46,42 @@ thead{
 
 app-devices-edit{
     display: flex;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+
+.c1{
+    height: 50%;
+}
+
+.c2{
+    height: 40%;
+}
+
+.c3{
+    height: fit-content;}
+
+.c4{
+    padding: 1em;
+    height: fit-content;
+}
+
+.c5{
+    height: 80%;
+}
+
+.c6{
+    padding: 1em;
+    height: fit-content;
+}
+
+.nuevo{
+    border-radius: 10px;
+    background-color: #F2F2F2;
+    padding: 1em;
+    margin: 0.01em;
+    margin-bottom: 1em;
 }

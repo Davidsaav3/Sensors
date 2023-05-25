@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DevicesComponent } from './devices/devices.component';
 import { DevicesNewComponent } from './devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './devices/devices-edit/devices-edit.component';
-import { DevicesSensorsListComponent } from './devices/devices-sensors-list/devices-sensors-list.component';
+import { DevicesListComponent } from './devices/devices-list/devices-list.component';
 
 import { SensorsComponent } from './sensors/sensors.component';
 import { MapComponent } from './map/map.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DevicesSensorsListComponent
+        component: DevicesListComponent
       },
       {
         path: 'new',

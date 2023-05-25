@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./sensors.component.css', '../app.component.css']
 })
 export class SensorsComponent {
-
+  mostrar=false;
+  mostrar2= false;
 }

@@ -1,21 +1,134 @@
 <div class="row cont0">
     <div class="cont1 col-6" > <!-- Devices -->
 
-        <div class="row">
+        <div class="row c1">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col"> 
+                        <h1>Devices</h1>
+                    </div> 
+                    <div class="col"> 
+                        <td class="d-flex">
+                            <span class="badge rounded-pill text-bg-success me-2">Enable</span>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                            </div>   
+                        </td> 
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="longitud" class="form-label">Id</label>
+                        <input type="text" class="form-control" id="longitud">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="latitud" class="form-label">Uid</label>
+                        <input type="text" class="form-control" id="latitud">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="altura" class="form-label">Alias</label>
+                        <input type="text" class="form-control" id="altura">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="longitud" class="form-label">Origin</label>
+                        <input type="text" class="form-control" id="longitud">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="altura" class="form-label">Description Origin</label>
+                        <input type="text" class="form-control" id="altura">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="longitud" class="form-label">Aplication Id</label>
+                        <input type="text" class="form-control" id="longitud">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="altura" class="form-label">Topic Id</label>
+                        <input type="text" class="form-control" id="altura">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="longitud" class="form-label">Typemeter</label>
+                        <input type="text" class="form-control" id="longitud">
+                    </div>
+                    <div class="col-md-3" >
+                        <label for="longitud" class="form-label"> E</label>
+                        <a type="button navb" routerLink="/devices" class="btn btn-danger navb me-3" style="width: 100%">Eliminar</a>
+                    </div>
+                </div>
+
+            </div>
+           
+        </div>
+
+        <div class="row over c2">
             <div class="col-12 "> 
-            
+                <app-devices-sensors-list></app-devices-sensors-list>
             </div> 
-        </div>	
+        </div>
+        
+        <div class="row c3">
+            <div class="col-md-6">
+                <a type="button navb" routerLink="/devices" class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
+            </div>
+            <div class="col-md-6">
+                <a type="button navb" routerLink="/devices" class="btn btn-info navb me-3" style="width: 100%">Save</a>
+            </div>
+        </div>
 
     </div> <!-- end Devices -->
 
-    <div class="cont2 col-6" > <!-- Devices -->
+    <div class="cont2 col-6 p-0" > <!-- Devices -->
 
-        <div class="row">
-            <div class="col-12"> 
-            
+        <div class="row c4">
+            <div class="col-1"> 
+               
+            </div>
+            <div class="col-10" > 
+               <h4>Universidad de alicante</h4>
+            </div>
+            <div class="col-1"> 
+               
             </div> 
         </div>	
+
+        <div class="c5 p-0 m-0" >
+            <img src="https://web.ua.es/ar/sigua/imagenes/carrusel/sigua.png" height="100%" style="width: -webkit-fill-available;">
+        </div>
+
+        <div class="row c6">
+            <div class="col-6"> 
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="longitud" class="form-label">Longitud</label>
+                        <input type="text" class="form-control" id="longitud">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="latitud" class="form-label">Latitud</label>
+                        <input type="text" class="form-control" id="latitud">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="altura" class="form-label">Altura</label>
+                        <input type="text" value="10" class="form-control" id="altura">
+                    </div>
+                </div>
+            </div> 
+            <div class="col-6"> 
+                <label for="zona" class="form-label">Zona horaría</label>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>España, Madrid</option>
+                    <option value="1">Otra</option>
+                  </select>
+            </div>
+        </div>
 
     </div> <!-- end Devices -->
 </div>
