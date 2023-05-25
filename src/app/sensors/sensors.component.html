@@ -1,28 +1,29 @@
 <div class="cont over"> <!-- Devices -->	
-	<div class="row">
-		<div class="col-5"> <!-- Buscar -->
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="ua.multiSensor.raw" aria-label="Recipient's username" aria-describedby="basic-addon2">
-				<div class="input-group-append">
-				  <button class="btn btn-outline-secondary" type="button">Search</button>
-				</div>
-			</div>
-		</div> 
-		<div class="col-2"> <!-- Nuevo sensor -->
-			<button type="button" class="btn btn-info" (click)="mostrar=true">New device</button>
-		</div>
-		<div class="col-5"> <!-- Paginador -->
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-				  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				  <li class="page-item"><a class="page-link" href="#">1</a></li>
-				  <li class="page-item"><a class="page-link" href="#">2</a></li>
-				  <li class="page-item"><a class="page-link" href="#">3</a></li>
-				  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>	
+	
+    <div class="row">
+        <div class="col-lg-4 col-md-12 col-12"> <!-- Buscar -->
+            <div class="input-group mb-3 w-100">
+                <input type="text" class="form-control" placeholder="ua.multiSensor.raw" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">Search</button>
+                </div>
+            </div>
+        </div> 
+        <div class="col-lg-4 col-md-4 col-4"> <!-- Nuevo sensor -->
+			<button type="button" class="btn btn-info" (click)="mostrar=true">New sensor</button>
+        </div>
+        <div class="col-lg-4 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>	
 
 	
 	<div class="row nuevo" *ngIf="mostrar">
@@ -67,10 +68,10 @@
 			</div>
 
 			<div class="row mt-4">
-				<div class="col-md-6">
+				<div class="col-md-6 pb-2">
 					<a ng-click="ocultar = true" type="button navb"(click)="mostrar=false"  class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 pt-2">
 					<a ng-click="ocultar = true" type="button navb" (click)="mostrar=false" class="btn btn-info navb me-3" style="width: 100%">Save</a>
 				</div>
 			</div>
@@ -96,7 +97,11 @@
 					<td>Temperatura</td>
                     <td>ppm</td>
 					<td>Sensorización CO2</td>
-					<td style="color: black;"><i class="bi bi-pencil" ></i></td>
+					<td style="color: black;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+							<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+						</svg>
+					</td>
 				  </tr>	
 				</tbody>
 			  </table>
@@ -144,10 +149,10 @@
 					</div>
 		
 					<div class="row mt-4">
-						<div class="col-md-6">
+						<div class="col-md-6  pb-2">
 							<a ng-click="ocultar = true" type="button navb"(click)="mostrar2=false"  class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6 pt-2">
 							<a ng-click="ocultar = true" type="button navb" (click)="mostrar2=false" class="btn btn-info navb me-3" style="width: 100%">Save</a>
 						</div>
 					</div>

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./devices-new.component.css', '../../app.component.css']
 })
 export class DevicesNewComponent {
-
+  mostrar=true;
 }

@@ -66,15 +66,19 @@ a{
 
 .c4{
     padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     height: fit-content;
 }
 
 .c5{
-    height: 80%;
+    height: 83%;
 }
 
 .c6{
-    padding: 1em;
+    padding: 1em;    
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     height: fit-content;
 }
 
@@ -84,4 +88,8 @@ a{
     padding: 1em;
     margin: 0.01em;
     margin-bottom: 1em;
+}
+
+.not{
+    font-size: large;
 }

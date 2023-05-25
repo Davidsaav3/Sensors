@@ -1,18 +1,18 @@
 <div class="cont over" > <!-- Devices -->
 
     <div class="row">
-        <div class="col-5"> <!-- Buscar -->
-            <div class="input-group mb-3">
+        <div class="col-lg-4 col-md-12 col-12"> <!-- Buscar -->
+            <div class="input-group mb-3 w-100">
                 <input type="text" class="form-control" placeholder="ua.multiSensor.raw" aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button">Search</button>
                 </div>
             </div>
         </div> 
-        <div class="col-2"> <!-- Nuevo sensor -->
+        <div class="col-lg-4 col-md-4 col-4"> <!-- Nuevo sensor -->
             <button type="button" class="btn btn-info" routerLink="/devices/new">New device</button>
         </div>
-        <div class="col-5"> <!-- Paginador -->
+        <div class="col-lg-4 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -34,9 +34,9 @@
                     <th scope="col">Topic name</th>
                     <th scope="col">Aplicaction Id</th>
                     <th scope="col">Active</th>
-                    <th scope="col">Sensors</th>
+                    <th class="d-none d-md-none d-lg-block">Sensors</th>
                     <th scope="col">Duplicate</th>
-                    <th scope="col">Edit</th>
+                    <th class="d-none d-md-none d-lg-block">Edit</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,14 +44,23 @@
                     <a scope="col" routerLink="/devices/1/edit">1</a>
                     <td>ua.multiSensor.raw</td>
                     <td>ua-sensor</td>
-                    <td><span class="badge rounded-pill text-bg-success">Activado</span></td>
-                    <td>
+                    <td><span class="badge rounded-pill text-bg-success"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span></td>
+                    <td class="d-none d-md-none d-lg-block">
                         <span class="badge rounded-pill text-bg-success me-2">CO2</span>
                         <span class="badge rounded-pill text-bg-success me-2">Temperatura</span>
                         <span class="badge rounded-pill text-bg-danger me-2">Humedad</span>
                     </td>
-                    <td><i class="bi bi-clipboard2-plus"></i></td>
-                    <td style="color: black;"><i class="bi bi-pencil" ></i></td>
+                    <td>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                      </svg>
+                    </td>
+                    <td class="d-none d-md-none d-lg-block" style="color: black;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                      </svg>
                   </tr>
                 </tbody>
               </table>
