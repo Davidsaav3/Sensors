@@ -103,55 +103,60 @@
 			  </table>
 						
 
-			  <div *ngIf="mostrar2" class="row nuevo">
-				<form #gfgform = "ngForm" class="col-12" *ngFor="let quote of data2">
+			<div class="row nuevo" *ngIf="mostrar2">
+				<form class="col-12"> 
 					<div class="col-12">
 						<div class="row">
-							<h1>CO2</h1>
+							<h1>Nuevo tipo de sensor</h1>
 						</div>
 					</div>
 					<div class="row">
-						
-						<div class="col-md-3" *ngFor="let quote of data2">
-							<label for="id" class="form-label">Id</label>
-							<input type="text" class="form-control" value="{{ quote.id }}" id="id" name="id">
-						</div>
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<label for="type" class="form-label">Type</label>
-							<input type="text" class="form-control" value="{{ quote.type }}" id="type" name="type">
+							<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [ngModel]="contenido.type">
 						</div>
 						<div class="col-md-6">
 							<label for="metric" class="form-label">Metric</label>
-							<input type="text" class="form-control" value="{{ quote.metric }}" id="metric" id="metric">
+							<input type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric">
 						</div>
 					</div>
 		
 					<div class="row">
 						<div class="col-md-6">
-							<label for="longitud" class="form-label">Description</label>
-							<input type="text" class="form-control" value="{{ quote.description }}" id="longitud" id="longitud">
+							<label for="description" class="form-label">Description</label>
+							<input type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description">
 						</div>
 						<div class="col-md-4">
-							<label for="altura" class="form-label">Error value</label>
-							<input type="text" class="form-control" value="{{ quote.errorvalue }}" id="altura">
+							<label for="errorvalue" class="form-label">Error value</label>
+							<input type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
 						</div>
 						<div class="col-md-1">
-							<label for="altura" class="form-label">Value min</label>
-							<input type="text" class="form-control" value="{{ quote.valuemin }}"id="altura">
+							<label for="valuemin" class="form-label">Value min</label>
+							<input type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
 						</div>
 						<div class="col-md-1">
-							<label for="altura" class="form-label">Value max</label>
-							<input type="text" class="form-control" value="{{ quote.valuemax }}" id="altura">
+							<label for="valuemax" class="form-label">Value max</label>
+							<input type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax}}" [(ngModel)]="contenido.valuemax">
 						</div>
 					</div>
 		
 					<div class="row mt-4">
-						<div class="col-md-6  pb-2">
-							<a ng-click="ocultar = true" type="button navb"(click)="mostrar2=false"  class="btn btn-secondary navb me-3" style="width: 100%">Cancelar</a>
+						<div class="col-md-6 col-12">
+							<div class="col-md-6 col-12 mt-3">
+								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" (click)="eliminar()" data-bs-target="#exampleModal">Eliminar sensor</button>
+							</div>
 						</div>
-						<div class="col-md-6 pt-2">
-							<a ng-click="ocultar = true" type="button navb" (click)="mostrar2=false" class="btn btn-info navb me-3" style="width: 100%">Guardar</a>
+						<div class="col-md-6 col-12">
+							<div class="row">
+								<div class="col-md-6 col-12 mt-3">
+									<a type="button navb" class="btn btn-secondary navb" style="width: 100%" (click)="mostrar2=false">Cancelar</a>
+								</div>
+								<div class="col-md-6 col-12 mt-3">
+									<button type="button navb" class="btn btn-info" style="width: 100%" (click)="mostrar2=false">Guardar</button>
+								</div>		
+							</div>
 						</div>
+	
 					</div>
 				</form>
 			</div>

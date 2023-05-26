@@ -3,23 +3,23 @@
     <div class="row">
         <div class="col-lg-4 col-md-12 col-12"> <!-- Buscar -->
             <div class="input-group mb-3 w-100">
-                <input type="text" class="form-control" placeholder="ua.multiSensor.raw" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="Dispositivo..." aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">Search</button>
+                  <button class="btn btn-outline-secondary" type="button">Buscar</button>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="col-lg-4 col-md-4 col-4"> <!-- Nuevo sensor -->
-            <button type="button" class="btn btn-info" routerLink="/devices/new">New device</button>
+            <button type="button" class="btn btn-info" routerLink="/devices/new">Nuevo dispositivo</button>
         </div>
         <div class="col-lg-4 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <ul class="pagination">3
+                  <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
                   <li class="page-item"><a class="page-link" href="#">1</a></li>
                   <li class="page-item"><a class="page-link" href="#">2</a></li>
                   <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
                 </ul>
             </nav>
         </div>
@@ -48,10 +48,11 @@
                       <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">Enable</p></span>
                       <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">Disable</p></span>
                     </td>
-                    <td class="d-none d-md-none d-lg-block">
-                        <span class="badge rounded-pill text-bg-success me-2">CO2</span>
-                        <span class="badge rounded-pill text-bg-success me-2">Temperatura</span>
-                        <span class="badge rounded-pill text-bg-danger me-2">Humedad</span>
+                    <td class="d-none d-md-none d-lg-block d-flex">
+                      <div *ngFor="let quote2 of data2" style="display: inline-block; height: min-content;">
+                        <span class="badge rounded-pill text-bg-success d-inline-block me-2" [class]="{'d-none': quote2.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
+                        <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
+                      </div>
                     </td>
                     <td style="text-align: center;">                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
