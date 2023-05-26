@@ -35,13 +35,22 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
-  app.post("/api/post/user", (req,res)=>{
-        //const username = req.body.userName;
-        //const title = req.body.title;
-        //const text = req.body.text;
-        const title = "xd";
-        const content = "xd";
-        con.query("INSERT INTO device_configurations (title, content) VALUES (?,?)",[title,content], function (err, result) {
+  app.post("/api/post/device_configurations", (req,res)=>{
+    const uid = req.body.uid;
+    const alias = req.body.alias;
+    const origin = req.body.origin;
+    const description_origin = req.body.description_origin;
+    const application_id = req.body.application_id;
+    const topic_name = req.body.topic_name;
+    const typemeter = req.body.typemeter;
+    const lat = req.body.lat;
+    const lon = req.body.lon;
+    const cota = req.body.cota;
+    const timezone = req.body.timezone;
+    const enable = req.body.enable;
+    const organizationid = req.body.organizationid;
+
+    con.query("INSERT INTO sensors_types (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid], function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send(result)
@@ -88,6 +97,15 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
+  const id_device = "1";
+  app.get("/api/id_device/sensors_devices/", (req,res)=>{
+    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM `sensors_types` as t WHERE s.id_type_sensor = t.id) As type_name FROM `sensors_devices` as s WHERE id_device = ?", id_device, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result)
+});
+});
+if (err) throw err;
   app.post("/api/post/sensors_devices", (req,res)=>{
         //const username = req.body.userName;
         //const title = req.body.title;
@@ -133,8 +151,9 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
-  app.get("/api/id/sensors_types/:id", (req,res)=>{
-        con.query("SELECT * FROM sensors_types WHERE id = ?", id, function (err, result) {
+  const id21 = "1";
+  app.get("/api/id/sensors_types/", (req,res)=>{
+        con.query("SELECT * FROM sensors_types WHERE id = ?", id21, function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send(result)
@@ -142,12 +161,13 @@ con.connect(function(err) {
   });
   if (err) throw err;
   app.post("/api/post/sensors_types", (req,res)=>{
-        //const username = req.body.userName;
-        //const title = req.body.title;
-        //const text = req.body.text;
-        const name = "xd";
-        const language = "xd";
-        con.query("INSERT INTO sensors_types (title, content) VALUES (?,?)",[name,language], function (err, result) {
+        const type = req.body.type;
+        const metric = req.body.metric;
+        const description = req.body.description;
+        const errorvalue = req.body.errorvalue;
+        const valuemax = req.body.valuemax;
+        const valuemin = req.body.valuemin;
+        con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) VALUES (?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin], function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send(result)

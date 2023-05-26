@@ -21,27 +21,27 @@
 			<table class="table">
 				<thead>
 				  <tr>
-                    <th scope="col">Position</th>
-					<th scope="col">Id</th>
+                    <th scope="col">Order</th>
 					<th scope="col">Type</th>
-					<th scope="col">Metric</th>
+					<th scope="col">Datafield</th>
+					<th scope="col">Nodata</th>
 					<th scope="col">Enable</th>
-					<th scope="col">Delete</th>
+					<th scope="col" style="text-align: center;">Delete</th>
 				  </tr>
 				</thead>
 				<tbody>
                     <tr  *ngFor="let quote of data" style="overflow-y: scroll;">
-                        <th scope="col2">{{ quote.id }}</th>
-                        <th scope="col">{{ quote.id }}</th>
-                        <td>{{ quote.type }}</td>
-                        <td>{{ quote.metric }}</td>
+                        <th scope="col2">{{ quote.orden }}</th>
+                        <th scope="col">{{ quote.id_type_sensor }}</th>
+                        <td>{{ quote.datafield }}</td>
+                        <td>{{ quote.nodata }}</td>
                         <td class="d-flex">
                             <span class="badge rounded-pill text-bg-success me-2"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                             </div>   
                         </td>
-                        <td style="color: black;">
+                        <td style="text-align: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                                 <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
                             </svg>

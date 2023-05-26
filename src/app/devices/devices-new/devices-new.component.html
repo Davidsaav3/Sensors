@@ -1,143 +1,161 @@
 <div class="row cont0">
-    <div class="col-lg-6 col-md-12 col-12 p-0" *ngIf="mostrar"> <!-- Devices -->
-        <div class="cont1">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-12 p-0" *ngIf="mostrar"> <!-- Devices -->
+            <div class="cont1">
 
-            <div class="row c1">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col"> 
-                            <h2>Devices</h2>
-                        </div> 
-                        <div class="col d-flex justify-content-end"> 
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                <h3><span class="badge rounded-pill text-bg-success me-2">Enable</span></h3>
-                            </div>   
-                        </div> 
+                <div class="row c1">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col"> 
+                                <h2>Devices</h2>
+                            </div> 
+                            <div class="col d-flex justify-content-end"> 
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                    <h3><span class="badge rounded-pill text-bg-success me-2">Enable</span></h3>
+                                </div>   
+                            </div> 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="uid" class="form-label">Uid</label>
+                                <input type="text" class="form-control" id="uid" name="uid" [ngModel]="contenido.uid">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="organizationid" class="form-label">Organization Id</label>
+                                <input type="text" class="form-control" id="organizationid" name="organizationid" [ngModel]="contenido.organizationid">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="alias" class="form-label">Alias</label>
+                                <input type="text" class="form-control" id="alias" name="alias" [ngModel]="contenido.alias">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="origin" class="form-label">Origin</label>
+                                <input type="text" class="form-control" id="origin" name="origin" [ngModel]="contenido.origin">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="description_origin" class="form-label">Description Origin</label>
+                                <input type="text" class="form-control" id="description_origin" name="description_origin" [ngModel]="contenido.description_origin">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="application_id" class="form-label">Aplication Id</label>
+                                <input type="text" class="form-control" id="application_id"  name="application_id" [ngModel]="contenido.application_id">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="topic_name" class="form-label">Topic Id</label>
+                                <input type="text" class="form-control" id="topic_name" name="topic_name" [ngModel]="contenido.topic_name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="typemeter" class="form-label">Typemeter</label>
+                                <input type="text" class="form-control" id="typemeter" name="typemeter" [ngModel]="contenido.typemeter">
+                            </div>
+                           
+                        </div>
+
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="id" class="form-label">Id</label>
-                            <input type="text" class="form-control" id="id">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="uid" class="form-label">Uid</label>
-                            <input type="text" class="form-control" id="uid">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="alias" class="form-label">Alias</label>
-                            <input type="text" class="form-control" id="alias">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="origin" class="form-label">Origin</label>
-                            <input type="text" class="form-control" id="origin">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="description" class="form-label">Description Origin</label>
-                            <input type="text" class="form-control" id="description">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="aplication" class="form-label">Aplication Id</label>
-                            <input type="text" class="form-control" id="aplication">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="topic" class="form-label">Topic Id</label>
-                            <input type="text" class="form-control" id="topic">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="typemeter" class="form-label">Typemeter</label>
-                            <input type="text" class="form-control" id="typemeter">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="typemeter" class="form-label">&nbsp;</label>
-                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar device</button>
-                        </div>
-                    </div>
-
+                
                 </div>
-            
-            </div>
 
-            <div class="row over c2">
-                <div class="col-12 "> 
-                    <app-devices-sensors-list></app-devices-sensors-list>
-                </div> 
-            </div>
-            
-            <div class="row c3">
-                <div class="col-md-6 mt-3">
-                    <a type="button navb" routerLink="/devices" class="btn btn-secondary navb me-3" style="width: 100%">Cancel</a>
+                <div class="row over c2">
+                    <div class="col-12 "> 
+                        <app-devices-sensors-list></app-devices-sensors-list>
+                    </div> 
                 </div>
-                <div class="col-md-6 mt-3">
-                    <button type="button navb" class="btn btn-info me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal2">Save</button>
+                
 
+            </div> <!-- end Devices -->
+        </div>
+
+        <div class="p-0 col-lg-6 col-12 col-md-12 p-0" [class]="{'col-12': mostrar==false}" [class]="{'col-6': mostrar}">
+            <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- Devices -->
+
+                <div class="c4 d-flex justify-content-between">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
+                        </svg>
+                    </div>
+                    <div class="" > 
+                    <h5 class="text-center">Universidad de alicante</h5>
+                    </div>
+                    <div class="">
+                        <svg class="text-right" *ngIf="mostrar" (click)="mostrar=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
+                        </svg>
+                        <svg class="text-right" *ngIf="mostrar==false" (click)="mostrar=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                        </svg>
+                    </div> 
+                </div>	
+
+                <div class="c5 p-0 m-0" >
+                    <img src="https://web.ua.es/ar/sigua/imagenes/carrusel/sigua.png" height="100%" style="width: 100%">
                 </div>
-            </div>
 
-        </div> <!-- end Devices -->
+                <div class="row c6">
+                    <div class="col-12 col-lg-6 col-md-12 col-12"> 
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="lat" class="form-label">Longitud</label>
+                                <input type="text" class="form-control" id="lat"  name="lat" [ngModel]="contenido.lat">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lon" class="form-label">Latitud</label>
+                                <input type="text" class="form-control" id="lon"  name="lon" [ngModel]="contenido.lon">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cota" class="form-label">Altura</label>
+                                <input type="text" value="10" class="form-control" id="cota" name="cota" [ngModel]="contenido.cota">
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-12 col-lg-6 col-md-12 col-12"> 
+                        <label for="timezone" class="form-label">Zona horaría</label>
+                        <select class="form-select" aria-label="Default select example" id="timezone" name="timezone" [ngModel]="contenido.timezone">
+                            <option selected value="0">España, Madrid</option>
+                            <option value="1">Otra</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div> <!-- end Devices -->
+        </div>
+
     </div>
 
-    <div class="p-0 col-lg-6 col-12 col-md-12 p-0" [class]="{'col-12': mostrar==false}" [class]="{'col-6': mostrar}">
-        <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- Devices -->
+    <div class="row">
+        <div class="col-12 p-0"> <!-- Devices -->
+            <div class="cont3">
 
-            <div class="c4 d-flex justify-content-between">
-                <div class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
-                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
-                    </svg>
-                </div>
-                <div class="" > 
-                <h5 class="text-center">Universidad de alicante</h5>
-                </div>
-                <div class="">
-                    <svg class="text-right" *ngIf="mostrar" (click)="mostrar=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
-                    </svg>
-                    <svg class="text-right" *ngIf="mostrar==false" (click)="mostrar=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
-                    </svg>
-                </div> 
-            </div>	
-
-            <div class="c5 p-0 m-0" >
-                <img src="https://web.ua.es/ar/sigua/imagenes/carrusel/sigua.png" height="100%" style="width: 100%">
-            </div>
-
-            <div class="row c6">
-                <div class="col-12 col-lg-6 col-md-12 col-12"> 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="longitud" class="form-label">Longitud</label>
-                            <input type="text" class="form-control" id="longitud">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="latitud" class="form-label">Latitud</label>
-                            <input type="text" class="form-control" id="latitud">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="altura" class="form-label">Altura</label>
-                            <input type="text" value="10" class="form-control" id="altura">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 mt-3">
+                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar dispositivo</button>
                         </div>
                     </div>
-                </div> 
-                <div class="col-12 col-lg-6 col-md-12 col-12"> 
-                    <label for="zona" class="form-label">Zona horaría</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>España, Madrid</option>
-                        <option value="1">Otra</option>
-                    </select>
-                </div>
-            </div>
+                    <div class="col-md-6 col-12">
+                        <div class="row">
+                            <div class="col-md-6 col-12 mt-3">
+                                <a type="button navb" routerLink="/devices" class="btn btn-secondary navb" style="width: 100%">Cancelar</a>
+                            </div>
+                            <div class="col-md-6 col-12 mt-3">
+                                <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
 
-        </div> <!-- end Devices -->
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 

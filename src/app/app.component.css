@@ -33,6 +33,15 @@
     margin-bottom: 1em;
 }
 
+.cont3{
+    padding: 1em;
+    padding-top: 0em;
+    background-color: white;
+    border-radius: 10px;
+    height: min-content;
+    margin-bottom: 1em;
+}
+
 .over{
     overflow-y: scroll; 
 }
@@ -62,7 +71,7 @@ a{
 .c2{
     margin-top: 2em;
     height: max-content;
-    max-height: 50vh;
+    max-height: 46vh;
 }
 
 .c3{
@@ -77,7 +86,7 @@ a{
 }
 
 .c5{
-    height: 75vh;
+    height: 65vh;
 }
 
 .c6{
