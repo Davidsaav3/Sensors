@@ -1,27 +1,30 @@
-# Sensors
+# TFG - Diseño y desarrollo de un servicio de gestión IoT
+Este repositorio contiene el proyecto de Trabajo Fin de Grado (TFG) de Ingeniería Multimedia titulado "Diseño y desarrollo de un servicio de gestión IoT". El proyecto es desarrollado por el equipo de Smart University de la Universidad de Alicante.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
+## Descripción del proyecto
+El objetivo principal de este proyecto es diseñar y desarrollar un servicio de gestión basado en IoT (Internet de las cosas) y redes LORA para un sistema de sensorización inteligente. Actualmente, la gestión y configuración de este sistema se realiza a través de PHPMyAdmin utilizando una base de datos. Sin embargo, se plantea la creación de una aplicación web propia que facilite la gestión de la información relacionada con el sistema de sensorización.
 
-## Development server
+## Datos a gestionar
+El proyecto maneja una base de datos que consta de las siguientes 3 tablas:
+- sensor_devices: Esta tabla contiene los tipos de sensores que pueden ser utilizados por el sistema.
+- devices: En esta tabla se encuentra la lista de dispositivos IoT que forman parte de la red de sensorización.
+- devices_sensor: Aquí se almacena la lista de sensores del tipo "sensor_devices" que están asociados a cada dispositivo.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requerimientos
+La aplicación estará alojada en un servidor propio y solo tendrá acceso el personal autorizado. Por lo tanto, no es necesario implementar un sistema de autenticación con usuario y contraseña ni gestión de usuarios y login en esta etapa inicial del proyecto.
+Cada dispositivo puede activarse o desactivarse.
+Cada sensor en un dispositivo puede activarse o desactivarse.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Mockups de interfaces
+A continuación se presentan los mockups de las interfaces que se desarrollarán en el proyecto:
 
-## Build
+### Interfaz inicial
+Al acceder a la aplicación, el usuario encontrará una interfaz inicial que proporcionará acceso al resto de las interfaces. Esta interfaz contará con un menú superior o lateral que contendrá las siguientes opciones:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Gestión Tipos de Sensores 
+Permite gestionar los tipos de sensores que el sistema puede utilizar para configurar los dispositivos.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Gestionar Dispositivos 
+Permite gestionar los dispositivos IoT de la red de sensorización.
+El repositorio contiene el código y los recursos necesarios para el desarrollo de este proyecto de TFG.
