@@ -7,7 +7,7 @@ sensor_devices: tabla que contiene los tipos de sensores que pueden ser utilizad
 devices: tabla que contiene al lista de dispositivos IoT que forman parte de la red de sensorización
 devices_sensor: tabla que contiene la lista de sensores del tipo sensor_devices que contiene cada device
 
-## Algunos requerimientos
+## Requerimientos
 La aplicación residirá en un alojamiento propio y solo tendrá acceso el personal autorizado por lo que no es necesario que tenga autenticación (usuario y contraseña) por lo que no se necesita gestión de usuarios ni login. (NOTA: esto es para el inicio del proyecto)
 Cada devices puede activarse o desactivarse.
 Cada sensor en un device puede activarse o desactivarse
