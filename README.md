@@ -19,7 +19,7 @@ Cada sensor en un dispositivo puede activarse o desactivarse.
 ## Mockups de interfaces
 A continuación se presentan los mockups de las interfaces que se desarrollarán en el proyecto:
 
-###Interfaz inicial
+### Interfaz inicial
 Al acceder a la aplicación, el usuario encontrará una interfaz inicial que proporcionará acceso al resto de las interfaces. Esta interfaz contará con un menú superior o lateral que contendrá las siguientes opciones:
 
 ### Gestión Tipos de Sensores 
