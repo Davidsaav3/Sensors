@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-devices-list',
   templateUrl: './devices-list.component.html',
-  styleUrls: ['./devices-list.component.css', '../../app.component.css']
+  styleUrls: ['../../app.component.css']
 })
 export class DevicesListComponent implements OnInit{
   title = 'HTTP using native fetch API';
