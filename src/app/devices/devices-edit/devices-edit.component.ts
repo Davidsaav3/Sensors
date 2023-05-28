@@ -1,4 +1,5 @@
 import { Component , OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-devices-edit',
@@ -6,19 +7,65 @@ import { Component , OnInit} from '@angular/core';
   styleUrls: ['./devices-edit.component.css', '../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
+  constructor(private rutaActiva: ActivatedRoute) { }
+
   title = 'HTTP using native fetch API';
-  id= 1;
-  private url: string = `http://localhost:5172/api/id/device_configurations/`;
+  private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data: any;
   mostrar=true;
 
+  contenido = {
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
+    lat: 1,
+    lon: 1,
+    cota: 1,
+    timezone: '',
+    organizationid: '',
+  }
+  
+  contenido2 = {
+    id: 1,    
+    enable: 1,
+  }
+
+  submit(){
+    fetch('http://localhost:5172/api/update/device_configurations', {
+      method: "POST",
+      body: JSON.stringify(this.contenido),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
+    .then(json => console.log(json));
+  }
+
+  enable(){
+    fetch('http://localhost:5172/api/enable/device_configurations', {
+      method: "POST",
+      body: JSON.stringify(this.contenido2),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
+    .then(json => console.log(json));
+  }
+
   ngOnInit(): void {
-    fetch(this.url,  
-      {
-        method: "get",
-        body: "id=1"
-      })
-    .then((response) => response.json())
-    .then((quotesData) => (this.data = quotesData));
+    const id_actual= this.rutaActiva.snapshot.params['id']
+    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
+    const url = `${apiUrl}/${id_actual}`;
+    console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+    })
+    .catch(error => {
+      console.error(error); 
+    });
 }
 }

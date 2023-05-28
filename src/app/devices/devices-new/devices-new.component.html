@@ -11,7 +11,7 @@
                             </div> 
                             <div class="col d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked [(ngModel)]="contenido.enable">
                                     <h3><span class="badge rounded-pill text-bg-success me-2">Enable</span></h3>
                                 </div>   
                             </div> 
@@ -20,41 +20,41 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="uid" class="form-label">Uid</label>
-                                <input type="text" class="form-control" id="uid" name="uid" [ngModel]="contenido.uid">
+                                <input type="text" class="form-control" id="uid" name="uid" [(ngModel)]="contenido.uid">
                             </div>
                             <div class="col-md-6">
                                 <label for="organizationid" class="form-label">Organization Id</label>
-                                <input type="text" class="form-control" id="organizationid" name="organizationid" [ngModel]="contenido.organizationid">
+                                <input type="text" class="form-control" id="organizationid" name="organizationid" [(ngModel)]="contenido.organizationid">
                             </div>
                             <div class="col-md-6">
                                 <label for="alias" class="form-label">Alias</label>
-                                <input type="text" class="form-control" id="alias" name="alias" [ngModel]="contenido.alias">
+                                <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="contenido.alias">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="origin" class="form-label">Origin</label>
-                                <input type="text" class="form-control" id="origin" name="origin" [ngModel]="contenido.origin">
+                                <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="contenido.origin">
                             </div>
                             <div class="col-md-6">
                                 <label for="description_origin" class="form-label">Description Origin</label>
-                                <input type="text" class="form-control" id="description_origin" name="description_origin" [ngModel]="contenido.description_origin">
+                                <input type="text" class="form-control" id="description_origin" name="description_origin" [(ngModel)]="contenido.description_origin">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="application_id" class="form-label">Aplication Id</label>
-                                <input type="text" class="form-control" id="application_id"  name="application_id" [ngModel]="contenido.application_id">
+                                <input type="text" class="form-control" id="application_id"  name="application_id" [(ngModel)]="contenido.application_id">
                             </div>
                             <div class="col-md-3">
                                 <label for="topic_name" class="form-label">Topic Id</label>
-                                <input type="text" class="form-control" id="topic_name" name="topic_name" [ngModel]="contenido.topic_name">
+                                <input type="text" class="form-control" id="topic_name" name="topic_name" [(ngModel)]="contenido.topic_name">
                             </div>
                             <div class="col-md-6">
                                 <label for="typemeter" class="form-label">Typemeter</label>
-                                <input type="text" class="form-control" id="typemeter" name="typemeter" [ngModel]="contenido.typemeter">
+                                <input type="text" class="form-control" id="typemeter" name="typemeter" [(ngModel)]="contenido.typemeter">
                             </div>
                            
                         </div>
@@ -105,21 +105,21 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="lat" class="form-label">Longitud</label>
-                                <input type="text" class="form-control" id="lat"  name="lat" [ngModel]="contenido.lat">
+                                <input type="text" class="form-control" id="lat"  name="lat" [(ngModel)]="contenido.lat">
                             </div>
                             <div class="col-md-4">
                                 <label for="lon" class="form-label">Latitud</label>
-                                <input type="text" class="form-control" id="lon"  name="lon" [ngModel]="contenido.lon">
+                                <input type="text" class="form-control" id="lon"  name="lon" [(ngModel)]="contenido.lon">
                             </div>
                             <div class="col-md-4">
                                 <label for="cota" class="form-label">Altura</label>
-                                <input type="text" value="10" class="form-control" id="cota" name="cota" [ngModel]="contenido.cota">
+                                <input type="text" value="10" class="form-control" id="cota" name="cota" [(ngModel)]="contenido.cota">
                             </div>
                         </div>
                     </div> 
                     <div class="col-12 col-lg-6 col-md-12 col-12"> 
                         <label for="timezone" class="form-label">Zona horaría</label>
-                        <select class="form-select" aria-label="Default select example" id="timezone" name="timezone" [ngModel]="contenido.timezone">
+                        <select class="form-select" aria-label="Default select example" id="timezone" name="timezone" [(ngModel)]="contenido.timezone">
                             <option selected value="0">España, Madrid</option>
                             <option value="1">Otra</option>
                         </select>

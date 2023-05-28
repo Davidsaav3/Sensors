@@ -25,33 +25,52 @@ con.connect(function(err) {
   });
   if (err) throw err;
   app.get("/api/id/device_configurations/:id", (req,res)=>{ /*/ ID  /*/
-    con.query("SELECT * FROM device_configurations WHERE id = ?", id, function (err, result) {
+  const id03 = parseInt(req.params.id);
+  console.log(id03)
+    con.query("SELECT * FROM device_configurations WHERE id = ?", id03, function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
-  app.post("/api/post/device_configurations", (req,res)=>{  /*/ PUT  /*/
-    const uid = req.body.uid;
-    const alias = req.body.alias;
-    const origin = req.body.origin;
-    const description_origin = req.body.description_origin;
-    const application_id = req.body.application_id;
-    const topic_name = req.body.topic_name;
-    const typemeter = req.body.typemeter;
-    const lat = req.body.lat;
-    const lon = req.body.lon;
-    const cota = req.body.cota;
-    const timezone = req.body.timezone;
-    const enable = req.body.enable;
-    const organizationid = req.body.organizationid;
-    con.query("INSERT INTO sensors_types (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid], function (err, result) {
+  app.post("/api/enable/device_configurations", (req,res)=>{  /*/ ENABLE  /*/
+  const id02 = req.params.id;
+  const enable3 = req.params.enable;
+    con.query("UPDATE device_configurations SET enable = ? WHERE id = ?",[id02,enable3], function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)
     });
   });
+  app.post("/api/duplicate/device_configurations", (req,res)=>{  /*/ DUPLICATE  /*/
+    const id01 = 1;
+    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?;",[id01], function (err, result) {
+      if (err) throw err;
+        console.log(result);
+        res.send(result)
+    });
+  });
+  app.post("/api/post/device_configurations", (req,res)=>{  /*/ PUT  /*/
+  const uid = req.body.uid;
+  const alias = req.body.alias;
+  const origin = req.body.origin;
+  const description_origin = req.body.description_origin;
+  const application_id = req.body.application_id;
+  const topic_name = req.body.topic_name;
+  const typemeter = req.body.typemeter;
+  const lat = req.body.lat;
+  const lon = req.body.lon;
+  const cota = req.body.cota;
+  const timezone = req.body.timezone;
+  const enable = req.body.enable;
+  const organizationid = req.body.organizationid;
+  con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid], function (err, result) {
+    if (err) throw err;
+      console.log(result);
+      res.send(result)
+  });
+});
   if (err) throw err;
   //const id = req.params.id;
   const id7 = "1";
