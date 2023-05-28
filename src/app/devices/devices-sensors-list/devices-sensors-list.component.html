@@ -1,16 +1,16 @@
 <div class=""> <!-- Devices -->	
 	<div class="row">
 		<div class="col-4"> <!-- Buscar -->
-            <button type="button" class="btn btn-info">New sensor</button>
+            <button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
 		</div>
 		<div class="col-8 d-flex justify-content-end"> <!-- Paginador -->
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
-				  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				  <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
 				  <li class="page-item"><a class="page-link" href="#">1</a></li>
 				  <li class="page-item"><a class="page-link" href="#">2</a></li>
 				  <li class="page-item"><a class="page-link" href="#">3</a></li>
-				  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+				  <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -29,19 +29,20 @@
 					<th scope="col" style="text-align: center;">Eliminar</th>
 				  </tr>
 				</thead>
-				<tbody>
+				<tbody *ngFor="let item of contenido.sensors;let i=index">
                     <tr style="overflow-y: scroll;">
-                        <th scope="col2"><input type="text" class="form-control" id="orden" name="orden" [(ngModel)]="contenido.orden"></th>
-                        <th scope="col"><input type="text" class="form-control" id="type_name" name="type_name" [(ngModel)]="contenido.type_name"></th>
-                        <td><input type="text" class="form-control" id="datafield" name="datafield" [(ngModel)]="contenido.datafield"></td>
-                        <td><input type="text" class="form-control" id="nodata" name="nodata" [(ngModel)]="contenido.nodata"></td>
+                        <th scope="col2"><input type="text" class="form-control" id="orden" name="orden" [(ngModel)]="item.orden"></th>
+                        <th scope="col"><input type="text" class="form-control" id="type_name" name="type_name" [(ngModel)]="item.type_name"></th>
+                        <td><input type="text" class="form-control" id="datafield" name="datafield" [(ngModel)]="item.datafield"></td>
+                        <td><input type="text" class="form-control" id="nodata" name="nodata" [(ngModel)]="item.nodata"></td>
                         <td class="d-flex">
-                            <span class="badge rounded-pill text-bg-success me-2"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            </div>   
+							<label class="toggle t2 tt2 mt-1 mb-3">
+								<input type="checkbox" checked [(ngModel)]="item.enable">
+								<span class="slider"></span>
+								<span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
+							</label>
                         </td>
-                        <td style="text-align: center;" (click)="eliminar(contenido.id)">
+                        <td style="text-align: center;" (click)="eliminar(item.id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                                 <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
                             </svg>

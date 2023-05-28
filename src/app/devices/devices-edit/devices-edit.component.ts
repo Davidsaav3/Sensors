@@ -71,7 +71,7 @@ export class DevicesEditComponent implements OnInit{
 }
 
 get(){
-  const id_actual= this.rutaActiva.snapshot.params['id']
+    const id_actual= this.rutaActiva.snapshot.params['id']
     const apiUrl = 'http://localhost:5172/api/id/device_configurations';
     const url = `${apiUrl}/${id_actual}`;
     console.log(url);

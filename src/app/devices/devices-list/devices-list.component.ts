@@ -9,13 +9,26 @@ export class DevicesListComponent implements OnInit{
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
-
   private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data2: any;
   mostrar=true;
-
   private url3: string = 'http://localhost:5172/api/duplicate/device_configurations';
   data3: any;
+  apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
+
+  contenido = {
+    sensors : [
+      {
+        id: '',    
+        enable: '', 
+        id_device: '',
+        id_type_sensor: '',
+        datafield: '',
+        nodata: '',
+        orden: '',
+        type_name: '',
+      }]
+  }
 
   update = {
     id_device: '1'
@@ -34,13 +47,24 @@ export class DevicesListComponent implements OnInit{
     .then(response => response.json()) 
   }
 
+  obtener(id_actual: any){
+      const url = `${this.apiUrl}/${id_actual}`;
+      fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.contenido.sensors= data;
+      })
+      .catch(error => {
+        console.error(error); 
+      });
+  }
+
   ngOnInit(): void {
     fetch(this.url)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));
-
-    fetch(this.url2)
-    .then((response) => response.json())
-    .then((quotesData) => (this.data2 = quotesData));
+    for(let quote of this.data) {
+      this.obtener(quote.id);
+    }
 }
 }

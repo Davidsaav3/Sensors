@@ -17,6 +17,20 @@ export class DevicesSensorsListComponent  implements OnInit{
   mostrar=true;
 
   contenido = {
+    sensors : [
+      {
+        id: '',    
+        enable: '', 
+        id_device: '',
+        id_type_sensor: '',
+        datafield: '',
+        nodata: '',
+        orden: '',
+        type_name: '',
+      }]
+  }
+
+  contenido2 = {
     id: '',    
     enable: '', 
     id_device: '',
@@ -26,6 +40,7 @@ export class DevicesSensorsListComponent  implements OnInit{
     orden: '',
     type_name: '',
   }
+
 
   eliminar(id_actual: any){
 
@@ -40,16 +55,24 @@ export class DevicesSensorsListComponent  implements OnInit{
     .then(response => response.json()) 
   }
 
+  anyadir(){
+    this.contenido.sensors.push(this.contenido2)
+  }
+
+
   ngOnInit(): void {
-    const id_actual= this.rutaActiva.snapshot.params['id']
-    const url = `${this.apiUrl}/${id_actual}`;
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data[0];
-    })
-    .catch(error => {
-      console.error(error); 
-    });
+    if(this.rutaActiva.snapshot.params['id']){
+      const id_actual= this.rutaActiva.snapshot.params['id']
+      const url = `${this.apiUrl}/${id_actual}`;
+      fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.contenido.sensors= data;
+      })
+      .catch(error => {
+        console.error(error); 
+      });
+    }
+  
 }
 }

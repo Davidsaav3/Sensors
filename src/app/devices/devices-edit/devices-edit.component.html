@@ -11,9 +11,12 @@
                             </div> 
                             <div class="col d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked [(ngModel)]="contenido2.enable">
-                                    <h3><span class="badge rounded-pill text-bg-success me-2">Activado</span></h3>
-                                </div>   
+                                    <label class="toggle tt1 t1">
+                                        <input type="checkbox" checked [(ngModel)]="contenido2.enable">
+                                        <span class="slider"></span>
+                                        <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
+                                    </label>
+                                </div>
                             </div> 
                         </div>
 
