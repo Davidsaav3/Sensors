@@ -7,6 +7,7 @@ import { Component , OnInit} from '@angular/core';
 })
 
 export class SensorsComponent implements OnInit{
+
   mostrar=false;
   mostrar2= false;
 
@@ -51,6 +52,7 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.mostrar2=false;
     this.get();
   }
 
@@ -62,6 +64,8 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.mostrar2=false;
+    this.get();
   }
 
   submit(){
@@ -71,6 +75,9 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.mostrar=false;
+    this.get();
+
   }
 
   num(id_actual: any){
@@ -84,6 +91,7 @@ export class SensorsComponent implements OnInit{
     .catch(error => {
       console.error(error); 
     });
+    this.get();
   }
 
   ngOnInit(): void {

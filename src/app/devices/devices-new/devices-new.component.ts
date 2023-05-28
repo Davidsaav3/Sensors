@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-devices-new',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../app.component.css']
 })
 export class DevicesNewComponent  implements OnInit{
+  constructor(private router: Router) { }
+
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data: any;
@@ -34,6 +37,7 @@ export class DevicesNewComponent  implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.router.navigate(['/devices']);
   }
 
   ngOnInit(): void {

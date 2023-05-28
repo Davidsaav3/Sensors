@@ -9,11 +9,14 @@ import { ActivatedRoute } from '@angular/router';
 export class DevicesSensorsListComponent  implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }
   private url3: string = 'http://localhost:5172/api/delete/sensors_devices';
+  private url1: string = 'http://localhost:5172/api/get/sensors_types';
 
   title = 'HTTP using native fetch API';
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
   
   data: any;
+  data6: any;
+
   mostrar=true;
 
   contenido = {
@@ -27,6 +30,19 @@ export class DevicesSensorsListComponent  implements OnInit{
         nodata: '',
         orden: '',
         type_name: '',
+      }]
+  }
+
+  contenido1 = {
+    sensors : [
+      {
+        id: '', 
+        type: '',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
       }]
   }
 
@@ -64,6 +80,7 @@ export class DevicesSensorsListComponent  implements OnInit{
     if(this.rutaActiva.snapshot.params['id']){
       const id_actual= this.rutaActiva.snapshot.params['id']
       const url = `${this.apiUrl}/${id_actual}`;
+
       fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -72,6 +89,13 @@ export class DevicesSensorsListComponent  implements OnInit{
       .catch(error => {
         console.error(error); 
       });
+
+      fetch(this.url1)
+      .then((response) => response.json())
+      .then((quotesData) => (this.data6 = quotesData));
+      for(let quote2 of this.data6) {
+        this.contenido1.sensors= quote2;
+      }
     }
   
 }

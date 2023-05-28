@@ -36,7 +36,7 @@
                     <th scope="col">Active</th>
                     <th class="d-none d-md-none d-lg-block">Sensors</th>
                     <th scope="col" style="text-align: center;">Duplicate</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center;">Edit</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center;">Editar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -44,9 +44,9 @@
                     <a [routerLink]="['/devices', quote.id,'edit']" scope="col">{{ quote.uid }}</a>
                     <td [routerLink]="['/devices', quote.id,'edit']">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices', quote.id,'edit']">{{ quote.application_id }}</td>
-                    <td [routerLink]="['/devices', quote.id,'edit']">
-                      <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">Enable</p></span>
-                      <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">Disable</p></span>
+                    <td [routerLink]="['/devices', quote.id,'edit']" >
+                      <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span>
+                      <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">Desactivado</p></span>
                     </td>
                     <td [routerLink]="['/devices', quote.id,'edit']" class="d-none d-md-none d-lg-block d-flex">
                       <div *ngFor="let quote2 of data2" style="display: inline-block; height: min-content;">

@@ -1,5 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-devices-edit',
@@ -7,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
-  constructor(private rutaActiva: ActivatedRoute) { }
+  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
   private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
   title = 'HTTP using native fetch API';
@@ -46,6 +47,7 @@ export class DevicesEditComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.router.navigate(['/devices']);
   }
 
   submit(){

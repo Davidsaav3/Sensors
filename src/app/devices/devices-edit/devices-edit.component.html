@@ -9,7 +9,7 @@
                             <div class="col"> 
                                 <h2>Dispositivo {{contenido.uid}}</h2>
                             </div> 
-                            <div class="col d-flex justify-content-end"> 
+                            <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1">
                                         <input type="checkbox" checked [(ngModel)]="contenido2.enable">
@@ -225,7 +225,7 @@
                     <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-danger" (click)="eliminar(contenido.id)">Eliminar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">Eliminar</button>
                 </div>
             </div>
           </div>
@@ -249,7 +249,7 @@
                     <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-info">Aceptar</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">Aceptar</button>
                 </div>
             </div>
           </div>

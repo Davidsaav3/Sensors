@@ -84,7 +84,7 @@
 					<th scope="col">Type</th>
 					<th scope="col">Metric</th>
 					<th scope="col">Description</th>
-					<th scope="col" style="text-align: center;">Edit</th>
+					<th scope="col" style="text-align: center;">Editar</th>
 				  </tr>
 				</thead>
 				<tbody *ngFor="let quote of data">
@@ -184,7 +184,7 @@
                     <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-danger" (click)="eliminar(contenido.id)">Eliminar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">Eliminar</button>
                 </div>
             </div>
           </div>
