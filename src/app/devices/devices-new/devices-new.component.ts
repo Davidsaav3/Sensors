@@ -19,11 +19,11 @@ export class DevicesNewComponent  implements OnInit{
     application_id: '',
     topic_name: '',
     typemeter: '',
-    lat: 1,
-    lon: 1,
-    cota: 1,
-    timezone: '',
-    enable: 1,
+    lat: 0,
+    lon: 0,
+    cota: 10,
+    timezone: '+01:00',
+    enable: 0,
     organizationid: '',
   }
 
@@ -34,7 +34,6 @@ export class DevicesNewComponent  implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
   }
 
   ngOnInit(): void {

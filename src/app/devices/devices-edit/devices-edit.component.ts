@@ -8,14 +8,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DevicesEditComponent implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }
-  private url3: string = 'http://localhost:5172/api/delete/sensors_devices';
+  private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
-  data: any;
+  private url4: string = 'http://localhost:5172/api/update/device_configurations';
   mostrar=true;
 
-  contenido = {
+  contenido = {    
+    id: '',    
     uid: '',    
     alias: '', 
     origin: '',
@@ -23,40 +24,37 @@ export class DevicesEditComponent implements OnInit{
     application_id: '',
     topic_name: '',
     typemeter: '',
-    lat: 1,
-    lon: 1,
-    cota: 1,
-    timezone: '',
+    lat: 0,
+    lon: 0,
+    cota: 10,
+    timezone: '+01:00',
     organizationid: '',
   }
   
   contenido2 = {
     id: 1,    
-    enable: 1,
+    enable: 0,
   }
 
   eliminar(id_actual: any){
-    var contenido2 = {
+    var contenido3 = {
       id: id_actual,    
     }
     fetch(this.url3, {
       method: "POST",
-      body: JSON.stringify(contenido2),
+      body: JSON.stringify(contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
-    this.get();
   }
 
   submit(){
-    fetch('http://localhost:5172/api/update/device_configurations', {
+    fetch(this.url4, {
       method: "POST",
       body: JSON.stringify(this.contenido),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
   }
 
   enable(){
@@ -66,7 +64,6 @@ export class DevicesEditComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
   }
 
   ngOnInit(): void {

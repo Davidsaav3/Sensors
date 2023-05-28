@@ -19,17 +19,14 @@ con.connect(function(err) {
   app.get("/api/get/device_configurations", (req,res)=>{ /*/ GET  /*/
     con.query("SELECT * FROM device_configurations", function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
   app.get("/api/id/device_configurations/:id", (req,res)=>{ /*/ ID  /*/
   const id03 = parseInt(req.params.id);
-  console.log(id03)
     con.query("SELECT * FROM device_configurations WHERE id = ?", id03, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -39,7 +36,6 @@ con.connect(function(err) {
   const enable3 = req.params.enable;
     con.query("UPDATE device_configurations SET enable = ? WHERE id = ?",[id02,enable3], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -47,7 +43,6 @@ con.connect(function(err) {
     const id01 = 1;
     con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?;",[id01], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -67,17 +62,27 @@ con.connect(function(err) {
   const organizationid = req.body.organizationid;
   con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid], function (err, result) {
     if (err) throw err;
-      console.log(result);
       res.send(result)
   });
 });
   if (err) throw err;
-  //const id = req.params.id;
-  const id7 = "1";
-  app.post("/api/update/device_configurations/:id", (req,res)=>{  /*/ UPDATE  /*/
-    con.query("UPDATE device_configurations SET title = content WHERE id = ?",id7, function (err, result) {
+  app.post("/api/update/device_configurations/", (req,res)=>{  /*/ UPDATE  /*/
+  const uid = req.body.uid;
+  const alias = req.body.alias;
+  const origin = req.body.origin;
+  const description_origin = req.body.description_origin;
+  const application_id = req.body.application_id;
+  const topic_name = req.body.topic_name;
+  const typemeter = req.body.typemeter;
+  const lat = req.body.lat;
+  const lon = req.body.lon;
+  const cota = req.body.cota;
+  const timezone = req.body.timezone;
+  const enable = req.body.enable;
+  const organizationid = req.body.organizationid;
+  const id7 = req.body.id;
+    con.query("UPDATE device_configurations SET uid=?,alias=?,origin=?,description_origin=?,application_id=?,topic_name=?,typemeter=?,lat=?,lon=?,cota=?,timezone=?,enable=?,organizationid=? WHERE id = ?",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,id7], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -86,7 +91,6 @@ con.connect(function(err) {
     var id09 = req.body.id;
     con.query("DELETE FROM device_configurations WHERE id= ?", id09, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -98,15 +102,14 @@ con.connect(function(err) {
   app.get("/api/get/sensors_devices", (req,res)=>{  /*/ GET  /*/
     con.query("SELECT * FROM sensors_devices", function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
   app.get("/api/id/sensors_devices/:id", (req,res)=>{  /*/ ID  /*/
-    con.query("SELECT * FROM sensors_devices WHERE id = ?", id, function (err, result) {
+    const idxd = parseInt(req.params.id);
+    con.query("SELECT * FROM sensors_devices WHERE id = ?", idxd, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -115,40 +118,41 @@ con.connect(function(err) {
   const id_device = parseInt(req.params.id);
     con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = ?", id_device, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
 });
 });
 if (err) throw err;
   app.post("/api/post/sensors_devices", (req,res)=>{  /*/ PUT  /*/
-    //const username = req.body.userName;
-    //const title = req.body.title;
-    //const text = req.body.text;
-    const title = "xd";
-    const content = "xd";
-    con.query("INSERT INTO sensors_devices (title, content) VALUES (?,?)",[title,content], function (err, result) {
+  const orden = req.body.orden;
+  const enable = req.body.enable;
+  const id_device = req.body.id_device;
+  const id_type_sensor = req.body.id_type_sensor;
+  const datafield = req.body.datafield;
+  const nodata = req.body.nodata;
+    con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata) VALUES (?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
-  //const id = req.params.id;
-  const id1 = "1";
-  app.post("/api/update/sensors_devices/:id", (req,res)=>{  /*/ UPDATE  /*/
-    con.query("UPDATE sensors_devices SET title = content WHERE id = ?",id1, function (err, result) {
+  app.post("/api/update/sensors_devices/", (req,res)=>{  /*/ UPDATE  /*/
+  const idm = req.body.id;
+  const orden = req.body.orden;
+  const enable = req.body.enable;
+  const id_device = req.body.id_device;
+  const id_type_sensor = req.body.id_type_sensor;
+  const datafield = req.body.datafield;
+  const nodata = req.body.nodata;  
+    con.query("UPDATE sensors_devices SET orden=?, enable=? ,id_device=? ,id_type_sensor=? ,datafield=? ,nodata=? WHERE id = ?",[orden,enable,id_device,id_type_sensor,datafield,nodata,idm], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
-  app.delete("/api/delete/sensors_devices/:id", (req,res)=>{  /*/ DELETE  /*/
-  const id0 = req.params.id;
-  const id1 = "1";
-    con.query("DELETE FROM sensors_devices WHERE id= ?", id1, function (err, result) {
+  app.post("/api/delete/sensors_devices", (req,res)=>{  /*/ DELETE  /*/
+  const id012 = req.body.id;
+    con.query("DELETE FROM sensors_devices WHERE id= ?", id012, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -160,7 +164,6 @@ if (err) throw err;
   app.get("/api/get/sensors_types", (req,res)=>{  /*/ GET  /*/
     con.query("SELECT * FROM sensors_types", function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -170,7 +173,6 @@ if (err) throw err;
   const id05 = parseInt(req.params.id);
     con.query("SELECT * FROM sensors_types WHERE id = ?", id05, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
@@ -184,38 +186,34 @@ if (err) throw err;
     const valuemin = req.body.valuemin;
     con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) VALUES (?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
   //const id = req.params.id
-  app.post("/api/update/sensors_types/:id", (req,res)=>{  /*/ UPDATE  /*/
-    type = req.body.type;
+  app.post("/api/update/sensors_types/", (req,res)=>{  /*/ UPDATE  /*/
+    type9 = req.body.type;
     metric = req.body.metric;
     description = req.body.description;
     errorvalue = req.body.errorvalue;
     valuemax = req.body.valuemax;
     valuemin = req.body.valuemin;
-    id = req.body.id;
-    con.query("UPDATE sensors_types SET (?,?,?,?,?,?) INTO (type,metric,description,errorvalue,valuemax,valuemin) WHEWRE id= ?",[type, metric, description,errorvalue,valuemax,valuemin,id], function (err, result) {
+    id99 = req.body.id;
+    con.query("UPDATE sensors_types SET type=?,metric=?,description=?,errorvalue=?,valuemax=?,valuemin=? WHERE id= ?",[type9, metric, description,errorvalue,valuemax,valuemin,id99], function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
   if (err) throw err;
   app.post("/api/delete/sensors_types", (req,res)=>{  /*/ DELETE  /*/
     var id0 = req.body.id;
-    var id1 = '29';
     con.query("DELETE FROM sensors_types WHERE id= ?", id0, function (err, result) {
       if (err) throw err;
-        console.log(result);
         res.send(result)
     });
   });
 });
 
   app.listen(PORT, ()=>{
-    console.log(`Server is running on ＄{PORT}`)
+    console.log(`Sirviendo: http://localhost:5172/api/`)
   })

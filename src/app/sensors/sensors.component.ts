@@ -16,7 +16,7 @@ export class SensorsComponent implements OnInit{
   data2: any;
   private url3: string = 'http://localhost:5172/api/delete/sensors_types';
   data3: any;
-
+  private url4: string = 'http://localhost:5172/api/update/sensors_types';
   apiUrl: string = 'http://localhost:5172/api/id/sensors_types';
 
 
@@ -51,8 +51,17 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
     this.get();
+  }
+
+  update(){
+    this.mostrar2=false
+    fetch(this.url4, {
+      method: "POST",
+      body: JSON.stringify(this.contenido),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
   }
 
   submit(){
@@ -62,13 +71,11 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
   }
 
   num(id_actual: any){
     this.mostrar2=true;
     const url = `${this.apiUrl}/${id_actual}`;
-    console.log(url)
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -95,7 +102,6 @@ export class SensorsComponent implements OnInit{
       this.contenido.errorvalue=  quote.errorvalue;
       this.contenido.valuemax=  quote.valuemax;
       this.contenido.valuemin=  quote.valuemin;
-      console.log(this.contenido.type);
     }
   }
 }

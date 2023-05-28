@@ -10,7 +10,7 @@ export class DevicesListComponent implements OnInit{
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
 
-  private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/';
+  private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data2: any;
   mostrar=true;
 
@@ -32,7 +32,6 @@ export class DevicesListComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    .then(json => console.log(json));
   }
 
   ngOnInit(): void {

@@ -30,13 +30,13 @@
 		<form class="col-12"> 
 			<div class="col-12">
 				<div class="row">
-					<h1>Nuevo tipo de sensor</h1>
+					<h1>Nuevo sensor</h1>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
 					<label for="type" class="form-label">Type</label>
-					<input type="text" class="form-control" id="type" name="type" [ngModel]="contenido_new.type">
+					<input type="text" class="form-control" id="type" name="type" [(ngModel)]="contenido_new.type">
 				</div>
 				<div class="col-md-6">
 					<label for="metric" class="form-label">Metric</label>
@@ -88,7 +88,7 @@
 				  </tr>
 				</thead>
 				<tbody *ngFor="let quote of data">
-				  <tr (click)="num(quote.id)" >
+				  <tr (click)="num(quote.id)" style="cursor: pointer;">
 					<th scope="col">{{ quote.id }}</th>
 					<td>{{ quote.type }}</td>
                     <td>{{ quote.metric }}</td>
@@ -107,13 +107,13 @@
 				<form class="col-12"> 
 					<div class="col-12">
 						<div class="row">
-							<h1>Nuevo tipo de sensor</h1>
+							<h1>Sensor de {{ contenido.type }}</h1>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<label for="type" class="form-label">Type</label>
-							<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [ngModel]="contenido.type">
+							<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.type">
 						</div>
 						<div class="col-md-6">
 							<label for="metric" class="form-label">Metric</label>
@@ -143,7 +143,7 @@
 					<div class="row mt-4">
 						<div class="col-md-6 col-12">
 							<div class="col-md-6 col-12 mt-3">
-								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" (click)="eliminar(contenido.id)" data-bs-target="#exampleModal">Eliminar sensor</button>
+								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">Eliminar sensor</button>
 							</div>
 						</div>
 						<div class="col-md-6 col-12">
@@ -152,7 +152,7 @@
 									<a type="button navb" class="btn btn-secondary navb" style="width: 100%" (click)="mostrar2=false">Cancelar</a>
 								</div>
 								<div class="col-md-6 col-12 mt-3">
-									<button type="button navb" class="btn btn-info" style="width: 100%" (click)="mostrar2=false">Guardar</button>
+									<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" >Guardar</button>
 								</div>		
 							</div>
 						</div>
@@ -165,3 +165,29 @@
 	</div>	
 
 </div> <!-- end Sensors -->
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">Eliminar sensor ?</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">Esta acción no es rebersible. Se borrará definitivamente este sensor.</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger" (click)="eliminar(contenido.id)">Eliminar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
