@@ -36,30 +36,30 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label for="type" class="form-label">Type</label>
-					<input type="text" class="form-control" id="type" name="type" [ngModel]="contenido.type">
+					<input type="text" class="form-control" id="type" name="type" [ngModel]="contenido_new.type">
 				</div>
 				<div class="col-md-6">
 					<label for="metric" class="form-label">Metric</label>
-					<input type="text" class="form-control" id="metric" name="metric" [(ngModel)]="contenido.metric">
+					<input type="text" class="form-control" id="metric" name="metric" [(ngModel)]="contenido_new.metric">
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6">
 					<label for="description" class="form-label">Description</label>
-					<input type="text" class="form-control" id="description" name="description" [(ngModel)]="contenido.description">
+					<input type="text" class="form-control" id="description" name="description" [(ngModel)]="contenido_new.description">
 				</div>
 				<div class="col-md-4">
 					<label for="errorvalue" class="form-label">Error value</label>
-					<input type="text" class="form-control" id="errorvalue" name="errorvalue" [(ngModel)]="contenido.errorvalue">
+					<input type="text" class="form-control" id="errorvalue" name="errorvalue" [(ngModel)]="contenido_new.errorvalue">
 				</div>
 				<div class="col-md-1">
 					<label for="valuemin" class="form-label">Value min</label>
-					<input type="text" class="form-control" id="valuemin" name="valuemin" [(ngModel)]="contenido.valuemin">
+					<input type="text" class="form-control" id="valuemin" name="valuemin" [(ngModel)]="contenido_new.valuemin">
 				</div>
 				<div class="col-md-1">
 					<label for="valuemax" class="form-label">Value max</label>
-					<input type="text" class="form-control" id="valuemax" name="valuemax" [(ngModel)]="contenido.valuemax">
+					<input type="text" class="form-control" id="valuemax" name="valuemax" [(ngModel)]="contenido_new.valuemax">
 				</div>
 			</div>
 
@@ -88,7 +88,7 @@
 				  </tr>
 				</thead>
 				<tbody *ngFor="let quote of data">
-				  <tr (click)="mostrar2=true" >
+				  <tr (click)="num(quote.id)" >
 					<th scope="col">{{ quote.id }}</th>
 					<td>{{ quote.type }}</td>
                     <td>{{ quote.metric }}</td>
@@ -143,7 +143,7 @@
 					<div class="row mt-4">
 						<div class="col-md-6 col-12">
 							<div class="col-md-6 col-12 mt-3">
-								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" (click)="eliminar()" data-bs-target="#exampleModal">Eliminar sensor</button>
+								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" (click)="eliminar(contenido.id)" data-bs-target="#exampleModal">Eliminar sensor</button>
 							</div>
 						</div>
 						<div class="col-md-6 col-12">

@@ -82,10 +82,9 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
-  app.delete("/api/delete/device_configurations/:id", (req,res)=>{  /*/ DELETE  /*/
-  //const id = req.params.id;
-  const id8 = "1";
-    con.query("DELETE FROM device_configurations WHERE id= ?", id8, function (err, result) {
+  app.post("/api/delete/device_configurations", (req,res)=>{  /*/ DELETE  /*/
+    var id09 = req.body.id;
+    con.query("DELETE FROM device_configurations WHERE id= ?", id09, function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)
@@ -112,9 +111,9 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
-  const id_device = "1";
-  app.get("/api/id_device/sensors_devices/", (req,res)=>{  /*/ GET ID_DEVICES  /*/
-    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM `sensors_types` as t WHERE s.id_type_sensor = t.id) As type_name FROM `sensors_devices` as s WHERE id_device = ?", id_device, function (err, result) {
+  app.get("/api/id_device/sensors_devices/:id", (req,res)=>{  /*/ GET ID_DEVICES  /*/
+  const id_device = parseInt(req.params.id);
+    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = ?", id_device, function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)
@@ -167,8 +166,9 @@ if (err) throw err;
   });
   if (err) throw err;
   const id21 = "1";
-  app.get("/api/id/sensors_types/", (req,res)=>{  /*/ ID  /*/
-    con.query("SELECT * FROM sensors_types WHERE id = ?", id21, function (err, result) {
+  app.get("/api/id/sensors_types/:id", (req,res)=>{  /*/ ID  /*/
+  const id05 = parseInt(req.params.id);
+    con.query("SELECT * FROM sensors_types WHERE id = ?", id05, function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)
@@ -205,10 +205,10 @@ if (err) throw err;
     });
   });
   if (err) throw err;
-  app.delete("/api/delete/sensors_types", (req,res)=>{  /*/ DELETE  /*/
-    var id0 = req.params.id;
+  app.post("/api/delete/sensors_types", (req,res)=>{  /*/ DELETE  /*/
+    var id0 = req.body.id;
     var id1 = '29';
-    con.query("DELETE FROM sensors_types WHERE id= ?", id1, function (err, result) {
+    con.query("DELETE FROM sensors_types WHERE id= ?", id0, function (err, result) {
       if (err) throw err;
         console.log(result);
         res.send(result)

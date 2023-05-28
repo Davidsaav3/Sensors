@@ -30,11 +30,11 @@
 				  </tr>
 				</thead>
 				<tbody>
-                    <tr  *ngFor="let quote of data" style="overflow-y: scroll;">
-                        <th scope="col2">{{ quote.orden }}</th>
-                        <th scope="col">{{ quote.id_type_sensor }}</th>
-                        <td>{{ quote.datafield }}</td>
-                        <td>{{ quote.nodata }}</td>
+                    <tr style="overflow-y: scroll;">
+                        <th scope="col2"><input type="text" class="form-control" id="order" name="order" [(ngModel)]="contenido.orden"></th>
+                        <th scope="col"><input type="text" class="form-control" id="type_name" name="type_name" [(ngModel)]="contenido.type_name"></th>
+                        <td><input type="text" class="form-control" id="datafield" name="datafield" [(ngModel)]="contenido.datafield"></td>
+                        <td><input type="text" class="form-control" id="nodata" name="nodata" [(ngModel)]="contenido.nodata"></td>
                         <td class="d-flex">
                             <span class="badge rounded-pill text-bg-success me-2"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span>
                             <div class="form-check form-switch">

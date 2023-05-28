@@ -17,7 +17,11 @@ export class SensorsComponent implements OnInit{
   private url3: string = 'http://localhost:5172/api/delete/sensors_types';
   data3: any;
 
+  apiUrl: string = 'http://localhost:5172/api/id/sensors_types';
+
+
   contenido = {
+    id: '', 
     type: '',    
     metric: '', 
     description: '',
@@ -26,43 +30,72 @@ export class SensorsComponent implements OnInit{
     valuemin: null,
   }
 
-  contenido2 = {
-    id: 26,    
+  contenido_new = {
+    id: '', 
+    type: '',    
+    metric: '', 
+    description: '',
+    errorvalue: null,
+    valuemax: null,
+    valuemin: null,
   }
 
-  eliminar(){
+
+  eliminar(id_actual: any){
+    var contenido2 = {
+      id: id_actual,    
+    }
     fetch(this.url3, {
-      method: "DELETE",
-      body: JSON.stringify(this.contenido2),
+      method: "POST",
+      body: JSON.stringify(contenido2),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
     .then(json => console.log(json));
+    this.get();
   }
 
   submit(){
     fetch(this.url2, {
       method: "POST",
-      body: JSON.stringify(this.contenido),
+      body: JSON.stringify(this.contenido_new),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
     .then(json => console.log(json));
   }
 
-  ngOnInit(): void {
-      fetch(this.url1)
-      .then((response) => response.json())
-      .then((quotesData) => (this.data = quotesData));
+  num(id_actual: any){
+    this.mostrar2=true;
+    const url = `${this.apiUrl}/${id_actual}`;
+    console.log(url)
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+    })
+    .catch(error => {
+      console.error(error); 
+    });
+  }
 
-      for(let quote of this.data) {
-        this.contenido.type=  quote.type;
-        this.contenido.metric=  quote.metric; 
-        this.contenido.description=  quote.description;
-        this.contenido.errorvalue=  quote.errorvalue;
-        this.contenido.valuemax=  quote.valuemax;
-        this.contenido.valuemin=  quote.valuemin;
-        console.log(this.contenido.type);
-      }
+  ngOnInit(): void {
+    this.get();
+  }
+
+  get(){
+    fetch(this.url1)
+    .then((response) => response.json())
+    .then((quotesData) => (this.data = quotesData));
+
+    for(let quote of this.data) {
+      this.contenido.type=  quote.type;
+      this.contenido.metric=  quote.metric; 
+      this.contenido.description=  quote.description;
+      this.contenido.errorvalue=  quote.errorvalue;
+      this.contenido.valuemax=  quote.valuemax;
+      this.contenido.valuemin=  quote.valuemin;
+      console.log(this.contenido.type);
+    }
   }
 }
