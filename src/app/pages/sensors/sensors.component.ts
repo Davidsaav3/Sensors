@@ -10,6 +10,10 @@ export class SensorsComponent implements OnInit{
 
   mostrar=false;
   mostrar2= false;
+  alert_delete: any= false;
+  alert_new: any= false;
+  not_delete: any= false;
+  not_new: any= false;
 
   private url1: string = 'http://localhost:5172/api/get/sensors_types';
   data: any;
@@ -53,7 +57,13 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.mostrar2=false;
+    this.alert_delete= true;
     this.get();
+  }
+
+  ocultar(){
+    this.alert_delete= false;
+    this.alert_new= false;
   }
 
   update(){
@@ -76,8 +86,8 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.mostrar=false;
+    this.alert_new= true;
     this.get();
-
   }
 
   num(id_actual: any){

@@ -9,10 +9,24 @@
                 </div>
             </div>
         </div> 
-        <div class="col-lg-4 col-md-4 col-4"> <!-- Nuevo sensor -->
+        <div class="col-lg-3 col-md-4 col-4"> <!-- Nuevo sensor -->
 			<button type="button" class="btn btn-info" (click)="mostrar=true">Nuevo sensor</button>
         </div>
-        <div class="col-lg-4 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
+        <div class="col-lg-5 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
+
+			<div *ngIf="alert_delete" class="alert alert-success me-3 py-1" role="alert">
+				¡ Sensor borrado !
+			</div>
+			<div *ngIf="alert_new" class="alert alert-success me-3 py-1" role="alert">
+				¡ Sensor creado !
+			</div>
+			<div *ngIf="not_new" class="alert alert-danger me-3 py-1" role="alert">
+				Error al crear el sensor
+			</div>
+			<div *ngIf="not_delete" class="alert alert-danger me-3 py-1" role="alert">
+				Error al borrar el sensor
+			</div>
+
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item"><a class="page-link" href="#">Anterior</a></li>

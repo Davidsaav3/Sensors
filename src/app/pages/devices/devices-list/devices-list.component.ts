@@ -16,6 +16,9 @@ export class DevicesListComponent implements OnInit{
   data3: any;
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
 
+  dup_ok=false;
+  dup_not=false;
+
   contenido = {
     sensors : [
       {
@@ -45,6 +48,7 @@ export class DevicesListComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.dup_ok=true;
   }
 
   obtener(id_actual: any){

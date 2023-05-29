@@ -15,7 +15,14 @@ export class DevicesSensorsListComponent  implements OnInit{
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
   
   data: any;
-  data6: any;
+  data6: any= null;
+
+  sin= true;
+
+  act_not= false;
+  act_ok= false;
+  eliminar_ok= false;
+  eliminar_not= false;
 
   mostrar=true;
 
@@ -69,10 +76,13 @@ export class DevicesSensorsListComponent  implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    this.eliminar_ok= true;
   }
 
+
   anyadir(){
-    this.contenido.sensors.push(this.contenido2)
+    this.contenido.sensors.push(this.contenido2);
+    this.sin= true;
   }
 
 
@@ -93,8 +103,13 @@ export class DevicesSensorsListComponent  implements OnInit{
       fetch(this.url1)
       .then((response) => response.json())
       .then((quotesData) => (this.data6 = quotesData));
-      for(let quote2 of this.data6) {
-        this.contenido1.sensors= quote2;
+      if(this.data6!=null){
+        this.sin= false;
+      }
+      else{      
+        for(let quote2 of this.data6) {
+          this.contenido1.sensors= quote2;
+        }
       }
     }
   
