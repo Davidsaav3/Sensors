@@ -46,8 +46,8 @@
                     <tr style="overflow-y: scroll;">
                         <th scope="col2"><input type="text" class="form-control" id="orden" [name]="'orden'+i" [(ngModel)]="item.orden"></th>
                         <th scope="col"> 
-							<select *ngFor="let xd of contenido1.sensors;let j=index" class="form-select" aria-label="Default select example" id="type_name" name="type_name" [(ngModel)]="item.type_name">
-								<option value="{{j}}" selected >{{xd.type}}</option>
+							<select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.type_name">
+								<option *ngFor="let xd of contenido1.sensors;let j=index" [selected]="{'selected': xd.id==item.id_type_sensor}">{{xd.type}}</option>
 							</select>
 						</th>
                         <td><input type="text" class="form-control" id="datafield" [name]="'datafield'+i" [(ngModel)]="item.datafield"></td>

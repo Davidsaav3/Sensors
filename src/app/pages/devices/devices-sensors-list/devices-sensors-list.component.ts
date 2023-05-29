@@ -44,7 +44,16 @@ export class DevicesSensorsListComponent  implements OnInit{
     sensors : [
       {
         id: '', 
-        type: '',    
+        type: 'CO2',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      },
+      {
+        id: '', 
+        type: 'Humedad',    
         metric: '', 
         description: '',
         errorvalue: 1,
@@ -95,6 +104,9 @@ export class DevicesSensorsListComponent  implements OnInit{
       .then(response => response.json())
       .then(data => {
         this.contenido.sensors= data;
+        if(this.data6!=null){
+          this.sin= false;
+        }
       })
       .catch(error => {
         console.error(error); 
@@ -103,14 +115,8 @@ export class DevicesSensorsListComponent  implements OnInit{
       fetch(this.url1)
       .then((response) => response.json())
       .then((quotesData) => (this.data6 = quotesData));
-      if(this.data6!=null){
-        this.sin= false;
-      }
-      else{      
-        for(let quote2 of this.data6) {
-          this.contenido1.sensors= quote2;
-        }
-      }
+        this.contenido1.sensors.push(this.data6);
+        this.contenido1.sensors.pop() 
     }
   
 }
