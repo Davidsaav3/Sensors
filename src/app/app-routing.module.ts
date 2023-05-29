@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DevicesComponent } from './devices/devices.component';
-import { DevicesNewComponent } from './devices/devices-new/devices-new.component';
-import { DevicesEditComponent } from './devices/devices-edit/devices-edit.component';
-import { DevicesListComponent } from './devices/devices-list/devices-list.component';
+import { DevicesComponent } from './pages/devices/devices.component';
+import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
+import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
+import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
 
-import { SensorsComponent } from './sensors/sensors.component';
-import { MapComponent } from './map/map.component';
+import { SensorsComponent } from './pages/sensors/sensors.component';
+import { MapComponent } from './pages/map/map.component';
 const routes: Routes = [
   {
     path:'devices', component: DevicesComponent,

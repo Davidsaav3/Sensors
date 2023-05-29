@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-devices-new',
   templateUrl: './devices-new.component.html',
-  styleUrls: ['../../app.component.css']
+  styleUrls: ['../../../app.component.css']
 })
 export class DevicesNewComponent  implements OnInit{
   constructor(private router: Router) { }

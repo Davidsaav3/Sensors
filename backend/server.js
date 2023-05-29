@@ -1,16 +1,9 @@
 const express = require('express');
 const cors = require('cors')
+const { con } = require('./middleware/mysql');
 const app = express();
-const  PORT = 5172;
 app.use(cors());
 app.use(express.json())
-var mysql = require('mysql');
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "sensors"
-});
 
 con.connect(function(err) {
 
@@ -214,6 +207,6 @@ if (err) throw err;
   });
 });
 
-  app.listen(PORT, ()=>{
+  app.listen(5172, ()=>{
     console.log(`Sirviendo: http://localhost:5172/api/`)
   })

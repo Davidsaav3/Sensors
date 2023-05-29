@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-devices-sensors-list',
   templateUrl: './devices-sensors-list.component.html',
-  styleUrls: ['../../app.component.css']
+  styleUrls: ['../../../app.component.css']
 })
 export class DevicesSensorsListComponent  implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }

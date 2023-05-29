@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-devices-edit',
   templateUrl: './devices-edit.component.html',
-  styleUrls: ['../../app.component.css']
+  styleUrls: ['../../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
   constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
