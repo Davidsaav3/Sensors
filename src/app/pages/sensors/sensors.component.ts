@@ -8,14 +8,16 @@ import { Component , OnInit} from '@angular/core';
 
 export class SensorsComponent implements OnInit{
 
+  timeout: any = null;
   mostrar=false;
   mostrar2= false;
   alert_delete: any= false;
   alert_new: any= false;
   not_delete: any= false;
   not_new: any= false;
+  buscar='Buscar';
 
-  private url1: string = 'http://localhost:5172/api/get/sensors_types';
+  url1: string = 'http://localhost:5172/api/get/sensors_types';
   data: any;
   private url2: string = 'http://localhost:5172/api/post/sensors_types';
   data2: any;
@@ -24,6 +26,9 @@ export class SensorsComponent implements OnInit{
   private url4: string = 'http://localhost:5172/api/update/sensors_types';
   apiUrl: string = 'http://localhost:5172/api/id/sensors_types';
 
+  busqueda = {
+    value: '', 
+  }
 
   contenido = {
     id: '', 
@@ -104,15 +109,33 @@ export class SensorsComponent implements OnInit{
     this.get();
   }
 
+  
+  onKeySearch(event: any) {
+    clearTimeout(this.timeout);
+    var $this = this;
+    this.timeout = setTimeout(function () {
+      if (event.keyCode != 13) {
+        $this.get();
+      }
+    }, 500);
+  }
+ 
   ngOnInit(): void {
     this.get();
   }
 
   get(){
-    fetch(this.url1)
+    if(this.busqueda.value==''){
+      this.buscar= 'Buscar';
+    }
+    else{
+      this.buscar= this.busqueda.value;
+    }
+    const url2 = `${this.url1}/${this.buscar}`;
+    console.log(url2)
+    fetch(url2)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));
-
     for(let quote of this.data) {
       this.contenido.type=  quote.type;
       this.contenido.metric=  quote.metric; 
@@ -121,5 +144,6 @@ export class SensorsComponent implements OnInit{
       this.contenido.valuemax=  quote.valuemax;
       this.contenido.valuemin=  quote.valuemin;
     }
+
   }
 }

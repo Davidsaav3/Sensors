@@ -59,6 +59,24 @@ export class DevicesEditComponent implements OnInit{
     .then(response => response.json()) 
   }
 
+  recargar(){
+    const id_actual= this.rutaActiva.snapshot.params['id']
+    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
+    const url = `${apiUrl}/${id_actual}`;
+    console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido.lat= data[0].lat;
+      this.contenido.lon= data[0].lon;
+      this.contenido.cota= data[0].cota;
+      this.contenido.timezone= data[0].timezone;
+    })
+    .catch(error => {
+      console.error(error); 
+    });
+  }
+
   enable(){
     fetch('http://localhost:5172/api/enable/device_configurations', {
       method: "POST",

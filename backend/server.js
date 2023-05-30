@@ -9,12 +9,25 @@ con.connect(function(err) {
 
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations", (req,res)=>{ /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type", (req,res)=>{  /*/ GET  /*/
+  const type0 = req.params.type;
+  console.log(type0);
+
+  if(type0=='Buscar'){
     con.query("SELECT * FROM device_configurations", function (err, result) {
       if (err) throw err;
         res.send(result)
-    });
+    }); 
+  }
+  else{
+      con.query("SELECT * FROM device_configurations WHERE uid=?",type0, function (err, result) {
+      if (err) throw err;
+        res.send(result)
+    }); 
+  }
+
   });
+
   if (err) throw err;
   app.get("/api/id/device_configurations/:id", (req,res)=>{ /*/ ID  /*/
   const id03 = parseInt(req.params.id);
@@ -154,11 +167,23 @@ if (err) throw err;
 
   /* SENSORS_TYPES //////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/sensors_types", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/sensors_types/:type", (req,res)=>{  /*/ GET  /*/
+  const type0 = req.params.type;
+  console.log(type0);
+
+  if(type0=='Buscar'){
     con.query("SELECT * FROM sensors_types", function (err, result) {
       if (err) throw err;
         res.send(result)
-    });
+    }); 
+  }
+  else{
+      con.query("SELECT * FROM sensors_types WHERE type=?",type0, function (err, result) {
+      if (err) throw err;
+        res.send(result)
+    }); 
+  }
+
   });
   if (err) throw err;
   const id21 = "1";

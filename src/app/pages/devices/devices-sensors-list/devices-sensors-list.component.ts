@@ -18,6 +18,7 @@ export class DevicesSensorsListComponent  implements OnInit{
   data6: any= null;
 
   sin= true;
+  eliminarlo: any;
 
   act_not= false;
   act_ok= false;
@@ -74,18 +75,23 @@ export class DevicesSensorsListComponent  implements OnInit{
   }
 
 
-  eliminar(id_actual: any){
+  eliminar(){
 
-    var contenido3 = {
-      id: id_actual,   
-    }
-    fetch(this.url3, {
-      method: "POST",
-      body: JSON.stringify(contenido3),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    this.eliminar_ok= true;
+       var contenido3 = {
+      id: this.eliminarlo,   
+      }
+      fetch(this.url3, {
+        method: "POST",
+        body: JSON.stringify(contenido3),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.eliminar_ok= true;
+    
+  }
+
+  vari(id: any){
+    this.eliminarlo= id;
   }
 
 

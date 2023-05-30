@@ -16,8 +16,14 @@ export class DevicesListComponent implements OnInit{
   data3: any;
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
 
+  timeout: any = null;
   dup_ok=false;
   dup_not=false;
+  buscar='Buscar';
+
+  busqueda = {
+    value: '', 
+  }
 
   contenido = {
     sensors : [
@@ -63,12 +69,34 @@ export class DevicesListComponent implements OnInit{
       });
   }
 
+  onKeySearch(event: any) {
+    clearTimeout(this.timeout);
+    var $this = this;
+    this.timeout = setTimeout(function () {
+      if (event.keyCode != 13) {
+        $this.get();
+      }
+    }, 500);
+  }
+
   ngOnInit(): void {
-    fetch(this.url)
+    this.get();
+  }
+
+  get(){
+    if(this.busqueda.value==''){
+      this.buscar= 'Buscar';
+    }
+    else{
+      this.buscar= this.busqueda.value;
+    }
+    const url2 = `${this.url}/${this.buscar}`;
+    console.log(url2)
+    fetch(url2)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));
     for(let quote of this.data) {
       this.obtener(quote.id);
     }
-}
+  }
 }
