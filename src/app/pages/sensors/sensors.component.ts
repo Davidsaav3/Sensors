@@ -15,6 +15,8 @@ export class SensorsComponent implements OnInit{
   alert_new: any= false;
   not_delete: any= false;
   not_new: any= false;
+  guardar_ok: any= false;
+  guardar_not: any= false;
   buscar='Buscar';
 
   url1: string = 'http://localhost:5172/api/get/sensors_types';
@@ -50,6 +52,26 @@ export class SensorsComponent implements OnInit{
     valuemin: null,
   }
 
+  borrar(){
+    this.busqueda.value= '';
+    this.get();
+  }
+
+  m1(){
+    this.mostrar= true;
+    this.mostrar2= false;
+  }
+
+  
+  m2(){
+    this.mostrar2= true;
+    this.mostrar= false;
+  }
+
+  m3(){
+    this.mostrar2= false;
+    this.mostrar= false;
+  }
 
   eliminar(id_actual: any){
     var contenido2 = {
@@ -81,6 +103,7 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json()) 
     this.mostrar2=false;
     this.get();
+    this.guardar_ok= true;
   }
 
   submit(){
@@ -96,6 +119,7 @@ export class SensorsComponent implements OnInit{
   }
 
   num(id_actual: any){
+    this.m2();
     this.mostrar2=true;
     const url = `${this.apiUrl}/${id_actual}`;
     fetch(url)

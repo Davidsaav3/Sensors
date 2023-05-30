@@ -24,6 +24,7 @@
     padding: 1em;
     border-radius: 10px;
     margin-bottom: 1em;
+    min-height: 80vh;
 }
 
 .cont2{

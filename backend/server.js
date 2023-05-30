@@ -122,7 +122,7 @@ con.connect(function(err) {
   if (err) throw err;
   app.get("/api/id_device/sensors_devices/:id", (req,res)=>{  /*/ GET ID_DEVICES  /*/
   const id_device = parseInt(req.params.id);
-    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = ?", id_device, function (err, result) {
+    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = ? ORDER BY orden ASC", id_device, function (err, result) {
       if (err) throw err;
         res.send(result)
 });

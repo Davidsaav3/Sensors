@@ -81,6 +81,11 @@ export class DevicesListComponent implements OnInit{
 
   ngOnInit(): void {
     this.get();
+    this.get();
+  }
+
+  borrar(){
+    this.busqueda.value= '';
   }
 
   get(){

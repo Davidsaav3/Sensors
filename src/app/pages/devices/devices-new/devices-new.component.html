@@ -21,18 +21,34 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label for="uid" class="form-label">Uid</label>
                                 <input type="text" class="form-control" id="uid" name="uid" [(ngModel)]="contenido.uid">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="alias" class="form-label">Alias</label>
+                                <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="contenido.alias">
                             </div>
                             <div class="col-md-6">
                                 <label for="organizationid" class="form-label">Organization Id</label>
                                 <input type="text" class="form-control" id="organizationid" name="organizationid" [(ngModel)]="contenido.organizationid">
                             </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6">
-                                <label for="alias" class="form-label">Alias</label>
-                                <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="contenido.alias">
+                                <label for="typemeter" class="form-label">Typemeter</label>
+                                <input type="text" class="form-control" id="typemeter" name="typemeter" [(ngModel)]="contenido.typemeter">
                             </div>
+                            <div class="col-md-3">
+                                <label for="application_id" class="form-label">Aplication Id</label>
+                                <input type="text" class="form-control" id="application_id"  name="application_id" [(ngModel)]="contenido.application_id">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="topic_name" class="form-label">Topic Id</label>
+                                <input type="text" class="form-control" id="topic_name" name="topic_name" [(ngModel)]="contenido.topic_name">
+                            </div>
+                               
                         </div>
 
                         <div class="row">
@@ -46,27 +62,11 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="application_id" class="form-label">Aplication Id</label>
-                                <input type="text" class="form-control" id="application_id"  name="application_id" [(ngModel)]="contenido.application_id">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="topic_name" class="form-label">Topic Id</label>
-                                <input type="text" class="form-control" id="topic_name" name="topic_name" [(ngModel)]="contenido.topic_name">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="typemeter" class="form-label">Typemeter</label>
-                                <input type="text" class="form-control" id="typemeter" name="typemeter" [(ngModel)]="contenido.typemeter">
-                            </div>
-                           
-                        </div>
-
                     </div>
                 
                 </div>
 
-                <div class="row over c2">
+                <div class="row c2">
                     <div class="col-12 "> 
                         <app-devices-sensors-list></app-devices-sensors-list>
                     </div> 
