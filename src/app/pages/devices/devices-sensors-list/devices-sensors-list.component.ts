@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DevicesSensorsListComponent  implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }
+  private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url5: string = 'http://localhost:5172/api/post/sensors_devices';
   private url4: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   private url3: string = 'http://localhost:5172/api/delete/sensors_devices';
@@ -18,6 +19,7 @@ export class DevicesSensorsListComponent  implements OnInit{
   
   data: any;
   data6: any= null;
+  data7: any= null;
 
   sin= true;
   eliminarlo: any;
@@ -26,8 +28,16 @@ export class DevicesSensorsListComponent  implements OnInit{
   act_ok= false;
   eliminar_ok= false;
   eliminar_not= false;
-
   mostrar=true;
+
+  textoBusqueda: string = "";
+  desde: number= 1;
+  usuarios: any;
+  primero: boolean = true;
+  ultimo: boolean = false;
+  ultimaPage: number= 1;
+  paginas: any;
+  public hayUsu: Boolean= true;
 
   contenido = {
     sensors : [
@@ -65,6 +75,7 @@ export class DevicesSensorsListComponent  implements OnInit{
       }]
   }
 
+
   contenido2 = {
     id: 1, 
     enable: 1, 
@@ -76,7 +87,122 @@ export class DevicesSensorsListComponent  implements OnInit{
     type_name: 1,
   }
 
+  
+menos(){
+  this.desde = this.desde - 1;
+  const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
+  page.forEach((element, index) => {
+    if(index === this.desde - 1){
+      element.style.color='#0073ca';
+      element.style.textDecoration='underline';
+    }else{
+      element.style.color='';
+      element.style.textDecoration='';
+    }
+  });
+  //this.listarUsuarios();
+  if(this.desde <= 1){
+    this.desde = 1;
+    this.primero = true;
+    this.ultimo = false;
+  }else{
+    this.primero = false;
+    this.ultimo = false;
+  }
+}
+
+mas(){
+  this.desde = this.desde + 1;
+  const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
+  page.forEach((element, index) => {
+    if(index === this.desde - 1){
+      element.style.color='#0073ca';
+      element.style.textDecoration='underline';
+    }else{
+      element.style.color='';
+      element.style.textDecoration='';
+    }
+  });
+  if(page.length > 1){
+    //this.listarUsuarios();
+    if(this.desde >= this.ultimaPage){
+      this.desde = this.ultimaPage;
+      this.primero = false;
+      this.ultimo = true;
+    }
+    else{
+      this.primero = false;
+      this.ultimo = false;
+    }
+  }
+
+}
+
+pagina(p: any){
+  this.desde = p + 1;
+  const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
+  page.forEach((element, index) => {
+    if(index === this.desde - 1){
+      element.style.color='#0073ca';
+      element.style.textDecoration='underline';
+    }else{
+      element.style.color='';
+      element.style.textDecoration='';
+    }
+  });
+  if(this.desde <= 1){
+    this.desde = 1;
+    this.primero = true;
+    this.ultimo = false;
+  }else{
+    if(this.desde >= this.ultimaPage){
+      this.desde = this.ultimaPage;
+      this.primero = false;
+      this.ultimo = true;
+    }else{
+      this.primero = false;
+      this.ultimo = false;
+    }
+  }
+
+  //this.listarUsuarios();
+  }
+
+  listarUsuarios(){
+    //this.admin.cargarUsuarios(this.desde, this.textoBusqueda)
+    //.subscribe((res: any) => {
+      //console.log(res)
+      //this.usuarios = res.usuarios;
+      //this.ultimaPage = Math.ceil(res.page.total/10);
+      this.paginas = Array(this.ultimaPage).fill(1).map((x,i)=>i);
+  
+      setTimeout( () =>{
+  
+        const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
+        console.log(page)
+  
+        page.forEach((element, index) => {
+          if(index === this.desde - 1){
+            element.style.color='#0073ca';
+            element.style.textDecoration='underline';
+          }else{
+            element.style.color='';
+            element.style.textDecoration='';
+          }
+        });
+        }, 100);
+  
+      if (this.usuarios.length <= 0){
+        this.hayUsu = false;
+      }
+      else {
+        this.hayUsu = true;
+      }
+    //})
+  }
+
   update2(){
+
     console.log(this.contenido.sensors)
     var contenido4 = {
         id: this.rutaActiva.snapshot.params['id'],   
@@ -98,9 +224,9 @@ export class DevicesSensorsListComponent  implements OnInit{
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(response => response.json()) 
-        this.eliminar_not= true;  
       }
-
+      this.get()
+      this.act_ok= true;
   }
 
   eliminar(){
@@ -114,7 +240,7 @@ export class DevicesSensorsListComponent  implements OnInit{
       })
       .then(response => response.json()) 
       this.eliminar_ok= true;
-    
+      this.get()
   }
 
   vari(id: any){
@@ -129,6 +255,16 @@ export class DevicesSensorsListComponent  implements OnInit{
 
 
   ngOnInit(): void {
+    this.desde = 1;
+    this.get();
+  } 
+
+  get(){
+    fetch(this.url6)
+    .then(response => response.json()) 
+    .then((quotesData) => (this.data7 = quotesData));
+    console.log(this.data7.id);
+
     if(this.rutaActiva.snapshot.params['id']){
       const id_actual= this.rutaActiva.snapshot.params['id']
       const url = `${this.apiUrl}/${id_actual}`;
@@ -151,7 +287,6 @@ export class DevicesSensorsListComponent  implements OnInit{
         this.contenido1.sensors.push(this.data6);
         this.contenido1.sensors.pop() 
     }
-  
 }
 
 }

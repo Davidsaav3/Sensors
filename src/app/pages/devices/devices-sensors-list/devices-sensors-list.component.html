@@ -2,20 +2,22 @@
 	<div class="row">
 		<div class="col-3"> <!-- Buscar -->
             <button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
-			<button type="button" (click)="update2()" class="btn btn-info">Guardar</button>
 		</div>
-		<div class="col-9 d-flex justify-content-end"> <!-- Paginador -->
+		<div class="col-2"> <!-- Buscar -->
+			<a type="button" (click)="update2()" class="ms-3">Guardar</a>
+		</div>
+		<div class="col-7 d-flex justify-content-end"> <!-- Paginador -->
 			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
-				¡ Dispositivo activado !
+				¡ Sensores guardados !
 			  </div>
 			  <div *ngIf="act_not" class="alert alert-success me-3 py-1" role="alert">
-				Error al activar el dispositivo
+				Error al guardar los sensores
 			  </div>
 			  <div *ngIf="eliminar_ok" class="alert alert-success me-3 py-1" role="alert">
 				¡ Sensor eliminado !
 			  </div>
 			  <div *ngIf="eliminar_not" class="alert alert-success me-3 py-1" role="alert">
-				Error al eliminar el dispositivo
+				Error al eliminar el sensor
 			  </div>
 
 			<nav aria-label="Page navigation example">

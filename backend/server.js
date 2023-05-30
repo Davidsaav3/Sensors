@@ -6,7 +6,12 @@ app.use(cors());
 app.use(express.json())
 
 con.connect(function(err) {
-
+  app.get("/api/max/device_configurations", (req,res)=>{ /*/ ID  /*/
+    con.query("SELECT id FROM device_configurations WHERE id=(SELECT max(id) FROM device_configurations)", function (err, result) {
+      if (err) throw err;
+        res.send(result)
+    });
+  });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
   app.get("/api/get/device_configurations/:type", (req,res)=>{  /*/ GET  /*/
