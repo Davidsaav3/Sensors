@@ -107,6 +107,7 @@ export class SensorsComponent implements OnInit{
   }
 
   submit(){
+    
     fetch(this.url2, {
       method: "POST",
       body: JSON.stringify(this.contenido_new),

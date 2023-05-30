@@ -10,7 +10,6 @@ export class DevicesListComponent implements OnInit{
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
   private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
-  data2: any;
   mostrar=true;
   private url3: string = 'http://localhost:5172/api/duplicate/device_configurations';
   data3: any;
@@ -36,7 +35,24 @@ export class DevicesListComponent implements OnInit{
         nodata: '',
         orden: '',
         type_name: '',
+        sensor : [
+          {
+            id: '1',    
+            enable: 1, 
+            type_name: '',
+          },
+        ]
       }]
+  }
+
+  data2 = {
+    sensors : [
+      {
+        id: '1',    
+        enable: 1, 
+        type_name: '',
+      },
+    ]
   }
 
   update = {
@@ -58,15 +74,16 @@ export class DevicesListComponent implements OnInit{
   }
 
   obtener(id_actual: any){
-      const url = `${this.apiUrl}/${id_actual}`;
-      fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        this.contenido.sensors= data;
-      })
-      .catch(error => {
-        console.error(error); 
-      });
+    const url2 = `${this.apiUrl}/${id_actual}`;
+    fetch(url2)
+    .then(response => response.json())
+    .then(data3 => {
+      this.contenido.sensors[id_actual].sensor.push(data3);
+    })
+    .catch(error => {
+      console.error(error); 
+    });
+
   }
 
   onKeySearch(event: any) {
@@ -99,9 +116,21 @@ export class DevicesListComponent implements OnInit{
     console.log(url2)
     fetch(url2)
     .then((response) => response.json())
-    .then((quotesData) => (this.data = quotesData));
-    for(let quote of this.data) {
-      this.obtener(quote.id);
-    }
+    .then(data => {
+      this.data= data;
+      for (let x of this.data) {
+          const url1 = `${this.apiUrl}/${x.id}`;
+          fetch(url1)
+          .then(response => response.json())
+          .then(data3 => {
+            x.sensor= data3;
+          
+          })
+          .catch(error => {
+            console.error(error); 
+          });     
+      }
+    })
+    
   }
 }

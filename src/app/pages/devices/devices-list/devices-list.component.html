@@ -58,7 +58,7 @@
                       <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">Desactivado</p></span>
                     </td>
                     <td [routerLink]="['/devices', quote.id,'edit']" class="d-none d-md-none d-lg-block d-flex">
-                      <div *ngFor="let quote2 of data2" style="display: inline-block; height: min-content;">
+                      <div *ngFor="let quote2 of quote.sensor" style="display: inline-block; height: min-content;">
                         <span class="badge rounded-pill text-bg-success d-inline-block me-2" [class]="{'d-none': quote2.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                         <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                       </div>
