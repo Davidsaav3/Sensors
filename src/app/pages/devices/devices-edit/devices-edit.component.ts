@@ -30,11 +30,12 @@ export class DevicesEditComponent implements OnInit{
     cota: 10,
     timezone: '+01:00',
     organizationid: '',
+    enable: 1,
   }
   
   contenido2 = {
     id: 1,    
-    enable: 0,
+    enable: 1,
   }
 
   eliminar(id_actual: any){
@@ -57,6 +58,7 @@ export class DevicesEditComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
+    //this.update2();
   }
 
   recargar(){
@@ -83,7 +85,13 @@ export class DevicesEditComponent implements OnInit{
       body: JSON.stringify(this.contenido2),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
-    .then(response => response.json()) 
+    .then(response => response.json())
+    .then(data => {
+      this.contenido2= data;
+    })
+    .catch(error => {
+      console.error(error); 
+    });  
   }
 
   ngOnInit(): void {

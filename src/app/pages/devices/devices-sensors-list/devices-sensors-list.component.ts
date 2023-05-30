@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DevicesSensorsListComponent  implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }
+  private url5: string = 'http://localhost:5172/api/post/sensors_devices';
+  private url4: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   private url3: string = 'http://localhost:5172/api/delete/sensors_devices';
   private url1: string = 'http://localhost:5172/api/get/sensors_types';
 
@@ -30,21 +32,21 @@ export class DevicesSensorsListComponent  implements OnInit{
   contenido = {
     sensors : [
       {
-        id: '',    
-        enable: '', 
-        id_device: '',
-        id_type_sensor: '',
-        datafield: '',
-        nodata: '',
-        orden: '',
-        type_name: '',
+        id: 1, 
+        enable: 1, 
+        id_device: this.rutaActiva.snapshot.params['id'],
+        id_type_sensor: 1,
+        datafield: 1,
+        nodata: 1,
+        orden: 1,
+        type_name: 1,
       }]
   }
 
   contenido1 = {
     sensors : [
       {
-        id: '', 
+        id: 1, 
         type: 'CO2',    
         metric: '', 
         description: '',
@@ -53,7 +55,7 @@ export class DevicesSensorsListComponent  implements OnInit{
         valuemin: 1,
       },
       {
-        id: '', 
+        id: 1, 
         type: 'Humedad',    
         metric: '', 
         description: '',
@@ -64,19 +66,44 @@ export class DevicesSensorsListComponent  implements OnInit{
   }
 
   contenido2 = {
-    id: '',    
-    enable: '', 
-    id_device: '',
-    id_type_sensor: '',
-    datafield: '',
-    nodata: '',
-    orden: '',
-    type_name: '',
+    id: 1, 
+    enable: 1, 
+    id_device: this.rutaActiva.snapshot.params['id'],
+    id_type_sensor: 1,
+    datafield: 1,
+    nodata: 1,
+    orden: 1,
+    type_name: 1,
   }
 
+  update2(){
+    console.log(this.contenido.sensors)
+    var contenido4 = {
+        id: this.rutaActiva.snapshot.params['id'],   
+      }
+      console.log(this.rutaActiva.snapshot.params['id'])
+      fetch(this.url4, {
+        method: "POST",
+        body: JSON.stringify(contenido4),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+
+      //
+
+      for(let quote of this.contenido.sensors) {
+        fetch(this.url5, {
+          method: "POST",
+          body: JSON.stringify(quote),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        this.eliminar_not= true;  
+      }
+
+  }
 
   eliminar(){
-
        var contenido3 = {
       id: this.eliminarlo,   
       }
@@ -126,4 +153,5 @@ export class DevicesSensorsListComponent  implements OnInit{
     }
   
 }
+
 }

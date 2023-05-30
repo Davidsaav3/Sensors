@@ -2,6 +2,7 @@
 	<div class="row">
 		<div class="col-3"> <!-- Buscar -->
             <button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
+			<button type="button" (click)="update2()" class="btn btn-info">Guardar</button>
 		</div>
 		<div class="col-9 d-flex justify-content-end"> <!-- Paginador -->
 			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
@@ -45,6 +46,7 @@
 				</thead>
 				<tbody *ngFor="let item of contenido.sensors;let i=index">
                     <tr style="overflow-y: scroll;">
+						<input type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="7" [(ngModel)]="item.id_device">
                         <th scope="col2"><input type="text" class="form-control" id="orden" [name]="'orden'+i" [(ngModel)]="item.orden"></th>
                         <th scope="col"> 
 							<select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.type_name">

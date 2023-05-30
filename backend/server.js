@@ -11,7 +11,6 @@ con.connect(function(err) {
   if (err) throw err;
   app.get("/api/get/device_configurations/:type", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
-  console.log(type0);
 
   if(type0=='Buscar'){
     con.query("SELECT * FROM device_configurations", function (err, result) {
@@ -38,8 +37,9 @@ con.connect(function(err) {
   });
   if (err) throw err;
   app.post("/api/enable/device_configurations", (req,res)=>{  /*/ ENABLE  /*/
-  const id02 = req.params.id;
-  const enable3 = req.params.enable;
+  const id02 = req.body.id;
+  const enable3 = req.body.enable;
+
     con.query("UPDATE device_configurations SET enable = ? WHERE id = ?",[id02,enable3], function (err, result) {
       if (err) throw err;
         res.send(result)
@@ -135,25 +135,21 @@ if (err) throw err;
   const id_type_sensor = req.body.id_type_sensor;
   const datafield = req.body.datafield;
   const nodata = req.body.nodata;
+
+  console.log("Hola"+id_device+"Hola");
     con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata) VALUES (?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata], function (err, result) {
       if (err) throw err;
         res.send(result)
     });
   });
   if (err) throw err;
-  app.post("/api/update/sensors_devices/", (req,res)=>{  /*/ UPDATE  /*/
-  const idm = req.body.id;
-  const orden = req.body.orden;
-  const enable = req.body.enable;
-  const id_device = req.body.id_device;
-  const id_type_sensor = req.body.id_type_sensor;
-  const datafield = req.body.datafield;
-  const nodata = req.body.nodata;  
-    con.query("UPDATE sensors_devices SET orden=?, enable=? ,id_device=? ,id_type_sensor=? ,datafield=? ,nodata=? WHERE id = ?",[orden,enable,id_device,id_type_sensor,datafield,nodata,idm], function (err, result) {
-      if (err) throw err;
-        res.send(result)
-    });
+  app.post("/api/delete_all/sensors_devices", (req,res)=>{  /*/ DELETE ALL /*/
+  var id010 = req.body.id;
+  con.query("DELETE FROM sensors_devices WHERE id_device= ?", id010, function (err, result) {
+    if (err) throw err;
+      res.send(result)
   });
+});
   if (err) throw err;
   app.post("/api/delete/sensors_devices", (req,res)=>{  /*/ DELETE  /*/
   const id012 = req.body.id;
@@ -169,7 +165,6 @@ if (err) throw err;
   if (err) throw err;
   app.get("/api/get/sensors_types/:type", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
-  console.log(type0);
 
   if(type0=='Buscar'){
     con.query("SELECT * FROM sensors_types", function (err, result) {

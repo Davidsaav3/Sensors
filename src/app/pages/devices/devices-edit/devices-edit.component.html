@@ -11,8 +11,8 @@
                             </div>
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
-                                    <label class="toggle tt1 t1">
-                                        <input type="checkbox" checked [(ngModel)]="contenido2.enable">
+                                    <label class="toggle tt1 t1" (click)="enable()">
+                                        <input type="checkbox" [(ngModel)]="contenido.enable">
                                         <span class="slider"></span>
                                         <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
                                     </label>
