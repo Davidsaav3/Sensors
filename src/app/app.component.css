@@ -11,7 +11,7 @@
     margin: 1em;
     padding: 1em;
     border-radius: 10px;
-    height: 90vh;
+    height: min-content;
 }
 
 .cont0{

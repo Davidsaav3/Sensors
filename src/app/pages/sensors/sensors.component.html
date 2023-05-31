@@ -45,10 +45,140 @@
         </div>
     </div>	
 
+	<div class="row flex-row-reverse">
 
+	<div class="col-12 col-md-4 nuevo m-0" *ngIf="mostrar">
+		<form class="row needs-validation" style="align-content: space-between;"> 
+			<div class="col-12">
+			<div class="row">
+				<div class="col-12">
+					<div class="row">
+						<h1>Nuevo sensor</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-126">
+						<label for="type" class="form-label">Type</label>
+						<input type="text" class="form-control" id="type" name="type" [(ngModel)]="contenido_new.type" required>
+						<div class="valid-feedback">Type inválido</div>
+					</div>
+					<div class="col-md-12">
+						<label for="metric" class="form-label">Metric</label>
+						<input type="text" class="form-control" id="metric" name="metric" [(ngModel)]="contenido_new.metric" required>
+					</div>
+				</div>
+	
+				<div class="row">
+					<div class="col-md-12">
+						<label for="description" class="form-label">Description</label>
+						<input type="text" class="form-control" id="description" name="description" [(ngModel)]="contenido_new.description" required>
+					</div>
+					<div class="col-md-6">
+						<label for="errorvalue" class="form-label">Error value</label>
+						<input type="text" class="form-control" id="errorvalue" name="errorvalue" [(ngModel)]="contenido_new.errorvalue">
+					</div>
+					<div class="col-md-3">
+						<label for="valuemin" class="form-label">Value min</label>
+						<input type="text" class="form-control" id="valuemin" name="valuemin" [(ngModel)]="contenido_new.valuemin">
+					</div>
+					<div class="col-md-3">
+						<label for="valuemax" class="form-label">Value max</label>
+						<input type="text" class="form-control" id="valuemax" name="valuemax" [(ngModel)]="contenido_new.valuemax">
+					</div>
+				</div>
+			</div>
+			</div>
 
-	<div class="row">
-		<div class="col-8 over" style="max-height: 80vh;"> 
+			
+			<div class="col-12">
+			<div class="row mt-4">
+				<div class="col-md-6 pb-2 pt-2">
+					<a ng-click="ocultar = true" type="button navb"(click)="m3()"  class="btn btn-secondary text-light navb me-3" style="width: 100%">Cancelar</a>
+				</div>
+				<div class="col-md-6 pt-2">
+					<a ng-click="ocultar = true" type="button navb submit" (click)="submit()" class="btn btn-info navb me-3" style="width: 100%">Guardar</a>
+				</div>
+			</div>
+			</div>
+		</form>
+
+		<script>
+			(() => {
+				'use strict'
+
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				const forms = document.querySelectorAll('.needs-validation')
+
+				// Loop over them and prevent submission
+				Array.from(forms).forEach(form => {
+					form.addEventListener('submit', event => {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
+
+					form.classList.add('was-validated')
+					}, false)
+				})
+			})()
+		</script>
+		
+	</div>
+				
+
+	<div class="col-12 nuevo m-0 col-md-4" *ngIf="mostrar2">
+		<form class="row needs-validation"> 
+			<div class="col-12">
+				<div class="row">
+					<h1>Sensor de {{ contenido.type }}</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label for="type" class="form-label">Type</label>
+					<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
+					<div class="valid-feedback">Type inválido</div>
+				</div>
+				<div class="col-md-12">
+					<label for="metric" class="form-label">Metric</label>
+					<input type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<label for="description" class="form-label">Description</label>
+					<input type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description" required>
+				</div>
+				<div class="col-md-6">
+					<label for="errorvalue" class="form-label">Error value</label>
+					<input type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
+				</div>
+				<div class="col-md-3">
+					<label for="valuemin" class="form-label">Value min</label>
+					<input type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
+				</div>
+				<div class="col-md-3">
+					<label for="valuemax" class="form-label">Value max</label>
+					<input type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax }}" [(ngModel)]="contenido.valuemax">
+				</div>
+			</div>
+
+			<div class="row mt-4">
+					<div class="col-md-6 col-6 pt-2">
+						<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">Eliminar sensor</button>
+					</div>
+					<div class="col-md-3 col-3 pt-2">
+						<a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" (click)="m3()">Cancelar</a>
+					</div>
+					<div class="col-md-3 col-3 pt-2">
+						<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" >Guardar</button>
+					</div>		
+			</div>
+		</form>
+	</div>
+
+		<div class="col-12 col-md-8 over" style="max-height: 80vh;"> 
 			<table class="table ">
 				<thead>
 				  <tr>
@@ -74,131 +204,6 @@
 				</tbody>
 			  </table>
         </div>
-
-
-			  <div class="col-4 nuevo m-0" *ngIf="mostrar">
-				<form class="row needs-validation"> 
-					<div class="col-12">
-						<div class="row">
-							<h1>Nuevo sensor</h1>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-126">
-							<label for="type" class="form-label">Type</label>
-							<input type="text" class="form-control" id="type" name="type" [(ngModel)]="contenido_new.type" required>
-							<div class="valid-feedback">Type inválido</div>
-						</div>
-						<div class="col-md-12">
-							<label for="metric" class="form-label">Metric</label>
-							<input type="text" class="form-control" id="metric" name="metric" [(ngModel)]="contenido_new.metric" required>
-						</div>
-					</div>
-		
-					<div class="row">
-						<div class="col-md-12">
-							<label for="description" class="form-label">Description</label>
-							<input type="text" class="form-control" id="description" name="description" [(ngModel)]="contenido_new.description" required>
-						</div>
-						<div class="col-md-6">
-							<label for="errorvalue" class="form-label">Error value</label>
-							<input type="text" class="form-control" id="errorvalue" name="errorvalue" [(ngModel)]="contenido_new.errorvalue">
-						</div>
-						<div class="col-md-3">
-							<label for="valuemin" class="form-label">Value min</label>
-							<input type="text" class="form-control" id="valuemin" name="valuemin" [(ngModel)]="contenido_new.valuemin">
-						</div>
-						<div class="col-md-3">
-							<label for="valuemax" class="form-label">Value max</label>
-							<input type="text" class="form-control" id="valuemax" name="valuemax" [(ngModel)]="contenido_new.valuemax">
-						</div>
-					</div>
-		
-					<div class="row mt-4">
-						<div class="col-md-6 pb-2 pt-2">
-							<a ng-click="ocultar = true" type="button navb"(click)="m3()"  class="btn btn-secondary text-light navb me-3" style="width: 100%">Cancelar</a>
-						</div>
-						<div class="col-md-6 pt-2">
-							<a ng-click="ocultar = true" type="button navb submit" (click)="submit()" class="btn btn-info navb me-3" style="width: 100%">Guardar</a>
-						</div>
-					</div>
-				</form>
-
-				<script>
-					(() => {
-						'use strict'
-
-						// Fetch all the forms we want to apply custom Bootstrap validation styles to
-						const forms = document.querySelectorAll('.needs-validation')
-
-						// Loop over them and prevent submission
-						Array.from(forms).forEach(form => {
-							form.addEventListener('submit', event => {
-							if (!form.checkValidity()) {
-								event.preventDefault()
-								event.stopPropagation()
-							}
-
-							form.classList.add('was-validated')
-							}, false)
-						})
-					})()
-				</script>
-				
-			</div>
-						
-
-			<div class="col-4 nuevo m-0" *ngIf="mostrar2">
-				<form class="row needs-validation"> 
-					<div class="col-12">
-						<div class="row">
-							<h1>Sensor de {{ contenido.type }}</h1>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<label for="type" class="form-label">Type</label>
-							<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
-							<div class="valid-feedback">Type inválido</div>
-						</div>
-						<div class="col-md-12">
-							<label for="metric" class="form-label">Metric</label>
-							<input type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
-						</div>
-					</div>
-		
-					<div class="row">
-						<div class="col-md-12">
-							<label for="description" class="form-label">Description</label>
-							<input type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description" required>
-						</div>
-						<div class="col-md-6">
-							<label for="errorvalue" class="form-label">Error value</label>
-							<input type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
-						</div>
-						<div class="col-md-3">
-							<label for="valuemin" class="form-label">Value min</label>
-							<input type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
-						</div>
-						<div class="col-md-3">
-							<label for="valuemax" class="form-label">Value max</label>
-							<input type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax }}" [(ngModel)]="contenido.valuemax">
-						</div>
-					</div>
-		
-					<div class="row mt-4">
-							<div class="col-md-6 col-6 pt-2">
-								<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">Eliminar sensor</button>
-							</div>
-							<div class="col-md-3 col-3 pt-2">
-								<a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" (click)="m3()">Cancelar</a>
-							</div>
-							<div class="col-md-3 col-3 pt-2">
-								<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" >Guardar</button>
-							</div>		
-					</div>
-				</form>
-			</div>
 
 			
 			
