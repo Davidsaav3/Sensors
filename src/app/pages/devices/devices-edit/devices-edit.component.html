@@ -9,6 +9,14 @@
                             <div class="col"> 
                                 <h2>Dispositivo {{contenido.uid}}</h2>
                             </div>
+                            <div class="col-3"> 
+                                <div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
+                                    ¡ Dsipositivo guardado !
+                                  </div>
+                                  <div *ngIf="act_not" class="alert alert-success me-3 py-1" role="alert">
+                                    Error al guardar el dispositivo
+                                  </div>
+                            </div>
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1" (click)="enable()">
@@ -189,7 +197,7 @@
                                 <a type="button navb" routerLink="/devices" class="btn btn-secondary text-light navb text-light" style="width: 100%">Cancelar</a>
                             </div>
                             <div class="col-md-6 col-12 mt-3">
-                                <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()" data-bs-toggle="modal" data-bs-target="#exampleModal2">Guardar</button>
+                                <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -234,26 +242,3 @@
       </div>
 </div>
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Dispositivo desactivado</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">Hay dos sensores activados en la misma posición.</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">Aceptar</button>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>

@@ -1,6 +1,8 @@
 import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { DevicesSensorsListComponent } from '../devices-sensors-list/devices-sensors-list.component';
+
 
 @Component({
   selector: 'app-devices-edit',
@@ -8,13 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
-  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
+  constructor(private rutaActiva: ActivatedRoute,private router: Router, private DevicesSensorsListComponent : DevicesSensorsListComponent,) { }
   private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   private url4: string = 'http://localhost:5172/api/update/device_configurations';
   mostrar=true;
+
+  act_ok= false;
+  act_not= false;
 
   contenido = {    
     id: '',    
@@ -30,7 +35,7 @@ export class DevicesEditComponent implements OnInit{
     cota: 10,
     timezone: '+01:00',
     organizationid: '',
-    enable: 1,
+    enable: 0,
   }
   
   contenido2 = {
@@ -59,6 +64,8 @@ export class DevicesEditComponent implements OnInit{
     })
     .then(response => response.json()) 
     //this.update2();
+    this.act_ok= true;
+    //this.DevicesSensorsListComponent.update2();
   }
 
   recargar(){

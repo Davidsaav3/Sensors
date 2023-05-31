@@ -48,11 +48,13 @@
 				</thead>
 				<tbody *ngFor="let item of contenido.sensors;let i=index">
                     <tr style="overflow-y: scroll;">
-						<input type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="7" [(ngModel)]="item.id_device">
+						<input type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
                         <th scope="col2"><input type="text" class="form-control" id="orden" [name]="'orden'+i" [(ngModel)]="item.orden"></th>
                         <th scope="col"> 
-							<select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.type_name">
-								<option *ngFor="let xd of contenido1.sensors;let j=index" [selected]="{'selected': xd.id==item.id_type_sensor}">{{xd.type}}</option>
+							<select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
+							<ng-container *ngFor="let xd of contenido1.sensors;let j=index">
+								<option [selected]="xd.id===item.id_type_sensor" value="{{xd.id}}">{{xd.type}}</option>
+							</ng-container>
 							</select>
 						</th>
                         <td><input type="text" class="form-control" id="datafield" [name]="'datafield'+i" [(ngModel)]="item.datafield"></td>
@@ -104,6 +106,30 @@
                 </div>
                 <div class="col-6">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">Eliminar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" [class]="{'show ':duplicados}" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">Dispositivo desactivado</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">Hay dos sensores activados en la misma posición.</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">Aceptar</button>
                 </div>
             </div>
           </div>

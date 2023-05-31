@@ -1,5 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-devices-sensors-list',
@@ -20,6 +25,7 @@ export class DevicesSensorsListComponent  implements OnInit{
   data: any;
   data6: any= null;
   data7: any= null;
+  id= parseInt(this.rutaActiva.snapshot.params['id']);
 
   sin= true;
   eliminarlo: any;
@@ -38,13 +44,14 @@ export class DevicesSensorsListComponent  implements OnInit{
   ultimaPage: number= 1;
   paginas: any;
   public hayUsu: Boolean= true;
+  duplicados= false;
 
   contenido = {
     sensors : [
       {
         id: 1, 
-        enable: 1, 
-        id_device: this.rutaActiva.snapshot.params['id'],
+        enable: 0, 
+        id_device: this.id,
         id_type_sensor: 1,
         datafield: 1,
         nodata: 1,
@@ -79,7 +86,7 @@ export class DevicesSensorsListComponent  implements OnInit{
   contenido2 = {
     id: 1, 
     enable: 1, 
-    id_device: this.rutaActiva.snapshot.params['id'],
+    id_device: this.id,
     id_type_sensor: 1,
     datafield: 1,
     nodata: 1,
@@ -202,12 +209,16 @@ pagina(p: any){
   }
 
   update2(){
-
-    console.log(this.contenido.sensors)
-    var contenido4 = {
-        id: this.rutaActiva.snapshot.params['id'],   
+    if((this.contenido.sensors[0].orden==this.contenido.sensors[1].orden) && 
+    (this.contenido.sensors[0].enable==1) && 
+    (this.contenido.sensors[0].enable==1)){
+      this.duplicados= true;
+      //$('#exampleModal2').add('show')
+    }
+    else{
+      var contenido4 = {
+        id: this.id,   
       }
-      console.log(this.rutaActiva.snapshot.params['id'])
       fetch(this.url4, {
         method: "POST",
         body: JSON.stringify(contenido4),
@@ -215,6 +226,8 @@ pagina(p: any){
       })
       .then(response => response.json()) 
 
+      //
+      //console.log(this.contenido.sensors)
       //
 
       for(let quote of this.contenido.sensors) {
@@ -225,8 +238,9 @@ pagina(p: any){
         })
         .then(response => response.json()) 
       }
-      this.get()
       this.act_ok= true;
+    }
+    
   }
 
   eliminar(){
@@ -240,7 +254,6 @@ pagina(p: any){
       })
       .then(response => response.json()) 
       this.eliminar_ok= true;
-      this.get()
   }
 
   vari(id: any){
@@ -259,14 +272,9 @@ pagina(p: any){
     this.get();
   } 
 
-  get(){
-    fetch(this.url6)
-    .then(response => response.json()) 
-    .then((quotesData) => (this.data7 = quotesData));
-    console.log(this.data7.id);
 
-    if(this.rutaActiva.snapshot.params['id']){
-      const id_actual= this.rutaActiva.snapshot.params['id']
+  get(){
+      const id_actual= parseInt(this.rutaActiva.snapshot.params['id'])
       const url = `${this.apiUrl}/${id_actual}`;
 
       fetch(url)
@@ -281,12 +289,13 @@ pagina(p: any){
         console.error(error); 
       });
 
-      fetch(this.url1)
+      let buscar= 'Buscar';
+      const url1 = `${this.url1}/${buscar}`;
+      fetch(url1)
       .then((response) => response.json())
-      .then((quotesData) => (this.data6 = quotesData));
-        this.contenido1.sensors.push(this.data6);
-        this.contenido1.sensors.pop() 
-    }
+      .then(data => {
+        this.contenido1.sensors= data;
+      })
 }
 
 }

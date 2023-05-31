@@ -18,13 +18,22 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: DevicesNewComponent
-      },
-      {
-        path: ':id',
         children: [
           {
-            path: 'edit',
+            path: ':id',
+            component: DevicesNewComponent
+          },
+          {
+            path: '**',
+            component: DevicesNewComponent
+          }
+        ]
+      },
+      {
+        path: 'edit',
+        children: [
+          {
+            path: ':id',
             component: DevicesEditComponent
           },
           {

@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json())
 
 con.connect(function(err) {
-  app.get("/api/max/device_configurations", (req,res)=>{ /*/ ID  /*/
+  app.get("/api/max/device_configurations", (req,res)=>{ /*/ MAX  /*/
     con.query("SELECT id FROM device_configurations WHERE id=(SELECT max(id) FROM device_configurations)", function (err, result) {
       if (err) throw err;
         res.send(result)
@@ -181,6 +181,7 @@ if (err) throw err;
       con.query("SELECT * FROM sensors_types WHERE type=?",type0, function (err, result) {
       if (err) throw err;
         res.send(result)
+        
     }); 
   }
 

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DevicesListComponent implements OnInit{
   title = 'HTTP using native fetch API';
+  private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
   private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
@@ -14,7 +15,7 @@ export class DevicesListComponent implements OnInit{
   private url3: string = 'http://localhost:5172/api/duplicate/device_configurations';
   data3: any;
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
-
+  id= 1;
   timeout: any = null;
   dup_ok=false;
   dup_not=false;
@@ -98,7 +99,15 @@ export class DevicesListComponent implements OnInit{
 
   ngOnInit(): void {
     this.get();
-    this.get();
+
+    console.log(this.id)
+      fetch(this.url6)
+      .then(response => response.json())
+      .then(data => {
+        this.id= parseInt(data[0].id)+1;
+        console.log(this.id);
+      })
+    console.log(this.id)
   }
 
   borrar(){
