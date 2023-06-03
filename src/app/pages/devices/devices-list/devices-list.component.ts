@@ -23,6 +23,11 @@ export class DevicesListComponent implements OnInit{
   buscar='Buscar';
   cont=true;
 
+  ver_dup=false;
+  pencil_dup=false;
+  ver_list=false;
+  ver_map=false;
+
 
   busqueda = {
     value: '', 

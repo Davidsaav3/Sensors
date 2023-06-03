@@ -12,7 +12,10 @@ export class DevicesNewComponent  implements OnInit{
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data: any;
+  
   mostrar=true;
+  ver_rec= false;
+  mostrar3= true;
 
   contenido = {
     uid: '',    

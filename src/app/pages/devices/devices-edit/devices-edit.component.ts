@@ -17,6 +17,8 @@ export class DevicesEditComponent implements OnInit{
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   private url4: string = 'http://localhost:5172/api/update/device_configurations';
   mostrar=true;
+  mostrar3= true;
+  ver_rec= false;
 
   act_ok= false;
   act_not= false;

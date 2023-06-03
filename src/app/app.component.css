@@ -25,6 +25,22 @@ h1,h2,h3,h4,p,a,.btn, span, label{
     margin-bottom: 0em;
 }
 
+.c10{
+  width: 68.5%;
+}
+
+.c100{
+  width: 98.5%;
+}
+
+.c20{
+  width: 50%;
+}
+
+.c200{
+  width: 100%;
+}
+
 .cont1{
     background-color: white;
     padding: 1em;

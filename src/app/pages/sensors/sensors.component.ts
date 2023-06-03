@@ -8,9 +8,13 @@ import { Component , OnInit} from '@angular/core';
 
 export class SensorsComponent implements OnInit{
 
+  ver_dup=false;
+  pencil_dup=false;
+
   timeout: any = null;
   mostrar=false;
   mostrar2= false;
+  mostrar3= true;
   alert_delete: any= false;
   alert_new: any= false;
   not_delete: any= false;
@@ -71,6 +75,7 @@ export class SensorsComponent implements OnInit{
   m3(){
     this.mostrar2= false;
     this.mostrar= false;
+    this.tam();
   }
 
   eliminar(id_actual: any){
@@ -86,6 +91,7 @@ export class SensorsComponent implements OnInit{
     this.mostrar2=false;
     this.alert_delete= true;
     this.get();
+    this.tam();
   }
 
   ocultar(){
@@ -104,6 +110,7 @@ export class SensorsComponent implements OnInit{
     this.mostrar2=false;
     this.get();
     this.guardar_ok= true;
+    this.tam();
   }
 
   submit(){
@@ -117,6 +124,7 @@ export class SensorsComponent implements OnInit{
     this.mostrar=false;
     this.alert_new= true;
     this.get();
+    this.tam();
   }
 
   duplicate(){
@@ -136,6 +144,7 @@ export class SensorsComponent implements OnInit{
       console.error(error); 
     });
     this.get();
+    this.tam();
   }
 
   
@@ -145,12 +154,23 @@ export class SensorsComponent implements OnInit{
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
         $this.get();
+        $this.tam();
       }
     }, 500);
   }
  
   ngOnInit(): void {
     this.get();
+    this.tam();
+  }
+
+  tam(){
+    if (this.mostrar==true || this.mostrar2==true) {
+      this.mostrar3= false;
+    }
+    else{
+      this.mostrar3= true;
+    }
   }
 
   get(){

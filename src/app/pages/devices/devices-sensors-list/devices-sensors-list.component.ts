@@ -27,6 +27,8 @@ export class DevicesSensorsListComponent  implements OnInit{
   data7: any= null;
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
+  ver_can=false;
+
   sin= true;
   eliminarlo: any;
 

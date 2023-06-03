@@ -1,12 +1,12 @@
 <div class="row cont0">
     <div class="row p-0 m-0">
-        <div class="col-lg-6 col-md-12 col-12 p-0" *ngIf="mostrar"> <!-- Devices -->
+        <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> <!-- Devices -->
             <div class="cont1">
 
                 <div class="row c1">
                     <div class="col-12">
                         <div class="row pb-3">
-                            <div class="col-9"> 
+                            <div class="col-8"> 
                                 <h2>Dispositivo {{contenido.uid}}</h2>
                                     <div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
                                     ¡ Dsipositivo guardado !
@@ -23,6 +23,14 @@
                                         <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
                                     </label>
                                 </div>
+                            </div> 
+                            <div class="col-1" style="cursor: pointer; display: flex; justify-content: flex-end;">
+                                <svg class="text-right" *ngIf="mostrar" (click)="mostrar=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
+                                </svg>
+                                <svg class="text-right" *ngIf="!mostrar" (click)="mostrar=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                                </svg>
                             </div> 
                         </div>
 
@@ -83,27 +91,28 @@
             </div> <!-- end Devices -->
         </div>
 
-        <div class="p-0 col-lg-6 col-md-12 col-12" [style]="{'min-width: -webkit-fill-available;': mostrar}">
+        <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3, 'c20': this.mostrar3}">
             <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- Devices -->
 
                 <div class="c4 d-flex justify-content-between">
-                    <div class="" (click)="recargar()" style="cursor: pointer;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                    <div class="col-3" (click)="recargar()" style="cursor: pointer;">
+                        <svg *ngIf="!ver_rec" (mouseover)="ver_rec=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
                             <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
                         </svg>
+                        <p *ngIf="ver_rec" (mouseout)="ver_rec=false" class="m-0">Restablecer posición</p>
                     </div>
-                    <div class="" > 
-                    <h5 class="text-center">{{contenido.alias}}</h5>
+                    <div class="col-6" >y
+                        <h5 class="text-center">{{contenido.alias}}</h5>
                     </div>
-                    <div class="" style="cursor: pointer;">
-                        <svg class="text-right" *ngIf="mostrar" (click)="mostrar=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                    <div class="col-3" style="cursor: pointer; cursor: pointer; display: flex; justify-content: flex-end;">
+                        <svg class="text-right" *ngIf="mostrar3" (click)="mostrar3=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
                         </svg>
-                        <svg class="text-right" *ngIf="mostrar==false" (click)="mostrar=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                        <svg class="text-right" *ngIf="!mostrar3" (click)="mostrar3=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
                         </svg>
-                    </div> 
+                    </div>  
                 </div>	
 
                 <div class="c5 p-0 m-0" >
