@@ -1,4 +1,5 @@
 import { Component , OnInit} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sensors',
@@ -7,6 +8,18 @@ import { Component , OnInit} from '@angular/core';
 })
 
 export class SensorsComponent implements OnInit{
+
+  public activeLang = 'es';
+  constructor(
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang(this.activeLang);
+  }
+
+  public cambiarLenguaje(lang: any) {
+    this.activeLang = lang;
+    this.translate.use(lang);
+  }
 
   ver_dup=false;
   pencil_dup=false;

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesNewComponent  implements OnInit{
+  
   constructor(private router: Router) { }
 
   title = 'HTTP using native fetch API';

@@ -14,6 +14,10 @@ import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.
 import { SensorsComponent } from './pages/sensors/sensors.component';
 import { DevicesSensorsListComponent } from './pages/devices/devices-sensors-list/devices-sensors-list.component';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,10 +32,20 @@ import { DevicesSensorsListComponent } from './pages/devices/devices-sensors-lis
     DevicesSensorsListComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http);
+        },
+        deps: [ HttpClient ]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
