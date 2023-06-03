@@ -1,12 +1,9 @@
 <div class="" *ngIf="sin"> <!-- Devices -->	
-	<div class="row">
-		<div class="col-3"> <!-- Buscar -->
+	<div class="row pb-3">
+		<div class="col-4 col-sm-4"> <!-- Buscar -->
             <button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
 		</div>
-		<div class="col-2"> <!-- Buscar -->
-			<a type="button" (click)="update2()" class="ms-3">Guardar</a>
-		</div>
-		<div class="col-7 d-flex justify-content-end"> <!-- Paginador -->
+		<div class="col-5 col-sm-6 d-flex justify-content-end"> <!-- Paginador -->
 			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
 				¡ Sensores guardados !
 			  </div>
@@ -19,26 +16,19 @@
 			  <div *ngIf="eliminar_not" class="alert alert-success me-3 py-1" role="alert">
 				Error al eliminar el sensor
 			  </div>
-
-			<nav aria-label="Page navigation example">
-				<ul class="pagination">
-				  <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-				  <li class="page-item"><a class="page-link" href="#">1</a></li>
-				  <li class="page-item"><a class="page-link" href="#">2</a></li>
-				  <li class="page-item"><a class="page-link" href="#">3</a></li>
-				  <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-				</ul>
-			</nav>
+		</div>
+		<div class="col-3 col-sm-2"> <!-- Buscar -->
+			<a type="button" (click)="update2()" class="btn ">Guardar</a>
 		</div>
 	</div>	
 
 	<div class="row">
 		<div class="col-12"> 
-			<div class="over" style="max-height: 40vh;"> 
-			<table class="table">
+			<div class="over" style="max-height: 37vh;"> 
+			<table class="table table-hover">
 				<thead>
 				  <tr>
-                    <th scope="col">Order</th>
+          <th scope="col">Order</th>
 					<th scope="col">Type</th>
 					<th scope="col">Datafield</th>
 					<th scope="col">Nodata</th>

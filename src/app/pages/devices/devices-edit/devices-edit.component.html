@@ -1,16 +1,14 @@
 <div class="row cont0">
-    <div class="row">
+    <div class="row p-0 m-0">
         <div class="col-lg-6 col-md-12 col-12 p-0" *ngIf="mostrar"> <!-- Devices -->
             <div class="cont1">
 
                 <div class="row c1">
                     <div class="col-12">
-                        <div class="row">
-                            <div class="col"> 
+                        <div class="row pb-3">
+                            <div class="col-9"> 
                                 <h2>Dispositivo {{contenido.uid}}</h2>
-                            </div>
-                            <div class="col-3"> 
-                                <div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
+                                    <div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
                                     ¡ Dsipositivo guardado !
                                   </div>
                                   <div *ngIf="act_not" class="alert alert-success me-3 py-1" role="alert">
@@ -96,7 +94,7 @@
                         </svg>
                     </div>
                     <div class="" > 
-                    <h5 class="text-center">Universidad de alicante</h5>
+                    <h5 class="text-center">{{contenido.alias}}</h5>
                     </div>
                     <div class="" style="cursor: pointer;">
                         <svg class="text-right" *ngIf="mostrar" (click)="mostrar=false" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
@@ -181,29 +179,24 @@
 
     </div>
 
-    <div class="row">
+    <div class="row p-0 m-0">
         <div class="col-12 p-0"> <!-- Devices -->
-            <div class="cont3">
-
                 <div class="row">
                     <div class="col-md-6 col-12">
-                        <div class="col-md-6 col-12 mt-3">
-                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar dispositivo</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-12">
                         <div class="row">
-                            <div class="col-md-6 col-12 mt-3">
-                                <a type="button navb" routerLink="/devices" class="btn btn-secondary text-light navb text-light" style="width: 100%">Cancelar</a>
+                            <div class="col-md-6 col-12 mt-1 pb-3">
+                                <a type="button navb" class="btn btn-secondary text-light navb text-light" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cancelar</a>
                             </div>
-                            <div class="col-md-6 col-12 mt-3">
+                            <div class="col-md-6 col-12 mt-1 pb-3">
                                 <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()">Guardar</button>
                             </div>
                         </div>
                     </div>
-
-                </div>
-
+                    <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">Eliminar dispositivo</button>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -235,6 +228,30 @@
                 </div>
                 <div class="col-6">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">Eliminar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">Salir sin guardar ?</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">No se guardará el dispositivo editado.</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/devices">Salir</button>
                 </div>
             </div>
           </div>

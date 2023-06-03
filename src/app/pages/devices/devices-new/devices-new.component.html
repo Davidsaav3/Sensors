@@ -1,15 +1,15 @@
 <div class="row cont0">
-    <div class="row">
+    <div class="row p-0 m-0">
         <div class="col-lg-6 col-md-12 col-12 p-0" *ngIf="mostrar"> <!-- Devices -->
             <div class="cont1">
 
                 <div class="row c1">
                     <div class="col-12">
-                        <div class="row">
-                            <div class="col"> 
+                        <div class="row pb-3">
+                            <div class="col-9"> 
                                 <h2>Nuevo dispositivo</h2>
                             </div>
-                            <div class="col d-flex justify-content-end"> 
+                            <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1">
                                         <input type="checkbox" checked [(ngModel)]="contenido.enable">
@@ -172,27 +172,20 @@
 
     </div>
 
-    <div class="row">
-        <div class="col-12 p-0"> <!-- Devices -->
-            <div class="cont3">
 
+    <div class="row p-0 m-0">
+        <div class="col-12 p-0"> <!-- Devices -->
                 <div class="row">
                     <div class="col-md-6 col-12">
-        
-                    </div>
-                    <div class="col-md-6 col-12">
                         <div class="row">
-                            <div class="col-md-6 col-12 mt-3">
+                            <div class="col-md-6 col-12 mt-1 pb-3">
                                 <a type="button navb" routerLink="/devices" class="btn btn-secondary text-light navb" style="width: 100%">Cancelar</a>
                             </div>
-                            <div class="col-md-6 col-12 mt-3">
+                            <div class="col-md-6 col-12 mt-1 pb-3">
                                 <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()">Guardar</button>
                             </div>
                         </div>
                     </div>
-
-                </div>
-
             </div>
         </div>
     </div>
@@ -255,3 +248,22 @@
       </div>
 </div>
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

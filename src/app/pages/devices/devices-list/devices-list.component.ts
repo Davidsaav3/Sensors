@@ -16,13 +16,17 @@ export class DevicesListComponent implements OnInit{
   data3: any;
   apiUrl: string = 'http://localhost:5172/api/id_device/sensors_devices';
   id= 1;
+  private url1: string = 'http://localhost:5172/api/get/sensors_types';
   timeout: any = null;
   dup_ok=false;
   dup_not=false;
   buscar='Buscar';
+  cont=true;
+
 
   busqueda = {
     value: '', 
+    id_type_sensor: '',
   }
 
   contenido = {
@@ -56,6 +60,28 @@ export class DevicesListComponent implements OnInit{
     ]
   }
 
+  contenido1 = {
+    sensors : [
+      {
+        id: 1, 
+        type: 'CO2',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      },
+      {
+        id: 1, 
+        type: 'Humedad',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      }]
+  }
+
   update = {
     id_device: '1'
   };
@@ -70,7 +96,7 @@ export class DevicesListComponent implements OnInit{
       body: JSON.stringify(this.contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
-    .then(response => response.json()) 
+    .then(response => response.json())
     this.dup_ok=true;
   }
 
@@ -108,6 +134,16 @@ export class DevicesListComponent implements OnInit{
         console.log(this.id);
       })
     console.log(this.id)
+
+    //
+
+    let buscar= 'Buscar';
+    const url1 = `${this.url1}/${buscar}`;
+    fetch(url1)
+    .then((response) => response.json())
+    .then(data => {
+      this.contenido1.sensors= data;
+    })
   }
 
   borrar(){

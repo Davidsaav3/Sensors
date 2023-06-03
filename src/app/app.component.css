@@ -1,17 +1,23 @@
 .nav{
     margin: 1em;
 }
+.cc2{
+  margin: 1em;
+  margin-top: 0em;
+}
+
+h1,h2,h3,h4,p,a,.btn, span, label{
+  font-weight: 500;
+} 
 
 .navb{
-    width: 31%;
+    width: 49%;
 }
 
 .cont{
     background-color: white;
-    margin: 1em;
-    padding: 1em;
     border-radius: 10px;
-    height: min-content;
+    height: 88vh;
 }
 
 .cont0{
@@ -24,7 +30,7 @@
     padding: 1em;
     border-radius: 10px;
     margin-bottom: 1em;
-    min-height: 80vh;
+    min-height: 87vh;
 }
 
 .cont2{
@@ -32,6 +38,7 @@
     border-radius: 10px;
     height: max-content;
     margin-bottom: 1em;
+    min-height: 87vh;
 }
 
 .cont3{
@@ -70,9 +77,8 @@ a{
 }
 
 .c2{
-    margin-top: 2em;
+    padding-top: 1em;
     height: max-content;
-    max-height: 46vh;
 }
 
 .c3{

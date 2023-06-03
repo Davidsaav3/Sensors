@@ -1,215 +1,203 @@
-<div class="cont"> <!-- Devices -->	
+<div class="nav mb-0">
+	<div class="col-8 col-lg-6 p-0 pb-3">
+	  <div class="d-flex justify-content-between w-100">
+		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3">Dispositivos</a>
+		<a type="button" routerLink="/sensors" class="btn btn-info navb">Tipos de Sensores</a>
+	  </div>
+	</div>
+	<div class="col-4 col-lg-3 pb-3 ps-3">
+		<div *ngIf="guardar_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
+			Error al guardar el sensor
+		</div>
+		<div *ngIf="guardar_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+			¡ Sensor guardado !
+		</div>
+		<div *ngIf="alert_delete" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
+			¡ Sensor borrado !
+		</div>
+		<div *ngIf="alert_new" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+			¡ Sensor creado !
+		</div>
+		<div *ngIf="not_new" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+			Error al crear el sensor
+		</div>
+		<div *ngIf="not_delete" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+			Error al borrar el sensor
+		</div>
+	</div>
+	<div class="col-12 col-lg-3 d-none d-md-none d-lg-block p-0">
+	  <div class="d-flex justify-content-end">
+		<img src="../../assets/logo.png">
+	  </div>
+	</div>
+  </div>
 
-    <div class="row">
-        <div class="col-lg-4 col-md-12 col-12"> <!-- Buscar -->
-            <div class="input-group mb-3 w-100">
-                <input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="Buscar sensores..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" (click)="borrar()">Borrar</button>
-                </div>
-            </div>
-        </div> 
-        <div class="col-lg-3 col-md-4 col-4"> <!-- Nuevo sensor -->
-			<button type="button" class="btn btn-info" (click)="m1()">Nuevo sensor</button>
-        </div>
-        <div class="col-lg-5 col-md-8 col-8 d-flex justify-content-end"> <!-- Paginador -->
-
-			<div *ngIf="guardar_not" class="alert alert-success me-3 py-1" role="alert">
-				Error al guardar el sensor
-			</div>
-			<div *ngIf="guardar_ok" class="alert alert-success me-3 py-1" role="alert">
-				¡ Sensor guardado !
-			</div>
-			<div *ngIf="alert_delete" class="alert alert-success me-3 py-1" role="alert">
-				¡ Sensor borrado !
-			</div>
-			<div *ngIf="alert_new" class="alert alert-success me-3 py-1" role="alert">
-				¡ Sensor creado !
-			</div>
-			<div *ngIf="not_new" class="alert alert-danger me-3 py-1" role="alert">
-				Error al crear el sensor
-			</div>
-			<div *ngIf="not_delete" class="alert alert-danger me-3 py-1" role="alert">
-				Error al borrar el sensor
-			</div>
-
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>	
-
-	<div class="row flex-row-reverse">
-
-	<div class="col-12 col-md-4 nuevo m-0" *ngIf="mostrar">
-		<form class="row needs-validation" style="align-content: space-between;"> 
-			<div class="col-12">
-			<div class="row">
-				<div class="col-12">
-					<div class="row">
-						<h1>Nuevo sensor</h1>
+<div class="m-0 p-0 row d-flex">
+	<div class="cc2 cont me-0" style="width: 68.5%;"> <!-- Devices -->
+		<div class="p-3 pb-0">
+				<div class="row d-flex" style="justify-content: space-around">
+					<div class="col-6 col-sm-6 col-lg-4 mb-3">
+						<div class="input-group w-100">
+							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="Buscar sensores..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button" (click)="borrar()">Borrar</button>
+								</div>
+							</div>
+						</div>
+					<div class="col-6 col-sm-6 col-lg-8 d-flex " style="justify-content: flex-end;">
+					<div>
+						<button type="button" class="btn btn-info" (click)="m1()">Nuevo sensor</button>
 					</div>
 				</div>
+			</div>	
+		</div>
+
+		<div class="row flex-row-reverse " style="height: 76vh;">
+			<div class="col-12 over" style="max-height: 77vh;"> 
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Type</th>
+							<th scope="col">Metric</th>
+							<th scope="col">Description</th>
+							<th scope="col" style="text-align: center;">Duplicate</th>
+							<th scope="col" style="text-align: center;">Editar</th>
+						</tr>
+					</thead>
+					<tbody *ngFor="let quote of data">
+						<tr (click)="num(quote.id)" style="cursor: pointer;">
+						<th scope="col">{{ quote.id }}</th>
+							<td>{{ quote.type }}</td>
+							<td>{{ quote.metric }}</td>
+							<td>{{ quote.description }}</td>
+							<td style="text-align: center;" (click)="duplicate()">                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+								<path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+								<path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+							</svg>
+							</td>
+							<td style="color: black; text-align: center;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+								</svg>
+							</td>
+						</tr>	
+					</tbody>
+				</table>
+			</div>		
+		</div> 
+	</div>
+
+
+
+	<div class="cc2 cont" *ngIf="mostrar" style="width: 28.5%;">
+		<form class="row needs-validation p-3"> 
+			<div class="col-12">
 				<div class="row">
-					<div class="col-md-126">
+					<div class="col-12">
+						<h1>Nuevo sensor</h1>
+					</div>
+					<div class="col-12 pt-3">
 						<label for="type" class="form-label">Type</label>
 						<input type="text" class="form-control" id="type" name="type" [(ngModel)]="contenido_new.type" required>
 						<div class="valid-feedback">Type inválido</div>
 					</div>
-					<div class="col-md-12">
+					<div class="col-12 mt-2">
 						<label for="metric" class="form-label">Metric</label>
 						<input type="text" class="form-control" id="metric" name="metric" [(ngModel)]="contenido_new.metric" required>
 					</div>
-				</div>
-	
-				<div class="row">
-					<div class="col-md-12">
+		
+					<div class="col-md-12 mt-2">
 						<label for="description" class="form-label">Description</label>
 						<input type="text" class="form-control" id="description" name="description" [(ngModel)]="contenido_new.description" required>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-12 mt-5">
 						<label for="errorvalue" class="form-label">Error value</label>
 						<input type="text" class="form-control" id="errorvalue" name="errorvalue" [(ngModel)]="contenido_new.errorvalue">
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-6 mt-2">
 						<label for="valuemin" class="form-label">Value min</label>
 						<input type="text" class="form-control" id="valuemin" name="valuemin" [(ngModel)]="contenido_new.valuemin">
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-6 mt-2">
 						<label for="valuemax" class="form-label">Value max</label>
 						<input type="text" class="form-control" id="valuemax" name="valuemax" [(ngModel)]="contenido_new.valuemax">
 					</div>
 				</div>
 			</div>
+
+			<div class="col-12 mt-5">
+				<div class="row">
+					<div class="col-6 mt-3">
+						<a ng-click="ocultar = true" type="button navb"class="btn btn-secondary text-light navb me-3" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="width: 100%">Cancelar</a>
+					</div>
+					<div class="col-6 mt-3">
+						<a ng-click="ocultar = true" type="button navb submit" (click)="submit()" class="btn btn-info navb me-3" style="width: 100%">Guardar</a>
+					</div>	
+				</div>
 			</div>
 
-			
-			<div class="col-12">
-			<div class="row mt-4">
-				<div class="col-md-6 pb-2 pt-2">
-					<a ng-click="ocultar = true" type="button navb"(click)="m3()"  class="btn btn-secondary text-light navb me-3" style="width: 100%">Cancelar</a>
-				</div>
-				<div class="col-md-6 pt-2">
-					<a ng-click="ocultar = true" type="button navb submit" (click)="submit()" class="btn btn-info navb me-3" style="width: 100%">Guardar</a>
-				</div>
-			</div>
-			</div>
 		</form>
-
-		<script>
-			(() => {
-				'use strict'
-
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				const forms = document.querySelectorAll('.needs-validation')
-
-				// Loop over them and prevent submission
-				Array.from(forms).forEach(form => {
-					form.addEventListener('submit', event => {
-					if (!form.checkValidity()) {
-						event.preventDefault()
-						event.stopPropagation()
-					}
-
-					form.classList.add('was-validated')
-					}, false)
-				})
-			})()
-		</script>
-		
 	</div>
-				
 
-	<div class="col-12 nuevo m-0 col-md-4" *ngIf="mostrar2">
-		<form class="row needs-validation"> 
+
+
+	<div class="cc2 cont" *ngIf="mostrar2" style="width: 28.5%;">
+		<form class="row needs-validation p-3"> 
 			<div class="col-12">
 				<div class="row">
-					<h1>Sensor de {{ contenido.type }}</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<label for="type" class="form-label">Type</label>
-					<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
-					<div class="valid-feedback">Type inválido</div>
-				</div>
-				<div class="col-md-12">
-					<label for="metric" class="form-label">Metric</label>
-					<input type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<label for="description" class="form-label">Description</label>
-					<input type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description" required>
-				</div>
-				<div class="col-md-6">
-					<label for="errorvalue" class="form-label">Error value</label>
-					<input type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
-				</div>
-				<div class="col-md-3">
-					<label for="valuemin" class="form-label">Value min</label>
-					<input type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
-				</div>
-				<div class="col-md-3">
-					<label for="valuemax" class="form-label">Value max</label>
-					<input type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax }}" [(ngModel)]="contenido.valuemax">
+					<div class="col-12">
+						<h1>Sensor de {{ contenido.type }}</h1>
+					</div>
+					<div class="col-12 pt-3">
+						<label for="type" class="form-label">Type</label>
+						<input type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
+						<div class="valid-feedback">Type inválido</div>
+					</div>
+					<div class="col-12 mt-2">
+						<label for="metric" class="form-label">Metric</label>
+						<input type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
+					</div>
+					<div class="col-md-12 mt-2">
+						<label for="description" class="form-label">Description</label>
+						<input type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description" required>
+					</div>
+					<div class="col-md-12 mt-5">
+						<label for="errorvalue" class="form-label">Error value</label>
+						<input type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
+					</div>
+					<div class="col-md-6 mt-2">
+						<label for="valuemin" class="form-label">Value min</label>
+						<input type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
+					</div>
+					<div class="col-md-6 mt-2">
+						<label for="valuemax" class="form-label">Value max</label>
+						<input type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax }}" [(ngModel)]="contenido.valuemax">
+					</div>
 				</div>
 			</div>
 
-			<div class="row mt-4">
-					<div class="col-md-6 col-6 pt-2">
+
+			<div class="col-12 mt-5">
+				<div class="row">
+					<div class="col-6 mt-3">
+						<a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">Cancelar</a>
+					</div>
+					<div class="col-6 mt-3">
+						<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" >Guardar</button>
+					</div>	
+					<div class="col-12 mt-3">
 						<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">Eliminar sensor</button>
 					</div>
-					<div class="col-md-3 col-3 pt-2">
-						<a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" (click)="m3()">Cancelar</a>
-					</div>
-					<div class="col-md-3 col-3 pt-2">
-						<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" >Guardar</button>
-					</div>		
+				</div>
 			</div>
+			
 		</form>
 	</div>
+</div>
 
-		<div class="col-12 col-md-8 over" style="max-height: 80vh;"> 
-			<table class="table ">
-				<thead>
-				  <tr>
-					<th scope="col">Id</th>
-					<th scope="col">Type</th>
-					<th scope="col">Metric</th>
-					<th scope="col">Description</th>
-					<th scope="col" style="text-align: center;">Editar</th>
-				  </tr>
-				</thead>
-				<tbody *ngFor="let quote of data">
-				  <tr (click)="num(quote.id)" style="cursor: pointer;">
-					<th scope="col">{{ quote.id }}</th>
-					<td>{{ quote.type }}</td>
-                    <td>{{ quote.metric }}</td>
-					<td>{{ quote.description }}</td>
-					<td style="color: black; text-align: center;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-							<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-						</svg>
-					</td>
-				  </tr>	
-				</tbody>
-			  </table>
-        </div>
 
-			
-			
-		</div> 
-
-</div> <!-- end Sensors -->
 
 
 
@@ -230,6 +218,30 @@
                 </div>
                 <div class="col-6">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">Eliminar</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">Salir sin guardar ?</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">No se guardará el dispositivo editado.</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="m3()">Salir</button>
                 </div>
             </div>
           </div>

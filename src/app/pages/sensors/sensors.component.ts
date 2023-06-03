@@ -119,6 +119,10 @@ export class SensorsComponent implements OnInit{
     this.get();
   }
 
+  duplicate(){
+    
+  }
+
   num(id_actual: any){
     this.m2();
     this.mostrar2=true;
