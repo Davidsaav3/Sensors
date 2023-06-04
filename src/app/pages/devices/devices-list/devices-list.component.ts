@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-devices-list',
@@ -6,6 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesListComponent implements OnInit{
+
+  public activeLang = 'es';
+  constructor(
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang(this.activeLang);
+  }
+
+  public cambiarLenguaje(lang: any) {
+    this.activeLang = lang;
+    this.translate.use(lang);
+  }
+
   title = 'HTTP using native fetch API';
   private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url: string = 'http://localhost:5172/api/get/device_configurations';

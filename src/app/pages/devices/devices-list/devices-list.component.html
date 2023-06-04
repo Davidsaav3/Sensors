@@ -1,23 +1,29 @@
 <div class="nav mb-0">
-  <div class="col-8 col-lg-6 p-0 pb-3">
-    <div class="d-flex justify-content-between w-100">
-      <a type="button navb" routerLink="/devices" class="btn btn-info navb me-3">Dispositivos</a>
-      <a type="button" routerLink="/sensors" class="btn btn-info navb">Tipos de Sensores</a>
-    </div>
-  </div>
-  <div class="col-4 col-lg-3 pb-3 ps-3">
+	<div class="col-8 col-lg-6 p-0 pb-3">
+	  <div class="d-flex justify-content-between w-100">
+		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
+		<a type="button" routerLink="/sensors" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
+	  </div>
+	</div>
+	<div class="col-4 col-lg-2 pb-3 ps-3">
       <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
-        ¡ Dispositivo duplicado !
+        {{ 'devices.list.e1' | translate }}
       </div>
       <div *ngIf="dup_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
-        Error al duplicar el dispositivo
+        {{ 'devices.list.e2' | translate }}
       </div>
   </div>
-  <div class="col-12 col-lg-3 d-none d-md-none d-lg-block p-0">
-    <div class="d-flex justify-content-end">
-      <img src="../../assets/logo.png">
-    </div>
-  </div>
+  <div class="col-12 col-lg-4 d-none d-md-none d-lg-block p-0 ">
+		<div class="row">
+			<div class="d-flex col-3">
+					<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
+					<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
+			</div>
+			<div class="col-8 d-flex justify-content-end ms-4 p-0">
+				<img src="../../assets/logo.png" width="350px">
+			</div>
+	  </div>
+	</div>
 </div>
 
 <div class="cc2 cont" > <!-- Devices -->
@@ -51,9 +57,9 @@
 
         <div class="col-9 col-sm-6 col-lg-3 mb-3">
           <div class="input-group w-100">
-              <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="Buscar dispostivos..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="borrar()">Borrar</button>
+                <button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
               </div>
           </div>
         </div>
@@ -61,7 +67,7 @@
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
           <select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
-            <option selected value="0">Type</option>
+            <option selected value="0">{{ 'sensors.type' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
               <option value="{{xd.id}}">{{xd.type}}</option>
             </ng-container>
@@ -70,25 +76,25 @@
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
           <select class="form-select" aria-label="Default select example" id="timezone" name="timezone">
-            <option selected value="2">Todos</option>
-            <option value="1">Active</option>
-            <option value="0">Desactive</option>
+            <option selected value="2">{{ 'sensors.all' | translate }}</option>
+            <option value="1">{{ 'sensors.enable' | translate }}</option>
+            <option value="0">{{ 'sensors.disable' | translate }}</option>
           </select>
         </div>
 
 
         <div class="col-12 col-sm-12 col-lg-6 d-flex " style="justify-content: flex-end;">
           <div>
-            <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">Nuevo dispositivo</button>
+            <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
           </div>
           <div *ngIf="cont" class="ps-3">
             <nav aria-label="Page navigation example" style="width: max-content;">
                   <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Ant</a></li>
+                    <li class="page-item"><a class="page-link" href="#">{{ 'sensors.ant' | translate }}</a></li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Sig</a></li>
+                    <li class="page-item"><a class="page-link" href="#">{{ 'sensors.sig' | translate }}</a></li>
                   </ul>
             </nav>
           </div>
@@ -104,23 +110,23 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th scope="col">Uid</th>
-                    <th scope="col">Topic name</th>
-                    <th scope="col">Aplicaction Id</th>
-                    <th scope="col">Active</th>
-                    <th class="d-none d-md-none d-lg-block">Sensors</th>
-                    <th scope="col" style="text-align: center;">Duplicate</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center;">Editar</th>
+                    <th scope="col">{{ 'devices.edit.uid' | translate }}</th>
+                    <th scope="col">{{ 'devices.edit.topic' | translate }}</th>
+                    <th scope="col">{{ 'devices.edit.aplication' | translate }}</th>
+                    <th scope="col">{{ 'sensors.enable' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block">{{ 'sensors.sensors' | translate }}</th>
+                    <th scope="col" style="text-align: center;">{{ 'sensors.duplicate' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center;">{{ 'sensors.edit' | translate }}</th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   <tr *ngFor="let quote of data" style="cursor: pointer;">
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]">{{ quote.application_id }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]" >
-                      <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">Activado</p></span>
-                      <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">Desactivado</p></span>
+                      <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.enable' | translate }}</p></span>
+                      <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.disable' | translate }}</p></span>
                     </td>
                     <td [routerLink]="['/devices/edit/', quote.id]" class="d-none d-md-none d-lg-block d-flex">
                       <div *ngFor="let quote2 of quote.sensor" style="display: inline-block; height: min-content;">
@@ -128,7 +134,7 @@
                         <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                       </div>
                       <div *ngIf="quote.sensor.length==0" style="display: inline-block; height: min-content;">
-                        <p class="m-0">Sin sensores</p>
+                        <p class="m-0">{{ 'sensors.sin_sensores' | translate }}</p>
                       </div>
                     </td>
                     <td style="text-align: center;" [routerLink]="['/devices/edit/', this.id]" (click)="duplicate()">                      

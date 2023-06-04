@@ -1,24 +1,24 @@
 <div class="" *ngIf="sin"> <!-- Devices -->	
 	<div class="row pb-3">
 		<div class="col-4 col-sm-4"> <!-- Buscar -->
-            <button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
+            <button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 		</div>
 		<div class="col-5 col-sm-6 d-flex justify-content-end"> <!-- Paginador -->
 			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
-				¡ Sensores guardados !
+				{{ 'devices.sensors.e1' | translate }}
 			  </div>
 			  <div *ngIf="act_not" class="alert alert-success me-3 py-1" role="alert">
-				Error al guardar los sensores
+          {{ 'devices.sensors.e2' | translate }}
 			  </div>
 			  <div *ngIf="eliminar_ok" class="alert alert-success me-3 py-1" role="alert">
-				¡ Sensor eliminado !
+          {{ 'devices.sensors.e3' | translate }}
 			  </div>
 			  <div *ngIf="eliminar_not" class="alert alert-success me-3 py-1" role="alert">
-				Error al eliminar el sensor
+          {{ 'devices.sensors.e4' | translate }}
 			  </div>
 		</div>
 		<div class="col-3 col-sm-2"> <!-- Buscar -->
-			<a type="button" (click)="update2()" class="btn ">Guardar</a>
+			<a type="button" (click)="update2()" class="btn ">{{ 'sensors.save' | translate }}</a>
 		</div>
 	</div>	
 
@@ -28,12 +28,12 @@
 			<table class="table table-hover">
 				<thead>
 				  <tr>
-          <th scope="col">Order</th>
-					<th scope="col">Type</th>
-					<th scope="col">Datafield</th>
-					<th scope="col">Nodata</th>
-					<th scope="col">Activado</th>
-					<th scope="col" style="text-align: center;">Eliminar</th>
+          <th scope="col">{{ 'devices.sensors.order' | translate }}</th>
+					<th scope="col">{{ 'devices.sensors.type' | translate }}</th>
+					<th scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+					<th scope="col">{{ 'devices.sensors.nodate' | translate }}</th>
+					<th scope="col">{{ 'sensors.enable' | translate }}</th>
+					<th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
 				</thead>
 				<tbody *ngFor="let item of contenido.sensors;let i=index">
@@ -78,27 +78,27 @@
 
 
 <div class="text-center" *ngIf="!sin">
-	<h3>Añade sensores a este dispositivo</h3>
-	<button type="button" (click)="anyadir()" class="btn btn-info">Nuevo sensor</button>
+	<h3>{{ 'devices.sensors.add' | translate }}</h3>
+	<button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 </div>
 
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Eliminar sensor ?</h3>
+            <h3 class="modal-title">{{ 'devices.sensors.m1.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">Esta acción no es rebersible. Se borrará definitivamente este sensor.</p>
+            <p class="not">{{ 'devices.sensors.m1.2' | translate }}</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">Eliminar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">{{ 'sensors.delete' | translate }}</button>
                 </div>
             </div>
           </div>
@@ -110,19 +110,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Dispositivo desactivado</h3>
+            <h3 class="modal-title">{{ 'devices.sensors.m2.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">Hay dos sensores activados en la misma posición.</p>
+            <p class="not">{{ 'devices.sensors.m122' | translate }}</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">Aceptar</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">{{ 'sensors.acept' | translate }}</button>
                 </div>
             </div>
           </div>

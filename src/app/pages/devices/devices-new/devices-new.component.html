@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="row pb-3">
                             <div class="col-8"> 
-                                <h2>Nuevo dispositivo</h2>
+                                <h2>{{ 'sensors.edit.new_device' | translate }}</h2>
                             </div>
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
@@ -30,30 +30,30 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="uid" class="form-label">Uid</label>
+                                <label for="uid" class="form-label">{{ 'devices.edit.uid' | translate }}</label>
                                 <input type="text" class="form-control" id="uid" name="uid" [(ngModel)]="contenido.uid">
                             </div>
                             <div class="col-md-3">
-                                <label for="alias" class="form-label">Alias</label>
+                                <label for="alias" class="form-label">{{ 'devices.edit.alias' | translate }}</label>
                                 <input type="text" class="form-control" id="alias" name="alias" [(ngModel)]="contenido.alias">
                             </div>
                             <div class="col-md-6">
-                                <label for="organizationid" class="form-label">Organization Id</label>
+                                <label for="organizationid" class="form-label">{{ 'devices.edit.organization' | translate }}</label>
                                 <input type="text" class="form-control" id="organizationid" name="organizationid" [(ngModel)]="contenido.organizationid">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="typemeter" class="form-label">Typemeter</label>
+                                <label for="typemeter" class="form-label">{{ 'devices.edit.typemeter' | translate }}</label>
                                 <input type="text" class="form-control" id="typemeter" name="typemeter" [(ngModel)]="contenido.typemeter">
                             </div>
                             <div class="col-md-3">
-                                <label for="application_id" class="form-label">Aplication Id</label>
+                                <label for="application_id" class="form-label">{{ 'devices.edit.aplication' | translate }}</label>
                                 <input type="text" class="form-control" id="application_id"  name="application_id" [(ngModel)]="contenido.application_id">
                             </div>
                             <div class="col-md-3">
-                                <label for="topic_name" class="form-label">Topic Id</label>
+                                <label for="topic_name" class="form-label">{{ 'devices.edit.topic' | translate }}</label>
                                 <input type="text" class="form-control" id="topic_name" name="topic_name" [(ngModel)]="contenido.topic_name">
                             </div>
                                
@@ -61,11 +61,11 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="origin" class="form-label">Origin</label>
+                                <label for="origin" class="form-label">{{ 'devices.edit.origin' | translate }}</label>
                                 <input type="text" class="form-control" id="origin" name="origin" [(ngModel)]="contenido.origin">
                             </div>
                             <div class="col-md-6">
-                                <label for="description_origin" class="form-label">Description Origin</label>
+                                <label for="description_origin" class="form-label">{{ 'devices.edit.description' | translate }}</label>
                                 <input type="text" class="form-control" id="description_origin" name="description_origin" [(ngModel)]="contenido.description_origin">
                             </div>
                         </div>
@@ -112,21 +112,21 @@
                     <div class="col-12 col-lg-6 col-md-12 col-12"> 
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="lat" class="form-label">Longitud</label>
+                                <label for="lat" class="form-label">{{ 'devices.edit.long' | translate }}</label>
                                 <input type="text" class="form-control" id="lat"  name="lat" [(ngModel)]="contenido.lat">
                             </div>
                             <div class="col-md-4">
-                                <label for="lon" class="form-label">Latitud</label>
+                                <label for="lon" class="form-label">{{ 'devices.edit.lat' | translate }}</label>
                                 <input type="text" class="form-control" id="lon"  name="lon" [(ngModel)]="contenido.lon">
                             </div>
                             <div class="col-md-4">
-                                <label for="cota" class="form-label">Altura</label>
+                                <label for="cota" class="form-label">{{ 'devices.edit.alt' | translate }}</label>
                                 <input type="text" value="10" class="form-control" id="cota" name="cota" [(ngModel)]="contenido.cota">
                             </div>
                         </div>
                     </div> 
                     <div class="col-12 col-lg-6 col-md-12 col-12"> 
-                        <label for="timezone" class="form-label">Zona horaría</label>
+                        <label for="timezone" class="form-label">{{ 'devices.edit.zone' | translate }}</label>
                         <select class="form-select" aria-label="Default select example" id="timezone" name="timezone" [(ngModel)]="contenido.timezone">
                             <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
                             <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
@@ -184,10 +184,10 @@
                     <div class="col-md-6 col-12">
                         <div class="row">
                             <div class="col-md-6 col-12 mt-1 pb-3">
-                                <a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal3">Cancelar</a>
+                                <a type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal3">{{ 'sensors.cancel' | translate }}</a>
                             </div>
                             <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button type="button navb" class="btn btn-info" style="width: 100%" (click)="submit()" >Guardar</button>
+                                <button type="button navb" class="btn btn-info" style="width: 100%" (click)="submit()" >{{ 'sensors.save' | translate }}</button>
                             </div>
                         </div>
                     </div>
@@ -209,19 +209,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Eliminar device ?</h3>
+            <h3 class="modal-title">{{ 'sensors.edit.m5.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">Esta acción no es rebersible. Se borrará definitivamente este Device.</p>
+            <p class="not">{{ 'sensors.edit.m5.1' | translate }}</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-danger">{{ 'sensors.delete' | translate }}</button>
                 </div>
             </div>
           </div>
@@ -233,19 +233,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Device desactivado</h3>
+            <h3 class="modal-title">{{ 'sensors.edit.m3.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">Hay dos sensores activados en la misma posición.</p>
+            <p class="not">{{ 'sensors.edit.m3.2' | translate }}</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-info">Aceptar</button>
+                    <button type="button" class="btn btn-info">{{ 'sensors.acept' | translate }}</button>
                 </div>
             </div>
           </div>
@@ -257,19 +257,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Salir sin guardar ?</h3>
+            <h3 class="modal-title">{{ 'sensors.edit.m4.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">No se guardará el dispositivo creado.</p>
+            <p class="not">{{ 'sensors.edit.m4.2' | translate }}</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/devices">Salir</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
                 </div>
             </div>
           </div>
