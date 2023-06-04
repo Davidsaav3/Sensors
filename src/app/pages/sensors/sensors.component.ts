@@ -21,6 +21,9 @@ export class SensorsComponent implements OnInit{
     this.translate.use(lang);
   }
 
+  edit_change= false;
+  new_change= false;
+
   dup_ok=false;
   dup_not=false;
   id= 0;
@@ -130,8 +133,10 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json()) 
     this.mostrar2=false;
     this.alert_delete= true;
+    this.mostrar2= false;
     this.get();
     this.tam();
+    this.get();
   }
 
   ocultar(){
@@ -165,6 +170,7 @@ export class SensorsComponent implements OnInit{
     this.alert_new= true;
     this.get();
     this.tam();
+    this.get();
   }
 
 
@@ -182,6 +188,7 @@ export class SensorsComponent implements OnInit{
     });
     this.get();
     this.tam();
+    this.get();
   }
 
   
@@ -199,6 +206,7 @@ export class SensorsComponent implements OnInit{
   ngOnInit(): void {
     this.get();
     this.tam();
+    this.get();
   }
 
   tam(){

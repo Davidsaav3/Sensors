@@ -17,6 +17,7 @@ export class DevicesNewComponent  implements OnInit{
   mostrar=true;
   ver_rec= false;
   mostrar3= true;
+  change= false;
 
   contenido = {
     uid: '',    

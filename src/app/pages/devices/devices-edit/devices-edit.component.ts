@@ -22,6 +22,7 @@ export class DevicesEditComponent implements OnInit{
 
   act_ok= false;
   act_not= false;
+  change= false;
 
   contenido = {    
     id: '',    
