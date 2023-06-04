@@ -7,6 +7,8 @@
     "sensors.e4" : "¡Sensor creado!",
     "sensors.e5" : "Error al crear el sensor",
     "sensors.e6" : "Error al eliminar el sensor",
+    "sensors.e7" : "Sensor duplicado",
+    "sensors.e8" : "Error al duplicar el sensor",
     "sensors.buscar_sensores" : "Buscar sensores...",
     "sensors.buscar_dispositivos" : "Buscar dispositivos...",
     "sensors.nuevo_sensor" : "Nuevo sensor",

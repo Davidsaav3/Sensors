@@ -21,6 +21,33 @@ export class SensorsComponent implements OnInit{
     this.translate.use(lang);
   }
 
+  dup_ok=false;
+  dup_not=false;
+  id= 0;
+
+  private url5: string = 'http://localhost:5172/api/duplicate/sensors_types';
+  private url6: string = 'http://localhost:5172/api/max/sensors_types';
+
+  contenido3 = {
+    id: 1,    
+  }
+
+  duplicate(){
+    fetch(this.url5, {
+      method: "POST",
+      body: JSON.stringify(this.contenido3),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json())
+    this.dup_ok=true;
+    fetch(this.url6)
+    .then(response => response.json())
+    .then(data => {
+      this.id= parseInt(data[0].id)+1;
+      this.num(this.id)
+    })
+  }
+
   ver_dup=false;
   pencil_dup=false;
 
@@ -140,9 +167,6 @@ export class SensorsComponent implements OnInit{
     this.tam();
   }
 
-  duplicate(){
-    
-  }
 
   num(id_actual: any){
     this.m2();

@@ -185,6 +185,8 @@ if (err) throw err;
     }); 
   }
 
+
+  
   });
   if (err) throw err;
   const id21 = "1";
@@ -195,6 +197,19 @@ if (err) throw err;
         res.send(result)
     });
   });
+  app.get("/api/max/sensors_types", (req,res)=>{ /*/ MAX  /*/
+  con.query("SELECT id FROM sensors_types WHERE id=(SELECT max(id) FROM sensors_types)", function (err, result) {
+    if (err) throw err;
+      res.send(result)
+  });
+});
+  app.post("/api/duplicate/sensors_types", (req,res)=>{  /*/ DUPLICATE  /*/
+  const id01 = 1;
+  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT type,metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[id01], function (err, result) {
+    if (err) throw err;
+      res.send(result)
+  });
+});
   if (err) throw err;
   app.post("/api/post/sensors_types", (req,res)=>{  /*/ PUT  /*/
     const type = req.body.type;

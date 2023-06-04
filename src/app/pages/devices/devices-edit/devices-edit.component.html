@@ -194,7 +194,7 @@
                     <div class="col-md-6 col-12">
                         <div class="row">
                             <div class="col-md-6 col-12 mt-1 pb-3">
-                                <a type="button navb" class="btn btn-secondary text-light navb text-light" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</a>
+                                <a type="button navb" class="btn btn-secondary text-light navb text-light" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">{{ 'sensors.cancel' | translate }}</a>
                             </div>
                             <div class="col-md-6 col-12 mt-1 pb-3">
                                 <button type="button navb" class="btn btn-info" style="width: 100%"  (click)="submit()">{{ 'sensors.save' | translate }}</button>
@@ -220,31 +220,8 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.edit.m1.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'devices.edit.m1.2' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">{{ 'sensors.delete' | translate }}</button>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
 
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
