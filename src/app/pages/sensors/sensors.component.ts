@@ -226,18 +226,9 @@ export class SensorsComponent implements OnInit{
       this.buscar= this.busqueda.value;
     }
     const url2 = `${this.url1}/${this.buscar}`;
-    console.log(url2)
     fetch(url2)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));
-    for(let quote of this.data) {
-      this.contenido.type=  quote.type;
-      this.contenido.metric=  quote.metric; 
-      this.contenido.description=  quote.description;
-      this.contenido.errorvalue=  quote.errorvalue;
-      this.contenido.valuemax=  quote.valuemax;
-      this.contenido.valuemin=  quote.valuemin;
-    }
 
   }
 }

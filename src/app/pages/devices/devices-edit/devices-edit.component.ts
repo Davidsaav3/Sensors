@@ -75,7 +75,7 @@ export class DevicesEditComponent implements OnInit{
     const id_actual= this.rutaActiva.snapshot.params['id']
     const apiUrl = 'http://localhost:5172/api/id/device_configurations';
     const url = `${apiUrl}/${id_actual}`;
-    console.log(url);
+    //console.log(url);
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -112,7 +112,7 @@ get(){
     const id_actual= this.rutaActiva.snapshot.params['id']
     const apiUrl = 'http://localhost:5172/api/id/device_configurations';
     const url = `${apiUrl}/${id_actual}`;
-    console.log(url);
+    //console.log(url);
     fetch(url)
     .then(response => response.json())
     .then(data => {

@@ -16,15 +16,35 @@ con.connect(function(err) {
   if (err) throw err;
   app.get("/api/get/device_configurations/:type", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
-
-  if(type0=='Buscar'){
-    con.query("SELECT * FROM device_configurations", function (err, result) {
-      if (err) throw err;
-        res.send(result)
-    }); 
+  const type1 = req.params.type1;
+  if(type0=='Buscar' || type0=='Enable' || type0=='Disable' || type0=='Type'){
+    if(type0=='Buscar'){
+      con.query("SELECT * FROM device_configurations", function (err, result) {
+        if (err) throw err;
+          res.send(result)
+      }); 
+    }
+    if(type0=='Enable'){
+      con.query("SELECT * FROM device_configurations WHERE enable = 1", function (err, result) {
+        if (err) throw err;
+          res.send(result)
+      }); 
+    }
+    if(type0=='Disable'){
+      con.query("SELECT * FROM device_configurations WHERE enable = 0", function (err, result) {
+        if (err) throw err;
+          res.send(result)
+      }); 
+    }
+    if(type0=='Type'){
+      con.query(`SELECT * FROM device_configurations WHERE type LIKE '${type1}'`, function (err, result) {
+        if (err) throw err;
+          res.send(result)
+      }); 
+    }
   }
   else{
-      con.query("SELECT * FROM device_configurations WHERE uid=?",type0, function (err, result) {
+      con.query(`SELECT * FROM device_configurations WHERE uid LIKE '%${type0}%' OR alias LIKE '%${type0}%' OR origin LIKE '%${type0}%' OR description_origin LIKE '%${type0}%' OR application_id LIKE '%${type0}%' OR topic_name LIKE '%${type0}%' OR typemeter LIKE '%${type0}%' OR lat LIKE '%${type0}%' OR lon LIKE '%${type0}%' OR cota LIKE '%${type0}%' OR timezone LIKE '%${type0}%' OR enable LIKE '%${type0}%' OR organizationid LIKE '%${type0}%'`, function (err, result) {
       if (err) throw err;
         res.send(result)
     }); 
@@ -178,7 +198,7 @@ if (err) throw err;
     }); 
   }
   else{
-      con.query("SELECT * FROM sensors_types WHERE type=?",type0, function (err, result) {
+      con.query(`SELECT * FROM sensors_types WHERE type LIKE '%${type0}%' OR metric LIKE '%${type0}%' OR description LIKE '%${type0}%' OR errorvalue LIKE '%${type0}%' OR valuemax LIKE '%${type0}%' OR valuemin LIKE '%${type0}%'`,function (err, result) {
       if (err) throw err;
         res.send(result)
         
@@ -200,7 +220,7 @@ if (err) throw err;
   app.get("/api/max/sensors_types", (req,res)=>{ /*/ MAX  /*/
   con.query("SELECT id FROM sensors_types WHERE id=(SELECT max(id) FROM sensors_types)", function (err, result) {
     if (err) throw err;
-      res.send(result)
+      res.send(result) 
   });
 });
   app.post("/api/duplicate/sensors_types", (req,res)=>{  /*/ DUPLICATE  /*/

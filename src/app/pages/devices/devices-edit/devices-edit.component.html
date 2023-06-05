@@ -203,7 +203,7 @@
                     </div>
                     <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
                         <div class="col-md-6 col-12 mt-1 pb-3">
-                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal">{{ 'devices.edit.erase_disp' | translate }}</button>
+                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%"  data-bs-target="#exampleModal9">{{ 'devices.edit.erase_disp' | translate }}</button>
                         </div>
                     </div>
             </div>
@@ -238,6 +238,30 @@
                 </div>
                 <div class="col-6">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="exampleModal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">{{ 'devices.edit.m1.1' | translate }}</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">{{ 'devices.edit.m1.2' | translate }}</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="enable()" routerLink="/devices">{{ 'sensors.delete' | translate }}</button>
                 </div>
             </div>
           </div>

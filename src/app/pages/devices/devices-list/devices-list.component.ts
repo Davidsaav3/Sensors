@@ -145,14 +145,14 @@ export class DevicesListComponent implements OnInit{
   ngOnInit(): void {
     this.get();
 
-    console.log(this.id)
+    //console.log(this.id)
       fetch(this.url6)
       .then(response => response.json())
       .then(data => {
         this.id= parseInt(data[0].id)+1;
-        console.log(this.id);
+        //console.log(this.id);
       })
-    console.log(this.id)
+    //console.log(this.id)
 
     //
 
@@ -177,7 +177,7 @@ export class DevicesListComponent implements OnInit{
       this.buscar= this.busqueda.value;
     }
     const url2 = `${this.url}/${this.buscar}`;
-    console.log(url2)
+    //console.log(url2)
     fetch(url2)
     .then((response) => response.json())
     .then(data => {

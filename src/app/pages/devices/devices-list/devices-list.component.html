@@ -66,8 +66,8 @@
         
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
-            <option selected value="0">{{ 'sensors.type' | translate }}</option>
+          <select (ngModelChangeget)="get()"  class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
+              <option value="0">{{ 'sensors.type' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
               <option value="{{xd.id}}">{{xd.type}}</option>
             </ng-container>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select class="form-select" aria-label="Default select example" id="timezone" name="timezone">
+          <select  (ngModelChange)="get()" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" >
             <option selected value="2">{{ 'sensors.all' | translate }}</option>
             <option value="1">{{ 'sensors.enable' | translate }}</option>
             <option value="0">{{ 'sensors.disable' | translate }}</option>
@@ -133,7 +133,7 @@
                         <span class="badge rounded-pill text-bg-success d-inline-block me-2" [class]="{'d-none': quote2.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                         <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                       </div>
-                      <div *ngIf="quote.sensor.length==0" style="display: inline-block; height: min-content;">
+                      <div *ngIf="quote.sensor==undefined" style="display: inline-block; height: min-content;">
                         <p class="m-0">{{ 'sensors.sin_sensores' | translate }}</p>
                       </div>
                     </td>

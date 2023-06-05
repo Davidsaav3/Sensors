@@ -188,7 +188,7 @@ pagina(p: any){
       setTimeout( () =>{
   
         const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-        console.log(page)
+        //console.log(page)
   
         page.forEach((element, index) => {
           if(index === this.desde - 1){
