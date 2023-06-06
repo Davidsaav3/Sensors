@@ -1,26 +1,32 @@
 <div class="nav mb-0">
-	<div class="col-8 col-lg-6 p-0 pb-3">
+	<div class="col-12 col-md-6 p-0 pb-3">
 	  <div class="d-flex justify-content-between w-100">
 		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3" [ngClass]="{'disabled': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
 		<a type="button" routerLink="/sensors" class="btn btn-info navb" [ngClass]="{'disabled': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
 	  </div>
 	</div>
-	<div class="col-4 col-lg-2 pb-3 ps-3">
-      <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+	<div class="col-6 col-md-2 pb-3 ps-3">
+    <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
         {{ 'devices.list.e1' | translate }}
       </div>
       <div *ngIf="dup_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
         {{ 'devices.list.e2' | translate }}
       </div>
   </div>
-  <div class="col-12 col-lg-4 d-none d-md-none d-lg-block p-0 ">
+  <div class="col-6 col-md-4 p-0 ">
 		<div class="row">
-			<div class="d-flex col-3">
-					<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
-					<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
-			</div>
-			<div class="col-8 d-flex justify-content-end ms-4 p-0">
-				<img src="../../assets/logo.png" width="350px">
+			<div class="col-12 p-0 pb-3">
+				<div class="d-flex justify-content-end">
+					<div class="d-flex justify-content-end pe-3">
+						<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
+						<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
+					</div>
+					<div class="d-none d-xl-block pe-3">
+						<div class="d-flex justify-content-end">
+							<img src="../../assets/logo.png" width="350px">
+						</div>
+					</div>
+				</div>
 			</div>
 	  </div>
 	</div>
@@ -111,7 +117,7 @@
                 <thead>
                   <tr>
                     <th style="cursor: pointer;" (click)="get('uid')" scope="col">{{ 'devices.edit.uid' | translate }}</th>
-                    <th style="cursor: pointer;" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer;" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
                     <th style="cursor: pointer;" (click)="get('application_id')" scope="col">{{ 'devices.edit.aplication' | translate }}</th>
                     <th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block">{{ 'sensors.sensors' | translate }}</th>
@@ -122,7 +128,7 @@
                 <tbody>
                   <tr *ngFor="let quote of data" style="cursor: pointer;">
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</td>
-                    <td [routerLink]="['/devices/edit/', quote.id]">{{ quote.topic_name }}</td>
+                    <td class="d-none d-md-none d-lg-block" [routerLink]="['/devices/edit/', quote.id]">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]">{{ quote.application_id }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]" >
                       <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.enable' | translate }}</p></span>

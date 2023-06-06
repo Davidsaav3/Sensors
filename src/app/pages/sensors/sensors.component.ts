@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 
 
-
 export class SensorsComponent implements OnInit{
 
   public activeLang = 'es';
@@ -170,6 +169,12 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json()) 
     this.mostrar2=false;
     this.get('xd');
+    this.guardar_ok= true;
+    this.tam();
+  }
+
+  cerrar(){
+    this.mostrar2=false;
     this.guardar_ok= true;
     this.tam();
   }

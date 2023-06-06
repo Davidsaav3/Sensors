@@ -1,11 +1,11 @@
 <div class="nav mb-0">
-	<div class="col-8 col-lg-6 p-0 pb-3">
+	<div class="col-12 col-md-6 p-0 pb-3">
 	  <div class="d-flex justify-content-between w-100">
 		<a type="button navb" routerLink="/devices" [ngClass]="{'disabled': this.ruta=='/devices'}" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
 		<a type="button" routerLink="/sensors" [ngClass]="{'disabled': this.ruta=='/sensors'}" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
 	  </div>
 	</div>
-	<div class="col-4 col-lg-2 pb-3 ps-3">
+	<div class="col-6 col-md-2 pb-3 ps-3">
 
 		<div *ngIf="guardar_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
 			{{ 'sensors.e1' | translate }}
@@ -32,14 +32,20 @@
 			{{ 'sensors.e8' | translate }}
 		</div>
 	</div>
-	<div class="col-12 col-lg-4 d-none d-md-none d-lg-block p-0 ">
+	<div class="col-6 col-md-4 p-0 ">
 		<div class="row">
-			<div class="d-flex col-3">
-					<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
-					<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
-			</div>
-			<div class="col-8 d-flex justify-content-end ms-4 p-0">
-				<img src="../../assets/logo.png" width="350px">
+			<div class="col-12 p-0 pb-3">
+				<div class="d-flex justify-content-end">
+					<div class="d-flex justify-content-end pe-3">
+						<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
+						<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
+					</div>
+					<div class="d-none d-xl-block pe-3">
+						<div class="d-flex justify-content-end">
+							<img src="../../assets/logo.png" width="350px">
+						</div>
+					</div>
+				</div>
 			</div>
 	  </div>
 	</div>
@@ -73,7 +79,7 @@
 							<th scope="col" style="cursor: pointer;" (click)="get('id')">{{ 'sensors.id' | translate }}</th>
 							<th scope="col" style="cursor: pointer;" (click)="get('type')">{{ 'sensors.type' | translate }}</th>
 							<th scope="col" style="cursor: pointer;" (click)="get('metric')">{{ 'sensors.metric' | translate }}</th>
-							<th scope="col" style="cursor: pointer;" (click)="get('description')">{{ 'sensors.description' | translate }}</th>
+							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" (click)="get('description')">{{ 'sensors.description' | translate }}</th>
 							<th scope="col" style="text-align: center;">{{ 'sensors.duplicate' | translate }}d</th>
 							<th scope="col" style="text-align: center;">{{ 'sensors.edit' | translate }}</th>
 						</tr>
@@ -83,7 +89,7 @@
 						<th scope="col" (click)="num(quote.id)">{{ quote.id }}</th>
 							<td (click)="num(quote.id)">{{ quote.type }}</td>
 							<td (click)="num(quote.id)">{{ quote.metric }}</td>
-							<td (click)="num(quote.id)">{{ quote.description }}</td>
+							<td class="d-none d-md-none d-lg-block" (click)="num(quote.id)">{{ quote.description }}</td>
 							<td style="text-align: center;" (click)="duplicate(quote.id)">                      
 							<svg *ngIf="!ver_dup" (mouseover)="ver_dup=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
@@ -153,7 +159,9 @@
 			<div class="col-12 mt-5">
 				<div class="row">
 					<div class="col-6 mt-3">
-						<a ng-click="ocultar = true" type="button navb"class="btn btn-secondary text-light navb me-3" data-bs-toggle="modal" data-bs-target="#exampleModal1" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.cancel' | translate }}</a>
+
+						<button *ngIf="edit_change==false" type="button navb" class="btn btn-secondary text-light navb" (click)="m3()" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
+						<button *ngIf="edit_change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
 						<a ng-click="ocultar = true" type="button navb submit" (click)="submit()" class="btn btn-info navb me-3" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.save' | translate }}</a>
@@ -167,7 +175,7 @@
 
 
 	<div class="cc2 cont" *ngIf="mostrar2" style="width: 28.5%;">
-		<form class="row needs-validation p-3"> 
+		<form name='myForm' class="row needs-validation p-3"> 
 			<div class="col-12">
 				<div class="row">
 					<div class="col-12">
@@ -175,28 +183,33 @@
 					</div>
 					<div class="col-12 pt-3">
 						<label for="type" class="form-label">{{ 'sensors.type' | translate }}</label>
-						<input (ngModelChange)="new_change=true"  type="text" class="form-control" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
-						<div class="valid-feedback">Type inválido</div>
+						<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
+						<div class="valid-feedback" *ngIf="campo.touched && campo.invalid">{{ 'sensors.type' | translate }} inválido</div>
 					</div>
 					<div class="col-12 mt-2">
 						<label for="metric" class="form-label">{{ 'sensors.metric' | translate }}</label>
 						<input (ngModelChange)="new_change=true"  type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
+						<div class="valid-feedback">{{ 'sensors.metric' | translate }} inválido</div>
 					</div>
 					<div class="col-md-12 mt-2">
 						<label for="description" class="form-label">{{ 'sensors.description' | translate }}</label>
 						<input (ngModelChange)="new_change=true" type="text" class="form-control" id="description" name="description" value="{{ contenido.description }}" [(ngModel)]="contenido.description" required>
+						<div class="valid-feedback">{{ 'sensors.description' | translate }} inválido</div>
 					</div>
 					<div class="col-md-12 mt-5">
 						<label for="errorvalue" class="form-label">{{ 'sensors.error_value' | translate }}</label>
 						<input (ngModelChange)="new_change=true" type="text" class="form-control" id="errorvalue" name="errorvalue" value="{{ contenido.errorvalue }}" [(ngModel)]="contenido.errorvalue">
+						<div class="valid-feedback">{{ 'sensors.error_value' | translate }} inválido</div>
 					</div>
 					<div class="col-md-6 mt-2">
 						<label for="valuemin" class="form-label">{{ 'sensors.value_min' | translate }}</label>
 						<input (ngModelChange)="new_change=true" type="text" class="form-control" id="valuemin" name="valuemin" value="{{ contenido.valuemin }}" [(ngModel)]="contenido.valuemin">
+						<div class="valid-feedback">{{ 'sensors.value_min' | translate }} inválido</div>
 					</div>
 					<div class="col-md-6 mt-2">
 						<label for="valuemax" class="form-label">{{ 'sensors.value_max' | translate }}</label>
 						<input (ngModelChange)="new_change=true" type="text" class="form-control" id="valuemax" name="valuemax" value="{{ contenido.valuemax }}" [(ngModel)]="contenido.valuemax">
+						<div class="valid-feedback">{{ 'sensors.value_max' | translate }} inválido</div>
 					</div>
 				</div>
 			</div>
@@ -205,7 +218,8 @@
 			<div class="col-12 mt-5">
 				<div class="row">
 					<div class="col-6 mt-3">
-						<button type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1" [ngClass]="{'disabled': !new_change,}">{{ 'sensors.cancel' | translate }}</button>
+						<button *ngIf="new_change==false" type="button navb" class="btn btn-secondary text-light navb" (click)="cerrar()" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
+						<button *ngIf="new_change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
 						<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button>
@@ -240,7 +254,7 @@
                     <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">{{ 'sensors.delete' | translate }}</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">{{ 'sensors.delete' | translate }}</button>
                 </div>
             </div>
           </div>
@@ -260,11 +274,11 @@
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
+                <div class="col-5">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="m3()">{{ 'sensors.exit' | translate }}</button>
+                </div>
+                <div class="col-7">
+					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="update()" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button>
                 </div>
             </div>
           </div>
