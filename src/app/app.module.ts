@@ -16,6 +16,7 @@ import { DevicesSensorsListComponent } from './pages/devices/devices-sensors-lis
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -32,10 +33,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DevicesSensorsListComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {

@@ -13,6 +13,8 @@ export class DevicesEditComponent implements OnInit{
   constructor(private rutaActiva: ActivatedRoute,private router: Router, private DevicesSensorsListComponent : DevicesSensorsListComponent,) { }
   private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
+  activeLang='en';
+
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   private url4: string = 'http://localhost:5172/api/update/device_configurations';

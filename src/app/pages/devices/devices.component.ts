@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DevicesComponent {
 
-  public activeLang = 'es';
+  activeLang = 'es';
   constructor(
     private translate: TranslateService
   ) {

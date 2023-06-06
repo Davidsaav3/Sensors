@@ -14,6 +14,8 @@ export class DevicesNewComponent  implements OnInit{
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
   data: any;
   
+  activeLang='en';
+
   mostrar=true;
   ver_rec= false;
   mostrar3= true;

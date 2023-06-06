@@ -28,6 +28,9 @@ export class DevicesSensorsListComponent  implements OnInit{
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
   ver_can=false;
+  activeLang='en';
+  buscar1='orden';
+  buscar2='id';
 
   sin= true;
   eliminarlo: any;
@@ -271,14 +274,17 @@ pagina(p: any){
 
   ngOnInit(): void {
     this.desde = 1;
-    this.get();
+    this.get('xd');
   } 
 
 
-  get(){
-      const id_actual= parseInt(this.rutaActiva.snapshot.params['id'])
-      const url = `${this.apiUrl}/${id_actual}`;
+  get(id: any){
+    if(id!='xd'){
+      this.buscar1= id;
+    }
 
+      const id_actual= parseInt(this.rutaActiva.snapshot.params['id'])
+      const url = `${this.apiUrl}/${id_actual}/${this.buscar1}`;
       fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -292,7 +298,7 @@ pagina(p: any){
       });
 
       let buscar= 'Buscar';
-      const url1 = `${this.url1}/${buscar}`;
+      const url1 = `${this.url1}/${buscar}/${this.buscar2}`;
       fetch(url1)
       .then((response) => response.json())
       .then(data => {

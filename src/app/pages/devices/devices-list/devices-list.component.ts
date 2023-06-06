@@ -20,6 +20,8 @@ export class DevicesListComponent implements OnInit{
     this.translate.use(lang);
   }
 
+  id1= 'orden';
+
   title = 'HTTP using native fetch API';
   private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url: string = 'http://localhost:5172/api/get/device_configurations';
@@ -35,6 +37,8 @@ export class DevicesListComponent implements OnInit{
   dup_ok=false;
   dup_not=false;
   buscar='Buscar';
+  buscar1= 'id';
+  buscar2= 'id';
   cont=true;
 
   ver_dup=false;
@@ -106,11 +110,16 @@ export class DevicesListComponent implements OnInit{
   };
 
   contenido3 = {
-    id: 1,    
+    id: '',
   }
 
-  duplicate(){
-    fetch(this.url3, {
+  duplicate(num: any){
+    this.contenido3 = {
+      id: num,    
+    }
+    console.log(this.contenido3)
+    const url2 = `${this.url3}/${num}`;
+    fetch(url2, {
       method: "POST",
       body: JSON.stringify(this.contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -120,7 +129,7 @@ export class DevicesListComponent implements OnInit{
   }
 
   obtener(id_actual: any){
-    const url2 = `${this.apiUrl}/${id_actual}`;
+    const url2 = `${this.apiUrl}/${id_actual}/${this.id1}`;
     fetch(url2)
     .then(response => response.json())
     .then(data3 => {
@@ -137,13 +146,13 @@ export class DevicesListComponent implements OnInit{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.get();
+        $this.get('xd');
       }
     }, 500);
   }
 
   ngOnInit(): void {
-    this.get();
+    this.get('xd');
 
     //console.log(this.id)
       fetch(this.url6)
@@ -157,7 +166,7 @@ export class DevicesListComponent implements OnInit{
     //
 
     let buscar= 'Buscar';
-    const url1 = `${this.url1}/${buscar}`;
+    const url1 = `${this.url1}/${buscar}/${this.buscar2}`;
     fetch(url1)
     .then((response) => response.json())
     .then(data => {
@@ -169,22 +178,26 @@ export class DevicesListComponent implements OnInit{
     this.busqueda.value= '';
   }
 
-  get(){
+  get(id: any){
+    if(id!='xd'){
+      this.buscar1= id;
+    }
+
     if(this.busqueda.value==''){
       this.buscar= 'Buscar';
     }
     else{
       this.buscar= this.busqueda.value;
     }
-    const url2 = `${this.url}/${this.buscar}`;
+    const url2 = `${this.url}/${this.buscar}/${this.buscar1}`;
     //console.log(url2)
     fetch(url2)
     .then((response) => response.json())
     .then(data => {
       this.data= data;
       for (let x of this.data) {
-          const url1 = `${this.apiUrl}/${x.id}`;
-          fetch(url1)
+          const url9 = `${this.apiUrl}/${x.id}/${this.id1}`;
+          fetch(url9)
           .then(response => response.json())
           .then(data3 => {
             x.sensor= data3;

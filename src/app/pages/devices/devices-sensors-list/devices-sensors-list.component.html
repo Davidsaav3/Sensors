@@ -28,11 +28,11 @@
 			<table class="table table-hover">
 				<thead>
 				  <tr>
-          <th scope="col">{{ 'devices.sensors.order' | translate }}</th>
-					<th scope="col">{{ 'devices.sensors.type' | translate }}</th>
-					<th scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
-					<th scope="col">{{ 'devices.sensors.nodate' | translate }}</th>
-					<th scope="col">{{ 'sensors.enable' | translate }}</th>
+          <th style="cursor: pointer;" (click)="get('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
+					<th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
+					<th style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.nodate' | translate }}</th>
+					<th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
 					<th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
 				</thead>
@@ -53,8 +53,12 @@
 							<label class="toggle t2 tt2 mt-1 mb-3">
 								<input type="checkbox" [name]="'enable'+i" checked [(ngModel)]="item.enable">
 								<span class="slider"></span>
-								<span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
-							</label>
+                <ng-container *ngIf="this.activeLang=='es'">
+                  <span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
+              </ng-container>
+              <ng-container *ngIf="this.activeLang=='en'">
+                  <span class="labels t2" data-on="Enable" data-off="Disable"></span>
+              </ng-container>     							</label>
               </td>
               <td style="text-align: center;" data-bs-target="#exampleModal3" data-bs-toggle="modal" (click)="vari(item.id)">
                   <svg *ngIf="!ver_can" (mouseover)="ver_can=true" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">

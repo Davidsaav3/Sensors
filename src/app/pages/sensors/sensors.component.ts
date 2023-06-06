@@ -1,11 +1,16 @@
 import { Component , OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sensors',
   templateUrl: './sensors.component.html',
   styleUrls: ['../../app.component.css']
 })
+
+
 
 export class SensorsComponent implements OnInit{
 
@@ -32,11 +37,16 @@ export class SensorsComponent implements OnInit{
   private url6: string = 'http://localhost:5172/api/max/sensors_types';
 
   contenido3 = {
-    id: 1,    
+    id: '',
   }
 
-  duplicate(){
-    fetch(this.url5, {
+  duplicate(num: any){
+    this.contenido3 = {
+      id: num,    
+    }   
+    console.log(num)
+    const url2 = `${this.url5}/${num}`;
+     fetch(url2, {
       method: "POST",
       body: JSON.stringify(this.contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -46,7 +56,8 @@ export class SensorsComponent implements OnInit{
     fetch(this.url6)
     .then(response => response.json())
     .then(data => {
-      this.id= parseInt(data[0].id)+1;
+      this.id= parseInt(data[0].id);
+      console.log(this.id)
       this.num(this.id)
     })
   }
@@ -65,7 +76,8 @@ export class SensorsComponent implements OnInit{
   guardar_ok: any= false;
   guardar_not: any= false;
   buscar='Buscar';
-
+  buscar1='id';
+  
   url1: string = 'http://localhost:5172/api/get/sensors_types';
   data: any;
   private url2: string = 'http://localhost:5172/api/post/sensors_types';
@@ -101,12 +113,13 @@ export class SensorsComponent implements OnInit{
 
   borrar(){
     this.busqueda.value= '';
-    this.get();
+    this.get('xd');
   }
 
   m1(){
     this.mostrar= true;
     this.mostrar2= false;
+    this.tam();
   }
 
   
@@ -134,9 +147,9 @@ export class SensorsComponent implements OnInit{
     this.mostrar2=false;
     this.alert_delete= true;
     this.mostrar2= false;
-    this.get();
+    this.get('xd');
     this.tam();
-    this.get();
+    this.get('xd');
   }
 
   ocultar(){
@@ -153,7 +166,7 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.mostrar2=false;
-    this.get();
+    this.get('xd');
     this.guardar_ok= true;
     this.tam();
   }
@@ -168,9 +181,9 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json()) 
     this.mostrar=false;
     this.alert_new= true;
-    this.get();
+    this.get('xd');
     this.tam();
-    this.get();
+    this.get('xd');
   }
 
 
@@ -186,9 +199,9 @@ export class SensorsComponent implements OnInit{
     .catch(error => {
       console.error(error); 
     });
-    this.get();
+    this.get('xd');
     this.tam();
-    this.get();
+    this.get('xd');
   }
 
   
@@ -197,16 +210,16 @@ export class SensorsComponent implements OnInit{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.get();
+        $this.get('xd');
         $this.tam();
       }
     }, 500);
   }
  
   ngOnInit(): void {
-    this.get();
+    this.get('xd');
     this.tam();
-    this.get();
+    this.get('xd');
   }
 
   tam(){
@@ -218,14 +231,19 @@ export class SensorsComponent implements OnInit{
     }
   }
 
-  get(){
+  get(id: any){
+    if(id!='xd'){
+      this.buscar1= id;
+    }
+
     if(this.busqueda.value==''){
       this.buscar= 'Buscar';
     }
     else{
       this.buscar= this.busqueda.value;
     }
-    const url2 = `${this.url1}/${this.buscar}`;
+
+    const url2 = `${this.url1}/${this.buscar}/${this.buscar1}`;
     fetch(url2)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));

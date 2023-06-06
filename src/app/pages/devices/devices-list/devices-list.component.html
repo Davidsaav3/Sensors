@@ -66,7 +66,7 @@
         
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select (ngModelChangeget)="get()"  class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
+          <select (ngModelChangeget)="get('xd')"  class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
               <option value="0">{{ 'sensors.type' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
               <option value="{{xd.id}}">{{xd.type}}</option>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select  (ngModelChange)="get()" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" >
+          <select  (ngModelChange)="get('xd')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" >
             <option selected value="2">{{ 'sensors.all' | translate }}</option>
             <option value="1">{{ 'sensors.enable' | translate }}</option>
             <option value="0">{{ 'sensors.disable' | translate }}</option>
@@ -110,10 +110,10 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th scope="col">{{ 'devices.edit.uid' | translate }}</th>
-                    <th scope="col">{{ 'devices.edit.topic' | translate }}</th>
-                    <th scope="col">{{ 'devices.edit.aplication' | translate }}</th>
-                    <th scope="col">{{ 'sensors.enable' | translate }}</th>
+                    <th style="cursor: pointer;" (click)="get('uid')" scope="col">{{ 'devices.edit.uid' | translate }}</th>
+                    <th style="cursor: pointer;" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
+                    <th style="cursor: pointer;" (click)="get('application_id')" scope="col">{{ 'devices.edit.aplication' | translate }}</th>
+                    <th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block">{{ 'sensors.sensors' | translate }}</th>
                     <th scope="col" style="text-align: center;">{{ 'sensors.duplicate' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center;">{{ 'sensors.edit' | translate }}</th>
@@ -133,11 +133,13 @@
                         <span class="badge rounded-pill text-bg-success d-inline-block me-2" [class]="{'d-none': quote2.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                         <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                       </div>
-                      <div *ngIf="quote.sensor==undefined" style="display: inline-block; height: min-content;">
-                        <p class="m-0">{{ 'sensors.sin_sensores' | translate }}</p>
-                      </div>
+                      <ng-container *ngIf="quote.sensor!=undefined">
+                        <div *ngIf="quote.sensor.length==0" style="display: inline-block; height: min-content;">
+                          <p class="m-0">{{ 'sensors.sin_sensores' | translate }}</p>
+                        </div>
+                      </ng-container>
                     </td>
-                    <td style="text-align: center;" [routerLink]="['/devices/edit/', this.id]" (click)="duplicate()">                      
+                    <td style="text-align: center;" [routerLink]="['/devices/edit/', this.id]" (click)="duplicate(this.id)">                      
                       <svg *ngIf="!ver_dup" (mouseover)="ver_dup=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
                         <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>

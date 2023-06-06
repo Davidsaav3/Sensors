@@ -14,30 +14,31 @@ con.connect(function(err) {
   });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations/:type", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type/:type1", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
+
   if(type0=='Buscar' || type0=='Enable' || type0=='Disable' || type0=='Type'){
     if(type0=='Buscar'){
-      con.query("SELECT * FROM device_configurations", function (err, result) {
+      con.query(`SELECT * FROM device_configurations order by ${type1}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
     }
     if(type0=='Enable'){
-      con.query("SELECT * FROM device_configurations WHERE enable = 1", function (err, result) {
+      con.query(`SELECT * FROM device_configurations WHERE enable = 1 order by ${type1}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
     }
     if(type0=='Disable'){
-      con.query("SELECT * FROM device_configurations WHERE enable = 0", function (err, result) {
+      con.query(`SELECT * FROM device_configurations WHERE enable = 0 order by ${type1}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
     }
     if(type0=='Type'){
-      con.query(`SELECT * FROM device_configurations WHERE type LIKE '${type1}'`, function (err, result) {
+      con.query(`SELECT * FROM device_configurations WHERE type LIKE '${type0}' order by ${type1}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
@@ -70,9 +71,9 @@ con.connect(function(err) {
         res.send(result)
     });
   });
-  app.post("/api/duplicate/device_configurations", (req,res)=>{  /*/ DUPLICATE  /*/
-    const id01 = 1;
-    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?;",[id01], function (err, result) {
+  app.post("/api/duplicate/device_configurations/:id", (req,res)=>{  /*/ DUPLICATE  /*/
+    const id01 = parseInt(req.params.id);
+    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?",id01, function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -145,9 +146,13 @@ con.connect(function(err) {
     });
   });
   if (err) throw err;
-  app.get("/api/id_device/sensors_devices/:id", (req,res)=>{  /*/ GET ID_DEVICES  /*/
+  app.get("/api/id_device/sensors_devices/:id/:type", (req,res)=>{  /*/ GET ID_DEVICES  /*/
   const id_device = parseInt(req.params.id);
-    con.query("SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = ? ORDER BY orden ASC", id_device, function (err, result) {
+  const type1 = req.params.type;
+  console.log(id_device);
+  console.log(type1);
+
+    con.query(`SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = '${id_device}' order by '${type1}'`, function (err, result) {
       if (err) throw err;
         res.send(result)
 });
@@ -188,22 +193,23 @@ if (err) throw err;
 
   /* SENSORS_TYPES //////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/sensors_types/:type", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/sensors_types/:type/:type1", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
+  const type1 = req.params.type1;
 
-  if(type0=='Buscar'){
-    con.query("SELECT * FROM sensors_types", function (err, result) {
-      if (err) throw err;
-        res.send(result)
-    }); 
-  }
-  else{
-      con.query(`SELECT * FROM sensors_types WHERE type LIKE '%${type0}%' OR metric LIKE '%${type0}%' OR description LIKE '%${type0}%' OR errorvalue LIKE '%${type0}%' OR valuemax LIKE '%${type0}%' OR valuemin LIKE '%${type0}%'`,function (err, result) {
-      if (err) throw err;
-        res.send(result)
-        
-    }); 
-  }
+    if(type0=='Buscar'){
+      con.query(`SELECT * FROM sensors_types order by ${type1}`,function (err, result) {
+        if (err) throw err;
+          res.send(result)
+      }); 
+    }
+    else{
+        con.query(`SELECT * FROM sensors_types WHERE type LIKE '%${type0}%' OR metric LIKE '%${type0}%' OR description LIKE '%${type0}%' OR errorvalue LIKE '%${type0}%' OR valuemax LIKE '%${type0}%' OR valuemin LIKE '%${type0}%' order by ${type1}`, function (err, result) {
+        if (err) throw err;
+          res.send(result)
+          
+      }); 
+    }
 
 
   
@@ -223,8 +229,8 @@ if (err) throw err;
       res.send(result) 
   });
 });
-  app.post("/api/duplicate/sensors_types", (req,res)=>{  /*/ DUPLICATE  /*/
-  const id01 = 1;
+  app.post("/api/duplicate/sensors_types/:id", (req,res)=>{  /*/ DUPLICATE  /*/
+  const id01 = parseInt(req.params.id);
   con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT type,metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[id01], function (err, result) {
     if (err) throw err;
       res.send(result)

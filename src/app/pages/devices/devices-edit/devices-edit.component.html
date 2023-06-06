@@ -20,7 +20,12 @@
                                     <label class="toggle tt1 t1" (click)="enable()">
                                         <input type="checkbox" (ngModelChange)="change=true" [(ngModel)]="contenido.enable">
                                         <span class="slider"></span>
-                                        <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
+                                        <ng-container *ngIf="this.activeLang=='es'">
+                                            <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
+                                        </ng-container>
+                                        <ng-container *ngIf="this.activeLang=='en'">
+                                            <span class="labels t1" data-on="Enable" data-off="Disable"></span>
+                                        </ng-container>
                                     </label>
                                 </div>
                             </div> 
