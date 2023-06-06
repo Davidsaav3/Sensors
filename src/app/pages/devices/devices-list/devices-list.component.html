@@ -1,8 +1,8 @@
 <div class="nav mb-0">
 	<div class="col-8 col-lg-6 p-0 pb-3">
 	  <div class="d-flex justify-content-between w-100">
-		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
-		<a type="button" routerLink="/sensors" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
+		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3" [ngClass]="{'disabled': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
+		<a type="button" routerLink="/sensors" class="btn btn-info navb" [ngClass]="{'disabled': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
 	  </div>
 	</div>
 	<div class="col-4 col-lg-2 pb-3 ps-3">
@@ -65,25 +65,25 @@
         </div>
         
 
-        <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select (ngModelChangeget)="get('xd')"  class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'" [(ngModel)]="busqueda.id_type_sensor" >
-              <option value="0">{{ 'sensors.type' | translate }}</option>
+        <div class="col-6 col-sm-2 col-lg-2 mb-3">
+          <select (ngModelChangeget)="get('xd')"  class="form-select" aria-label="Default select example" id="sel_type" [name]="'sel_type'" [(ngModel)]="busqueda.sel_type" >
+              <option selected value="0">{{ 'sensors.l1' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
               <option value="{{xd.id}}">{{xd.type}}</option>
             </ng-container>
           </select>
         </div>
 
-        <div class="col-6 col-sm-2 col-lg-1 mb-3">
-          <select  (ngModelChange)="get('xd')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" >
-            <option selected value="2">{{ 'sensors.all' | translate }}</option>
-            <option value="1">{{ 'sensors.enable' | translate }}</option>
-            <option value="0">{{ 'sensors.disable' | translate }}</option>
+        <div class="col-6 col-sm-2 col-lg-2 mb-3">
+          <select  (ngModelChange)="get('xd')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+            <option selected value="2">{{ 'sensors.l2' | translate }}</option>
+            <option value="0">{{ 'sensors.enable' | translate }}</option>
+            <option value="1">{{ 'sensors.disable' | translate }}</option>
           </select>
         </div>
 
 
-        <div class="col-12 col-sm-12 col-lg-6 d-flex " style="justify-content: flex-end;">
+        <div class="col-12 col-sm-12 col-lg-4 d-flex " style="justify-content: flex-end;">
           <div>
             <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
           </div>

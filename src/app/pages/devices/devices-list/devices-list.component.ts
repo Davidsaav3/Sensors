@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-devices-list',
@@ -8,9 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DevicesListComponent implements OnInit{
 
+  ruta='';
+
   public activeLang = 'es';
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    public rutaActiva: Router
   ) {
     this.translate.setDefaultLang(this.activeLang);
   }
@@ -39,17 +43,20 @@ export class DevicesListComponent implements OnInit{
   buscar='Buscar';
   buscar1= 'id';
   buscar2= 'id';
+  buscar3= 'Nada';
+  buscar4= 'Nada';
   cont=true;
 
   ver_dup=false;
   pencil_dup=false;
   ver_list=false;
   ver_map=false;
-
+  
 
   busqueda = {
     value: '', 
-    id_type_sensor: '',
+    sel_type: 'Nada',
+    sel_enable: 2
   }
 
   contenido = {
@@ -152,6 +159,8 @@ export class DevicesListComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    //console.log(this.rutaActiva.routerState.snapshot.url)
+    this.ruta= this.rutaActiva.routerState.snapshot.url;
     this.get('xd');
 
     //console.log(this.id)
@@ -182,6 +191,7 @@ export class DevicesListComponent implements OnInit{
     if(id!='xd'){
       this.buscar1= id;
     }
+    
 
     if(this.busqueda.value==''){
       this.buscar= 'Buscar';
@@ -189,7 +199,7 @@ export class DevicesListComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
-    const url2 = `${this.url}/${this.buscar}/${this.buscar1}`;
+    const url2 = `${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}`;
     //console.log(url2)
     fetch(url2)
     .then((response) => response.json())

@@ -14,31 +14,39 @@ con.connect(function(err) {
   });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations/:type/:type1", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
+  const type2 = req.params.type2;  
+  const type3 = parseInt(req.params.type3);
+  console.log(type2)
 
-  if(type0=='Buscar' || type0=='Enable' || type0=='Disable' || type0=='Type'){
-    if(type0=='Buscar'){
+  if(type0=='Buscar'){
+    if(type2!='Nada' || type3!=2){
+      if(type2!='Nada' && type3!=2){
+        con.query(`SELECT * FROM device_configurations where id=${type2} AND enable=${type3} order by ${type1}`, function (err, result) {
+          if (err) throw err;
+            res.send(result)
+        }); 
+      }
+      else{
+          if(type2!='Nada'){
+            con.query(`SELECT * FROM device_configurations where id=id_device AND ${type2}=(SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) order by ${type1}`, function (err, result) { /////////////////////////////////////////////////////////
+              if (err) throw err;
+                res.send(result)
+            }); 
+        }
+        if(type3!=2){
+          con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1}`, function (err, result) {
+            if (err) throw err;
+              res.send(result)
+          }); 
+        }
+      }
+    
+    }
+    else{
       con.query(`SELECT * FROM device_configurations order by ${type1}`, function (err, result) {
-        if (err) throw err;
-          res.send(result)
-      }); 
-    }
-    if(type0=='Enable'){
-      con.query(`SELECT * FROM device_configurations WHERE enable = 1 order by ${type1}`, function (err, result) {
-        if (err) throw err;
-          res.send(result)
-      }); 
-    }
-    if(type0=='Disable'){
-      con.query(`SELECT * FROM device_configurations WHERE enable = 0 order by ${type1}`, function (err, result) {
-        if (err) throw err;
-          res.send(result)
-      }); 
-    }
-    if(type0=='Type'){
-      con.query(`SELECT * FROM device_configurations WHERE type LIKE '${type0}' order by ${type1}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
@@ -149,8 +157,8 @@ con.connect(function(err) {
   app.get("/api/id_device/sensors_devices/:id/:type", (req,res)=>{  /*/ GET ID_DEVICES  /*/
   const id_device = parseInt(req.params.id);
   const type1 = req.params.type;
-  console.log(id_device);
-  console.log(type1);
+  //console.log(id_device);
+  //console.log(type1);
 
     con.query(`SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = '${id_device}' order by '${type1}'`, function (err, result) {
       if (err) throw err;
@@ -166,7 +174,7 @@ if (err) throw err;
   const datafield = req.body.datafield;
   const nodata = req.body.nodata;
 
-  console.log("Hola"+id_device+"Hola");
+  //console.log("Hola"+id_device+"Hola");
     con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata) VALUES (?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata], function (err, result) {
       if (err) throw err;
         res.send(result)

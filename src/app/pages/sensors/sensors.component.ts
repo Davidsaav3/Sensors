@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sensors',
@@ -16,7 +17,8 @@ export class SensorsComponent implements OnInit{
 
   public activeLang = 'es';
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    public rutaActiva: Router
   ) {
     this.translate.setDefaultLang(this.activeLang);
   }
@@ -61,6 +63,7 @@ export class SensorsComponent implements OnInit{
       this.num(this.id)
     })
   }
+  ruta='';
 
   ver_dup=false;
   pencil_dup=false;
@@ -232,6 +235,8 @@ export class SensorsComponent implements OnInit{
   }
 
   get(id: any){
+    this.ruta= this.rutaActiva.routerState.snapshot.url;
+
     if(id!='xd'){
       this.buscar1= id;
     }

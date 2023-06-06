@@ -43,6 +43,9 @@
     "sensors.enable" : "Activado",
     "sensors.disable" : "Desactivado",
     "sensors.exit" : "Salir",
+    "sensors.l1" : "Todos los tipos de sensores",
+    "sensors.l2" : "Dispositivos activados y desactivados",
+
 
     "devices.sensors.new" : "Nuevo sensor",
     "devices.sensors.e1" : "¡ Sensores guardados !",

@@ -1,8 +1,8 @@
 <div class="nav mb-0">
 	<div class="col-8 col-lg-6 p-0 pb-3">
 	  <div class="d-flex justify-content-between w-100">
-		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
-		<a type="button" routerLink="/sensors" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
+		<a type="button navb" routerLink="/devices" [ngClass]="{'disabled': this.ruta=='/devices'}" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
+		<a type="button" routerLink="/sensors" [ngClass]="{'disabled': this.ruta=='/sensors'}" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
 	  </div>
 	</div>
 	<div class="col-4 col-lg-2 pb-3 ps-3">
