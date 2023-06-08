@@ -45,7 +45,7 @@ export class SensorsComponent implements OnInit{
     this.contenido3 = {
       id: num,    
     }   
-    console.log(num)
+    //console.log(num)
     const url2 = `${this.url5}/${num}`;
      fetch(url2, {
       method: "POST",
@@ -57,8 +57,8 @@ export class SensorsComponent implements OnInit{
     fetch(this.url6)
     .then(response => response.json())
     .then(data => {
-      this.id= parseInt(data[0].id);
-      console.log(this.id)
+      this.id= parseInt(data[0].id+1);
+      //console.log(this.id)
       this.num(this.id)
     })
   }
@@ -161,6 +161,7 @@ export class SensorsComponent implements OnInit{
 
   update(){
     this.mostrar2=false
+    console.log(this.url4)
     fetch(this.url4, {
       method: "POST",
       body: JSON.stringify(this.contenido),
@@ -168,9 +169,10 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.mostrar2=false;
-    this.get('xd');
     this.guardar_ok= true;
+    this.get('xd');
     this.tam();
+    this.get('xd');
   }
 
   cerrar(){

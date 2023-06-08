@@ -81,7 +81,7 @@ con.connect(function(err) {
   });
   app.post("/api/duplicate/device_configurations/:id", (req,res)=>{  /*/ DUPLICATE  /*/
     const id01 = parseInt(req.params.id);
-    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?",id01, function (err, result) {
+    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT CONCAT(uid, '_copy'),alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?",id01, function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -180,6 +180,18 @@ if (err) throw err;
         res.send(result)
     });
   });
+
+  app.get("/api/duplicate/sensors_devices/:id1/:id2", (req,res)=>{  /*/ DUPLICATE  /*/
+  const id1 = parseInt(req.params.id1);
+  const id2 = parseInt(req.params.id2);
+
+  //console.log("Hola"+id_device+"Hola");
+    con.query("INSERT INTO sensors_devices (orden, enable, id_device, id_type_sensor, datafield, nodata) SELECT orden, enable, ?, id_type_sensor, datafield, nodata FROM sensors_devices WHERE id_device = ?",[id2,id1], function (err, result) {
+      if (err) throw err;
+        res.send(result)
+    });
+  });
+
   if (err) throw err;
   app.post("/api/delete_all/sensors_devices", (req,res)=>{  /*/ DELETE ALL /*/
   var id010 = req.body.id;
@@ -239,7 +251,7 @@ if (err) throw err;
 });
   app.post("/api/duplicate/sensors_types/:id", (req,res)=>{  /*/ DUPLICATE  /*/
   const id01 = parseInt(req.params.id);
-  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT type,metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[id01], function (err, result) {
+  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT CONCAT(type, '_copy'),metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[id01], function (err, result) {
     if (err) throw err;
       res.send(result)
   });
@@ -267,9 +279,11 @@ if (err) throw err;
     valuemax = req.body.valuemax;
     valuemin = req.body.valuemin;
     id99 = req.body.id;
+
     con.query("UPDATE sensors_types SET type=?,metric=?,description=?,errorvalue=?,valuemax=?,valuemin=? WHERE id= ?",[type9, metric, description,errorvalue,valuemax,valuemin,id99], function (err, result) {
       if (err) throw err;
         res.send(result)
+        console.log(result)
     });
   });
   if (err) throw err;

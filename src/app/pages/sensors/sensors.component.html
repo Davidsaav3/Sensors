@@ -1,34 +1,34 @@
 <div class="nav mb-0">
-	<div class="col-12 col-md-6 p-0 pb-3">
+	<div class="col-12 col-md-5 p-0 pb-3">
 	  <div class="d-flex justify-content-between w-100">
 		<a type="button navb" routerLink="/devices" [ngClass]="{'disabled': this.ruta=='/devices'}" class="btn btn-info navb me-3">{{ 'sensors.t1' | translate }}</a>
 		<a type="button" routerLink="/sensors" [ngClass]="{'disabled': this.ruta=='/sensors'}" class="btn btn-info navb">{{ 'sensors.t2' | translate }}</a>
 	  </div>
 	</div>
-	<div class="col-6 col-md-2 pb-3 ps-3">
+	<div class="col-6 col-md-3 pb-3 ps-3 d-flex">
 
-		<div *ngIf="guardar_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="guardar_not" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e1' | translate }}
 		</div>
-		<div *ngIf="guardar_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="guardar_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e2' | translate }}
 		</div>
-		<div *ngIf="alert_delete" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="alert_delete" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e3' | translate }}
 		</div>
-		<div *ngIf="alert_new" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="alert_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e4' | translate }}
 		</div>
-		<div *ngIf="not_new" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="not_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e5' | translate }}
 		</div>
-		<div *ngIf="not_delete" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="not_delete" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e6' | translate }}
 		</div>
-		<div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="dup_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e7' | translate }}
 		</div>
-		<div *ngIf="dup_not" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
+		<div *ngIf="dup_not" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
 			{{ 'sensors.e8' | translate }}
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 
 <div class="m-0 p-0 row d-flex">
 	<div class="cc2 cont me-0" [ngClass]="{'c100': this.mostrar3==true, 'c10': this.mostrar3==false}">
-		<div class="p-3 pb-0">
+		<div class="p-3 pb-0 pe-2">
 				<div class="row d-flex" style="justify-content: space-around">
 					<div class="col-6 col-sm-6 col-lg-4 mb-3">
 						<div class="input-group w-100">
@@ -71,8 +71,8 @@
 			</div>	
 		</div>
 
-		<div class="row flex-row-reverse " style="height: 76vh;">
-			<div class="col-12 over" style="max-height: 77vh;"> 
+		<div class="row flex-row-reverse pe-3" style="height: 76vh;">
+			<div class="col-12 pe-0 over" style="max-height: 77vh;"> 
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -181,9 +181,10 @@
 					<div class="col-12">
 						<h1>{{ 'sensors.of' | translate }} {{ contenido.type }}</h1>
 					</div>
+					<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control d-none" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.id">
 					<div class="col-12 pt-3">
 						<label for="type" class="form-label">{{ 'sensors.type' | translate }}</label>
-						<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido_new.type" required>
+						<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.type" required>
 						<div class="valid-feedback" *ngIf="campo.touched && campo.invalid">{{ 'sensors.type' | translate }} inválido</div>
 					</div>
 					<div class="col-12 mt-2">

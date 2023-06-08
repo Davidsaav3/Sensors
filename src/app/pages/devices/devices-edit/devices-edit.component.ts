@@ -13,6 +13,7 @@ export class DevicesEditComponent implements OnInit{
   constructor(private rutaActiva: ActivatedRoute,private router: Router, private DevicesSensorsListComponent : DevicesSensorsListComponent,) { }
   private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
+  id_actual= 1;
   activeLang='en';
 
   title = 'HTTP using native fetch API';
@@ -21,6 +22,7 @@ export class DevicesEditComponent implements OnInit{
   mostrar=true;
   mostrar3= true;
   ver_rec= false;
+  guardado= false;
 
   act_ok= false;
   act_not= false;
@@ -71,6 +73,7 @@ export class DevicesEditComponent implements OnInit{
     //this.update2();
     this.act_ok= true;
     //this.DevicesSensorsListComponent.update2();
+    this.guardado= true;
   }
 
   recargar(){
@@ -111,9 +114,9 @@ export class DevicesEditComponent implements OnInit{
 }
 
 get(){
-    const id_actual= this.rutaActiva.snapshot.params['id']
+    this.id_actual= this.rutaActiva.snapshot.params['id']
     const apiUrl = 'http://localhost:5172/api/id/device_configurations';
-    const url = `${apiUrl}/${id_actual}`;
+    const url = `${apiUrl}/${this.id_actual}`;
     //console.log(url);
     fetch(url)
     .then(response => response.json())

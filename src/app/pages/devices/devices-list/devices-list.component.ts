@@ -28,6 +28,8 @@ export class DevicesListComponent implements OnInit{
 
   title = 'HTTP using native fetch API';
   private url6: string = 'http://localhost:5172/api/max/device_configurations';
+  private url7: string = 'http://localhost:5172/api/duplicate/sensors_devices';
+
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
   private url2: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
@@ -124,7 +126,7 @@ export class DevicesListComponent implements OnInit{
     this.contenido3 = {
       id: num,    
     }
-    console.log(this.contenido3)
+    
     const url2 = `${this.url3}/${num}`;
     fetch(url2, {
       method: "POST",
@@ -132,7 +134,22 @@ export class DevicesListComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json())
+    
+
+    fetch(this.url6)
+    .then(response => response.json())
+    .then(data => {
+      let url3 = `${this.url7}/${num}/${parseInt(data[0].id)+1}`;
+      console.log(url3)
+      fetch(url3)
+      .then((response) => response.json())
+      .then(data => {
+        this.data= data;
+      })
+    })
+
     this.dup_ok=true;
+    this.rutaActiva.navigate(['/devices/edit/', this.id]);
   }
 
   obtener(id_actual: any){

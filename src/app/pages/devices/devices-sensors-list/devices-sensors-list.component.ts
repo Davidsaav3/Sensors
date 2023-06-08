@@ -274,8 +274,12 @@ pagina(p: any){
 
   ngOnInit(): void {
     this.desde = 1;
-    this.get('xd');
-  } 
+    setTimeout(() => 
+    {
+      this.get('xd')
+    },
+    50);
+  }
 
 
   get(id: any){
