@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit, HostListener} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,11 +14,13 @@ import { Router } from '@angular/router';
 
 export class SensorsComponent implements OnInit{
 
+  width: any;
   public activeLang = 'es';
   constructor(
     private translate: TranslateService,
     public rutaActiva: Router
   ) {
+    this.resize();
     this.translate.setDefaultLang(this.activeLang);
   }
 
@@ -41,6 +43,13 @@ export class SensorsComponent implements OnInit{
   contenido3 = {
     id: '',
   }
+
+  @HostListener('window:resize')
+  
+  resize(): void{
+    this.width = window.innerWidth;
+  }
+
 
   duplicate(num: any){
     this.contenido3 = {

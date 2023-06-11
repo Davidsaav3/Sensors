@@ -33,12 +33,23 @@ h1,h2,h3,h4,p,a,.btn, span, label{
   width: 98.5%;
 }
 
+.sensores_2_20{
+  width: 26.5%;
+}
+.sensores_2_100{
+  width: 96%;
+}
+
 .c20{
   width: 50%;
 }
 
 .c200{
   width: 100%;
+}
+
+.rev{
+  flex-direction: column-reverse;
 }
 
 .cont1{
