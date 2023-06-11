@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-devices-new',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DevicesNewComponent  implements OnInit{
   
-  constructor(private router: Router) { }
+  constructor(private router: Router,private rutaActiva: ActivatedRoute) { }
 
   title = 'HTTP using native fetch API';
   private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';

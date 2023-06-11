@@ -1,20 +1,20 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DevicesEditComponent } from '../devices-edit/devices-edit.component';
+import { DevicesNewComponent } from '../devices-new/devices-new.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-devices-sensors-list',
-  templateUrl: './devices-sensors-list.component.html',
+  selector: 'app-devices-aux',
+  templateUrl: './devices-aux.component.html',
   styleUrls: ['../../../app.component.css']
 })
-export class DevicesSensorsListComponent  implements OnInit{
+export class DevicesAuxComponent  implements OnInit{
 
-  constructor(private xdxd: DevicesEditComponent,private rutaActiva: ActivatedRoute) { }
+  constructor(private xdxd: DevicesNewComponent,private rutaActiva: ActivatedRoute) { }
   private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url5: string = 'http://localhost:5172/api/post/sensors_devices';
   private url4: string = 'http://localhost:5172/api/delete_all/sensors_devices';

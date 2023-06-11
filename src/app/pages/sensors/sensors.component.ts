@@ -27,6 +27,7 @@ export class SensorsComponent implements OnInit{
     this.translate.use(lang);
   }
 
+  guardado= false;
   edit_change= false;
   new_change= false;
 
@@ -160,7 +161,6 @@ export class SensorsComponent implements OnInit{
   }
 
   update(){
-    this.mostrar2=false
     console.log(this.url4)
     fetch(this.url4, {
       method: "POST",
@@ -168,11 +168,10 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    this.mostrar2=false;
     this.guardar_ok= true;
     this.get('xd');
-    this.tam();
     this.get('xd');
+    this.guardado= true;
   }
 
   cerrar(){
@@ -189,11 +188,18 @@ export class SensorsComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    this.mostrar=false;
     this.alert_new= true;
     this.get('xd');
     this.tam();
     this.get('xd');
+
+    fetch(this.url6)
+    .then(response => response.json())
+    .then(data => {
+      this.id= parseInt(data[0].id+1);
+      //console.log(this.id)
+      this.num(this.id)
+    })
   }
 
 

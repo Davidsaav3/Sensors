@@ -1,7 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { DevicesSensorsListComponent } from '../devices-sensors-list/devices-sensors-list.component';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { DevicesSensorsListComponent } from '../devices-sensors-list/devices-sen
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
-  constructor(private rutaActiva: ActivatedRoute,private router: Router, private DevicesSensorsListComponent : DevicesSensorsListComponent,) { }
+  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
   private url3: string = 'http://localhost:5172/api/delete/device_configurations';
 
   id_actual= 1;
@@ -64,6 +63,8 @@ export class DevicesEditComponent implements OnInit{
   }
 
   submit(){
+    //this.DevicesSensorsListComponent.update2();
+
     fetch(this.url4, {
       method: "POST",
       body: JSON.stringify(this.contenido),
@@ -72,7 +73,6 @@ export class DevicesEditComponent implements OnInit{
     .then(response => response.json()) 
     //this.update2();
     this.act_ok= true;
-    //this.DevicesSensorsListComponent.update2();
     this.guardado= true;
   }
 

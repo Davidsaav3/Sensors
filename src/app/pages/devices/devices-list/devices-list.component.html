@@ -82,9 +82,9 @@
 
         <div class="col-6 col-sm-2 col-lg-2 mb-3">
           <select  (ngModelChange)="get('xd')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-            <option selected value="2">{{ 'sensors.l2' | translate }}</option>
-            <option value="0">{{ 'sensors.enable' | translate }}</option>
-            <option value="1">{{ 'sensors.disable' | translate }}</option>
+            <option selected [ngValue]="2">{{ 'sensors.l2' | translate }}</option>
+            <option [ngValue]="0">{{ 'sensors.enable' | translate }}</option>
+            <option [ngValue]="1">{{ 'sensors.disable' | translate }}</option>
           </select>
         </div>
 
@@ -116,6 +116,7 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
+                    <th style="cursor: pointer;" (click)="get('id')" scope="col">Id</th>
                     <th style="cursor: pointer;" (click)="get('uid')" scope="col">{{ 'devices.edit.uid' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="cursor: pointer;" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
                     <th style="cursor: pointer;" (click)="get('application_id')" scope="col">{{ 'devices.edit.aplication' | translate }}</th>
@@ -127,6 +128,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let quote of data" style="cursor: pointer;">
+                    <th [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.id }}</th>
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</td>
                     <td class="d-none d-md-none d-lg-block" [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.application_id }}</td>
