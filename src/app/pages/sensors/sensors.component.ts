@@ -45,6 +45,16 @@ export class SensorsComponent implements OnInit{
   }
 
   @HostListener('window:resize')
+
+  submitForm(loginForm: any) {
+    if (loginForm.valid) {
+      // Lógica para enviar el formulario
+      console.log('Formulario válido');
+    } else {
+      // Lógica para mostrar errores
+      console.log('Formulario inválido');
+    }
+  }
   
   resize(): void{
     this.width = window.innerWidth;

@@ -1,6 +1,6 @@
 <div class="row cont0">
     <div class="row p-0 m-0" >
-        <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> <!-- Devices -->
+        <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar && this.width<980, 'c20': this.mostrar || this.width>=980}"> <!-- Devices -->
             <div class="cont1">
 
                 <div class="row c1">
@@ -96,7 +96,7 @@
             </div> <!-- end Devices -->
         </div>
 
-        <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3, 'c20': this.mostrar3}">
+        <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3 && this.width<980, 'c20': this.mostrar3 || this.width>=980}">
             <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- Devices -->
 
                 <div class="c4 d-flex justify-content-between">

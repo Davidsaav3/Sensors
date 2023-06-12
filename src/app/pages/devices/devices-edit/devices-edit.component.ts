@@ -27,6 +27,12 @@ export class DevicesEditComponent implements OnInit{
   act_not= false;
   change= false;
 
+  width: any;
+
+  resize(): void{
+    this.width = window.innerWidth;
+  }
+
   contenido = {    
     id: '',    
     uid: '',    

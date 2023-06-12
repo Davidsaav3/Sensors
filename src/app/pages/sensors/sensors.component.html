@@ -175,22 +175,34 @@
 
 
 	<div class="cc2 cont" *ngIf="mostrar2" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
-		<form name='myForm' class="row needs-validation p-3"> 
+		<form #loginForm="ngForm" name='myForm' class="row needs-validation p-3" (ngSubmit)="submitForm(loginForm)"> 
+
 			<div class="col-12">
 				<div class="row">
 					<div class="col-12">
 						<h1>{{ 'sensors.of' | translate }} {{ contenido.type }}</h1>
 					</div>
+
 					<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control d-none" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.id">
 					<div class="col-12 pt-3">
-						<label for="type" class="form-label">{{ 'sensors.type' | translate }}</label>
-						<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.type" required>
-						<div class="valid-feedback" *ngIf="campo.touched && campo.invalid">{{ 'sensors.type' | translate }} inválido</div>
+						<div class="form-group">
+							<label for="type">{{ 'sensors.type' | translate }}</label>
+							<input (ngModelChange)="new_change=true" value="{{ contenido.type }}" type="text" id="type" class="form-control" name="type" [(ngModel)]="contenido['type']" required type>
+							<div *ngIf="loginForm.submitted && loginForm.controls['type'].errors" class="text-danger">
+							  <div *ngIf="loginForm.controls['type'].errors['required']">{{ 'sensors.type' | translate }} is required.</div>
+							  <div *ngIf="loginForm.controls['type'].errors['email']">Invalid {{ 'sensors.type' | translate }}.</div>
+							</div>
+						</div>			
 					</div>
 					<div class="col-12 mt-2">
-						<label for="metric" class="form-label">{{ 'sensors.metric' | translate }}</label>
-						<input (ngModelChange)="new_change=true"  type="text" class="form-control" id="metric" name="metric" value="{{ contenido.metric }}" [(ngModel)]="contenido.metric" required>
-						<div class="valid-feedback">{{ 'sensors.metric' | translate }} inválido</div>
+						<div class="form-group">
+							<label for="metric">{{ 'sensors.type' | translate }}</label>
+							<input (ngModelChange)="new_change=true" value="{{ contenido.metric }}" type="text" id="metric" class="form-control" name="metric" [(ngModel)]="contenido['metric']" required type>
+							<div *ngIf="loginForm.submitted && loginForm.controls['metric'].errors" class="text-danger">
+							  <div *ngIf="loginForm.controls['metric'].errors['required']">{{ 'sensors.metric' | translate }} is required.</div>
+							  <div *ngIf="loginForm.controls['metric'].errors['email']">Invalid {{ 'sensors.metric' | translate }}.</div>
+							</div>
+						</div>		
 					</div>
 					<div class="col-md-12 mt-2">
 						<label for="description" class="form-label">{{ 'sensors.description' | translate }}</label>
@@ -223,7 +235,7 @@
 						<button *ngIf="new_change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
-						<button type="button navb" class="btn btn-info" style="width: 100%" (click)="update()" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button>
+						<button type="button navb submit" class="btn btn-info" style="width: 100%" (click)="update()" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
 					</div>	
 					<div class="col-12 mt-3">
 						<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">{{ 'sensors.erase_sensor' | translate }}</button>
