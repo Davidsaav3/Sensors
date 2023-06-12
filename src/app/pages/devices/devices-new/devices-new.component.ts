@@ -39,13 +39,25 @@ export class DevicesNewComponent  implements OnInit{
   }
 
   submit(){
-    fetch('http://localhost:5172/api/post/device_configurations', {
-      method: "POST",
-      body: JSON.stringify(this.contenido),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    this.router.navigate(['/devices']);
+
+  }
+
+  
+  submitForm(loginForm: any) {
+    if (loginForm.valid) {
+      fetch('http://localhost:5172/api/post/device_configurations', {
+        method: "POST",
+        body: JSON.stringify(this.contenido),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.router.navigate(['/devices']);
+
+      console.log('Formulario válido');
+    }
+    else {
+      console.log('Formulario inválido');
+    }
   }
 
   ngOnInit(): void {

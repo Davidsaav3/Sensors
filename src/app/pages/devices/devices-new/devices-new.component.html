@@ -1,4 +1,4 @@
-<div class="row cont0">
+<form class="row cont0 needs-validation" #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)">
     <div class="row p-0 m-0">
         <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> <!-- Devices -->
             <div class="cont1">
@@ -34,43 +34,75 @@
 
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="uid" class="form-label">{{ 'devices.edit.uid' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="uid" name="uid" [(ngModel)]="contenido.uid">
+                                <label for="uid">{{ 'devices.edit.uid' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="contenido['uid']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['uid'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['uid'].errors['required']">{{ 'devices.edit.uid' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['uid'].errors['email']">Invalid {{ 'devices.edit.uid' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <label for="alias" class="form-label">{{ 'devices.edit.alias' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="alias" name="alias" [(ngModel)]="contenido.alias">
+                                <label for="alias">{{ 'devices.edit.alias' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.alias }}" type="text" id="alias" class="form-control" name="alias" [(ngModel)]="contenido['alias']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['alias'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['alias'].errors['required']">{{ 'devices.edit.alias' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['alias'].errors['email']">Invalid {{ 'devices.edit.alias' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="organizationid" class="form-label">{{ 'devices.edit.organization' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="organizationid" name="organizationid" [(ngModel)]="contenido.organizationid">
+                                <label for="organizationid">{{ 'devices.edit.organization' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.organizationid }}" type="text" id="organizationid" class="form-control" name="organizationid" [(ngModel)]="contenido['organizationid']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['organizationid'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['organizationid'].errors['required']">{{ 'devices.edit.organization' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['organizationid'].errors['email']">Invalid {{ 'devices.edit.organization' | translate }}.</div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="typemeter" class="form-label">{{ 'devices.edit.typemeter' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="typemeter" name="typemeter" [(ngModel)]="contenido.typemeter">
+                                <label for="typemeter">{{ 'devices.edit.typemeter' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.typemeter }}" type="text" id="typemeter" class="form-control" name="typemeter" [(ngModel)]="contenido['typemeter']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['typemeter'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['typemeter'].errors['required']">{{ 'devices.edit.typemeter' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['typemeter'].errors['email']">Invalid {{ 'devices.edit.typemeter' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <label for="application_id" class="form-label">{{ 'devices.edit.aplication' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="application_id"  name="application_id" [(ngModel)]="contenido.application_id">
+                                <label for="application_id">{{ 'devices.edit.aplication' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.application_id }}" type="text" id="application_id" class="form-control" name="application_id" [(ngModel)]="contenido['application_id']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['application_id'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['application_id'].errors['required']">{{ 'devices.edit.aplication' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['application_id'].errors['email']">Invalid {{ 'devices.edit.aplication' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <label for="topic_name" class="form-label">{{ 'devices.edit.topic' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="topic_name" name="topic_name" [(ngModel)]="contenido.topic_name">
+                                <label for="topic_name">{{ 'devices.edit.topic' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.topic_name }}" type="text" id="topic_name" class="form-control" name="topic_name" [(ngModel)]="contenido['topic_name']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['topic_name'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['topic_name'].errors['required']">{{ 'devices.edit.topic' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['topic_name'].errors['email']">Invalid {{ 'devices.edit.topic' | translate }}.</div>
+                                </div>
                             </div>
                                
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="origin" class="form-label">{{ 'devices.edit.origin' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="origin" name="origin" [(ngModel)]="contenido.origin">
+                                <label for="origin">{{ 'devices.edit.origin' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.origin }}" type="text" id="origin" class="form-control" name="origin" [(ngModel)]="contenido['origin']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['origin'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['origin'].errors['required']">{{ 'devices.edit.origin' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['origin'].errors['email']">Invalid {{ 'devices.edit.origin' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="description_origin" class="form-label">{{ 'devices.edit.description' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="description_origin" name="description_origin" [(ngModel)]="contenido.description_origin">
+                                <label for="description_origin">{{ 'devices.edit.description' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.description_origin }}" type="text" id="description_origin" class="form-control" name="description_origin" [(ngModel)]="contenido['description_origin']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['description_origin'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['description_origin'].errors['required']">{{ 'devices.edit.description' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['description_origin'].errors['email']">Invalid {{ 'devices.edit.description' | translate }}.</div>
+                                </div>
                             </div>
                         </div>
 
@@ -116,22 +148,34 @@
                     <div class="col-12 col-lg-6 col-md-12 col-12"> 
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="lat" class="form-label">{{ 'devices.edit.long' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="lat"  name="lat" [(ngModel)]="contenido.lat">
+                                <label for="lat">{{ 'devices.edit.lat' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.lat }}" type="text" id="lat" class="form-control" name="lat" [(ngModel)]="contenido['lat']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['lat'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['lat'].errors['required']">{{ 'devices.edit.lat' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['lat'].errors['email']">Invalid {{ 'devices.edit.lat' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="lon" class="form-label">{{ 'devices.edit.lat' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" class="form-control" id="lon"  name="lon" [(ngModel)]="contenido.lon">
+                                <label for="lon">{{ 'devices.edit.long' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.lon }}" type="text" id="lon" class="form-control" name="lon" [(ngModel)]="contenido['lon']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['lon'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['lon'].errors['required']">{{ 'devices.edit.long' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['lon'].errors['email']">Invalid {{ 'devices.edit.long' | translate }}.</div>
+                                </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="cota" class="form-label">{{ 'devices.edit.alt' | translate }}</label>
-                                <input (ngModelChange)="change=true" type="text" value="10" class="form-control" id="cota" name="cota" [(ngModel)]="contenido.cota">
+                                <label for="cota">{{ 'devices.edit.alt' | translate }}</label>
+                                <input (ngModelChange)="change=true" value="{{ contenido.cota }}" type="text" id="cota" class="form-control" name="cota" [(ngModel)]="contenido['cota']" required type>
+                                <div *ngIf="loginForm.submitted && loginForm.controls['cota'].errors" class="text-danger">
+                                    <div *ngIf="loginForm.controls['cota'].errors['required']">{{ 'devices.edit.alt' | translate }} is required.</div>
+                                    <div *ngIf="loginForm.controls['cota'].errors['email']">Invalid {{ 'devices.edit.alt' | translate }}.</div>
+                                </div>
                             </div>
                         </div>
                     </div> 
                     <div class="col-12 col-lg-6 col-md-12 col-12"> 
                         <label for="timezone" class="form-label">{{ 'devices.edit.zone' | translate }}</label>
-                        <select class="form-select" aria-label="Default select example" id="timezone" name="timezone" [(ngModel)]="contenido.timezone">
+                        <select class="form-select" aria-label="Default select example"(ngModelChange)="change=true" value="{{ contenido.timezone }}" type="text" id="timezone" class="form-control" name="timezone" [(ngModel)]="contenido['timezone']" required type>
                             <option value="-12:00">(GMT -12:00) Eniwetok, Kwajalein</option>
                             <option value="-11:00">(GMT -11:00) Midway Island, Samoa</option>
                             <option value="-10:00">(GMT -10:00) Hawaii</option>
@@ -173,6 +217,10 @@
                             <option value="+13:00">(GMT +13:00) Apia, Nukualofa</option>
                             <option value="+14:00">(GMT +14:00) Line Islands, Tokelau</option>
                         </select>
+                        <div *ngIf="loginForm.submitted && loginForm.controls['timezone'].errors" class="text-danger">
+                            <div *ngIf="loginForm.controls['timezone'].errors['required']">{{ 'devices.edit.zone' | translate }} is required.</div>
+                            <div *ngIf="loginForm.controls['timezone'].errors['email']">Invalid {{ 'devices.edit.zone' | translate }}.</div>
+                        </div>
                     </div>
                 </div>
 
@@ -192,14 +240,14 @@
 						        <button *ngIf="change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal13">{{ 'sensors.cancel' | translate }}</button>
                             </div>
                             <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button type="button navb" class="btn btn-info" style="width: 100%" (click)="submit()" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
+                                <button type="button navb submit" class="btn btn-info navb me-3" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
                             </div>
                         </div>
                     </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 
 
@@ -274,7 +322,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
                 </div>
                 <div class="col-7">
-					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="submit()" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
+					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
                 </div>
             </div>
           </div>

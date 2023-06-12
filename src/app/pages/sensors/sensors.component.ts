@@ -48,10 +48,8 @@ export class SensorsComponent implements OnInit{
 
   submitForm(loginForm: any) {
     if (loginForm.valid) {
-      // Lógica para enviar el formulario
       console.log('Formulario válido');
     } else {
-      // Lógica para mostrar errores
       console.log('Formulario inválido');
     }
   }
@@ -217,7 +215,7 @@ export class SensorsComponent implements OnInit{
     .then(data => {
       this.id= parseInt(data[0].id+1);
       //console.log(this.id)
-      this.num(this.id)
+      //this.num(this.id)
     })
   }
 

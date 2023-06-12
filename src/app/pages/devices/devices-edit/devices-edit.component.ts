@@ -55,6 +55,25 @@ export class DevicesEditComponent implements OnInit{
     enable: 1,
   }
 
+  submitForm(loginForm: any) {
+    if (loginForm.valid) {
+      //this.DevicesSensorsListComponent.update2();
+      fetch(this.url4, {
+        method: "POST",
+        body: JSON.stringify(this.contenido),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      //this.update2();
+      this.act_ok= true;
+      this.guardado= true;
+
+      console.log('Formulario válido');
+    } else {
+      console.log('Formulario inválido');
+    }
+  }
+
   eliminar(id_actual: any){
     var contenido3 = {
       id: id_actual,    
