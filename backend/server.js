@@ -129,6 +129,7 @@ con.connect(function(err) {
   if (err) throw err;
   app.post("/api/delete/device_configurations", (req,res)=>{  /*/ DELETE  /*/
     var id09 = req.body.id;
+    console.log(id09)
     con.query("DELETE FROM device_configurations WHERE id= ?", id09, function (err, result) {
       if (err) throw err;
         res.send(result)

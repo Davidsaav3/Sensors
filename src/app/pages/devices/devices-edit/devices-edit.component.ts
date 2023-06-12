@@ -75,6 +75,7 @@ export class DevicesEditComponent implements OnInit{
   }
 
   eliminar(id_actual: any){
+    console.log(id_actual)
     var contenido3 = {
       id: id_actual,    
     }

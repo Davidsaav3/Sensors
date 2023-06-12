@@ -254,7 +254,9 @@ pagina(p: any){
   }
 
   eliminar(){
-       var contenido3 = {
+    this.contenido.sensors= this.contenido.sensors.filter((item) => item == this.eliminarlo)
+
+    /*var contenido3 = {
       id: this.eliminarlo,   
       }
       fetch(this.url3, {
@@ -263,11 +265,13 @@ pagina(p: any){
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
-      this.eliminar_ok= true;
+      this.eliminar_ok= true;*/
   }
 
   vari(id: any){
     this.eliminarlo= id;
+    console.log(this.eliminarlo);
+    this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
   }
 
 

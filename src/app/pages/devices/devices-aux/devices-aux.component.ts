@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DevicesNewComponent } from '../devices-new/devices-new.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { DevicesNewComponent } from '../devices-new/devices-new.component';
 })
 export class DevicesAuxComponent  implements OnInit{
 
-  constructor(private xdxd: DevicesNewComponent,private rutaActiva: ActivatedRoute) { }
+  constructor(private router: Router,private xdxd: DevicesNewComponent,private rutaActiva: ActivatedRoute) { }
   private url6: string = 'http://localhost:5172/api/max/device_configurations';
   private url5: string = 'http://localhost:5172/api/post/sensors_devices';
   private url4: string = 'http://localhost:5172/api/delete_all/sensors_devices';
@@ -242,6 +243,8 @@ pagina(p: any){
       this.get('xd')
       this.get('xd')
       console.log('Formulario válido');
+
+      this.router.navigate(['/devices']);
     } 
     else {
       console.log('Formulario inválido');
@@ -284,10 +287,13 @@ pagina(p: any){
     //}
     this.get('xd')
     this.get('xd')
+    this.router.navigate(['/devices']);
   }
 
   eliminar(){
-       var contenido3 = {
+    this.contenido.sensors= this.contenido.sensors.filter((item) => item == this.eliminarlo)
+    
+    /*var contenido3 = {
       id: this.eliminarlo,   
       }
       fetch(this.url3, {
@@ -296,11 +302,13 @@ pagina(p: any){
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
-      this.eliminar_ok= true;
+      this.eliminar_ok= true;*/
   }
 
   vari(id: any){
     this.eliminarlo= id;
+    console.log(this.eliminarlo);
+    this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
   }
 
 
