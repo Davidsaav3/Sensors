@@ -46,8 +46,47 @@ export class SensorsComponent implements OnInit{
 
   @HostListener('window:resize')
 
-  submitForm(loginForm: any) {
+  submitForm1(loginForm: any) {
     if (loginForm.valid) {
+      console.log(this.url4)
+      fetch(this.url4, {
+        method: "POST",
+        body: JSON.stringify(this.contenido),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.guardar_ok= true;
+      this.get('xd');
+      this.get('xd');
+      this.guardado= true;
+
+      console.log('Formulario válido');
+    } else {
+      console.log('Formulario inválido');
+    }
+  }
+
+  submitForm2(loginForm: any) {
+    if (loginForm.valid) {
+
+      fetch(this.url2, {
+        method: "POST",
+        body: JSON.stringify(this.contenido_new),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.alert_new= true;
+      this.get('xd');
+      this.tam();
+      this.get('xd');
+  
+      fetch(this.url6)
+      .then(response => response.json())
+      .then(data => {
+        this.id= parseInt(data[0].id+1);
+        //console.log(this.id)
+        //this.num(this.id)
+      })
       console.log('Formulario válido');
     } else {
       console.log('Formulario inválido');
