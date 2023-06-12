@@ -215,6 +215,39 @@ pagina(p: any){
     //})
   }
 
+  submitForm(loginForm: any) {
+    if (loginForm.valid) {
+
+      this.xdxd.submit();
+      var contenido4 = {
+        id: this.id,   
+      }
+      fetch(this.url4, {
+        method: "POST",
+        body: JSON.stringify(contenido4),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+
+      for(let quote of this.contenido.sensors) {
+        fetch(this.url5, {
+          method: "POST",
+          body: JSON.stringify(quote),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+      }
+      this.act_ok= true;
+      console.log(this.act_ok)
+      this.get('xd')
+      this.get('xd')
+      console.log('Formulario válido');
+    } 
+    else {
+      console.log('Formulario inválido');
+    }
+  }
+
   update2(){
     this.xdxd.submit();
     /*if((this.contenido.sensors[0].orden==this.contenido.sensors[1].orden) && 
