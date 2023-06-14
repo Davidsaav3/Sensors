@@ -8,12 +8,23 @@ import { Router } from '@angular/router';
 })
 export class DevicesNewComponent  implements OnInit{
   
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    this.formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    console.log(this.formattedDateTime)
+  }
 
   post_device: string = 'http://localhost:5172/api/post/device_configurations';
 
   data: any;
   activeLang='en';
+  formattedDateTime= '';
 
   mostrar=true;
   ver_rec= false;
@@ -34,6 +45,8 @@ export class DevicesNewComponent  implements OnInit{
     timezone: '+01:00',
     enable: 0,
     organizationid: '',
+    createdAt: this.formattedDateTime,
+    upadatedAt: this.formattedDateTime
   }
 
   ngOnInit(): void {

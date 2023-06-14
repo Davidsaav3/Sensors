@@ -64,6 +64,7 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
+    orden: 1,
   }
 
   contenido_new = {
@@ -74,7 +75,7 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
-    order: 1,
+    orden: 1,
   }
 
   busqueda = {
@@ -86,9 +87,9 @@ export class SensorsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.get('xd');
+    this.get('orden');
     this.tam();
-    this.get('xd');
+    this.get('orden');
   }
 
   get(id: any){
@@ -107,9 +108,8 @@ export class SensorsComponent implements OnInit{
     .then((quotesData) => (this.data = quotesData));
   }
 
-  public cambiarLenguaje(lang: any) {
-    this.activeLang = lang;
-    this.translate.use(lang);
+  public cambiarLenguaje() {
+    this.translate.use(this.activeLang);
   }
 
   submitForm1(loginForm: any) {

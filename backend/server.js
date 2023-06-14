@@ -89,12 +89,12 @@ con.connect(function(err) {
     });
   });
   app.post("/api/post/device_configurations", (req,res)=>{  /*/ PUT  /*/
-  const uid = req.body.uid;
+  if(!req.body.uid){return res.status(400).json({ error: 'El campo uid es requerido.' });}else{uid = req.body.uid;}
   const alias = req.body.alias;
   const origin = req.body.origin;
   const description_origin = req.body.description_origin;
   const application_id = req.body.application_id;
-  const topic_name = req.body.topic_name;
+  if(!req.body.topic_name){return res.status(400).json({ error: 'El campo topic_name es requerido.' });}else{topic_name = req.body.topic_name;}
   const typemeter = req.body.typemeter;
   const lat = req.body.lat;
   const lon = req.body.lon;
@@ -109,12 +109,12 @@ con.connect(function(err) {
 });
   if (err) throw err;
   app.post("/api/update/device_configurations/", (req,res)=>{  /*/ UPDATE  /*/
-  const uid = req.body.uid;
+  if(!req.body.uid){return res.status(400).json({ error: 'El campo uid es requerido.' });}else{uid = req.body.uid;}
   const alias = req.body.alias;
   const origin = req.body.origin;
   const description_origin = req.body.description_origin;
   const application_id = req.body.application_id;
-  const topic_name = req.body.topic_name;
+  if(!req.body.topic_name){return res.status(400).json({ error: 'El campo topic_name es requerido.' });}else{topic_name = req.body.topic_name;}
   const typemeter = req.body.typemeter;
   const lat = req.body.lat;
   const lon = req.body.lon;
@@ -259,8 +259,8 @@ if (err) throw err;
 });
   if (err) throw err;
   app.post("/api/post/sensors_types", (req,res)=>{  /*/ PUT  /*/
-    const type = req.body.type;
-    const metric = req.body.metric;
+  if(!req.body.type){return res.status(400).json({ error: 'El campo type es requerido.' });}else{type = req.body.type;}
+  if(!req.body.metric){return res.status(400).json({ error: 'El campo metric es requerido.' });}else{metric = req.body.metric;}
     const description = req.body.description;
     const errorvalue = req.body.errorvalue;
     const valuemax = req.body.valuemax;
@@ -273,8 +273,8 @@ if (err) throw err;
   if (err) throw err;
   //const id = req.params.id
   app.post("/api/update/sensors_types/", (req,res)=>{  /*/ UPDATE  /*/
-    type9 = req.body.type;
-    metric = req.body.metric;
+    if(!req.body.type){return res.status(400).json({ error: 'El campo type es requerido.' });}else{type9 = req.body.type;}
+    if(!req.body.metric){return res.status(400).json({ error: 'El campo metric es requerido.' });}else{metric = req.body.metric;}
     description = req.body.description;
     errorvalue = req.body.errorvalue;
     valuemax = req.body.valuemax;

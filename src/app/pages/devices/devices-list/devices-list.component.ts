@@ -110,7 +110,7 @@ export class DevicesListComponent implements OnInit{
 
   ngOnInit(): void {
     this.ruta= this.rutaActiva.routerState.snapshot.url;
-    this.get('xd');
+    this.get('uid');
       fetch(this.max_device)
       .then(response => response.json())
       .then(data => {
@@ -187,9 +187,8 @@ export class DevicesListComponent implements OnInit{
     }
   }
 
-  public cambiarLenguaje(lang: any) {
-    this.activeLang = lang;
-    this.translate.use(lang);
+  public cambiarLenguaje() {
+    this.translate.use(this.activeLang);
   }
 
   duplicate(num: any){

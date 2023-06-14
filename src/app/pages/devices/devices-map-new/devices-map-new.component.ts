@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 interface MarkerAndColor {
   color: string;
   marker: mapboxgl.Marker;
-  name: string;
-  enable: number; 
 }
 
 interface PlainMarker {
@@ -16,52 +16,52 @@ interface PlainMarker {
 (mapboxgl as any).accessToken= 'pk.eyJ1IjoiZGF2aWRzYWF2MyIsImEiOiJjbGl1cmZ4NG8wMTZqM2ZwNW1pcW85bGo4In0.ye1F3KfhnRZruosNYoAYYQ';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
+  selector: 'app-devices-map-new',
+  templateUrl: './devices-map-new.component.html',
   styleUrls: ['../../../app.component.css']
 })
-export class MapComponent implements AfterViewInit, OnDestroy{
+export class DevicesMapNewComponent implements AfterViewInit, OnDestroy{
+  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
+
   @ViewChild('map') divMap?: ElementRef;
 
   public zoom: number = 10;
   public map?: mapboxgl.Map;
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
+  id_device: string = 'http://localhost:5172/api/id/device_configurations';
+  id= parseInt(this.rutaActiva.snapshot.params['id']);
 
-  timeout: any = null;
-  dup_ok=false;
-  dup_not=false;
-  buscar='Buscar';
-  buscar1= 'id';
-  buscar2= 'id';
-  buscar3= 'Nada';
-  buscar4= 'Nada';
-  private url: string = 'http://localhost:5172/api/get/device_configurations';
-  data: any;
-
-  busqueda = {
-    value: '', 
-    sel_type: 'Nada',
-    sel_enable: 2
+  id_actual= 1;
+  contenido = {    
+    id: '',    
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
+    lat: 0,
+    lon: 0,
+    cota: 10,
+    timezone: '+01:00',
+    organizationid: '',
+    enable: 0,
   }
 
-  contenido = {
-    sensors : [{
-      id: '',    
-      uid: '',    
-      alias: '', 
-      origin: '',
-      description_origin: '',
-      application_id: '',
-      topic_name: '',
-      typemeter: '',
-      lat: 0,
-      lon: 0,
-      cota: 10,
-      timezone: '+01:00',
-      enable: 0,
-      organizationid: '',
-    }]
+  ngOnInit(): void {
+    fetch(`${this.id_device}/${this.id}`)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+      let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
+      let coords = new mapboxgl.LngLat( this.contenido.lon, this.contenido.lat );
+      this.addMarker( coords, color );
+    })
+    .catch(error => {
+      console.error(error); 
+    });
   }
 
   ngAfterViewInit(): void {
@@ -126,32 +126,31 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   /* /////////////////////////// */
 
   createMarker() {
-    let enable=1;
     if ( !this.map ) return;
 
-    let color= '#198754';
-    if(enable==0){
-      color= '#dc3545';
-    }
-
+    //const color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
+    const color= '#0dcaf0';
     const lngLat = this.map.getCenter();
-    let name='Punto nuevo';
-    this.addMarker( lngLat, color ,name,enable);
+
+    this.addMarker( lngLat, color );
   }
 
 
-  addMarker( lngLat: mapboxgl.LngLat, color: string , name: string, enable: number) {
+  addMarker( lngLat: mapboxgl.LngLat, color: string ) {
     if ( !this.map ) return;
 
+    this.markers = [];
+    //this.markers[0].marker.remove();
+    this.markers.splice( 0, 1 );
+
     const marker = new mapboxgl.Marker({
-      color: color,
-      draggable: true,
+      color: '#0dcaf0',
+      draggable: true
     })
       .setLngLat( lngLat )
-      .addTo( this.map );  
+      .addTo( this.map );
 
-    
-    this.markers.push({ color, marker, name, enable});
+    this.markers.push({ color, marker, });
     this.saveToLocalStorage();
 
     marker.on('dragend', () => this.saveToLocalStorage() );
@@ -193,34 +192,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     plainMarkers.forEach( ({ color, lngLat }) => {
       const [ lng, lat ] = lngLat;
       const coords = new mapboxgl.LngLat( lng, lat );
-      let name='David';
-      let enable=1;
-      this.addMarker( coords,color,name,enable);
+
+      this.addMarker( coords, color );
     })
 
   }
 
-  ngOnInit(): void {
-    let x1= 1;
-    let x2= 100000;
-    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)    
-    .then((response) => response.json())
-    .then(data => {
-      this.contenido.sensors= data;
-      for(let quote of this.contenido.sensors) {
-        let color= '#198754';
-        if(quote.enable==0){
-          color= '#dc3545';
-        }
-        if(quote.enable==1){
-          color= '#198754';
-        }
-        let coords = new mapboxgl.LngLat( quote.lon, quote.lat );
-        let name=quote.uid;
-        let enable=parseInt(quote.id);
-        this.addMarker( coords, color , name, enable);
-      }
-    })
-  }
 
 }
