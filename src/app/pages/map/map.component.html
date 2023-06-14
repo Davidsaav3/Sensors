@@ -1,22 +1,39 @@
-<div class="cont"> <!-- Devices -->	
-    <div class="row">
-		<div class="col-2"> <!-- Recargar -->
-		    
-		</div> 
-		<div class="col-8"> <!-- Título -->
-			
-		</div>
-        <div class="col-2"> <!-- Maximizar -->
-           
-        </div>
-	</div>	
 
-	<div class="row">
-        <img>
-	</div>	
+<div id="map" #map>+
 
-    <div class="row">
-        <img>
-	</div>	
 
-</div> <!-- end Map -->
+<div class="floating-range p-2 d-flex" style="justify-content: space-between">
+  <div class="floating-content">
+    <button (click)="zoomOut()" class="btn btn-secondary"> - </button>
+    <input type="range"
+      class="form-range px-2"
+      min="-2"
+      max="18"
+      [value]="zoom"
+      (input)="zoomChanged( zoomInput.value )"
+      #zoomInput
+    >
+    <button (click)="zoomIn()" class="btn btn-secondary"> + </button>
+  </div>
+
+  <div>
+	<span class="form-label">
+		{{ zoom | number:'2.2-2' }} - {{ currentLngLat }}
+	</span>
+	<button class="ms-3" id="botoncito" (click)="createMarker()"  class="btn btn-secondary">
+		Añadir punto
+	</button>
+  </div>
+</div>
+
+<ul class="list-group" style="overflow-y: scroll;">
+	<li *ngFor="let colorMarker of markers; let i = index"
+	  [ngStyle]="{ backgroundColor:colorMarker.color}"
+	  (dblclick)="deleteMarker(i)"
+	  (click)="flyTo( colorMarker.marker)"
+	   class="list-group-item">
+	  Marker {{ i + 1 }}
+	</li>
+</ul>
+
+</div>
