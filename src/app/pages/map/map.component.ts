@@ -23,8 +23,43 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   public zoom: number = 10;
   public map?: mapboxgl.Map;
-  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-74.10380784179445, 4.651165392795477);
+  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
+
+  timeout: any = null;
+  dup_ok=false;
+  dup_not=false;
+  buscar='Buscar';
+  buscar1= 'id';
+  buscar2= 'id';
+  buscar3= 'Nada';
+  buscar4= 'Nada';
+  private url: string = 'http://localhost:5172/api/get/device_configurations';
+  data: any;
+
+  busqueda = {
+    value: '', 
+    sel_type: 'Nada',
+    sel_enable: 2
+  }
+
+  contenido = {
+    sensors : [{
+      uid: '',    
+      alias: '', 
+      origin: '',
+      description_origin: '',
+      application_id: '',
+      topic_name: '',
+      typemeter: '',
+      lat: 0,
+      lon: 0,
+      cota: 10,
+      timezone: '+01:00',
+      enable: 0,
+      organizationid: '',
+    }]
+  }
 
   ngAfterViewInit(): void {
 
@@ -102,7 +137,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
     const marker = new mapboxgl.Marker({
       color: color,
-      draggable: true
+      draggable: true,
     })
       .setLngLat( lngLat )
       .addTo( this.map );
@@ -155,5 +190,23 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   }
 
+  ngOnInit(): void {
+    console.log("HOLA")
+
+    const url2 = `${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}`;
+    //console.log(url2)
+    fetch(url2)
+    .then((response) => response.json())
+    .then(data => {
+      this.contenido.sensors= data;
+      console.log(this.contenido.sensors)
+      for(let quote of this.contenido.sensors) {
+        console.log(quote.lon)
+        let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
+        let coords = new mapboxgl.LngLat( quote.lon, quote.lat );
+        this.addMarker( coords, color );
+      }
+    })
+  }
 
 }

@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 interface MarkerAndColor {
   color: string;
@@ -19,12 +21,32 @@ interface PlainMarker {
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesMapComponent implements AfterViewInit, OnDestroy{
+  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
+
   @ViewChild('map') divMap?: ElementRef;
 
   public zoom: number = 10;
   public map?: mapboxgl.Map;
-  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-74.10380784179445, 4.651165392795477);
+  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
+ 
+  id_actual= 1;
+  contenido = {    
+    id: '',    
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
+    lat: 0,
+    lon: 0,
+    cota: 10,
+    timezone: '+01:00',
+    organizationid: '',
+    enable: 0,
+  }
 
   ngAfterViewInit(): void {
 
@@ -158,6 +180,24 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
       this.addMarker( coords, color );
     })
 
+  }
+
+  ngOnInit(): void {
+    this.id_actual= this.rutaActiva.snapshot.params['id']
+    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
+    const url = `${apiUrl}/${this.id_actual}`;
+    //console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+      let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
+      let coords = new mapboxgl.LngLat( this.contenido.lon, this.contenido.lat );
+      this.addMarker( coords, color );
+    })
+    .catch(error => {
+      console.error(error); 
+    });
   }
 
 
