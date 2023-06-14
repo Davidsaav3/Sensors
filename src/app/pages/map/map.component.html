@@ -1,39 +1,36 @@
 
-<div id="map" #map>+
+<div id="map" #map>
+  <div class="floating-range p-2 d-flex" style="justify-content: space-between; top:0px">
+    <div class="floating-content">
+      <button (click)="zoomOut()" class="btn btn-secondary"> - </button>
+      <input type="range"
+        class="form-range px-2"
+        min="-2"
+        max="18"
+        [value]="zoom"
+        (input)="zoomChanged( zoomInput.value )"
+        #zoomInput
+      >
+      <button (click)="zoomIn()" class="btn btn-secondary"> + </button>
+    </div>
 
+    <div>
+    <span class="form-label">
+      <!--{{ zoom | number:'2.2-2' }} ---> {{ currentLngLat }}
+    </span>
+    <!--<button class="ms-3" id="botoncito" (click)="createMarker()"  class="btn btn-secondary">
+      Seleccionar posicion
+    </button>-->
+    </div>
 
-<div class="floating-range p-2 d-flex" style="justify-content: space-between">
-  <div class="floating-content">
-    <button (click)="zoomOut()" class="btn btn-secondary"> - </button>
-    <input type="range"
-      class="form-range px-2"
-      min="-2"
-      max="18"
-      [value]="zoom"
-      (input)="zoomChanged( zoomInput.value )"
-      #zoomInput
-    >
-    <button (click)="zoomIn()" class="btn btn-secondary"> + </button>
+    
   </div>
 
-  <div>
-	<span class="form-label">
-		{{ zoom | number:'2.2-2' }} - {{ currentLngLat }}
-	</span>
-	<button class="ms-3" id="botoncito" (click)="createMarker()"  class="btn btn-secondary">
-		Añadir punto
-	</button>
-  </div>
-</div>
-
-<ul class="list-group" style="overflow-y: scroll;">
-	<li *ngFor="let colorMarker of markers; let i = index"
-	  [ngStyle]="{ backgroundColor:colorMarker.color}"
-	  (dblclick)="deleteMarker(i)"
-	  (click)="flyTo( colorMarker.marker)"
-	   class="list-group-item">
-	  Marker {{ i + 1 }}
-	</li>
-</ul>
+  <ul class="list-group ps-0 pe-0" style="overflow-y: scroll;" >
+    <div *ngFor="let colorMarker of markers; let i = index"[ngStyle]="{ backgroundColor:colorMarker.color}" (click)="flyTo( colorMarker.marker)" class="list-group-item ps-2 pe-2 d-flex justify-content-between">
+      <p class="p-0 m-0">Punto {{ i + 1 }}</p>
+      <button type="button" class="btn-close" aria-label="Close" (click)="deleteMarker(i)"></button>
+    </div>
+  </ul>
 
 </div>
