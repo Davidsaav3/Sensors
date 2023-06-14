@@ -43,8 +43,8 @@
     "sensors.enable" : "Enabled",
     "sensors.disable" : "Disabled",
     "sensors.exit" : "Exit",
-    "sensors.l1" : "All types of sensors",
-    "sensors.l2" : "Devices enabled and disabled",
+    "sensors.l1" : "All",
+    "sensors.l2" : "All states",
 
     "devices.sensors.new" : "New sensor",
     "devices.sensors.e1" : "Sensors saved!",

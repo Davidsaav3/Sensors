@@ -71,6 +71,8 @@ export class DevicesListComponent implements OnInit{
         datafield: '',
         nodata: '',
         orden: '',
+        createdAt: '',        
+        updatedAt: '',
         type_name: '',
         sensor : [
           {

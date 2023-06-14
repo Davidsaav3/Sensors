@@ -16,7 +16,7 @@ interface PlainMarker {
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['../../app.component.css']
+  styleUrls: ['../../../app.component.css']
 })
 export class MapComponent implements AfterViewInit, OnDestroy{
   @ViewChild('map') divMap?: ElementRef;

@@ -135,7 +135,7 @@ export class SensorsComponent implements OnInit{
   guardar_ok: any= false;
   guardar_not: any= false;
   buscar='Buscar';
-  buscar1='id';
+  buscar1='type';
   
   url1: string = 'http://localhost:5172/api/get/sensors_types';
   data: any;

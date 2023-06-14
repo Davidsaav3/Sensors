@@ -1,11 +1,13 @@
-<div class="nav mb-0">
-	<div class="col-12 col-md-5 p-0 pb-3">
-	  <div class="d-flex justify-content-between w-100">
-		<a type="button navb" routerLink="/devices" class="btn btn-info navb me-3" [ngClass]="{'disabled': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
-		<a type="button" routerLink="/sensors" class="btn btn-info navb" [ngClass]="{'disabled': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
-	  </div>
+<div class="mb-0 d-flex">
+	<div class="nav nav-tabs mb-0 col-12 col-md-3 p-0">
+		<li class="nav-item">
+		  <a class="nav-link me-3" aria-current="page" routerLink="/devices" [ngClass]="{'active': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
+		</li>
+		<li class="nav-item">
+		  <a class="nav-link" href="#" routerLink="/sensors" [ngClass]="{'active': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
+		</li>
 	</div>
-	<div class="col-6 col-md-3 pb-3 ps-3">
+	<div class="col-6 col-md-5 pb-3 ps-3 d-flex">
     <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
         {{ 'devices.list.e1' | translate }}
       </div>
@@ -13,13 +15,16 @@
         {{ 'devices.list.e2' | translate }}
       </div>
   </div>
-  <div class="col-6 col-md-4 p-0 ">
+	<div class="col-6 col-md-4 p-0">
 		<div class="row">
-			<div class="col-12 p-0 pb-3">
-				<div class="d-flex justify-content-end">
+			<div class="col-12 p-0 pt-2">
+				<div class="d-flex">
 					<div class="d-flex justify-content-end pe-3">
-						<button type="button" class="btn btn-secondary" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</button>
-						<button type="button" class="btn btn-secondary ms-3" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</button>
+            <select class="form-select" aria-label="Default select example" id="sel_type" >
+              <option value="0">Idioma</option>
+              <option value="10" (ngModelChange)="cambiarLenguaje('es')" [ngClass]="{'active': activeLang == 'es'}" (click)="cambiarLenguaje('es')">Español</option>
+              <option value="21" (ngModelChange)="cambiarLenguaje('en')" [ngClass]="{'active': activeLang == 'en'}" (click)="cambiarLenguaje('en')">English</option>
+            </select>
 					</div>
 					<div class="d-none d-xl-block pe-3">
 						<div class="d-flex justify-content-end">
@@ -116,22 +121,23 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('id')" scope="col">Id</th>
                     <th style="cursor: pointer; " class="single-line" (click)="get('uid')" scope="col">{{ 'devices.edit.uid' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="cursor: pointer; " class="single-line" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
                     <th style="cursor: pointer; " class="single-line" (click)="get('application_id')" scope="col">{{ 'devices.edit.aplication' | translate }}</th>
                     <th style="cursor: pointer; " class="single-line" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="" class="single-line" >{{ 'sensors.sensors' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">Creación</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">Modificación</th>
                     <th scope="col" style="text-align: center;" style=""class="single-line" >{{ 'sensors.duplicate' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">{{ 'sensors.edit' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let quote of data" style="cursor: pointer;">
-                    <th [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.id }}</th>
-                    <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</td>
+                    <th [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</th>
                     <td class="d-none d-md-none d-lg-block" [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.application_id }}</td>
+
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">
                       <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.enable' | translate }}</p></span>
                       <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.disable' | translate }}</p></span>
@@ -147,6 +153,10 @@
                         </div>
                       </ng-container>
                     </td>
+
+                    <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.createdAt }}</td>
+                    <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.updatedAt }}</td>
+
                     <td (mouseout)="ver_dup=false" (mouseover)="ver_dup=true" style="text-align: center;" (click)="duplicate(quote.id)">                      
                       <svg *ngIf="!ver_dup" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar.component';
-import { MapComponent } from './pages/map/map.component';
+import { MapComponent } from './pages/devices/map/map.component';
 import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
 import { DevicesAuxComponent } from './pages/devices/devices-aux/devices-aux.component';
 import { DevicesMapComponent } from './pages/devices/devices-map/devices-map.component';
