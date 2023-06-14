@@ -26,6 +26,7 @@
     "sensors.value_min" : "Valor min",
     "sensors.value_max" : "Valor max",
     "sensors.of" : "Sensor de ",
+    "sensors.order" : "Orden",
 
     "sensors.ant" : "ant",
     "sensors.sig" : "sig",

@@ -21,6 +21,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+import { DataSharingService } from './services/data_sharing.service';
+
 @NgModule({
   declarations: [
     DevicesMapNewComponent,
@@ -52,7 +54,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
       }
     })
   ],
-  providers: [],
+  providers: [DataSharingService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
