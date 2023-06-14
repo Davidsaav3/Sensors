@@ -81,6 +81,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
+							<th scope="col" style="cursor: pointer;" (click)="get('type')">Order</th>
 							<th scope="col" style="cursor: pointer;" (click)="get('type')">{{ 'sensors.type' | translate }}</th>
 							<th scope="col" style="cursor: pointer;" (click)="get('metric')">{{ 'sensors.metric' | translate }}</th>
 							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" (click)="get('description')">{{ 'sensors.description' | translate }}</th>
@@ -96,7 +97,9 @@
 					</thead>
 					<tbody *ngFor="let quote of data">
 						<tr style="cursor: pointer;">
-							<th (click)="num(quote.id)">{{ quote.type }}</th>
+							<th (click)="num(quote.id)">{{ quote.orden }}</th>
+
+							<td (click)="num(quote.id)">{{ quote.type }}</td>
 							<td (click)="num(quote.id)">{{ quote.metric }}</td>
 							<td class="d-none d-md-none d-lg-block" (click)="num(quote.id)">{{ quote.description }}</td>
 		

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-devices-new',
@@ -9,12 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DevicesNewComponent  implements OnInit{
   
-  constructor(private router: Router,private rutaActiva: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
-  title = 'HTTP using native fetch API';
-  private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
+  post_device: string = 'http://localhost:5172/api/post/device_configurations';
+
   data: any;
-  
   activeLang='en';
 
   mostrar=true;
@@ -38,14 +36,18 @@ export class DevicesNewComponent  implements OnInit{
     organizationid: '',
   }
 
-  submit(){
-
+  ngOnInit(): void {
+    /*fetch(this.url)
+    .then((response) => response.json())
+    .then((quotesData) => (this.data = quotesData));*/
   }
 
-  
+  submit(){
+  }
+
   submitForm(loginForm: any) {
     if (loginForm.valid) {
-      fetch('http://localhost:5172/api/post/device_configurations', {
+      fetch(this.post_device, {
         method: "POST",
         body: JSON.stringify(this.contenido),
         headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -59,11 +61,5 @@ export class DevicesNewComponent  implements OnInit{
       console.log('Formulario inválido');
     }
   }
-
-  ngOnInit(): void {
-    /*fetch(this.url)
-    .then((response) => response.json())
-    .then((quotesData) => (this.data = quotesData));*/
-}
 }
 

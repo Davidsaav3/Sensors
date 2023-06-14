@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
-                                    <label class="toggle tt1 t1" (click)="enable()">
+                                    <label class="toggle tt1 t1">
                                         <input type="checkbox" (ngModelChange)="change=true" [(ngModel)]="contenido.enable">
                                         <span class="slider"></span>
                                         <ng-container *ngIf="this.activeLang=='es'">
@@ -125,7 +125,7 @@
                 </div>
                 
 
-            </div> <!-- end Devices -->
+            </div>
         </div>
 
         <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3, 'c20': this.mostrar3}">
@@ -236,13 +236,13 @@
                     </div>
                 </div>
 
-            </div> <!-- end Devices -->
+            </div>
         </div>
 
     </div>
 
     <div class="row p-0 m-0">
-        <div class="col-12 p-0"> <!-- Devices -->
+        <div class="col-12 p-0">
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="row">

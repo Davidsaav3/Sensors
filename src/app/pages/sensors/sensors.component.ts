@@ -1,8 +1,5 @@
 import { Component , OnInit, HostListener} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,116 +11,30 @@ import { Router } from '@angular/router';
 
 export class SensorsComponent implements OnInit{
 
-  width: any;
+  @HostListener('window:resize')
   public activeLang = 'es';
-  constructor(
-    private translate: TranslateService,
-    public rutaActiva: Router
-  ) {
+
+  constructor(private translate: TranslateService, public rutaActiva: Router) {
     this.resize();
     this.translate.setDefaultLang(this.activeLang);
   }
 
-  public cambiarLenguaje(lang: any) {
-    this.activeLang = lang;
-    this.translate.use(lang);
-  }
+  duplicate_sensors: string = 'http://localhost:5172/api/duplicate/sensors_types';
+  max_sensors: string = 'http://localhost:5172/api/max/sensors_types';
+  get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
+  post_sensors: string = 'http://localhost:5172/api/post/sensors_types';
+  delete_sensors: string = 'http://localhost:5172/api/delete/sensors_types';
+  update_sensors: string = 'http://localhost:5172/api/update/sensors_types';
+  id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
 
-  guardado= false;
-  edit_change= false;
-  new_change= false;
+  data: any;
+  data2: any;
+  data3: any;
 
-  dup_ok=false;
-  dup_not=false;
-  id= 0;
-
-  private url5: string = 'http://localhost:5172/api/duplicate/sensors_types';
-  private url6: string = 'http://localhost:5172/api/max/sensors_types';
-
-  contenido3 = {
-    id: '',
-  }
-
-  @HostListener('window:resize')
-
-  submitForm1(loginForm: any) {
-    if (loginForm.valid) {
-      console.log(this.url4)
-      fetch(this.url4, {
-        method: "POST",
-        body: JSON.stringify(this.contenido),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json()) 
-      this.guardar_ok= true;
-      this.get('xd');
-      this.get('xd');
-      this.guardado= true;
-
-      console.log('Formulario válido');
-    } else {
-      console.log('Formulario inválido');
-    }
-  }
-
-  submitForm2(loginForm: any) {
-    if (loginForm.valid) {
-
-      fetch(this.url2, {
-        method: "POST",
-        body: JSON.stringify(this.contenido_new),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json()) 
-      this.alert_new= true;
-      this.get('xd');
-      this.tam();
-      this.get('xd');
-  
-      fetch(this.url6)
-      .then(response => response.json())
-      .then(data => {
-        this.id= parseInt(data[0].id+1);
-        //console.log(this.id)
-        //this.num(this.id)
-      })
-      console.log('Formulario válido');
-    } else {
-      console.log('Formulario inválido');
-    }
-  }
-  
-  resize(): void{
-    this.width = window.innerWidth;
-  }
-
-
-  duplicate(num: any){
-    this.contenido3 = {
-      id: num,    
-    }   
-    //console.log(num)
-    const url2 = `${this.url5}/${num}`;
-     fetch(url2, {
-      method: "POST",
-      body: JSON.stringify(this.contenido3),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json())
-    this.dup_ok=true;
-    fetch(this.url6)
-    .then(response => response.json())
-    .then(data => {
-      this.id= parseInt(data[0].id+1);
-      //console.log(this.id)
-      this.num(this.id)
-    })
-  }
+  width: any;
   ruta='';
-
   ver_dup=false;
   pencil_dup=false;
-
   timeout: any = null;
   mostrar=false;
   mostrar2= false;
@@ -136,19 +47,12 @@ export class SensorsComponent implements OnInit{
   guardar_not: any= false;
   buscar='Buscar';
   buscar1='type';
-  
-  url1: string = 'http://localhost:5172/api/get/sensors_types';
-  data: any;
-  private url2: string = 'http://localhost:5172/api/post/sensors_types';
-  data2: any;
-  private url3: string = 'http://localhost:5172/api/delete/sensors_types';
-  data3: any;
-  private url4: string = 'http://localhost:5172/api/update/sensors_types';
-  apiUrl: string = 'http://localhost:5172/api/id/sensors_types';
-
-  busqueda = {
-    value: '', 
-  }
+  guardado= false;
+  edit_change= false;
+  new_change= false;
+  dup_ok=false;
+  dup_not=false;
+  id= 0;
 
   contenido = {
     id: '', 
@@ -168,36 +72,120 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
+    order: 1,
   }
 
-  borrar(){
-    this.busqueda.value= '';
+  busqueda = {
+    value: '', 
+  }
+
+  contenido3 = {
+    id: '',
+  }
+
+  ngOnInit(): void {
+    this.get('xd');
+    this.tam();
     this.get('xd');
   }
 
-  m1(){
-    this.mostrar= true;
-    this.mostrar2= false;
-    this.tam();
+  get(id: any){
+    this.ruta= this.rutaActiva.routerState.snapshot.url;
+    if(id!='xd'){
+      this.buscar1= id;
+    }
+    if(this.busqueda.value==''){
+      this.buscar= 'Buscar';
+    }
+    else{
+      this.buscar= this.busqueda.value;
+    }
+    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}`)
+    .then((response) => response.json())
+    .then((quotesData) => (this.data = quotesData));
   }
 
+  public cambiarLenguaje(lang: any) {
+    this.activeLang = lang;
+    this.translate.use(lang);
+  }
+
+  submitForm1(loginForm: any) {
+    if (loginForm.valid) {
+      console.log(this.update_sensors)
+      fetch(this.update_sensors, {
+        method: "POST",
+        body: JSON.stringify(this.contenido),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.guardar_ok= true;
+      this.get('xd');
+      this.get('xd');
+      this.guardado= true;
+
+      console.log('Formulario válido');
+    } else {
+      console.log('Formulario inválido');
+    }
+  }
+
+  submitForm2(loginForm: any) {
+    if (loginForm.valid) {
+      fetch(this.post_sensors, {
+        method: "POST",
+        body: JSON.stringify(this.contenido_new),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+      this.alert_new= true;
+      this.get('xd');
+      this.tam();
+      this.get('xd');
   
-  m2(){
-    this.mostrar2= true;
-    this.mostrar= false;
+      fetch(this.max_sensors)
+      .then(response => response.json())
+      .then(data => {
+        this.id= parseInt(data[0].id+1);
+        //console.log(this.id)
+        //this.num(this.id)
+      })
+      console.log('Formulario válido');
+    } else {
+      console.log('Formulario inválido');
+    }
+  }
+  
+  resize(): void{
+    this.width = window.innerWidth;
   }
 
-  m3(){
-    this.mostrar2= false;
-    this.mostrar= false;
-    this.tam();
+  duplicate(num: any){
+    this.contenido3 = {
+      id: num,    
+    }   
+    //console.log(num)
+     fetch(`${this.duplicate_sensors}/${num}`, {
+      method: "POST",
+      body: JSON.stringify(this.contenido3),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json())
+    this.dup_ok=true;
+    fetch(this.max_sensors)
+    .then(response => response.json())
+    .then(data => {
+      this.id= parseInt(data[0].id+1);
+      //console.log(this.id)
+      this.num(this.id)
+    })
   }
 
   eliminar(id_actual: any){
     var contenido2 = {
       id: id_actual,    
     }
-    fetch(this.url3, {
+    fetch(this.delete_sensors, {
       method: "POST",
       body: JSON.stringify(contenido2),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -217,8 +205,8 @@ export class SensorsComponent implements OnInit{
   }
 
   update(){
-    console.log(this.url4)
-    fetch(this.url4, {
+    console.log(this.update_sensors)
+    fetch(this.update_sensors, {
       method: "POST",
       body: JSON.stringify(this.contenido),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -237,8 +225,7 @@ export class SensorsComponent implements OnInit{
   }
 
   submit(){
-    
-    fetch(this.url2, {
+    fetch(this.post_sensors, {
       method: "POST",
       body: JSON.stringify(this.contenido_new),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -249,7 +236,7 @@ export class SensorsComponent implements OnInit{
     this.tam();
     this.get('xd');
 
-    fetch(this.url6)
+    fetch(this.max_sensors)
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id+1);
@@ -262,7 +249,7 @@ export class SensorsComponent implements OnInit{
   num(id_actual: any){
     this.m2();
     this.mostrar2=true;
-    const url = `${this.apiUrl}/${id_actual}`;
+    const url = `${this.id_sensors}/${id_actual}`;
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -275,7 +262,6 @@ export class SensorsComponent implements OnInit{
     this.tam();
     this.get('xd');
   }
-
   
   onKeySearch(event: any) {
     clearTimeout(this.timeout);
@@ -287,12 +273,7 @@ export class SensorsComponent implements OnInit{
       }
     }, 500);
   }
- 
-  ngOnInit(): void {
-    this.get('xd');
-    this.tam();
-    this.get('xd');
-  }
+
 
   tam(){
     if (this.mostrar==true || this.mostrar2==true) {
@@ -303,24 +284,24 @@ export class SensorsComponent implements OnInit{
     }
   }
 
-  get(id: any){
-    this.ruta= this.rutaActiva.routerState.snapshot.url;
 
-    if(id!='xd'){
-      this.buscar1= id;
-    }
+  borrar(){
+    this.busqueda.value= '';
+    this.get('xd');
+  }
 
-    if(this.busqueda.value==''){
-      this.buscar= 'Buscar';
-    }
-    else{
-      this.buscar= this.busqueda.value;
-    }
-
-    const url2 = `${this.url1}/${this.buscar}/${this.buscar1}`;
-    fetch(url2)
-    .then((response) => response.json())
-    .then((quotesData) => (this.data = quotesData));
-
+  m1(){
+    this.mostrar= true;
+    this.mostrar2= false;
+    this.tam();
+  }
+  m2(){
+    this.mostrar2= true;
+    this.mostrar= false;
+  }
+  m3(){
+    this.mostrar2= false;
+    this.mostrar= false;
+    this.tam();
   }
 }

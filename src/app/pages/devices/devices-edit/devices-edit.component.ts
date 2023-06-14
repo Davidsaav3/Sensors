@@ -9,15 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesEditComponent implements OnInit{
+
   constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
-  private url3: string = 'http://localhost:5172/api/delete/device_configurations';
+
+  delete_device: string = 'http://localhost:5172/api/delete/device_configurations';
+  update_device: string = 'http://localhost:5172/api/update/device_configurations';
+  id_device: string = 'http://localhost:5172/api/id/device_configurations';
 
   id_actual= 1;
   activeLang='en';
+  width: any;
 
-  title = 'HTTP using native fetch API';
-  private url: string = 'http://localhost:5172/api/id_device/sensors_devices/1';
-  private url4: string = 'http://localhost:5172/api/update/device_configurations';
   mostrar=true;
   mostrar3= true;
   ver_rec= false;
@@ -26,12 +28,6 @@ export class DevicesEditComponent implements OnInit{
   act_ok= false;
   act_not= false;
   change= false;
-
-  width: any;
-
-  resize(): void{
-    this.width = window.innerWidth;
-  }
 
   contenido = {    
     id: '',    
@@ -55,10 +51,32 @@ export class DevicesEditComponent implements OnInit{
     enable: 1,
   }
 
+  ngOnInit(): void {
+    this.get()
+  }
+
+  get(){
+    this.id_actual= this.rutaActiva.snapshot.params['id']
+    const url = `${this.id_device}/${this.id_actual}`;
+    //console.log(url);
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+    })
+    .catch(error => {
+      console.error(error); 
+    });
+  }
+  
+  resize(): void{
+    this.width = window.innerWidth;
+  }
+
   submitForm(loginForm: any) {
     if (loginForm.valid) {
       //this.DevicesSensorsListComponent.update2();
-      fetch(this.url4, {
+      fetch(this.update_device, {
         method: "POST",
         body: JSON.stringify(this.contenido),
         headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -79,7 +97,7 @@ export class DevicesEditComponent implements OnInit{
     var contenido3 = {
       id: id_actual,    
     }
-    fetch(this.url3, {
+    fetch(this.delete_device, {
       method: "POST",
       body: JSON.stringify(contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -90,8 +108,7 @@ export class DevicesEditComponent implements OnInit{
 
   submit(){
     //this.DevicesSensorsListComponent.update2();
-
-    fetch(this.url4, {
+    fetch(this.update_device, {
       method: "POST",
       body: JSON.stringify(this.contenido),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -104,8 +121,7 @@ export class DevicesEditComponent implements OnInit{
 
   recargar(){
     const id_actual= this.rutaActiva.snapshot.params['id']
-    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
-    const url = `${apiUrl}/${id_actual}`;
+    const url = `${this.id_device}/${id_actual}`;
     //console.log(url);
     fetch(url)
     .then(response => response.json())
@@ -120,7 +136,7 @@ export class DevicesEditComponent implements OnInit{
     });
   }
 
-  enable(){
+  /*enable(){
     fetch('http://localhost:5172/api/enable/device_configurations', {
       method: "POST",
       body: JSON.stringify(this.contenido2),
@@ -133,24 +149,5 @@ export class DevicesEditComponent implements OnInit{
     .catch(error => {
       console.error(error); 
     });  
-  }
-
-  ngOnInit(): void {
-    this.get()
-}
-
-get(){
-    this.id_actual= this.rutaActiva.snapshot.params['id']
-    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
-    const url = `${apiUrl}/${this.id_actual}`;
-    //console.log(url);
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data[0];
-    })
-    .catch(error => {
-      console.error(error); 
-    });
-}
+  }*/
 }
