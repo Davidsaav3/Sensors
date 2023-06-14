@@ -38,10 +38,10 @@ export class AuthGuard implements CanActivate {
                     }
 
                   // Si mi suscripción es de tipo muy gratis no debería dejar acceder a la ruta de subir-modelo
-                  // console.log(next.url[0].path)
+                  // //console.log(next.url[0].path)
                   // if (next.url[0].path == 'subir-modelo'){
 
-                  //   console.log(this.usuarioService)
+                  //   //console.log(this.usuarioService)
 
                   //   this.sus.getSus().subscribe({
                   //     next: (res:any)=>{
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
                   //         let encontrada = false;
 
                   //         for (let index = 0; index < arrSus.length; index++) {
-                  //           console.log(arrSus[index])
+                  //           //console.log(arrSus[index])
 
                   //           if (idUsu == arrSus[index].idUsuario){
                   //             idTipoSus = arrSus[index].idTipoSus;

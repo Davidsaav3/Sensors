@@ -55,10 +55,10 @@ export class DevicesNewComponent  implements OnInit{
       .then(response => response.json()) 
       this.router.navigate(['/devices']);
 
-      console.log('Formulario válido');
+      //console.log('Formulario válido');
     }
     else {
-      console.log('Formulario inválido');
+      //console.log('Formulario inválido');
     }
   }
 }

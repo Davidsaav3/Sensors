@@ -91,16 +91,14 @@ export class DevicesAuxComponent  implements OnInit{
   ngOnInit(): void {
     this.desde = 1;
     setTimeout(() => { this.get('xd')}, 50);
-    console.log(this.contenido)
+    //console.log(this.contenido)
   }
 
   get(id: any){
     if(id!='xd'){
       this.buscar1= id;
     }
-    const id_actual= parseInt(this.rutaActiva.snapshot.params['id'])
-    const url = `${this.id_device_sensors_devices}/${id_actual}/${this.buscar1}`;
-    fetch(url)
+    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.buscar1}`)
     .then(response => response.json())
     .then(data => {
       this.contenido.sensors= data;
@@ -112,8 +110,7 @@ export class DevicesAuxComponent  implements OnInit{
       console.error(error); 
     });
     let buscar= 'Buscar';
-    const get_sensors = `${this.get_sensors}/${buscar}/${this.buscar2}`;
-    fetch(get_sensors)
+    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}`)
     .then((response) => response.json())
     .then(data => {
       this.contenido1.sensors= data;
@@ -142,15 +139,15 @@ export class DevicesAuxComponent  implements OnInit{
         .then(response => response.json()) 
       }
       this.act_ok= true;
-      console.log(this.act_ok)
+      //console.log(this.act_ok)
       this.get('xd')
       this.get('xd')
-      console.log('Formulario válido');
+      //console.log('Formulario válido');
 
       this.router.navigate(['/devices']);
     } 
     else {
-      console.log('Formulario inválido');
+      //console.log('Formulario inválido');
     }
   }
 
@@ -166,7 +163,7 @@ export class DevicesAuxComponent  implements OnInit{
     })
     .then(response => response.json()) 
 
-    //console.log(this.contenido.sensors)
+    ////console.log(this.contenido.sensors)
 
     for(let quote of this.contenido.sensors) {
       fetch(this.post_sensors_devices, {
@@ -177,7 +174,7 @@ export class DevicesAuxComponent  implements OnInit{
       .then(response => response.json()) 
     }
     this.act_ok= true;
-    console.log(this.act_ok)
+    //console.log(this.act_ok)
     this.get('xd')
     this.get('xd')
     this.router.navigate(['/devices']);
@@ -185,7 +182,7 @@ export class DevicesAuxComponent  implements OnInit{
 
   vari(id: any){
     this.eliminarlo= id;
-    console.log(this.eliminarlo);
+    //console.log(this.eliminarlo);
     this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
   }
 

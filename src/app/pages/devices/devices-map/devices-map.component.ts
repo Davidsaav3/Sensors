@@ -29,7 +29,9 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
   public map?: mapboxgl.Map;
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
- 
+  id_device: string = 'http://localhost:5172/api/id/device_configurations';
+  id= parseInt(this.rutaActiva.snapshot.params['id']);
+
   id_actual= 1;
   contenido = {    
     id: '',    
@@ -46,6 +48,20 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
     timezone: '+01:00',
     organizationid: '',
     enable: 0,
+  }
+
+  ngOnInit(): void {
+    fetch(`${this.id_device}/${this.id}`)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data[0];
+      let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
+      let coords = new mapboxgl.LngLat( this.contenido.lon, this.contenido.lat );
+      this.addMarker( coords, color );
+    })
+    .catch(error => {
+      console.error(error); 
+    });
   }
 
   ngAfterViewInit(): void {
@@ -180,24 +196,6 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
       this.addMarker( coords, color );
     })
 
-  }
-
-  ngOnInit(): void {
-    this.id_actual= this.rutaActiva.snapshot.params['id']
-    const apiUrl = 'http://localhost:5172/api/id/device_configurations';
-    const url = `${apiUrl}/${this.id_actual}`;
-    //console.log(url);
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data[0];
-      let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
-      let coords = new mapboxgl.LngLat( this.contenido.lon, this.contenido.lat );
-      this.addMarker( coords, color );
-    })
-    .catch(error => {
-      console.error(error); 
-    });
   }
 
 

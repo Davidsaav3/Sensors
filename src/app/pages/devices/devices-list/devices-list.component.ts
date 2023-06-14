@@ -22,12 +22,16 @@ export class DevicesListComponent implements OnInit{
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
 
+  totalPages = 5;
+  currentPage = 1;
+  cantPage = 16;
+  data: any[] = [];
+
   ruta='';
   id1= 'orden';
   mostrar=true;
   id= 1;
   data3: any;
-  data: any;
 
   timeout: any = null;
   dup_ok=false;
@@ -111,7 +115,7 @@ export class DevicesListComponent implements OnInit{
       .then(response => response.json())
       .then(data => {
         this.id= parseInt(data[0].id)+1;
-        //console.log(this.id);
+        ////console.log(this.id);
       })
     let buscar= 'Buscar';
     fetch(`${this.get_sensors}/${buscar}/${this.buscar2}`)
@@ -123,26 +127,31 @@ export class DevicesListComponent implements OnInit{
 
   
   get(id: any){
+    console.log(this.currentPage)
     if(id!='xd'){
       this.buscar1= id;
     }
-    
-
     if(this.busqueda.value==''){
       this.buscar= 'Buscar';
     }
     else{
       this.buscar= this.busqueda.value;
     }
-    const url2 = `${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}`;
-    //console.log(url2)
-    fetch(url2)
+    let x1= 1;
+    let x2= 100000;
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+    .then((response) => response.json())
+    .then(data => {
+      this.totalPages= Math.round(data.length/this.cantPage);
+      console.log(this.totalPages)
+    })
+
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}`)
     .then((response) => response.json())
     .then(data => {
       this.data= data;
       for (let x of this.data) {
-          const url9 = `${this.id_device_sensors_devices}/${x.id}/${this.id1}`;
-          fetch(url9)
+          fetch(`${this.id_device_sensors_devices}/${x.id}/${this.id1}`)
           .then(response => response.json())
           .then(data3 => {
             x.sensor= data3;
@@ -155,6 +164,29 @@ export class DevicesListComponent implements OnInit{
     
   }
 
+  get pageRange(): number[] {
+    return Array(this.totalPages).fill(0).map((_, index) => index + 1);
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.ngOnInit();
+    }
+  }
+
+  Page(num: any): void {
+    this.currentPage= num;
+    this.ngOnInit();
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.ngOnInit();
+    }
+  }
+
   public cambiarLenguaje(lang: any) {
     this.activeLang = lang;
     this.translate.use(lang);
@@ -164,8 +196,7 @@ export class DevicesListComponent implements OnInit{
     this.contenido3 = {
       id: num,    
     }
-    const url2 = `${this.url3}/${num}`;
-    fetch(url2, {
+    fetch(`${this.url3}/${num}`, {
       method: "POST",
       body: JSON.stringify(this.contenido3),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -175,9 +206,7 @@ export class DevicesListComponent implements OnInit{
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
-      let url3 = `${this.duplicate_sensors_devices}/${num}/${parseInt(data[0].id)+1}`;
-      console.log(url3)
-      fetch(url3)
+      fetch(`${this.duplicate_sensors_devices}/${num}/${parseInt(data[0].id)+1}`)
       .then((response) => response.json())
       .then(data => {
         this.data= data;
@@ -188,8 +217,7 @@ export class DevicesListComponent implements OnInit{
   }
 
   obtener(id_actual: any){
-    const url2 = `${this.id_device_sensors_devices}/${id_actual}/${this.id1}`;
-    fetch(url2)
+    fetch(`${this.id_device_sensors_devices}/${id_actual}/${this.id1}`)
     .then(response => response.json())
     .then(data3 => {
       this.contenido.sensors[id_actual].sensor.push(data3);

@@ -1,9 +1,9 @@
-<div class="" *ngIf="sin"> <!-- Devices -->	
+<div class="" *ngIf="sin">
 	<div class="row pb-3">
-		<div class="col-4 col-sm-4"> <!-- Buscar -->
+		<div class="col-4 col-sm-4"> 
             <button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 		</div>
-		<div class="col-5 col-sm-6 d-flex justify-content-end"> <!-- Paginador -->
+		<div class="col-5 col-sm-6 d-flex justify-content-end">
 			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
 				{{ 'devices.sensors.e1' | translate }}
 			  </div>
@@ -78,7 +78,7 @@
 		</div> 
 	</div>	
 
-</div> <!-- end Sensors -->
+</div>
 
 
 <div class="text-center" *ngIf="!sin">

@@ -9,7 +9,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
         case 'fotoperfil':
 
             const usuario = await Usuario.findById(id);
-            console.log(usuario.imagen)
+            //console.log(usuario.imagen)
             if (!usuario) {
                 return false;
             }
@@ -19,7 +19,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
             if (token != '') {
                 if (infoToken(token).uid !== id) {
                     if (infoToken(token).rol != "Admin") {
-                        console.log('el usuario que actualiza no es el propietario de la foto')
+                        //console.log('el usuario que actualiza no es el propietario de la foto')
                         return false;
                     }
                 }
@@ -38,7 +38,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
         case 'imagenEscena':
             const escena = await Escena.findById(id);
             if (!escena) {
-                console.log("No existe la escena");
+                //console.log("No existe la escena");
                 return false;
             }
             let creadorID = escena.creadorID.toString();
@@ -46,7 +46,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
             // solo el creador de la escena puede cambiar la foto de Escena
             if (infoToken(token).uid !== creadorID) {
                 if (infoToken(token).rol != "Admin") {
-                    console.log('el usuario que actualiza no es el propietario de la escena')
+                    //console.log('el usuario que actualiza no es el propietario de la escena')
                     return false;
                 }
             }
@@ -72,7 +72,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
             // solo el creador de la escena puede cambiar la foto de Escena
             if (infoToken(token).uid !== creadorIDMod) {
                 if (infoToken(token).rol != "Admin") {
-                    console.log('el usuario que actualiza no es el propietario de la escena')
+                    //console.log('el usuario que actualiza no es el propietario de la escena')
                     return false;
                 }
             }
@@ -89,7 +89,7 @@ const actualizarBD = async(tipo, path, nombreArchivo, id, token) => {
             break;
 
         default:
-            console.log("Algo ha salido mal al actualizar la base de datos");
+            //console.log("Algo ha salido mal al actualizar la base de datos");
             break;
     }
 

@@ -16,6 +16,7 @@ export class DevicesEditComponent implements OnInit{
   update_device: string = 'http://localhost:5172/api/update/device_configurations';
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
 
+  id= parseInt(this.rutaActiva.snapshot.params['id']);
   id_actual= 1;
   activeLang='en';
   width: any;
@@ -56,10 +57,7 @@ export class DevicesEditComponent implements OnInit{
   }
 
   get(){
-    this.id_actual= this.rutaActiva.snapshot.params['id']
-    const url = `${this.id_device}/${this.id_actual}`;
-    //console.log(url);
-    fetch(url)
+    fetch(`${this.id_device}/${this.id}`)
     .then(response => response.json())
     .then(data => {
       this.contenido= data[0];
@@ -86,14 +84,14 @@ export class DevicesEditComponent implements OnInit{
       this.act_ok= true;
       this.guardado= true;
 
-      console.log('Formulario válido');
+      //console.log('Formulario válido');
     } else {
-      console.log('Formulario inválido');
+      //console.log('Formulario inválido');
     }
   }
 
   eliminar(id_actual: any){
-    console.log(id_actual)
+    //console.log(id_actual)
     var contenido3 = {
       id: id_actual,    
     }
@@ -121,9 +119,7 @@ export class DevicesEditComponent implements OnInit{
 
   recargar(){
     const id_actual= this.rutaActiva.snapshot.params['id']
-    const url = `${this.id_device}/${id_actual}`;
-    //console.log(url);
-    fetch(url)
+    fetch(`${this.id_device}/${id_actual}`)
     .then(response => response.json())
     .then(data => {
       this.contenido.lat= data[0].lat;

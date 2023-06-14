@@ -90,17 +90,13 @@ export class DevicesSensorsListComponent  implements OnInit{
   ngOnInit(): void {
     this.desde = 1;
     setTimeout(() =>{this.get('xd')}, 50);
-    console.log(this.contenido)
   }
 
   get(id: any){
     if(id!='xd'){
       this.buscar1= id;
     }
-
-    const id_actual= parseInt(this.rutaActiva.snapshot.params['id'])
-    const url = `${this.id_device_sensors_devices}/${id_actual}/${this.buscar1}`;
-    fetch(url)
+    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.buscar1}`)
     .then(response => response.json())
     .then(data => {
       this.contenido.sensors= data;
@@ -142,14 +138,14 @@ export class DevicesSensorsListComponent  implements OnInit{
       .then(response => response.json()) 
     }
     this.act_ok= true;
-    console.log(this.act_ok)
+    //console.log(this.act_ok)
     this.get('xd')
     this.get('xd')
   }
 
   vari(id: any){
     this.eliminarlo= id;
-    console.log(this.eliminarlo);
+    //console.log(this.eliminarlo);
     this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
   }
 
@@ -246,7 +242,7 @@ export class DevicesSensorsListComponent  implements OnInit{
   listarUsuarios(){
     //this.admin.cargarUsuarios(this.desde, this.textoBusqueda)
     //.subscribe((res: any) => {
-      //console.log(res)
+      ////console.log(res)
       //this.usuarios = res.usuarios;
       //this.ultimaPage = Math.ceil(res.page.total/10);
       this.paginas = Array(this.ultimaPage).fill(1).map((x,i)=>i);
@@ -254,7 +250,7 @@ export class DevicesSensorsListComponent  implements OnInit{
       setTimeout( () =>{
   
         const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-        //console.log(page)
+        ////console.log(page)
   
         page.forEach((element, index) => {
           if(index === this.desde - 1){

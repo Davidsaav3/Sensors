@@ -191,17 +191,13 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    console.log("HOLA")
-
-    const url2 = `${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}`;
-    //console.log(url2)
-    fetch(url2)
+    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}`)
     .then((response) => response.json())
     .then(data => {
       this.contenido.sensors= data;
-      console.log(this.contenido.sensors)
+      //console.log(this.contenido.sensors)
       for(let quote of this.contenido.sensors) {
-        console.log(quote.lon)
+        //console.log(quote.lon)
         let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
         let coords = new mapboxgl.LngLat( quote.lon, quote.lat );
         this.addMarker( coords, color );

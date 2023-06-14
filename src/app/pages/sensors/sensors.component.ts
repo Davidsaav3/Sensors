@@ -45,8 +45,10 @@ export class SensorsComponent implements OnInit{
   not_new: any= false;
   guardar_ok: any= false;
   guardar_not: any= false;
+
   buscar='Buscar';
   buscar1='type';
+
   guardado= false;
   edit_change= false;
   new_change= false;
@@ -112,7 +114,7 @@ export class SensorsComponent implements OnInit{
 
   submitForm1(loginForm: any) {
     if (loginForm.valid) {
-      console.log(this.update_sensors)
+      //console.log(this.update_sensors)
       fetch(this.update_sensors, {
         method: "POST",
         body: JSON.stringify(this.contenido),
@@ -124,9 +126,9 @@ export class SensorsComponent implements OnInit{
       this.get('xd');
       this.guardado= true;
 
-      console.log('Formulario válido');
+      //console.log('Formulario válido');
     } else {
-      console.log('Formulario inválido');
+      //console.log('Formulario inválido');
     }
   }
 
@@ -147,12 +149,12 @@ export class SensorsComponent implements OnInit{
       .then(response => response.json())
       .then(data => {
         this.id= parseInt(data[0].id+1);
-        //console.log(this.id)
+        ////console.log(this.id)
         //this.num(this.id)
       })
-      console.log('Formulario válido');
+      //console.log('Formulario válido');
     } else {
-      console.log('Formulario inválido');
+      //console.log('Formulario inválido');
     }
   }
   
@@ -164,7 +166,7 @@ export class SensorsComponent implements OnInit{
     this.contenido3 = {
       id: num,    
     }   
-    //console.log(num)
+    ////console.log(num)
      fetch(`${this.duplicate_sensors}/${num}`, {
       method: "POST",
       body: JSON.stringify(this.contenido3),
@@ -176,7 +178,7 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id+1);
-      //console.log(this.id)
+      ////console.log(this.id)
       this.num(this.id)
     })
   }
@@ -205,7 +207,7 @@ export class SensorsComponent implements OnInit{
   }
 
   update(){
-    console.log(this.update_sensors)
+    //console.log(this.update_sensors)
     fetch(this.update_sensors, {
       method: "POST",
       body: JSON.stringify(this.contenido),
@@ -240,7 +242,7 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id+1);
-      //console.log(this.id)
+      ////console.log(this.id)
       //this.num(this.id)
     })
   }
@@ -249,8 +251,7 @@ export class SensorsComponent implements OnInit{
   num(id_actual: any){
     this.m2();
     this.mostrar2=true;
-    const url = `${this.id_sensors}/${id_actual}`;
-    fetch(url)
+    fetch(`${this.id_sensors}/${id_actual}`)
     .then(response => response.json())
     .then(data => {
       this.contenido= data[0];
