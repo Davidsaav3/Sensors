@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DevicesNewComponent } from '../devices-new/devices-new.component';
+import { DevicesNewComponent } from '../devices-new.component';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 })
 
 @Component({
-  selector: 'app-devices-aux',
-  templateUrl: './devices-aux.component.html',
-  styleUrls: ['../../../app.component.css']
+  selector: 'app-devices-new-list',
+  templateUrl: './devices-new-list.component.html',
+  styleUrls: ['../../../../app.component.css']
 })
-export class DevicesAuxComponent  implements OnInit{
+export class DevicesNewListComponent  implements OnInit{
 
   constructor(private router: Router,private xdxd: DevicesNewComponent,private rutaActiva: ActivatedRoute) { }
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';

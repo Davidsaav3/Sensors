@@ -5,16 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar.component';
-import { MapComponent } from './pages/devices/map/map.component';
+import { MapComponent } from './pages/map/map.component';
 import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
-import { DevicesAuxComponent } from './pages/devices/devices-aux/devices-aux.component';
-import { DevicesMapComponent } from './pages/devices/devices-map/devices-map.component';
-import { DevicesMapNewComponent } from './pages/devices/devices-map-new/devices-map-new.component';
+import { DevicesNewListComponent } from './pages/devices/devices-new/devices-new_list/devices-new-list.component';
+import { DevicesEditMapComponent } from './pages/devices/devices-edit/devices-edit-map/devices-edit-map.component';
+import { DevicesNewMapComponent } from './pages/devices/devices-new/devices-new-map/devices-new-map.component';
 import { DevicesComponent } from './pages/devices/devices.component';
 import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
-import { DevicesSensorsListComponent } from './pages/devices/devices-sensors-list/devices-sensors-list.component';
+import { DevicesEditListComponent } from './pages/devices/devices-edit/devices-edit-list/devices-edit-list.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -25,18 +25,18 @@ import { DataSharingService } from './services/data_sharing.service';
 
 @NgModule({
   declarations: [
-    DevicesMapNewComponent,
-    DevicesAuxComponent,
+    DevicesNewMapComponent,
+    DevicesNewListComponent,
     AppComponent,
     NavbarComponent,
     MapComponent,
     DevicesListComponent,
-    DevicesMapComponent,
+    DevicesEditMapComponent,
     DevicesComponent,
     SensorsComponent,
     DevicesNewComponent,
     DevicesEditComponent,
-    DevicesSensorsListComponent
+    DevicesEditListComponent
   ],
   imports: [
     BrowserModule,

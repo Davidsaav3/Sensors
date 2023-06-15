@@ -1,18 +1,18 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DevicesEditComponent } from '../devices-edit/devices-edit.component';
+import { DevicesEditComponent } from '../devices-edit.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-devices-sensors-list',
-  templateUrl: './devices-sensors-list.component.html',
-  styleUrls: ['../../../app.component.css']
+  selector: 'app-devices-edit-list',
+  templateUrl: './devices-edit-list.component.html',
+  styleUrls: ['../../../../app.component.css']
 })
-export class DevicesSensorsListComponent  implements OnInit{
+export class DevicesEditListComponent  implements OnInit{
 
   constructor(private xdxd: DevicesEditComponent,private rutaActiva: ActivatedRoute) { }
 

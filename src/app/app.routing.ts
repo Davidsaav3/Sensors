@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DevicesComponent } from './devices/devices.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
-import { MapComponent } from './pages/devices/map/map.component';
+import { MapComponent } from './pages/map/map.component';
 
 const routes: Routes = [
   {
