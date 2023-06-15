@@ -57,8 +57,8 @@ export class DevicesNewListComponent  implements OnInit{
         enable: 0, 
         id_device: this.id,
         id_type_sensor: 1,
-        datafield: 1,
-        nodata: 1,
+        datafield: '',
+        nodata: true,
         orden: 1,
         type_name: 1,
       }]
@@ -74,24 +74,23 @@ export class DevicesNewListComponent  implements OnInit{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
+        orden: 1,
       }]
   }
 
-  contenido2 = {
-    id: 1, 
-    enable: 1, 
-    id_device: this.id,
-    id_type_sensor: 1,
-    datafield: 1,
-    nodata: 1,
-    orden: 1,
-    type_name: 1,
-  }
 
   ngOnInit(): void {
     this.desde = 1;
     setTimeout(() => { this.get('xd')}, 50);
     //console.log(this.contenido)
+  }
+
+  cambiar(num: any){
+    for (let index = 0; index < this.contenido.sensors.length; index++) {
+      if(num==this.contenido.sensors[num].id){
+        this.contenido.sensors[num].orden= this.contenido1.sensors[this.contenido.sensors[num].id_type_sensor].orden;
+      }
+    }
   }
 
   get(id: any){
@@ -187,7 +186,18 @@ export class DevicesNewListComponent  implements OnInit{
   }
 
   anyadir(){
-    this.contenido.sensors.push(this.contenido2);
+    let contenido2 = {
+      id: 1, 
+      enable: 0, 
+      id_device: this.id,
+      id_type_sensor: 1,
+      datafield: '',
+      nodata: true,
+      orden: 1,
+      type_name: 1,
+    }
+
+    this.contenido.sensors.push(contenido2);
     this.sin= true;
   }
   

@@ -32,6 +32,7 @@ export class DevicesEditListComponent  implements OnInit{
   buscar2='id';
   sin= true;
   eliminarlo: any;
+  cont= 0;
 
   act_not= false;
   act_ok= false;
@@ -48,20 +49,6 @@ export class DevicesEditListComponent  implements OnInit{
   public hayUsu: Boolean= true;
   duplicados= false;
 
-  contenido = {
-    sensors : [
-      {
-        id: 1, 
-        enable: 0, 
-        id_device: this.id,
-        id_type_sensor: 1,
-        datafield: 1,
-        nodata: 1,
-        orden: 1,
-        type_name: 1,
-      }]
-  }
-
   contenido1 = {
     sensors : [
       {
@@ -72,24 +59,39 @@ export class DevicesEditListComponent  implements OnInit{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
+        orden: 1,
+      }]
+  }
+
+  contenido = {
+    sensors : [
+      {
+        id: 1, 
+        enable: 0, 
+        id_device: this.id,
+        id_type_sensor: 1,
+        datafield: '',
+        nodata: true,
+        orden: 1,
+        type_name: 1,
       }]
   }
 
 
-  contenido2 = {
-    id: 1, 
-    enable: 1, 
-    id_device: this.id,
-    id_type_sensor: 1,
-    datafield: 1,
-    nodata: 1,
-    orden: 1,
-    type_name: 1,
-  }
+
   
   ngOnInit(): void {
-    this.desde = 1;
     setTimeout(() =>{this.get('xd')}, 50);
+    this.desde = 1;
+    //setTimeout(() =>{this.cambiar()}, 100);
+  }
+
+  cambiar(num: any){
+    for (let index = 0; index < this.contenido.sensors.length; index++) {
+      if(num==this.contenido.sensors[num].id){
+        this.contenido.sensors[num].orden= this.contenido1.sensors[this.contenido.sensors[num].id_type_sensor].orden;
+      }
+    }
   }
 
   get(id: any){
@@ -115,32 +117,35 @@ export class DevicesEditListComponent  implements OnInit{
     })
   }
 
-  update2(){
-    this.xdxd.submit();
-    var contenido4 = {
-      id: this.id,   
-    }
-    fetch(this.delete_all_sensors_devices, {
-      method: "POST",
-      body: JSON.stringify(contenido4),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-
-    //console.log(this.contenido.sensors)
-
-    for(let quote of this.contenido.sensors) {
-      fetch(this.post_sensors_devices, {
+  submitForm(loginForm: any){
+    if(loginForm.valid){  
+      this.xdxd.submit();
+      var contenido4 = {
+        id: this.id,   
+      }
+      fetch(this.delete_all_sensors_devices, {
         method: "POST",
-        body: JSON.stringify(quote),
+        body: JSON.stringify(contenido4),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
+
+      //console.log(this.contenido.sensors)
+
+      console.log('hey')
+      for(let quote of this.contenido.sensors) {
+        fetch(this.post_sensors_devices, {
+          method: "POST",
+          body: JSON.stringify(quote),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+      }
+      this.act_ok= true;
+      //console.log(this.act_ok)
+      this.get('xd')
+      this.get('xd')
     }
-    this.act_ok= true;
-    //console.log(this.act_ok)
-    this.get('xd')
-    this.get('xd')
   }
 
   vari(id: any){
@@ -150,7 +155,19 @@ export class DevicesEditListComponent  implements OnInit{
   }
 
   anyadir(){
-    this.contenido.sensors.push(this.contenido2);
+    let contenido2 = {
+      id: 1, 
+      enable: 0, 
+      id_device: this.id,
+      id_type_sensor: 1,
+      datafield: '',
+      nodata: true,
+      orden: 1,
+      type_name: 1,
+    }
+    //this.contenido2.id= this.cont;
+    this.contenido.sensors.push(contenido2);
+    //this.cont++;
     this.sin= true;
   }
 

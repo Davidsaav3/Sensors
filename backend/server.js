@@ -182,7 +182,14 @@ if (err) throw err;
   const id_device = req.body.id_device;
   const id_type_sensor = req.body.id_type_sensor;
   const datafield = req.body.datafield;
-  const nodata = req.body.nodata;
+  let nodata = req.body.nodata;
+  if(nodata==true){
+    nodata= 1;
+  }
+  else{
+    nodata= 0; 
+  }
+  console.log(nodata)
 
     con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata) VALUES (?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata], function (err, result) {
       if (err) throw err;
