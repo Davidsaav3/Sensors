@@ -194,7 +194,7 @@ export class DevicesListComponent implements OnInit{
   duplicate(num: any,uid: any){
     this.contenido3 = {
       id: num,    
-    }   
+    }
     let x1= 1;
     let x2= 100000;
     this.buscar= 'Buscar';
