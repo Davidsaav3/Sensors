@@ -55,6 +55,7 @@ export class SensorsComponent implements OnInit{
   dup_ok=false;
   dup_not=false;
   id= 0;
+  type_2='';
 
   contenido = {
     id: '', 
@@ -162,24 +163,41 @@ export class SensorsComponent implements OnInit{
     this.width = window.innerWidth;
   }
 
-  duplicate(num: any){
+  duplicate(num: any, type: any){
     this.contenido3 = {
       id: num,    
     }   
-    ////console.log(num)
-     fetch(`${this.duplicate_sensors}/${num}`, {
-      method: "POST",
-      body: JSON.stringify(this.contenido3),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json())
-    this.dup_ok=true;
-    fetch(this.max_sensors)
-    .then(response => response.json())
+    this.buscar= 'Buscar';
+    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}`)
+    .then((response) => response.json())
     .then(data => {
-      this.id= parseInt(data[0].id+1);
-      ////console.log(this.id)
-      this.num(this.id)
+      let contador = 1;
+      let nombresExistentes = new Set();
+      for (let index = 0; index < data.length; index++) {
+        nombresExistentes.add(data[index].type);
+      }
+
+      let type_2= type;
+      console.log(type);
+      while(nombresExistentes.has(type_2)) {
+        type_2 = `${type}_${contador}`;
+        contador++;
+      }
+
+      fetch(`${this.duplicate_sensors}/${num}/${type_2}`, {
+        method: "POST",
+        body: JSON.stringify(this.contenido3),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json())
+      this.dup_ok=true;
+      fetch(this.max_sensors)
+      .then(response => response.json())
+      .then(data => {
+        this.id= parseInt(data[0].id);
+        ////console.log(this.id)
+        this.num(this.id)
+      })
     })
   }
 

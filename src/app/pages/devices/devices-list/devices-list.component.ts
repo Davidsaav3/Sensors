@@ -191,28 +191,53 @@ export class DevicesListComponent implements OnInit{
     this.translate.use(this.activeLang);
   }
 
-  duplicate(num: any){
+  duplicate(num: any,uid: any){
     this.contenido3 = {
       id: num,    
-    }
-    fetch(`${this.url3}/${num}`, {
-      method: "POST",
-      body: JSON.stringify(this.contenido3),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json())
-
-    fetch(this.max_device)
-    .then(response => response.json())
+    }   
+    let x1= 1;
+    let x2= 100000;
+    this.buscar= 'Buscar';
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+    .then((response) => response.json())
     .then(data => {
-      fetch(`${this.duplicate_sensors_devices}/${num}/${parseInt(data[0].id)+1}`)
-      .then((response) => response.json())
-      .then(data => {
-        this.data= data;
+      let contador = 1;
+      let nombresExistentes = new Set();
+      for (let index = 0; index < data.length; index++) {
+        nombresExistentes.add(data[index].uid);
+      }
+
+      let uid_2= uid;
+      while(nombresExistentes.has(uid_2)) {
+        uid_2 = `${uid}_${contador}`;
+        contador++;
+      }
+      console.log(data);
+
+      this.contenido3 = {
+        id: num,    
+      }
+      fetch(`${this.url3}/${num}/${uid_2}`, {
+        method: "POST",
+        body: JSON.stringify(this.contenido3),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
       })
+      .then(response => response.json())
+  
+      fetch(this.max_device)
+      .then(response => response.json())
+      .then(data => {
+        fetch(`${this.duplicate_sensors_devices}/${num}/${parseInt(data[0].id)+1}`)
+        .then((response) => response.json())
+        .then(data => {
+          this.data= data;
+        })
+      })
+      this.dup_ok=true;
+      this.rutaActiva.navigate(['/devices/edit/', this.id]);
+
     })
-    this.dup_ok=true;
-    this.rutaActiva.navigate(['/devices/edit/', this.id]);
+
   }
 
   obtener(id_actual: any){

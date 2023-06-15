@@ -81,9 +81,10 @@ con.connect(function(err) {
         res.send(result)
     });
   });
-  app.post("/api/duplicate/device_configurations/:id", (req,res)=>{  /*/ DUPLICATE  /*/
+  app.post("/api/duplicate/device_configurations/:id/:uid", (req,res)=>{  /*/ DUPLICATE  /*/
     const id01 = parseInt(req.params.id);
-    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT CONCAT(uid, '_1'),alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?",id01, function (err, result) {
+    const uid = req.params.uid;
+    con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) SELECT ?,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid FROM device_configurations WHERE id=?",[uid,id01], function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -256,9 +257,11 @@ if (err) throw err;
       res.send(result) 
   });
 });
-  app.post("/api/duplicate/sensors_types/:id", (req,res)=>{  /*/ DUPLICATE  /*/
+  app.post("/api/duplicate/sensors_types/:id/:type", (req,res)=>{  /*/ DUPLICATE  /*/
   const id01 = parseInt(req.params.id);
-  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT CONCAT(type, '_1'),metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[id01], function (err, result) {
+  const type = req.params.type;
+
+  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT ?,metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[type,id01], function (err, result) {
     if (err) throw err;
       res.send(result)
   });
