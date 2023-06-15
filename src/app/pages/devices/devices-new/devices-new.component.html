@@ -12,7 +12,7 @@
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1">
-                                        <input (ngModelChange)="change=true" type="checkbox" checked [(ngModel)]="contenido.enable">
+                                        <input (ngModelChange)="change=true" type="checkbox" name="enable" checked [(ngModel)]="contenido.enable">
                                         <span class="slider"></span>
                                         <ng-container *ngIf="this.activeLang=='es'">
                                             <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
@@ -141,6 +141,7 @@
                 </div>	
 
                 <div class="c5 p-0 m-0" >
+                    <input [(ngModel)]="sharedData" name="sharedData" (ngModelChange)="updateSharedData()">
                     <app-devices-map-new></app-devices-map-new>
                 </div>
 

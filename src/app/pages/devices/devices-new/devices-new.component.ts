@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataSharingService } from './../../../services/data_sharing.service';
 
 @Component({
   selector: 'app-devices-new',
@@ -7,8 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesNewComponent  implements OnInit{
-  
-  constructor(private router: Router) { 
+
+  sharedData: string = '';
+
+  constructor(private router: Router,private dataSharingService: DataSharingService) { 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -53,6 +56,10 @@ export class DevicesNewComponent  implements OnInit{
     /*fetch(this.url)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));*/
+  }
+  
+updateSharedData() {
+    this.dataSharingService.updateSharedData(this.sharedData);
   }
 
   submit(){

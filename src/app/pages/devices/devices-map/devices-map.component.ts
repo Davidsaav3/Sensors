@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ interface PlainMarker {
   templateUrl: './devices-map.component.html',
   styleUrls: ['../../../app.component.css']
 })
-export class DevicesMapComponent implements AfterViewInit, OnDestroy{
+export class DevicesMapComponent implements OnInit, AfterViewInit, OnDestroy{
   constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
 
   @ViewChild('map') divMap?: ElementRef;
@@ -52,40 +52,41 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
 
   ngOnInit(): void {
     fetch(`${this.id_device}/${this.id}`)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data[0];
-      let color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
-      let coords = new mapboxgl.LngLat( this.contenido.lon, this.contenido.lat );
-      this.addMarker( coords, color );
-    })
-    .catch(error => {
-      console.error(error); 
-    });
+      .then(response => response.json())
+      .then(data => {
+        setTimeout(() => {
+          this.contenido = data[0];
+        });
+      })
+      .catch(error => {
+        console.error(error); 
+      });
   }
 
   ngAfterViewInit(): void {
-
-    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
-
+    if (!this.divMap) {
+      throw new Error('El elemento HTML no fue encontrado');
+    }
+  
     this.map = new mapboxgl.Map({
       container: this.divMap.nativeElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.currentLngLat,
       zoom: this.zoom, // starting zoom
     });
-
+  
     this.mapListeners();
     this.readFromLocalStorage();
-    // const markerHtml = document.createElement('div');
-    // markerHtml.innerHTML = 'Fernando Herrera'
+  }
 
-    // const marker = new Marker({
-    //   // color: 'red',
-    //   element: markerHtml
-    // })
-    //   .setLngLat( this.currentLngLat )
-    //   .addTo( this.map );
+  private callAddMarker(): void {
+    setTimeout(() => {
+      if (this.contenido && this.contenido.lon && this.contenido.lat) {
+        let color = '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
+        let coords = new mapboxgl.LngLat(this.contenido.lon, this.contenido.lat);
+        this.addMarker(coords, color);
+      }
+    });
   }
 
   ngOnDestroy(): void {

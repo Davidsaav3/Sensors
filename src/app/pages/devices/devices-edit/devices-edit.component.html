@@ -18,7 +18,7 @@
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1">
-                                        <input type="checkbox" (ngModelChange)="change=true" [(ngModel)]="contenido.enable">
+                                        <input type="checkbox" (ngModelChange)="change=true" name="enable" [(ngModel)]="contenido.enable">
                                         <span class="slider"></span>
                                         <ng-container *ngIf="this.activeLang=='es'">
                                             <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
