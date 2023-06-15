@@ -34,6 +34,8 @@
 
                         <div class="row">
                             <div class="col-md-3">
+                                <input value="{{ contenido['createdAt'] }}" type="text" id="createdAt" class="form-control d-none" name="createdAt" [(ngModel)]="contenido['createdAt']" type>
+
                                 <label for="uid">{{ 'devices.edit.uid' | translate }}</label>
                                 <input (ngModelChange)="change=true" value="{{ contenido.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="contenido['uid']" required type>
                                 <div *ngIf="loginForm.submitted && loginForm.controls['uid'].errors" class="text-danger">

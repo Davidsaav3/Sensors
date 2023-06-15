@@ -41,6 +41,8 @@
 
                         <div class="row">
                             <div class="col-md-3">
+                                <input value="{{ contenido['updatedAt'] }}" type="text" id="updatedAt" class="form-control d-none" name="updatedAt" [(ngModel)]="contenido['updatedAt']" type>
+
                                 <label for="uid">{{ 'devices.edit.uid' | translate }}</label>
                                 <input (ngModelChange)="change=true" value="{{ contenido.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="contenido['uid']" required type>
                                 <div *ngIf="loginForm.submitted && loginForm.controls['uid'].errors" class="text-danger">

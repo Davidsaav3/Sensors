@@ -18,8 +18,7 @@ export class DevicesEditComponent implements OnInit{
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-    this.formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    console.log(this.formattedDateTime)
+    this.contenido.updatedAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   formattedDateTime= '';
@@ -56,8 +55,7 @@ export class DevicesEditComponent implements OnInit{
     timezone: '+01:00',
     organizationid: '',
     enable: 0,
-    createdAt: '',
-    upadatedAt: ''
+    updatedAt: ''
   }
   
   contenido2 = {

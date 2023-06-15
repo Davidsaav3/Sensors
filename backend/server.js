@@ -89,11 +89,13 @@ con.connect(function(err) {
     });
   });
   app.post("/api/post/device_configurations", (req,res)=>{  /*/ PUT  /*/
+  let uid='';
   if(!req.body.uid){return res.status(400).json({ error: 'El campo uid es requerido.' });}else{uid = req.body.uid;}
   const alias = req.body.alias;
   const origin = req.body.origin;
   const description_origin = req.body.description_origin;
   const application_id = req.body.application_id;
+  let topic_name='';
   if(!req.body.topic_name){return res.status(400).json({ error: 'El campo topic_name es requerido.' });}else{topic_name = req.body.topic_name;}
   const typemeter = req.body.typemeter;
   const lat = req.body.lat;
@@ -102,18 +104,21 @@ con.connect(function(err) {
   const timezone = req.body.timezone;
   const enable = req.body.enable;
   const organizationid = req.body.organizationid;
-  con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid], function (err, result) {
+  const createdAt = req.body.createdAt;
+  con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt], function (err, result) {
     if (err) throw err;
       res.send(result)
   });
 });
   if (err) throw err;
   app.post("/api/update/device_configurations/", (req,res)=>{  /*/ UPDATE  /*/
+  let uid='';
   if(!req.body.uid){return res.status(400).json({ error: 'El campo uid es requerido.' });}else{uid = req.body.uid;}
   const alias = req.body.alias;
   const origin = req.body.origin;
   const description_origin = req.body.description_origin;
   const application_id = req.body.application_id;
+  let topic_name='';
   if(!req.body.topic_name){return res.status(400).json({ error: 'El campo topic_name es requerido.' });}else{topic_name = req.body.topic_name;}
   const typemeter = req.body.typemeter;
   const lat = req.body.lat;
@@ -123,7 +128,8 @@ con.connect(function(err) {
   const enable = req.body.enable;
   const organizationid = req.body.organizationid;
   const id7 = req.body.id;
-    con.query("UPDATE device_configurations SET uid=?,alias=?,origin=?,description_origin=?,application_id=?,topic_name=?,typemeter=?,lat=?,lon=?,cota=?,timezone=?,enable=?,organizationid=? WHERE id = ?",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,id7], function (err, result) {
+  const updatedAt = req.body.createdAt;
+    con.query("UPDATE device_configurations SET uid=?,alias=?,origin=?,description_origin=?,application_id=?,topic_name=?,typemeter=?,lat=?,lon=?,cota=?,timezone=?,enable=?,organizationid=?, updatedAt=? WHERE id = ?",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,updatedAt,id7], function (err, result) {
       if (err) throw err;
         res.send(result)
     });

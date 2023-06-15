@@ -85,10 +85,9 @@
 							<th scope="col" style="cursor: pointer;" (click)="get('metric')">{{ 'sensors.metric' | translate }}</th>
 							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" (click)="get('description')">{{ 'sensors.description' | translate }}</th>
 
-
-							<th scope="col">Valor de error</th>
-							<th scope="col"style="text-align: center;">Min</th>
-							<th scope="col">Max</th>							
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col">Valor de error</th>
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="text-align: center;">Min</th>
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col">Max</th>							
 							
 							<th scope="col" style="text-align: center;">{{ 'sensors.duplicate' | translate }}</th>
 							<th scope="col" style="text-align: center;">{{ 'sensors.edit' | translate }}</th>
@@ -102,9 +101,9 @@
 							<td (click)="num(quote.id)">{{ quote.metric }}</td>
 							<td class="d-none d-md-none d-lg-block" (click)="num(quote.id)">{{ quote.description }}</td>
 		
-							<td (click)="num(quote.id)">{{ quote.errorvalue }}</td>
-							<td (click)="num(quote.id)">{{ quote.valuemax }}</td>
-							<td (click)="num(quote.id)">{{ quote.valuemin }}</td>
+							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.errorvalue }}</td>
+							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.valuemax }}</td>
+							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.valuemin }}</td>
 
 							<td (mouseout)="ver_dup=false" (mouseover)="ver_dup=true" style="text-align: center;" (click)="duplicate(quote.id)">                      
 							<svg *ngIf="!ver_dup" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">

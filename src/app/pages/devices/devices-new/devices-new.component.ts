@@ -19,15 +19,13 @@ export class DevicesNewComponent  implements OnInit{
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-    this.formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    console.log(this.formattedDateTime)
+    this.contenido.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   post_device: string = 'http://localhost:5172/api/post/device_configurations';
 
   data: any;
   activeLang='en';
-  formattedDateTime= '';
 
   mostrar=true;
   ver_rec= false;
@@ -48,8 +46,7 @@ export class DevicesNewComponent  implements OnInit{
     timezone: '+01:00',
     enable: 0,
     organizationid: '',
-    createdAt: this.formattedDateTime,
-    upadatedAt: this.formattedDateTime
+    createdAt: '',
   }
 
   ngOnInit(): void {
@@ -66,6 +63,7 @@ updateSharedData() {
   }
 
   submitForm(loginForm: any) {
+    console.log(this.contenido)
     if (loginForm.valid) {
       fetch(this.post_device, {
         method: "POST",
