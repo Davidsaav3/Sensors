@@ -17,23 +17,26 @@ con.connect(function(err) {
   app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
-  const type2 = req.params.type2;  
+  const type2 = parseInt(req.params.type2);  
   const type3 = parseInt(req.params.type3);
   const tam = parseInt(req.params.type5);
   const act = (req.params.type4-1)*parseInt(req.params.type5);
-  console.log(tam)
+  
+  console.log("-")
+  console.log(type2)
+  console.log(type3)
 
   if(type0=='Buscar'){
-    if(type2!='Nada' || type3!=2){
-      if(type2!='Nada' && type3!=2){
-        con.query(`SELECT * FROM device_configurations where id=${type2} AND enable=${type3} order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+    if(type2!=0 || type3!=2){
+      if(type2!=0 && type3!=2){
+        con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
           if (err) throw err;
             res.send(result)
         }); 
       }
       else{
-          if(type2!='Nada'){
-            con.query(`SELECT * FROM device_configurations where id=id_device AND ${type2}=(SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
+          if(type2!=0){
+            con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
               if (err) throw err;
                 res.send(result)
             }); 

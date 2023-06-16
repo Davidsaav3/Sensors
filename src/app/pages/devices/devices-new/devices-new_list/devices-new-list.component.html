@@ -38,6 +38,7 @@
 				</thead>
 				<tbody style="background-color: rgb(255, 255, 255); height: min-content;" *ngFor="let item of contenido.sensors;let i=index">
           <tr style="overflow-y: scroll;">
+            <!--{{i}}{{item.id}}-->
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
 						<input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
             <th scope="col2" class="pb-0">

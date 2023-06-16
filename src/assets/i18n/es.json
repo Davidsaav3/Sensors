@@ -56,7 +56,7 @@
     "devices.sensors.save" : "Guardar",
     "devices.sensors.order" : "Orden",
     "devices.sensors.type" : "Tipo",
-    "devices.sensors.datafield" : "campo de datos",
+    "devices.sensors.datafield" : "Datafield",
     "devices.sensors.nodate" : "Sin datos",
     "devices.sensors.add" : "Añade sensores a este dispositivo",
     "devices.sensors.m1.1" : "Eliminar sensor ?",

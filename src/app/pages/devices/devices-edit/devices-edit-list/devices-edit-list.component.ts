@@ -156,13 +156,16 @@ export class DevicesEditListComponent  implements OnInit{
 
   vari(id: any){
     this.eliminarlo= id;
-    //console.log(this.eliminarlo);
+    console.log(id);
+    console.log(this.eliminarlo);
     this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
+    console.log(this.contenido.sensors)
+    this.updatesharedList();
   }
 
   anyadir(){
     let contenido2 = {
-      id: 1, 
+      id: this.contenido.sensors.length, 
       enable: 0, 
       id_device: this.id,
       id_type_sensor: 1,

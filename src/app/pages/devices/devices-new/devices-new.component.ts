@@ -124,11 +124,22 @@ export class DevicesNewComponent  implements OnInit{
         })
         .then(response => response.json()) 
       }
+      console.log(this.contenido1.sensors)
       this.router.navigate(['/devices']);
+      return;
   }
 
   submitForm(loginForm: any) {
-    this.ngOnInit();
+    this.dataSharingService.sharedLat$.subscribe(data => {
+      this.contenido.lat = data;
+    });
+    this.dataSharingService.sharedLon$.subscribe(data => {
+      this.contenido.lon = data;
+    });
+    this.dataSharingService.sharedList$.subscribe(data => {
+      this.contenido1.sensors= data;
+    });
+    
     console.log(this.contenido)
     if (loginForm.valid) {
       fetch(this.post_device, {
@@ -143,7 +154,7 @@ export class DevicesNewComponent  implements OnInit{
     else {
       //console.log('Formulario inválido');
     }
-    setTimeout(() => { this.submitList()}, 100);
+    this.submitList();
   }
 }
 

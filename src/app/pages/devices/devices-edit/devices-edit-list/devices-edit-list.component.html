@@ -38,7 +38,7 @@
 				</thead>
 				<tbody style="background-color: rgb(255, 255, 255);" *ngFor="let item of contenido.sensors;let i=index">
           <tr class="pb-0" style="overflow-y: scroll;">
-            {{i}}{{item.id}}
+            <!--{{i}}{{item.id}}-->
             <label style="display: none" [for]="'id'+i">{{ 'devices.sensors.id' | translate }}</label>
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
             <label style="display: none" [for]="'id_device'+i">{{ 'devices.sensors.id_device' | translate }}</label>

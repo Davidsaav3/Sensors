@@ -187,8 +187,9 @@ export class DevicesNewListComponent  implements OnInit{
 
   vari(id: any){
     this.eliminarlo= id;
-    //console.log(this.eliminarlo);
-    this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
+    console.log(this.eliminarlo);
+    this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo);
+    this.updatesharedList();
   }
 
   anyadir(){

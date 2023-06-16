@@ -157,7 +157,7 @@ export class DevicesEditComponent implements OnInit{
     } else {
       //console.log('Formulario inválido');
     }
-    setTimeout(() => { this.submitList()}, 100);
+    this.submitList();
   }
 
   submitList() {
@@ -171,7 +171,7 @@ export class DevicesEditComponent implements OnInit{
       })
       .then(response => response.json()) 
 
-      //console.log(this.contenido.sensors)
+      console.log(this.contenido1.sensors)
 
       console.log('hey')
       for(let quote of this.contenido1.sensors) {
@@ -182,6 +182,7 @@ export class DevicesEditComponent implements OnInit{
         })
         .then(response => response.json()) 
       }
+      return;
   }
 
   eliminar(id_actual: any){
@@ -200,7 +201,7 @@ export class DevicesEditComponent implements OnInit{
 
   submit(){
     //this.DevicesSensorsListComponent.update2();
-    fetch(this.update_device, {
+    /*fetch(this.update_device, {
       method: "POST",
       body: JSON.stringify(this.contenido),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -208,7 +209,7 @@ export class DevicesEditComponent implements OnInit{
     .then(response => response.json()) 
     //this.update2();
     this.act_ok= true;
-    this.guardado= true;
+    this.guardado= true;*/
   }
 
   recargar(){

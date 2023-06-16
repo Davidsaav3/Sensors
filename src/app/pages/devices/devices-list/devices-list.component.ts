@@ -32,6 +32,8 @@ export class DevicesListComponent implements OnInit{
   mostrar=true;
   id= 1;
   data3: any;
+  mostrar1= true;
+  mostrar2= false;
 
   timeout: any = null;
   dup_ok=false;
@@ -50,7 +52,7 @@ export class DevicesListComponent implements OnInit{
   
   busqueda = {
     value: '', 
-    sel_type: 'Nada',
+    sel_type: 0,
     sel_enable: 2
   }
 
@@ -127,7 +129,8 @@ export class DevicesListComponent implements OnInit{
 
   
   get(id: any){
-    console.log(this.currentPage)
+
+    //console.log(this.currentPage)
     if(id!='xd'){
       this.buscar1= id;
     }
@@ -139,11 +142,13 @@ export class DevicesListComponent implements OnInit{
     }
     let x1= 1;
     let x2= 100000;
+    console.log(this.busqueda.sel_type)
+
     fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)
     .then((response) => response.json())
     .then(data => {
       this.totalPages= Math.round(data.length/this.cantPage);
-      console.log(this.totalPages)
+      //console.log(this.totalPages)
     })
 
     fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}`)
@@ -212,7 +217,7 @@ export class DevicesListComponent implements OnInit{
         uid_2 = `${uid}_${contador}`;
         contador++;
       }
-      console.log(data);
+      //console.log(data);
 
       this.contenido3 = {
         id: num,    

@@ -76,11 +76,11 @@
         
 
         <div class="col-6 col-sm-2 col-lg-2 mb-3">
-          <select (ngModelChangeget)="get('xd')"  class="form-select" aria-label="Default select example" id="sel_type" [name]="'sel_type'" [(ngModel)]="busqueda.sel_type" >
-              <option selected value="0">{{ 'sensors.l1' | translate }}</option>
+          <select (ngModelChange)="get('xd')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
+            <option selected [ngValue]="0">{{ 'sensors.l1' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
-              <option value="{{xd.id}}">{{xd.type}}</option>
-            </ng-container>
+                <option [ngValue]="xd.id">{{xd.type}}</option>
+              </ng-container>
           </select>
         </div>
 
@@ -128,13 +128,50 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('uid')" scope="col">{{ 'devices.edit.uid' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer; " class="single-line" (click)="get('topic_name')" scope="col">{{ 'devices.edit.topic' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('application_id')" scope="col">{{ 'devices.edit.aplication' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="" class="single-line" >{{ 'sensors.sensors' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">Creación</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">Modificación</th>
+                    <th style="cursor: pointer; " class="single-line" (click)="get('uid')" scope="col">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                      </svg>
+                      {{ 'devices.edit.uid' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer; " class="single-line" (click)="get('topic_name')" scope="col">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                      </svg>
+                      {{ 'devices.edit.topic' | translate }}</th>
+                    <th style="cursor: pointer; " class="single-line" (click)="get('application_id')" scope="col">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                      </svg>
+                      {{ 'devices.edit.aplication' | translate }}</th>
+                    <th style="cursor: pointer; " class="single-line" (click)="get('enable')" scope="col">
+                      {{ 'sensors.enable' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="" class="single-line" >
+                      {{ 'sensors.sensors' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                      </svg>
+                      Creación</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                      </svg>
+                      Modificación</th>
                     <th scope="col" style="text-align: center;" style=""class="single-line" >{{ 'sensors.duplicate' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">{{ 'sensors.edit' | translate }}</th>
                   </tr>
