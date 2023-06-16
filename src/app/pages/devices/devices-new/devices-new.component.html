@@ -143,7 +143,6 @@
                 </div>	
 
                 <div class="c5 p-0 m-0" >
-                    <input [(ngModel)]="sharedData" name="sharedData" (ngModelChange)="updateSharedData()">
                     <app-devices-new-map></app-devices-new-map>
                 </div>
 
@@ -152,15 +151,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="lat">{{ 'devices.edit.lat' | translate }}</label>
-                                <input (ngModelChange)="change=true" value="{{ contenido.lat }}" type="text" id="lat" class="form-control" name="lat" [(ngModel)]="contenido['lat']" type>
+                                <input (ngModelChange)="updatesharedLat()" value="{{ contenido.lat }}" type="text" id="lat" class="form-control" name="lat" [(ngModel)]="contenido['lat']" type>
                                 <div *ngIf="loginForm.submitted && loginForm.controls['lat'].errors" class="text-danger">
                                     <div *ngIf="loginForm.controls['lat'].errors['required']">{{ 'devices.edit.lat' | translate }} is required.</div>
                                     <div *ngIf="loginForm.controls['lat'].errors['email']">Invalid {{ 'devices.edit.lat' | translate }}.</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="lon">{{ 'devices.edit.long' | translate }}</label>
-                                <input (ngModelChange)="change=true" value="{{ contenido.lon }}" type="text" id="lon" class="form-control" name="lon" [(ngModel)]="contenido['lon']" type>
+                                <label for="lon">{{ 'devices.edit.lon' | translate }}</label>
+                                <input (ngModelChange)="updatesharedLon()" value="{{ contenido.lon }}" type="text" id="lon" class="form-control" name="lon" [(ngModel)]="contenido['lon']" type>
                                 <div *ngIf="loginForm.submitted && loginForm.controls['lon'].errors" class="text-danger">
                                     <div *ngIf="loginForm.controls['lon'].errors['required']">{{ 'devices.edit.long' | translate }} is required.</div>
                                     <div *ngIf="loginForm.controls['lon'].errors['email']">Invalid {{ 'devices.edit.long' | translate }}.</div>
@@ -332,23 +331,3 @@
         </div>
       </div>
 </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

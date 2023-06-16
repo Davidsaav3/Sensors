@@ -25,11 +25,12 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService) { }
 
   @ViewChild('map') divMap?: ElementRef;
-  sharedData: string = '';
+  sharedLat: any = 38.3855908932305;
+  sharedLon: any = -0.5098796883778505;
 
   public zoom: number = 10;
   public map?: mapboxgl.Map;
-  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
+  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
   public markers: MarkerAndColor[] = [];
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
@@ -53,10 +54,19 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnInit(): void {
-
-    this.dataSharingService.sharedData$.subscribe(data => {
-      this.sharedData = data;
+    this.dataSharingService.sharedLat$.subscribe(data => {
+      this.sharedLat = data;
     });
+    this.dataSharingService.sharedLon$.subscribe(data => {
+      this.sharedLon = data;
+    });
+  }
+
+  updatesharedLat() {
+    this.dataSharingService.updatesharedLat(this.sharedLat);
+  }
+  updatesharedLon() {
+    this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
   ngAfterViewInit(): void {
@@ -71,10 +81,10 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     });
 
     this.mapListeners();
-    this.readFromLocalStorage();
+    //this.readFromLocalStorage();
+
     // const markerHtml = document.createElement('div');
     // markerHtml.innerHTML = 'Fernando Herrera'
-
     // const marker = new Marker({
     //   // color: 'red',
     //   element: markerHtml
@@ -150,6 +160,11 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
     marker.on('dragend', () => this.saveToLocalStorage() );
 
+    this.sharedLat= lngLat.lat;
+    this.sharedLon= lngLat.lng;
+
+    this.updatesharedLat();
+    this.updatesharedLon();
     // dragend
   }
 

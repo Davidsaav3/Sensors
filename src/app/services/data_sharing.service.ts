@@ -5,10 +5,24 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataSharingService {
-  private sharedDataSubject = new BehaviorSubject<string>('Initial value');
-  sharedData$ = this.sharedDataSubject.asObservable();
+  private sharedLat = new BehaviorSubject<any>(1);
+  sharedLat$ = this.sharedLat.asObservable();
 
-  updateSharedData(data: string) {
-    this.sharedDataSubject.next(data);
+  private sharedLon = new BehaviorSubject<any>(1);
+  sharedLon$ = this.sharedLon.asObservable();
+
+  private sharedList = new BehaviorSubject<any>('');
+  sharedList$ = this.sharedList.asObservable();
+
+  updatesharedLat(sharedLat: any) {
+    this.sharedLat.next(sharedLat);
   }
+  updatesharedLon(sharedLon: any) {
+    this.sharedLon.next(sharedLon);
+  }
+
+  updatesharedList(sharedList: any) {
+    this.sharedList.next(sharedList);
+  }
+
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DevicesNewComponent } from '../devices-new.component';
 import { Router } from '@angular/router';
+import { DataSharingService } from '../../../../services/data_sharing.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class DevicesNewListComponent  implements OnInit{
 
-  constructor(private router: Router,private xdxd: DevicesNewComponent,private rutaActiva: ActivatedRoute) { }
+  constructor(private router: Router,private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
@@ -91,6 +91,12 @@ export class DevicesNewListComponent  implements OnInit{
         this.contenido.sensors[num].orden= this.contenido1.sensors[this.contenido.sensors[num].id_type_sensor].orden;
       }
     }
+    this.updatesharedList();
+  }
+
+  updatesharedList() {
+    //console.log(this.contenido.sensors)
+    this.dataSharingService.updatesharedList(this.contenido.sensors);
   }
 
   get(id: any){
@@ -117,8 +123,8 @@ export class DevicesNewListComponent  implements OnInit{
   }
 
   submitForm(loginForm: any) {
-    if (loginForm.valid) {
-      this.xdxd.submit();
+    /*if (loginForm.valid) {
+      //this.xdxd.submit();
       var contenido4 = {
         id: this.id,   
       }
@@ -147,11 +153,11 @@ export class DevicesNewListComponent  implements OnInit{
     } 
     else {
       //console.log('Formulario inválido');
-    }
+    }*/
   }
 
   update2(){
-    this.xdxd.submit();
+    /*this.xdxd.submit();
     var contenido4 = {
       id: this.id,   
     }
@@ -176,7 +182,7 @@ export class DevicesNewListComponent  implements OnInit{
     //console.log(this.act_ok)
     this.get('xd')
     this.get('xd')
-    this.router.navigate(['/devices']);
+    this.router.navigate(['/devices']);*/
   }
 
   vari(id: any){
@@ -199,6 +205,7 @@ export class DevicesNewListComponent  implements OnInit{
 
     this.contenido.sensors.push(contenido2);
     this.sin= true;
+    this.updatesharedList();
   }
   
   eliminar(){

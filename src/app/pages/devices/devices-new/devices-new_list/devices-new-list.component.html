@@ -17,9 +17,9 @@
           {{ 'devices.sensors.e4' | translate }}
 			  </div>
 		</div>
-		<div class="col-3 col-sm-2">
+		<!--<div class="col-3 col-sm-2">
 			<a type="button" (click)="submitForm(loginForm)" class="btn btn-info">{{ 'sensors.save' | translate }}</a>
-		</div>
+		</div>-->
 	</div>	
 
 	<div class="row">
@@ -38,12 +38,12 @@
 				</thead>
 				<tbody style="background-color: rgb(255, 255, 255); height: min-content;" *ngFor="let item of contenido.sensors;let i=index">
           <tr style="overflow-y: scroll;">
-            <input type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
-						<input type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
+            <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
+						<input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
             <th scope="col2" class="pb-0">
               <!--<input type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item.orden">-->
               <label style="display: none" [for]="'orden'+i">{{ 'devices.sensors.order' | translate }}</label>
-              <input value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
               <div *ngIf="loginForm.submitted && loginForm.controls['orden'].errors" class="text-danger">
                   <div *ngIf="loginForm.controls['orden'].errors['required']">{{ 'devices.sensors.order' | translate }} is required.</div>
                   <div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'devices.sensors.order' | translate }}.</div>
@@ -59,20 +59,20 @@
               <td class="pb-0">
                 <!--<input type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item.datafield">-->
                 <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
-                <input value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
+                <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
                 <div *ngIf="loginForm.submitted && loginForm.controls['datafield'].errors" class="text-danger">
                     <div *ngIf="loginForm.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
                     <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
                 </div>
                <td class="pb-0">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="flexCheckDefault" value="{{item.nodata}}" aria-label="Checkbox for following text input" id="nodata" [name]="'nodata'+i" [(ngModel)]="item.nodata">
+                  <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" id="flexCheckDefault" value="{{item.nodata}}" aria-label="Checkbox for following text input" id="nodata" [name]="'nodata'+i" [(ngModel)]="item.nodata">
                   <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
                 </div>              
               </td>
               <td class="d-flex pb-0">
 							<label class="toggle t2 tt2 mt-1 mb-3">
-								<input type="checkbox" [name]="'enable'+i" checked [(ngModel)]="item.enable">
+								<input (ngModelChange)="updatesharedList()" type="checkbox" [name]="'enable'+i" checked [(ngModel)]="item.enable">
 								<span class="slider"></span>
                 <ng-container *ngIf="this.activeLang=='es'">
                   <span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
