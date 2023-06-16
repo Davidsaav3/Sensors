@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { DataSharingService } from '../../../../services/data_sharing.service';
 
 interface MarkerAndColor {
   color: string;
@@ -20,14 +21,31 @@ interface PlainMarker {
   templateUrl: './devices-edit-map.component.html',
   styleUrls: ['../../../../app.component.css']
 })
-export class DevicesEditMapComponent implements OnInit, AfterViewInit, OnDestroy{
-  constructor(private rutaActiva: ActivatedRoute,private router: Router) { }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
+
+  sharedLat: any = 38.3855908932305;
+  sharedLon: any = -0.5098796883778505;
+  public currentLngLat: mapboxgl.LngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+
+  constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService) {
+    this.dataSharingService.sharedLat$.subscribe(data => {
+      this.sharedLat = data;
+    });
+    this.dataSharingService.sharedLon$.subscribe(data => {
+      this.sharedLon = data;
+    }); 
+    //this.recargar()
+    setTimeout(() => { this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);}, 50);
+   }
 
   @ViewChild('map') divMap?: ElementRef;
-
   public zoom: number = 10;
   public map?: mapboxgl.Map;
-  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
@@ -42,8 +60,8 @@ export class DevicesEditMapComponent implements OnInit, AfterViewInit, OnDestroy
     application_id: '',
     topic_name: '',
     typemeter: '',
-    lat: 0,
-    lon: 0,
+    lat: 1,
+    lon: 1,
     cota: 10,
     timezone: '+01:00',
     organizationid: '',
@@ -51,42 +69,74 @@ export class DevicesEditMapComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnInit(): void {
-    fetch(`${this.id_device}/${this.id}`)
-      .then(response => response.json())
-      .then(data => {
-        setTimeout(() => {
-          this.contenido = data[0];
-        });
-      })
-      .catch(error => {
-        console.error(error); 
-      });
+    this.dataSharingService.sharedLat$.subscribe(data => {
+      this.sharedLat = data;
+    });
+    this.dataSharingService.sharedLon$.subscribe(data => {
+      this.sharedLon = data;
+    });
+    this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+  }
+
+  recargar(){
+    const id_actual= this.rutaActiva.snapshot.params['id']
+    fetch(`${this.id_device}/${id_actual}`)
+    .then(response => response.json())
+    .then(data => {
+      this.contenido= data;
+      this.sharedLat= data[0].lat;
+      this.sharedLon= data[0].lon;
+      this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+    })
+    .catch(error => {
+      console.error(error); 
+    });
+  }
+
+  ampliar(){
+    console.log('HOLA');
+    this.map?.resize();
+  }
+
+  updatesharedLat() {
+    this.dataSharingService.updatesharedLat(this.sharedLat);
+  }
+  updatesharedLon() {
+    this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
   ngAfterViewInit(): void {
-    if (!this.divMap) {
-      throw new Error('El elemento HTML no fue encontrado');
-    }
-  
+
+    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
+
     this.map = new mapboxgl.Map({
       container: this.divMap.nativeElement, // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
       center: this.currentLngLat,
       zoom: this.zoom, // starting zoom
     });
-  
-    this.mapListeners();
-    this.readFromLocalStorage();
-  }
 
-  private callAddMarker(): void {
-    setTimeout(() => {
-      if (this.contenido && this.contenido.lon && this.contenido.lat) {
-        let color = '#xxxxxx'.replace(/x/g, y => (Math.random() * 16 | 0).toString(16));
-        let coords = new mapboxgl.LngLat(this.contenido.lon, this.contenido.lat);
-        this.addMarker(coords, color);
-      }
-    });
+    this.mapListeners();
+    console.log(this.sharedLon)
+    this.currentLngLat= new mapboxgl.LngLat(this.sharedLon,this.sharedLat);
+    console.log(this.currentLngLat)
+    const marker = new mapboxgl.Marker({
+      color: '#0dcaf0',
+      draggable: true
+    }).setLngLat( this.currentLngLat ).addTo( this.map );
+
+    setTimeout(() =>{this.flyTo( marker );}, 50);
+    console.log(this.currentLngLat)
+    //this.readFromLocalStorage();
+
+    // const markerHtml = document.createElement('div');
+    // markerHtml.innerHTML = 'Fernando Herrera'
+    // const marker = new Marker({
+    //   // color: 'red',
+    //   element: markerHtml
+    // })
+    //   .setLngLat( this.currentLngLat )
+    //   .addTo( this.map );
   }
 
   ngOnDestroy(): void {
@@ -132,7 +182,6 @@ export class DevicesEditMapComponent implements OnInit, AfterViewInit, OnDestroy
     //const color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
     const color= '#0dcaf0';
     const lngLat = this.map.getCenter();
-
     this.addMarker( lngLat, color );
   }
 
@@ -152,10 +201,15 @@ export class DevicesEditMapComponent implements OnInit, AfterViewInit, OnDestroy
       .addTo( this.map );
 
     this.markers.push({ color, marker, });
-    this.saveToLocalStorage();
+    //this.saveToLocalStorage();
 
-    marker.on('dragend', () => this.saveToLocalStorage() );
+    //marker.on('dragend', () => this.saveToLocalStorage() );
 
+    this.sharedLat= lngLat.lat;
+    this.sharedLon= lngLat.lng;
+
+    this.updatesharedLat();
+    this.updatesharedLon();
     // dragend
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataSharingService } from './../../../services/data_sharing.service';
 import { ActivatedRoute } from '@angular/router';
+import { DevicesNewMapComponent } from './devices-new-map/devices-new-map.component';
 
 @Component({
   selector: 'app-devices-new',
@@ -13,7 +14,7 @@ export class DevicesNewComponent  implements OnInit{
   sharedLat: any = '';
   sharedLon: any = '';
 
-  constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute) { 
+  constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesNewMapComponent: DevicesNewMapComponent) { 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -68,6 +69,16 @@ export class DevicesNewComponent  implements OnInit{
     createdAt: '',
   }
 
+  ampliar(){
+    this.mostrar3=true;
+    this.DevicesNewMapComponent.ampliar();
+  }
+
+  desampliar(){
+    this.mostrar3=false;
+    this.DevicesNewMapComponent.ampliar();
+  }
+
   ngOnInit(): void {
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.contenido.lat = data;
@@ -113,7 +124,7 @@ export class DevicesNewComponent  implements OnInit{
         })
         .then(response => response.json()) 
       }
-      //this.router.navigate(['/devices']);
+      this.router.navigate(['/devices']);
   }
 
   submitForm(loginForm: any) {

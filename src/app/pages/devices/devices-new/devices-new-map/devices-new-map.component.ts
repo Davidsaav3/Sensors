@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -21,6 +21,11 @@ interface PlainMarker {
   templateUrl: './devices-new-map.component.html',
   styleUrls: ['../../../../app.component.css']
 })
+
+@Injectable({
+  providedIn: 'root'
+})
+
 export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService) { }
 
@@ -62,6 +67,10 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     });
   }
 
+  ampliar(){
+    this.map?.resize();
+  }
+
   updatesharedLat() {
     this.dataSharingService.updatesharedLat(this.sharedLat);
   }
@@ -91,7 +100,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     // })
     //   .setLngLat( this.currentLngLat )
     //   .addTo( this.map );
+
   }
+
 
   ngOnDestroy(): void {
     this.map?.remove();

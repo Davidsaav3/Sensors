@@ -2,6 +2,7 @@ import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataSharingService } from './../../../services/data_sharing.service';
+import { DevicesEditMapComponent } from './devices-edit-map/devices-edit-map.component';
 
 @Component({
   selector: 'app-devices-edit',
@@ -10,7 +11,10 @@ import { DataSharingService } from './../../../services/data_sharing.service';
 })
 export class DevicesEditComponent implements OnInit{
 
-  constructor(private rutaActiva: ActivatedRoute,private router: Router, private dataSharingService: DataSharingService) { 
+  sharedLat: any = '';
+  sharedLon: any = '';
+  
+  constructor(private rutaActiva: ActivatedRoute,private router: Router, private dataSharingService: DataSharingService,private DevicesEditMapComponent: DevicesEditMapComponent) { 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -51,8 +55,8 @@ export class DevicesEditComponent implements OnInit{
     application_id: '',
     topic_name: '',
     typemeter: '',
-    lat: 0,
-    lon: 0,
+    lat: this.sharedLat,
+    lon: this.sharedLon,
     cota: 10,
     timezone: '+01:00',
     organizationid: '',
@@ -79,13 +83,38 @@ export class DevicesEditComponent implements OnInit{
     enable: 1,
   }
 
+  ampliar(){
+    this.mostrar3=true;
+    this.DevicesEditMapComponent.ampliar();
+  }
+
+  desampliar(){
+    this.mostrar3=false;
+    this.DevicesEditMapComponent.ampliar();
+  }
+
   ngOnInit(): void {
     this.get()
+    this.getlist();
 
+    this.dataSharingService.sharedLat$.subscribe(data => {
+      this.contenido.lat = data;
+    });
+
+    this.dataSharingService.sharedLon$.subscribe(data => {
+      this.contenido.lon = data;
+    });
+    this.updatesharedLat();
+    this.updatesharedLon();
+  }
+
+  getlist(){
     this.dataSharingService.sharedList$.subscribe(data => {
       this.contenido1.sensors= data;
     });
   }
+
+
 
   get(){
     fetch(`${this.id_device}/${this.id}`)
@@ -97,13 +126,20 @@ export class DevicesEditComponent implements OnInit{
       console.error(error); 
     });
   }
+
+  updatesharedLat() {
+    this.dataSharingService.updatesharedLat(this.contenido.lat);
+  }
+  updatesharedLon() {
+    this.dataSharingService.updatesharedLon(this.contenido.lon);
+  }
   
   resize(): void{
     this.width = window.innerWidth;
   }
 
   submitForm(loginForm: any) {
-    this.ngOnInit();
+    this.getlist();
     console.log(this.contenido1)
     if (loginForm.valid) {
       //this.DevicesSensorsListComponent.update2();

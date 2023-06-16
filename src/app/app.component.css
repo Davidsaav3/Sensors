@@ -19,6 +19,13 @@
   width: 100%;
 }
 
+.form-range::-moz-range-thumb{
+  background-color: #6c757d;
+}
+.form-range::-webkit-slider-thumb{
+  background-color: #6c757d;
+}
+
 
 .floating-content {
   width: 50%;
