@@ -1,7 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-
+import { DataSharingService } from './../../../services/data_sharing.service';
 
 @Component({
   selector: 'app-devices-edit',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class DevicesEditComponent implements OnInit{
 
-  constructor(private rutaActiva: ActivatedRoute,private router: Router) { 
+  constructor(private rutaActiva: ActivatedRoute,private router: Router, private dataSharingService: DataSharingService) { 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -25,6 +25,8 @@ export class DevicesEditComponent implements OnInit{
   delete_device: string = 'http://localhost:5172/api/delete/device_configurations';
   update_device: string = 'http://localhost:5172/api/update/device_configurations';
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
+  delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
+  post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
 
   id= parseInt(this.rutaActiva.snapshot.params['id']);
   id_actual= 1;
@@ -57,6 +59,20 @@ export class DevicesEditComponent implements OnInit{
     enable: 0,
     updatedAt: ''
   }
+
+  contenido1 = {
+    sensors : [
+      {
+        id: 1, 
+        enable: 0, 
+        id_device: this.id,
+        id_type_sensor: 1,
+        datafield: '',
+        nodata: true,
+        orden: 1,
+        type_name: 1,
+      }]
+  }
   
   contenido2 = {
     id: 1,    
@@ -65,6 +81,10 @@ export class DevicesEditComponent implements OnInit{
 
   ngOnInit(): void {
     this.get()
+
+    this.dataSharingService.sharedList$.subscribe(data => {
+      this.contenido1.sensors= data;
+    });
   }
 
   get(){
@@ -83,6 +103,8 @@ export class DevicesEditComponent implements OnInit{
   }
 
   submitForm(loginForm: any) {
+    this.ngOnInit();
+    console.log(this.contenido1)
     if (loginForm.valid) {
       //this.DevicesSensorsListComponent.update2();
       fetch(this.update_device, {
@@ -99,6 +121,31 @@ export class DevicesEditComponent implements OnInit{
     } else {
       //console.log('Formulario inválido');
     }
+    setTimeout(() => { this.submitList()}, 100);
+  }
+
+  submitList() {
+      var contenido4 = {
+        id: this.id,   
+      }
+      fetch(this.delete_all_sensors_devices, {
+        method: "POST",
+        body: JSON.stringify(contenido4),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json()) 
+
+      //console.log(this.contenido.sensors)
+
+      console.log('hey')
+      for(let quote of this.contenido1.sensors) {
+        fetch(this.post_sensors_devices, {
+          method: "POST",
+          body: JSON.stringify(quote),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+      }
   }
 
   eliminar(id_actual: any){

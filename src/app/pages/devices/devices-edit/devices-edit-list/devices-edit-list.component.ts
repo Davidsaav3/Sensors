@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { DevicesEditComponent } from '../devices-edit.component';
+import { DataSharingService } from '../../../../services/data_sharing.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { DevicesEditComponent } from '../devices-edit.component';
 })
 export class DevicesEditListComponent  implements OnInit{
 
-  constructor(private xdxd: DevicesEditComponent,private rutaActiva: ActivatedRoute) { }
+  constructor(private xdxd: DevicesEditComponent,private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
 
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
@@ -86,6 +87,11 @@ export class DevicesEditListComponent  implements OnInit{
     //setTimeout(() =>{this.cambiar()}, 100);
   }
 
+  updatesharedList() {
+    console.log(this.contenido.sensors)
+    this.dataSharingService.updatesharedList(this.contenido.sensors);
+  }
+
   cambiar(num: any){
     for (let index = 0; index < this.contenido.sensors.length; index++) {
       if(num==this.contenido.sensors[num].id){
@@ -118,7 +124,7 @@ export class DevicesEditListComponent  implements OnInit{
   }
 
   submitForm(loginForm: any){
-    if(loginForm.valid){  
+    /*if(loginForm.valid){  
       this.xdxd.submit();
       var contenido4 = {
         id: this.id,   
@@ -145,7 +151,7 @@ export class DevicesEditListComponent  implements OnInit{
       //console.log(this.act_ok)
       this.get('xd')
       this.get('xd')
-    }
+    }*/
   }
 
   vari(id: any){
@@ -169,123 +175,11 @@ export class DevicesEditListComponent  implements OnInit{
     this.contenido.sensors.push(contenido2);
     //this.cont++;
     this.sin= true;
+    this.updatesharedList();
   }
 
   eliminar(){
     this.contenido.sensors= this.contenido.sensors.filter((item) => item == this.eliminarlo)
-  }
-
-  /* ///////////// */
-  
-  menos(){
-    this.desde = this.desde - 1;
-    const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-    page.forEach((element, index) => {
-      if(index === this.desde - 1){
-        element.style.color='#0073ca';
-        element.style.textDecoration='underline';
-      }else{
-        element.style.color='';
-        element.style.textDecoration='';
-      }
-    });
-    //this.listarUsuarios();
-    if(this.desde <= 1){
-      this.desde = 1;
-      this.primero = true;
-      this.ultimo = false;
-    }else{
-      this.primero = false;
-      this.ultimo = false;
-    }
-  }
-
-  mas(){
-    this.desde = this.desde + 1;
-    const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-    page.forEach((element, index) => {
-      if(index === this.desde - 1){
-        element.style.color='#0073ca';
-        element.style.textDecoration='underline';
-      }else{
-        element.style.color='';
-        element.style.textDecoration='';
-      }
-    });
-    if(page.length > 1){
-      //this.listarUsuarios();
-      if(this.desde >= this.ultimaPage){
-        this.desde = this.ultimaPage;
-        this.primero = false;
-        this.ultimo = true;
-      }
-      else{
-        this.primero = false;
-        this.ultimo = false;
-      }
-    }
-
-  }
-
-  pagina(p: any){
-    this.desde = p + 1;
-    const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-    page.forEach((element, index) => {
-      if(index === this.desde - 1){
-        element.style.color='#0073ca';
-        element.style.textDecoration='underline';
-      }else{
-        element.style.color='';
-        element.style.textDecoration='';
-      }
-    });
-    if(this.desde <= 1){
-      this.desde = 1;
-      this.primero = true;
-      this.ultimo = false;
-    }else{
-      if(this.desde >= this.ultimaPage){
-        this.desde = this.ultimaPage;
-        this.primero = false;
-        this.ultimo = true;
-      }else{
-        this.primero = false;
-        this.ultimo = false;
-      }
-    }
-    //this.listarUsuarios();
-  }
-
-  listarUsuarios(){
-    //this.admin.cargarUsuarios(this.desde, this.textoBusqueda)
-    //.subscribe((res: any) => {
-      ////console.log(res)
-      //this.usuarios = res.usuarios;
-      //this.ultimaPage = Math.ceil(res.page.total/10);
-      this.paginas = Array(this.ultimaPage).fill(1).map((x,i)=>i);
-  
-      setTimeout( () =>{
-  
-        const page = Array.from(document.getElementsByClassName('page') as HTMLCollectionOf<HTMLElement>);
-        ////console.log(page)
-  
-        page.forEach((element, index) => {
-          if(index === this.desde - 1){
-            element.style.color='#0073ca';
-            element.style.textDecoration='underline';
-          }else{
-            element.style.color='';
-            element.style.textDecoration='';
-          }
-        });
-        }, 100);
-  
-      if (this.usuarios.length <= 0){
-        this.hayUsu = false;
-      }
-      else {
-        this.hayUsu = true;
-      }
   }
 
 }
