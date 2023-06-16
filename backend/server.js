@@ -14,14 +14,15 @@ con.connect(function(err) {
   });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
   const type2 = parseInt(req.params.type2);  
   const type3 = parseInt(req.params.type3);
   const tam = parseInt(req.params.type5);
   const act = (req.params.type4-1)*parseInt(req.params.type5);
-  
+  const type6 = req.params.type6;
+
   console.log("-")
   console.log(type2)
   console.log(type3)
@@ -29,20 +30,20 @@ con.connect(function(err) {
   if(type0=='Buscar'){
     if(type2!=0 || type3!=2){
       if(type2!=0 && type3!=2){
-        con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+        con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
           if (err) throw err;
             res.send(result)
         }); 
       }
       else{
           if(type2!=0){
-            con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
+            con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
               if (err) throw err;
                 res.send(result)
             }); 
         }
         if(type3!=2){
-          con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+          con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
             if (err) throw err;
               res.send(result)
           }); 
@@ -51,7 +52,7 @@ con.connect(function(err) {
     
     }
     else{
-      con.query(`SELECT * FROM device_configurations order by ${type1} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+      con.query(`SELECT * FROM device_configurations order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
@@ -231,18 +232,19 @@ if (err) throw err;
 
   /* SENSORS_TYPES //////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/sensors_types/:type/:type1", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/sensors_types/:type/:type1/:type2", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
+  const type2 = req.params.type2;
 
     if(type0=='Buscar'){
-      con.query(`SELECT * FROM sensors_types order by ${type1}`,function (err, result) {
+      con.query(`SELECT * FROM sensors_types order by ${type1} ${type2}`,function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
     }
     else{
-        con.query(`SELECT * FROM sensors_types WHERE type LIKE '%${type0}%' OR metric LIKE '%${type0}%' OR description LIKE '%${type0}%' OR errorvalue LIKE '%${type0}%' OR valuemax LIKE '%${type0}%' OR valuemin LIKE '%${type0}%' order by ${type1}`, function (err, result) {
+        con.query(`SELECT * FROM sensors_types WHERE type LIKE '%${type0}%' OR metric LIKE '%${type0}%' OR description LIKE '%${type0}%' OR errorvalue LIKE '%${type0}%' OR valuemax LIKE '%${type0}%' OR valuemin LIKE '%${type0}%' order by ${type1} ${type2}`, function (err, result) {
         if (err) throw err;
           res.send(result)
           

@@ -116,7 +116,8 @@ export class DevicesEditListComponent  implements OnInit{
       console.error(error); 
     });
     let buscar= 'Buscar';
-    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}`)
+    let ord= 'ASC';
+    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       this.contenido1.sensors= data;

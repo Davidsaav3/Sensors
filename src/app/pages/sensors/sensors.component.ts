@@ -27,6 +27,21 @@ export class SensorsComponent implements OnInit{
   update_sensors: string = 'http://localhost:5172/api/update/sensors_types';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
 
+  alt_1_a=true;
+  alt_1_b=false;
+  alt_2_a=true;
+  alt_2_b=false;
+  alt_3_a=true;
+  alt_3_b=false;  
+  alt_4_a=true;
+  alt_4_b=false;  
+  alt_5_a=true;
+  alt_5_b=false;
+  alt_6_a=true;
+  alt_6_b=false;  
+  alt_7_a=true;
+  alt_7_b=false;
+
   data: any;
   data2: any;
   data3: any;
@@ -88,12 +103,12 @@ export class SensorsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.get('orden');
+    this.get('orden','ASC');
     this.tam();
-    this.get('orden');
+    this.get('orden','ASC');
   }
 
-  get(id: any){
+  get(id: any,ord: any){
     this.ruta= this.rutaActiva.routerState.snapshot.url;
     if(id!='xd'){
       this.buscar1= id;
@@ -104,7 +119,7 @@ export class SensorsComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
-    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}`)
+    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));
   }
@@ -123,8 +138,8 @@ export class SensorsComponent implements OnInit{
       })
       .then(response => response.json()) 
       this.guardar_ok= true;
-      this.get('xd');
-      this.get('xd');
+      this.get('xd','ASC');
+      this.get('xd','ASC');
       this.guardado= true;
 
       //console.log('Formulario válido');
@@ -142,9 +157,9 @@ export class SensorsComponent implements OnInit{
       })
       .then(response => response.json()) 
       this.alert_new= true;
-      this.get('xd');
+      this.get('xd','ASC');
       this.tam();
-      this.get('xd');
+      this.get('xd','ASC');
   
       fetch(this.max_sensors)
       .then(response => response.json())
@@ -168,7 +183,8 @@ export class SensorsComponent implements OnInit{
       id: num,    
     }   
     this.buscar= 'Buscar';
-    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}`)
+    let ord= 'ASC';
+    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       let contador = 1;
@@ -214,9 +230,9 @@ export class SensorsComponent implements OnInit{
     this.mostrar2=false;
     this.alert_delete= true;
     this.mostrar2= false;
-    this.get('xd');
+    this.get('xd','ASC');
     this.tam();
-    this.get('xd');
+    this.get('xd','ASC');
   }
 
   ocultar(){
@@ -233,8 +249,8 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.guardar_ok= true;
-    this.get('xd');
-    this.get('xd');
+    this.get('xd','ASC');
+    this.get('xd','ASC');
     this.guardado= true;
   }
 
@@ -252,9 +268,9 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.alert_new= true;
-    this.get('xd');
+    this.get('xd','ASC');
     this.tam();
-    this.get('xd');
+    this.get('xd','ASC');
 
     fetch(this.max_sensors)
     .then(response => response.json())
@@ -277,9 +293,9 @@ export class SensorsComponent implements OnInit{
     .catch(error => {
       console.error(error); 
     });
-    this.get('xd');
+    this.get('xd','ASC');
     this.tam();
-    this.get('xd');
+    this.get('xd','ASC');
   }
   
   onKeySearch(event: any) {
@@ -287,7 +303,7 @@ export class SensorsComponent implements OnInit{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.get('xd');
+        $this.get('xd','ASC');
         $this.tam();
       }
     }, 500);
@@ -306,7 +322,7 @@ export class SensorsComponent implements OnInit{
 
   borrar(){
     this.busqueda.value= '';
-    this.get('xd');
+    this.get('xd','ASC');
   }
 
   m1(){

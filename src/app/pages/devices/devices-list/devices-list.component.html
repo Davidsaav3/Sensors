@@ -67,7 +67,7 @@
 
         <div class="col-9 col-sm-6 col-lg-3 mb-3">
           <div class="input-group w-100">
-              <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
               </div>
@@ -76,7 +76,7 @@
         
 
         <div class="col-6 col-sm-2 col-lg-2 mb-3">
-          <select (ngModelChange)="get('xd')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
+          <select (ngModelChange)="get('xd','ASC')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
             <option selected [ngValue]="0">{{ 'sensors.l1' | translate }}</option>
             <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
                 <option [ngValue]="xd.id">{{xd.type}}</option>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="col-6 col-sm-2 col-lg-2 mb-3">
-          <select  (ngModelChange)="get('xd')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+          <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
             <option selected [ngValue]="2">{{ 'sensors.l2' | translate }}</option>
             <option [ngValue]="0">{{ 'sensors.enable' | translate }}</option>
             <option [ngValue]="1">{{ 'sensors.disable' | translate }}</option>
@@ -128,47 +128,47 @@
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('uid')" scope="col">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <th style="cursor: pointer; " class="single-line" scope="col">
+                      <svg *ngIf="alt_1_a" (click)="alt_1_a=false;get('uid','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="!alt_1_a" (click)="alt_1_a=true;get('uid','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.uid' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer; " class="single-line" (click)="get('topic_name')" scope="col">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer;" class="single-line"  scope="col">
+                      <svg *ngIf="alt_2_a" (click)="alt_2_a=false;get('topic_name','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="!alt_2_a" (click)="alt_2_a=true;get('topic_name','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.topic' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('application_id')" scope="col">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <th style="cursor: pointer; " class="single-line" scope="col">
+                      <svg *ngIf="alt_3_a" (click)="alt_3_a=false;get('application_id','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="!alt_3_a" (click)="alt_3_a=true;get('application_id','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.aplication' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" (click)="get('enable')" scope="col">
+                    <th style="cursor: pointer; " class="single-line" scope="col">
                       {{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="" class="single-line" >
                       {{ 'sensors.sensors' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="alt_4_a" (click)="alt_4_a=false;get('createdAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="!alt_4_a" (click)="alt_4_a=true;get('createdAt','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       Creación</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="alt_5_a" (click)="alt_5_a=false;get('updatedAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                      <svg *ngIf="!alt_5_a" (click)="alt_5_a=true;get('updatedAt','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       Modificación</th>

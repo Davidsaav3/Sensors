@@ -27,6 +27,17 @@ export class DevicesListComponent implements OnInit{
   cantPage = 16;
   data: any[] = [];
 
+  alt_1_a=true;
+  alt_1_b=false;
+  alt_2_a=true;
+  alt_2_b=false;
+  alt_3_a=true;
+  alt_3_b=false;  
+  alt_4_a=true;
+  alt_4_b=false;  
+  alt_5_a=true;
+  alt_5_b=false;
+
   ruta='';
   id1= 'orden';
   mostrar=true;
@@ -112,7 +123,7 @@ export class DevicesListComponent implements OnInit{
 
   ngOnInit(): void {
     this.ruta= this.rutaActiva.routerState.snapshot.url;
-    this.get('uid');
+    this.get('uid','ASC');
       fetch(this.max_device)
       .then(response => response.json())
       .then(data => {
@@ -120,7 +131,8 @@ export class DevicesListComponent implements OnInit{
         ////console.log(this.id);
       })
     let buscar= 'Buscar';
-    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}`)
+    let ord= 'ASC';
+    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       this.contenido1.sensors= data;
@@ -128,7 +140,7 @@ export class DevicesListComponent implements OnInit{
   }
 
   
-  get(id: any){
+  get(id: any, ord: any){
 
     //console.log(this.currentPage)
     if(id!='xd'){
@@ -144,14 +156,14 @@ export class DevicesListComponent implements OnInit{
     let x2= 100000;
     console.log(this.busqueda.sel_type)
 
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       this.totalPages= Math.round(data.length/this.cantPage);
       //console.log(this.totalPages)
     })
 
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       this.data= data;
@@ -262,7 +274,7 @@ export class DevicesListComponent implements OnInit{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.get('xd');
+        $this.get('xd','ASC');
       }
     }, 500);
   }
