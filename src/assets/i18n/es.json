@@ -36,7 +36,7 @@
     "sensors.sensors" : "Sensores",
     "sensors.duplicate" : "Duplicar",
     "sensors.edit" : "Editar",
-    "sensors.erase" : "Borrar",
+    "sensors.erase" : "Descartar filtros",
     "sensors.cancel" : "Cancelar",
     "sensors.acept" : "Aceptar",
     "sensors.save" : "Guardar",

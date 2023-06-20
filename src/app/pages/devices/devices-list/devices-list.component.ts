@@ -22,10 +22,13 @@ export class DevicesListComponent implements OnInit{
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
 
+  marcado= 'uid';
+
   totalPages = 5;
   currentPage = 1;
   cantPage = 16;
   data: any[] = [];
+  page= 1;
 
   alt_1_a=true;
   alt_1_b=false;
@@ -141,6 +144,7 @@ export class DevicesListComponent implements OnInit{
 
   
   get(id: any, ord: any){
+    this.marcado= id;
 
     //console.log(this.currentPage)
     if(id!='xd'){

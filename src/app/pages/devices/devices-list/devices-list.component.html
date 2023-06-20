@@ -1,41 +1,4 @@
-<div class="mb-0 d-flex">
-	<div class="nav nav-tabs mb-0 col-12 col-md-3 p-0">
-		<li class="nav-item">
-		  <a class="nav-link me-3" aria-current="page" routerLink="/devices" [ngClass]="{'active': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="#" routerLink="/sensors" [ngClass]="{'active': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
-		</li>
-	</div>
-	<div class="col-6 col-md-5 pb-3 ps-3 d-flex">
-    <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
-        {{ 'devices.list.e1' | translate }}
-      </div>
-      <div *ngIf="dup_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
-        {{ 'devices.list.e2' | translate }}
-      </div>
-  </div>
-	<div class="col-6 col-md-4 p-0">
-		<div class="row">
-			<div class="col-12 p-0 pt-2">
-				<div class="d-flex">
-					<div class="d-flex justify-content-end pe-3">
-						<select (ngModelChange)="cambiarLenguaje()" class="form-select" aria-label="Default select example" id="sel_type" [(ngModel)]="activeLang">
-							<option value="es" [ngClass]="{'selected': activeLang == 'es'}" >Español</option>
-							<option value="en" [ngClass]="{'selected': activeLang == 'en'}">English</option>
-						</select>
-					</div>
-					<div class="d-none d-xl-block pe-3">
-						<div class="d-flex justify-content-end">
-							<img src="../../assets/logo.png" width="350px">
-						</div>
-					</div>
-				</div>
-			</div>
-	  </div>
-	</div>
-</div>
-
+<app-navbar></app-navbar>
 <div class="cc2 cont cont_recto" >
   <div class="p-3 pb-0">
     <div class="row d-flex" style="justify-content: space-around">
@@ -69,52 +32,37 @@
           <div class="input-group w-100">
               <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
+                <button class="btn btn-outline-secondary" type="button" (click)="borrar()"><button type="button" class="btn-close" aria-label="Close"></button></button>
               </div>
           </div>
         </div>
         
 
-        <div class="col-6 col-sm-2 col-lg-2 mb-3">
-          <select (ngModelChange)="get('xd','ASC')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
-            <option selected [ngValue]="0">{{ 'sensors.l1' | translate }}</option>
-            <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
-                <option [ngValue]="xd.id">{{xd.type}}</option>
-              </ng-container>
-          </select>
+        <div class="col-6 col-sm-2 col-lg-5 mb-3 d-flex">
+          <div>
+            <select (ngModelChange)="get('xd','ASC')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
+              <option selected [ngValue]="0">{{ 'sensors.l1' | translate }}</option>
+              <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
+                  <option [ngValue]="xd.id">{{xd.type}}</option>
+                </ng-container>
+            </select>
+          </div>
+          <div class="ms-3">
+            <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+              <option selected [ngValue]="2">{{ 'sensors.l2' | translate }}</option>
+              <option [ngValue]="0">{{ 'sensors.enable' | translate }}</option>
+              <option [ngValue]="1">{{ 'sensors.disable' | translate }}</option>
+            </select>
+          </div>
+          <div class="ms-3">
+            <button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
+          </div>
         </div>
 
-        <div class="col-6 col-sm-2 col-lg-2 mb-3">
-          <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-            <option selected [ngValue]="2">{{ 'sensors.l2' | translate }}</option>
-            <option [ngValue]="0">{{ 'sensors.enable' | translate }}</option>
-            <option [ngValue]="1">{{ 'sensors.disable' | translate }}</option>
-          </select>
-        </div>
 
-
-        <div class="col-12 col-sm-12 col-lg-4 d-flex " style="justify-content: flex-end;">
+        <div class="col-12 col-sm-12 col-lg-3 d-flex " style="justify-content: flex-end;">
           <div>
             <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
-          </div>
-          <div *ngIf="cont" class="ps-3">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage()">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item" *ngFor="let page of pageRange">
-                  <a class="page-link" style="cursor: pointer;" (click)="Page(page)">{{ page }}</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage()">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
           </div>
       </div>
     </div>	
@@ -123,12 +71,12 @@
 
   <div class="p-4 pt-0" *ngIf="cont==true">
     <div class="row">
-      <div class="over p-0 " style="height: 77vh;"> 
+      <div class="over p-0 " style="height: 75vh;"> 
         <div class="col-12"> 
             <table class="table table-hover" >
                 <thead>
                   <tr>
-                    <th style="cursor: pointer; " class="single-line" scope="col">
+                    <th style="cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'uid'}" scope="col">
                       <svg *ngIf="alt_1_a" (click)="alt_1_a=false;get('uid','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -136,7 +84,7 @@
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.uid' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="cursor: pointer;" class="single-line"  scope="col">
+                    <th class="d-none d-md-none d-lg-block" [ngClass]="{'marcado': marcado == 'topic_name'}" style="cursor: pointer;" class="single-line"  scope="col">
                       <svg *ngIf="alt_2_a" (click)="alt_2_a=false;get('topic_name','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -144,7 +92,7 @@
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.topic' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" scope="col">
+                    <th style="cursor: pointer; " class="single-line" [ngClass]="{'marcado': marcado == 'application_id'}" scope="col">
                       <svg *ngIf="alt_3_a" (click)="alt_3_a=false;get('application_id','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -152,11 +100,11 @@
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       {{ 'devices.edit.aplication' | translate }}</th>
-                    <th style="cursor: pointer; " class="single-line" scope="col">
+                    <th style="cursor: pointer; " class="single-line"  scope="col">
                       {{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="" class="single-line" >
                       {{ 'sensors.sensors' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line" [ngClass]="{'marcado': marcado == 'createdAt'}">
                       <svg *ngIf="alt_4_a" (click)="alt_4_a=false;get('createdAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -164,7 +112,7 @@
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
                       Creación</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line" [ngClass]="{'marcado': marcado == 'updatedAt'}">
                       <svg *ngIf="alt_5_a" (click)="alt_5_a=false;get('updatedAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -225,7 +173,58 @@
         </div> 
         </div>
       </div>
-  </div>	
+      
+      <div *ngIf="cont" class="row">
+        <div class="col-6 d-flex">
+          <div>
+            <p class="p-0 mt-1">1 - 16 de 100</p>
+          </div>
+          <div>
+            <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
+              <option selected [ngValue]="15">15 Resultados por página</option>
+              <option [ngValue]="50">50 Resultados por página</option>
+              <option [ngValue]="100">100 Resultados por página</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 d-flex" style="justify-content: flex-end;">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage()">
+                  <span aria-hidden="true"> Primera</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage()">
+                  <span aria-hidden="true">&laquo; 10</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" (click)="Page(page-1)">{{ page-1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" (click)="Page(page)">{{ page }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" (click)="Page(page+1)">{{ page+1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage()">
+                  <span aria-hidden="true">10 &raquo;</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage()">
+                  <span aria-hidden="true">Ultima</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>  
+
+</div>
 
 
   <div class="p-4 pt-0" *ngIf="cont==false">
@@ -233,6 +232,20 @@
         <app-map></app-map>
     </div>
   </div>
+
+
+  <div class="spinner-border text-secondary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+  <div class="">
+    <p>No hay dispositivos</p>
+  </div>
+
+  <div class="">
+    <p>Dispositivos no encontrados, desactive filtros</p>
+  </div>
+
 
 
 </div> 

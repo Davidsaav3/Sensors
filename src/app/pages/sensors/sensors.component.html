@@ -1,73 +1,17 @@
-<div class="mb-0 d-flex">
-	<div class="nav nav-tabs mb-0 col-12 col-md-3 p-0">
-		<li class="nav-item">
-		  <a class="nav-link me-3" aria-current="page" routerLink="/devices" [ngClass]="{'active': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="#" routerLink="/sensors" [ngClass]="{'active': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
-		</li>
-	</div>
-	<div class="col-6 col-md-5 pb-3 ps-3 d-flex">
-
-		<div *ngIf="guardar_not" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e1' | translate }}
-		</div>
-		<div *ngIf="guardar_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e2' | translate }}
-		</div>
-		<div *ngIf="alert_delete" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e3' | translate }}
-		</div>
-		<div *ngIf="alert_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e4' | translate }}
-		</div>
-		<div *ngIf="not_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e5' | translate }}
-		</div>
-		<div *ngIf="not_delete" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e6' | translate }}
-		</div>
-		<div *ngIf="dup_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e7' | translate }}
-		</div>
-		<div *ngIf="dup_not" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-			{{ 'sensors.e8' | translate }}
-		</div>
-	</div>
-	<div class="col-6 col-md-4 p-0">
-		<div class="row">
-			<div class="col-12 p-0 pt-2">
-				<div class="d-flex">
-					<div class="d-flex justify-content-end pe-3">
-						<select (ngModelChange)="cambiarLenguaje()" class="form-select" aria-label="Default select example" id="sel_type" [(ngModel)]="activeLang">
-							<option value="es" [ngClass]="{'selected': activeLang == 'es'}" >Español</option>
-							<option value="en" [ngClass]="{'selected': activeLang == 'en'}">English</option>
-						</select>
-					</div>
-					<div class="d-none d-xl-block pe-3">
-						<div class="d-flex justify-content-end">
-							<img src="../../assets/logo.png" width="350px">
-						</div>
-					</div>
-				</div>
-			</div>
-	  </div>
-	</div>
-  </div>
-
+<app-navbar></app-navbar>
 <div class="m-0 p-0 row d-flex" [ngClass]="{'rev': this.width<965, '': this.width>=965}">
 	<div class="cc2 cont me-0" [ngClass]="{'c100': this.mostrar3==true || this.width<965, 'c10': this.mostrar3==false}">
 		<div class="p-3 pb-0 pe-2">
-				<div class="row d-flex" style="justify-content: space-around">
-					<div class="col-6 col-sm-6 col-lg-4 mb-3">
+				<div class="row d-flex">
+					<div class="col-6 col-sm-6 col-lg-3 mb-3">
 						<div class="input-group w-100">
 							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
 							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
-								</div>
+								<button class="btn btn-outline-secondary" type="button" (click)="borrar()"><button type="button" class="btn-close" aria-label="Close"></button></button>
 							</div>
 						</div>
-					<div class="col-6 col-sm-6 col-lg-8 d-flex " style="justify-content: flex-end;">
+					</div>
+				<div class="col-6 col-sm-6 col-lg-9 d-flex " style="justify-content: flex-end;">
 					<div>
 						<button type="button" class="btn btn-info" (click)="m1()">{{ 'sensors.nuevo_sensor' | translate }}</button>
 					</div>
@@ -80,7 +24,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col" style="cursor: pointer;">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'orden'}">
 								<svg *ngIf="alt_1_a" (click)="alt_1_a=false;get('orden','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								</svg>
@@ -88,7 +32,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								</svg>
 								Order</th>
-							<th scope="col" style="cursor: pointer;">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'type'}">
 								<svg *ngIf="alt_2_a" (click)="alt_2_a=false;get('type','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -96,7 +40,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								{{ 'sensors.type' | translate }}</th>
-							<th scope="col" style="cursor: pointer;">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'metric'}">
 								<svg *ngIf="alt_3_a" (click)="alt_3_a=false;get('metric','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -104,7 +48,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								{{ 'sensors.metric' | translate }}</th>
-							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;">
+							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'description'}">
 								<svg *ngIf="alt_4_a" (click)="alt_4_a=false;get('description','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -113,7 +57,7 @@
 								  </svg>
 								{{ 'sensors.description' | translate }}</th>
 
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col">
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col" [ngClass]="{'marcado': marcado == 'errorvalue'}">
 								<svg *ngIf="alt_5_a" (click)="alt_5_a=false;get('errorvalue','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -121,7 +65,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								Valor de error</th>
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="text-align: center;">
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="text-align: center;" [ngClass]="{'marcado': marcado == 'valuemin'}">
 								<svg *ngIf="alt_6_a" (click)="alt_6_a=false;get('valuemin','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -129,7 +73,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								Min</th>
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col">
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col" [ngClass]="{'marcado': marcado == 'valuemax'}">
 								<svg *ngIf="alt_7_a" (click)="alt_7_a=false;get('valuemax','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -356,6 +300,15 @@
 			
 		</form>
 	</div>
+
+	<div class="spinner-border text-secondary" role="status">
+	<span class="visually-hidden">Loading...</span>
+	</div>
+
+	<div class="">
+	<p>No hay dispositivos</p>
+	</div>
+	
 </div>
 
 
@@ -409,3 +362,37 @@
         </div>
       </div>
 </div>
+
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+	<!-- Position it: -->
+	<!-- - `.toast-container` for spacing between toasts -->
+	<!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
+	<!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+	<div class="toast-container top-0 end-0 p-3">
+  
+	  <!-- Then put toasts within -->
+	  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+		  <img src="..." class="rounded me-2" alt="...">
+		  <strong class="me-auto">Bootstrap</strong>
+		  <small class="text-body-secondary">just now</small>
+		  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+		  See? Just like this.
+		</div>
+	  </div>
+  
+	  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+		  <img src="..." class="rounded me-2" alt="...">
+		  <strong class="me-auto">Bootstrap</strong>
+		  <small class="text-body-secondary">2 seconds ago</small>
+		  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+		  Heads up, toasts will stack automatically
+		</div>
+	  </div>
+	</div>
+  </div>

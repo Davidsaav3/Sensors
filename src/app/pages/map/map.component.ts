@@ -41,7 +41,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
   busqueda = {
     value: '', 
-    sel_type: 'Nada',
+    sel_type: 0,
     sel_enable: 2
   }
 
@@ -76,7 +76,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     });
 
     this.mapListeners();
-    this.readFromLocalStorage();
+    //this.readFromLocalStorage();
     // const markerHtml = document.createElement('div');
     // markerHtml.innerHTML = 'Fernando Herrera'
 
@@ -152,7 +152,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
 
     
     this.markers.push({ color, marker, name, enable});
-    this.saveToLocalStorage();
+    //this.saveToLocalStorage();
 
     marker.on('dragend', () => this.saveToLocalStorage() );
 
@@ -203,7 +203,8 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   ngOnInit(): void {
     let x1= 1;
     let x2= 100000;
-    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)    
+    let x3= 'asc';
+    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}/${x3}`)    
     .then((response) => response.json())
     .then(data => {
       this.contenido.sensors= data;

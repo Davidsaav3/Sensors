@@ -13,7 +13,7 @@
 		>
 		<button (click)="zoomIn()" class="btn btn-secondary"> + </button>
 	  </div>
-  	  <p>{{ sharedLat }} : {{ sharedLon }}</p>
+  	  <!--<p>{{ sharedLat }} : {{ sharedLon }}</p>-->
 	  <button *ngFor="let colorMarker of markers; let i = index" style="background-color: #0dcaf0" (click)="flyTo( colorMarker.marker)" class="ps-2 pe-2 d-flex justify-content-between btn btn-infp">
 		<p class="p-0 m-0">Punto {{ i + 1 }}</p>
 		<button type="button ps-4" class="btn-close" aria-label="Close" (click)="deleteMarker(i)"></button>

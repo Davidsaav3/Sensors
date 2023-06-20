@@ -1,6 +1,7 @@
 import { Component , OnInit, HostListener} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-sensors',
@@ -64,6 +65,8 @@ export class SensorsComponent implements OnInit{
   buscar='Buscar';
   buscar1='type';
 
+  marcado= 'orden';
+
   guardado= false;
   edit_change= false;
   new_change= false;
@@ -106,9 +109,25 @@ export class SensorsComponent implements OnInit{
     this.get('orden','ASC');
     this.tam();
     this.get('orden','ASC');
+
+    const toastElList = Array.from(document.querySelectorAll('.toast'));
+    const toastList = toastElList.map(toastEl => new bootstrap.Toast(toastEl, {
+      animation: true,
+      autohide: true,
+      delay: 3000,
+    }));
+
+    const myToastEl = document.getElementById('myToast')
+    if(myToastEl!=null){
+      myToastEl.addEventListener('hidden.bs.toast', () => {
+        // do something...
+        })
+    }
   }
 
   get(id: any,ord: any){
+    this.marcado= id;
+
     this.ruta= this.rutaActiva.routerState.snapshot.url;
     if(id!='xd'){
       this.buscar1= id;
