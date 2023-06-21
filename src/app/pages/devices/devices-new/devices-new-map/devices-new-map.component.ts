@@ -110,6 +110,24 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       this.createMarker(e.lngLat.wrap());
     });
 
+    let layerList = document.getElementById('menu');
+    if (layerList != null) {
+      let inputs = layerList.getElementsByTagName('input');
+      if (inputs != null) {
+        const inputArray = Array.from(inputs); // Convertir a array
+        
+        for (const input of inputArray) {
+          input.onclick = (layer: any) => {
+            const layerId = layer.target.id;
+            if (this.map != null) {
+              this.map.setStyle('mapbox://styles/mapbox/' + layerId);
+            }
+          };
+          
+        }
+      }
+    }
+
     this.mapListeners();
     //this.readFromLocalStorage();
 
@@ -235,7 +253,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       const [ lng, lat ] = lngLat;
       const coords = new mapboxgl.LngLat( lng, lat );
 
-      this.addMarker( coords, color );
+      //this.addMarker( coords, color );
     })
 
   }

@@ -26,7 +26,7 @@ export class DevicesNewListComponent  implements OnInit{
   data7: any= null;
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
-  ver_can=false;
+  ver_can= 1000;
   activeLang='en';
   buscar1='orden';
   buscar2='id';

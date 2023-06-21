@@ -59,8 +59,10 @@ export class DevicesListComponent implements OnInit{
   buscar4= 'Nada';
   cont=true;
 
-  ver_dup=false;
-  pencil_dup=false;
+  ver_dup= 10000;
+  pencil_dup= 10000;
+  pencil_dup1= false;
+
   ver_list=false;
   ver_map=false;
   

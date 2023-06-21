@@ -23,6 +23,7 @@ export class DevicesNewComponent  implements OnInit{
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
     this.contenido.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    this.contenido.updatedAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   post_device: string = 'http://localhost:5172/api/post/device_configurations';
@@ -67,6 +68,7 @@ export class DevicesNewComponent  implements OnInit{
     enable: 0,
     organizationid: '',
     createdAt: '',
+    updatedAt: '',
   }
 
   ampliar(){
@@ -93,6 +95,14 @@ export class DevicesNewComponent  implements OnInit{
     /*fetch(this.url)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));*/
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    this.contenido.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
   
   updatesharedLat() {

@@ -110,7 +110,8 @@ con.connect(function(err) {
   const enable = req.body.enable;
   const organizationid = req.body.organizationid;
   const createdAt = req.body.createdAt;
-  con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt], function (err, result) {
+  const updatedAt = req.body.updatedAt;
+  con.query("INSERT INTO device_configurations (uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt,updatedAt) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,createdAt,updatedAt], function (err, result) {
     if (err) throw err;
       res.send(result)
   });
@@ -133,7 +134,7 @@ con.connect(function(err) {
   const enable = req.body.enable;
   const organizationid = req.body.organizationid;
   const id7 = req.body.id;
-  const updatedAt = req.body.createdAt;
+  const updatedAt = req.body.updatedAt;
     con.query("UPDATE device_configurations SET uid=?,alias=?,origin=?,description_origin=?,application_id=?,topic_name=?,typemeter=?,lat=?,lon=?,cota=?,timezone=?,enable=?,organizationid=?, updatedAt=? WHERE id = ?",[uid,alias,origin,description_origin,application_id,topic_name,typemeter,lat,lon,cota,timezone,enable,organizationid,updatedAt,id7], function (err, result) {
       if (err) throw err;
         res.send(result)

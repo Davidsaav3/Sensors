@@ -49,8 +49,8 @@ export class SensorsComponent implements OnInit{
 
   width: any;
   ruta='';
-  ver_dup=false;
-  pencil_dup=false;
+  ver_dup= 1000;
+  pencil_dup= 1000;
   timeout: any = null;
   mostrar=false;
   mostrar2= false;

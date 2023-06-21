@@ -105,8 +105,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
-  ngAfterViewInit(): void {
-
+  create(){
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
     this.map = new mapboxgl.Map({
@@ -115,6 +114,11 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       center: this.currentLngLat,
       zoom: this.zoom, // starting zoom
     });
+    return this.map;
+  }
+
+  ngAfterViewInit(): void {
+    this.map= this.create();
 
     this.mapListeners();
     console.log(this.sharedLon)
@@ -145,8 +149,26 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
 
     this.map.on('click', (e) => {
       this.createMarker(e.lngLat.wrap());
+      this.ngAfterViewInit();
     });
 
+    let layerList = document.getElementById('menu');
+    if (layerList != null) {
+      let inputs = layerList.getElementsByTagName('input');
+      if (inputs != null) {
+        const inputArray = Array.from(inputs); // Convertir a array
+        
+        for (const input of inputArray) {
+          input.onclick = (layer: any) => {
+            const layerId = layer.target.id;
+            if (this.map != null) {
+              this.map.setStyle('mapbox://styles/mapbox/' + layerId);
+            }
+          };
+          
+        }
+      }
+    }
 
 
     // const markerHtml = document.createElement('div');
@@ -268,7 +290,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       const [ lng, lat ] = lngLat;
       const coords = new mapboxgl.LngLat( lng, lat );
 
-      this.addMarker( coords, color );
+      //this.addMarker( coords, color );
     })
 
   }

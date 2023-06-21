@@ -13,7 +13,8 @@ export class DevicesEditComponent implements OnInit{
 
   sharedLat: any = '';
   sharedLon: any = '';
-  
+  fecha= '';
+
   constructor(private rutaActiva: ActivatedRoute,private router: Router, private dataSharingService: DataSharingService,private DevicesEditMapComponent: DevicesEditMapComponent) { 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -22,7 +23,7 @@ export class DevicesEditComponent implements OnInit{
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-    this.contenido.updatedAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    this.fecha= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
   formattedDateTime= '';
@@ -139,8 +140,9 @@ export class DevicesEditComponent implements OnInit{
   }
 
   submitForm(loginForm: any) {
+    this.contenido.updatedAt= this.fecha;
     this.getlist();
-    console.log(this.contenido1)
+    console.log(this.contenido)
     if (loginForm.valid) {
       //this.DevicesSensorsListComponent.update2();
       fetch(this.update_device, {
