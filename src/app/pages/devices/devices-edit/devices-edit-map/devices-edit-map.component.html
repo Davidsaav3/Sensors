@@ -1,19 +1,7 @@
 
-<div id="map" #map>
-	<div class="floating-range p-2 d-flex" style="justify-content: space-between">
-	  <button *ngFor="let colorMarker of markers; let i = index" style="background-color: #0dcaf0" (click)="flyTo( colorMarker.marker)" class="ps-2 pe-2 d-flex justify-content-between btn btn-infp">
-		<p class="p-0 m-0"></p>
-		<button type="button ps-4" class="btn-close" aria-label="Close" (click)="deleteMarker(i)"></button>
-	  </button>
-	</div>
+<div id="map" #map>  
   
-  <span class="form-label">
-	<!--{{ zoom | number:'2.2-2' }} ---> {{ currentLngLat }}
-  </span>
-  
-</div>
-
-<div id="menu">
+  <div id="menu">
 	<input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
 	<!-- See a list of Mapbox-hosted public styles at -->
 	<!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
@@ -27,5 +15,13 @@
 	<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
 	<label for="outdoors-v12">Terreno</label>
   </div>
+
+  <div class="floating-range p-2">
+	<button *ngFor="let colorMarker of markers; let i = index" style="background-color: gray" (click)="flyTo( colorMarker.marker)" class="ps-2 pe-2 d-flex btn btn-infp">
+	  <p class="p-0 m-0">deseleccionar punto</p><!--{{ currentLngLat }}-->
+	  <button type="button ps-4" class="btn-close" aria-label="Close" (click)="deleteMarker(i)"></button>
+	</button>
+  </div>
   
-  
+    
+</div>

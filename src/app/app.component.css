@@ -7,7 +7,7 @@
 
 .floating-range {
   position: relative;
-  top: 0px;
+  bottom: 0px;
   z-index: 999;
   width: 40%;
 }
@@ -32,19 +32,21 @@
 }
 
 #menu {
-  background: #efefef;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  width: max-content;
   padding: 10px;
-  font-family: 'Open Sans', sans-serif;
   top: 0px;
   left: 0px;
-  position: absolute;
+  z-index: 999;
+  border-bottom-right-radius: 15px;
 }
 
 .list-group {
   z-index: 999;
   position: absolute;
-  top: 150px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   cursor: pointer;
   height: 85%;
 }
