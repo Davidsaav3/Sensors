@@ -65,6 +65,8 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     this.dataSharingService.sharedLon$.subscribe(data => {
       this.sharedLon = data;
     });
+
+    
   }
 
   ampliar(){
@@ -82,11 +84,30 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
-    this.map = new mapboxgl.Map({
-      container: this.divMap.nativeElement, // container ID
-      style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: this.currentLngLat,
-      zoom: this.zoom, // starting zoom
+    navigator.geolocation.getCurrentPosition(position => { 
+      this.map = new mapboxgl.Map({
+          container: this.divMap?.nativeElement, // container ID
+          style: 'mapbox://styles/mapbox/streets-v12', // style URL
+          center: [position.coords.longitude, position.coords.latitude],
+          zoom: this.zoom, // starting zoom
+      });
+
+    
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+      enableHighAccuracy: true
+      },
+      // When active the map will receive updates to the device's location as it changes.
+      trackUserLocation: true,
+      // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      showUserHeading: true
+      })
+    );
+    this.map.addControl(new mapboxgl.NavigationControl());
+
+    this.map.on('click', (e) => {
+      this.createMarker(e.lngLat.wrap());
     });
 
     this.mapListeners();
@@ -100,7 +121,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     // })
     //   .setLngLat( this.currentLngLat )
     //   .addTo( this.map );
-
+    });
   }
 
 
@@ -141,12 +162,12 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
   /* /////////////////////////// */
 
-  createMarker() {
+  createMarker(marker: mapboxgl.LngLat) {
     if ( !this.map ) return;
 
     //const color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
     const color= '#0dcaf0';
-    const lngLat = this.map.getCenter();
+    const lngLat = marker;
 
     this.addMarker( lngLat, color );
   }
