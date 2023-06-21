@@ -1,63 +1,27 @@
 <div class="mb-0 d-flex">
-	<div class="nav nav-tabs mb-0 col-12 col-md-3 p-0">
-		<li class="nav-item">
-		  <a class="nav-link me-3" aria-current="page" routerLink="/devices" [ngClass]="{'active': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
-		</li>
-		<li class="nav-item">
-		  <a class="nav-link" href="#" routerLink="/sensors" [ngClass]="{'active': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
-		</li>
-	</div>
-	<div class="col-6 col-md-5 pb-3 ps-3 d-flex">
-    <div *ngIf="dup_ok" class="alert alert-success py-1 m-0" style="width: max-content;" role="alert">
-        {{ 'devices.list.e1' | translate }}
-      </div>
-      <div *ngIf="dup_not" class="alert alert-danger py-1 m-0" style="width: max-content;" role="alert">
-        {{ 'devices.list.e2' | translate }}
-      </div>
-
-      <!--sensors-->
-      <div *ngIf="guardar_not" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e1' | translate }}
-      </div>
-      <div *ngIf="guardar_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e2' | translate }}
-      </div>
-      <div *ngIf="alert_delete" class="alert alert-danger py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e3' | translate }}
-      </div>
-      <div *ngIf="alert_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e4' | translate }}
-      </div>
-      <div *ngIf="not_new" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e5' | translate }}
-      </div>
-      <div *ngIf="not_delete" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e6' | translate }}
-      </div>
-      <div *ngIf="dup_ok" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e7' | translate }}
-      </div>
-      <div *ngIf="dup_not" class="alert alert-success py-1 m-0 ms-3" style="width: max-content;" role="alert">
-        {{ 'sensors.e8' | translate }}
-      </div>
+  <div class="col-9 col-md-5 p-0">
+    <div class="nav nav-tabs mb-0 p-0">
+      <li class="nav-item">
+        <a class="nav-link me-3" aria-current="page" routerLink="/devices" [ngClass]="{'active': this.ruta=='/devices'}">{{ 'sensors.t1' | translate }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" routerLink="/sensors" [ngClass]="{'active': this.ruta=='/sensors'}">{{ 'sensors.t2' | translate }}</a>
+      </li>
+    </div>
   </div>
-	<div class="col-6 col-md-4 p-0">
-		<div class="row">
-			<div class="col-12 p-0 pt-2">
-				<div class="d-flex">
-					<div class="d-flex justify-content-end pe-3">
-						<select (ngModelChange)="cambiarLenguaje()" class="form-select" aria-label="Default select example" id="sel_type" [(ngModel)]="activeLang">
-							<option value="es" [ngClass]="{'selected': activeLang == 'es'}" >Español</option>
-							<option value="en" [ngClass]="{'selected': activeLang == 'en'}">English</option>
-						</select>
-					</div>
-					<div class="d-none d-xl-block pe-3">
-						<div class="d-flex justify-content-end">
-							<img src="../../assets/logo.png" width="350px">
-						</div>
-					</div>
-				</div>
-			</div>
-	  </div>
-	</div>
+	<div class="col-3 col-md-7 p-0 pt-2">
+    <div class="d-flex" style="justify-content: flex-end;">
+      <div class="pe-3">
+        <select (ngModelChange)="cambiarLenguaje()" class="form-select" aria-label="Default select example" id="sel_type" [(ngModel)]="activeLang">
+          <option value="es" [ngClass]="{'selected': activeLang == 'es'}" >Español</option>
+          <option value="en" [ngClass]="{'selected': activeLang == 'en'}">English</option>
+        </select>
+      </div>
+      <div class="d-none d-xl-inline pe-3">
+        <div class="d-flex justify-content-end">
+          <img src="../../assets/logo.png" width="350px">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -55,7 +55,7 @@
             </select>
           </div>
           <div class="ms-3">
-            <button class="btn btn-outline-secondary" type="button" (click)="borrar()">{{ 'sensors.erase' | translate }}</button>
+            <button class="btn btn-outline-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
           </div>
         </div>
 
@@ -72,7 +72,20 @@
   <div class="p-4 pt-0" *ngIf="cont==true">
     <div class="row">
       <div class="over p-0 " style="height: 75vh;"> 
-        <div class="col-12"> 
+      
+        <div *ngIf="data.length<=0" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 80vh;"> 
+          <div style="height: min-content;">
+            <p style="font-size: x-large;">Dispositivos no encontrados, desactive filtros</p>
+          </div>
+        </div>
+
+        <div *ngIf="cargando" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 80vh;"> 
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
+        <div *ngIf="data.length>0" class="col-12"> 
             <table class="table table-hover" >
                 <thead>
                   <tr>
@@ -181,7 +194,8 @@
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
-              <option selected [ngValue]="15">15 Resultados por página</option>
+              <option selected [ngValue]="1">1 Resultado por página</option>
+              <option [ngValue]="15">15 Resultados por página</option>
               <option [ngValue]="50">50 Resultados por página</option>
               <option [ngValue]="100">100 Resultados por página</option>
             </select>
@@ -191,31 +205,31 @@
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage0()">
                   <span aria-hidden="true"> Primera</span>
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage1()">
                   <span aria-hidden="true">&laquo; 10</span>
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" (click)="Page(page-1)">{{ page-1 }}</a>
+                <a class="page-link" style="cursor: pointer;" (click)="previousPage()">{{ this.currentPage-1 }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" (click)="Page(page)">{{ page }}</a>
+                <a class="page-link" style="cursor: pointer;" (click)="Page(this.currentPage)">{{ this.currentPage }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" (click)="Page(page+1)">{{ page+1 }}</a>
+                <a class="page-link" style="cursor: pointer;" (click)="nextPage()">{{ this.currentPage+1 }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage1()">
                   <span aria-hidden="true">10 &raquo;</span>
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage0()">
                   <span aria-hidden="true">Ultima</span>
                 </a>
               </li>
@@ -233,20 +247,29 @@
     </div>
   </div>
 
+  <div class="toast-container position-static">
+    <div *ngIf="dup_ok" class="top-0 end-0 p-3">
+      <div role="alert" class="toast show align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{ 'devices.list.e1' | translate }}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
 
-  <div class="spinner-border text-secondary" role="status">
-    <span class="visually-hidden">Loading...</span>
+    <div *ngIf="dup_not" class="top-0 end-0 p-3">
+      <div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            {{ 'devices.list.e2' | translate }}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="">
-    <p>No hay dispositivos</p>
-  </div>
-
-  <div class="">
-    <p>Dispositivos no encontrados, desactive filtros</p>
-  </div>
-
-
 
 </div> 
 

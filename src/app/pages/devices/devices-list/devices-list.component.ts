@@ -14,7 +14,7 @@ export class DevicesListComponent implements OnInit{
   constructor(private translate: TranslateService, public rutaActiva: Router ) {
     this.translate.setDefaultLang(this.activeLang);
   }
-
+  
   max_device: string = 'http://localhost:5172/api/max/device_configurations';
   duplicate_sensors_devices: string = 'http://localhost:5172/api/duplicate/sensors_devices';
   get_device: string = 'http://localhost:5172/api/get/device_configurations';
@@ -22,11 +22,14 @@ export class DevicesListComponent implements OnInit{
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
 
+  cargando= false;
   marcado= 'uid';
+  showToastFlag1: boolean = false;
+  showToastFlag2: boolean = false;
 
   totalPages = 5;
   currentPage = 1;
-  cantPage = 16;
+  cantPage = 1;
   data: any[] = [];
   page= 1;
 
@@ -126,6 +129,18 @@ export class DevicesListComponent implements OnInit{
     id: '',
   }
 
+  borrartodo(){
+    this.busqueda.value= '';
+    this.totalPages = 5;
+    this.currentPage = 1;
+    this.cantPage = 1;
+    this.page= 1;
+    this.busqueda.value= '';
+    this.busqueda.sel_type= 0;
+    this.busqueda.sel_enable= 2;
+    this.Page(1);
+  }
+
   ngOnInit(): void {
     this.ruta= this.rutaActiva.routerState.snapshot.url;
     this.get('uid','ASC');
@@ -161,17 +176,19 @@ export class DevicesListComponent implements OnInit{
     let x1= 1;
     let x2= 100000;
     console.log(this.busqueda.sel_type)
-
+    this.cargando= true;
     fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
+      this.cargando= false;
       this.totalPages= Math.round(data.length/this.cantPage);
       //console.log(this.totalPages)
     })
-
+    this.cargando= true;
     fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}`)
     .then((response) => response.json())
     .then(data => {
+      this.cargando= false;
       this.data= data;
       for (let x of this.data) {
           fetch(`${this.id_device_sensors_devices}/${x.id}/${this.id1}`)
@@ -191,6 +208,22 @@ export class DevicesListComponent implements OnInit{
     return Array(this.totalPages).fill(0).map((_, index) => index + 1);
   }
 
+  previousPage0(): void {
+    this.currentPage= 1;
+    this.ngOnInit();
+  }
+
+  previousPage1(): void {
+    if (this.currentPage-10 > 1) {
+      this.currentPage= this.currentPage-10;
+      this.ngOnInit();
+    }
+    else{
+      this.currentPage= 1;
+      this.ngOnInit();
+    }
+  }
+
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -208,6 +241,22 @@ export class DevicesListComponent implements OnInit{
       this.currentPage++;
       this.ngOnInit();
     }
+  }
+
+  nextPage1(): void {
+    if (this.currentPage+10 < this.totalPages) {
+      this.currentPage= this.currentPage+10;
+      this.ngOnInit();
+    }
+    else{
+      this.currentPage= this.totalPages;
+      this.ngOnInit();
+    }
+  }
+
+  nextPage0(): void {
+    this.currentPage= this.totalPages;
+    this.ngOnInit();
   }
 
   public cambiarLenguaje() {
@@ -288,4 +337,6 @@ export class DevicesListComponent implements OnInit{
   borrar(){
     this.busqueda.value= '';
   }
+
+  
 }

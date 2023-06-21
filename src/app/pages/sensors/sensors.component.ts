@@ -28,6 +28,8 @@ export class SensorsComponent implements OnInit{
   update_sensors: string = 'http://localhost:5172/api/update/sensors_types';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
 
+  cargando= false;
+
   alt_1_a=true;
   alt_1_b=false;
   alt_2_a=true;
@@ -138,9 +140,14 @@ export class SensorsComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
+    this.cargando= true;
     fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
     .then((response) => response.json())
-    .then((quotesData) => (this.data = quotesData));
+    .then(quotesData => {
+      this.cargando= false
+      this.data = quotesData
+   }
+  );
   }
 
   public cambiarLenguaje() {
