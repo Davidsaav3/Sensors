@@ -29,8 +29,8 @@ export class DevicesListComponent implements OnInit{
 
   totalPages = 5;
   currentPage = 1;
-  cantPage = 1;
-  data: any[] = [];
+  cantPage = 16;
+  data: any[]= [];
   page= 1;
 
   alt_1_a=true;

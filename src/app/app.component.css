@@ -12,6 +12,11 @@
   width: 40%;
 }
 
+.toast-cont{
+  bottom: 0px;
+  position: sticky;
+}
+
 .mapboxgl-canvas{
   width: 100%;
 }

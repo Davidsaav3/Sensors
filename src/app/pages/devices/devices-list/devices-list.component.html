@@ -190,7 +190,7 @@
       <div *ngIf="cont" class="row">
         <div class="col-6 d-flex">
           <div>
-            <p class="p-0 mt-1">1 - 16 de 100</p>
+            <p class="p-0 mt-1">{{cantPage*(currentPage-1)}} - {{(cantPage)*currentPage}} de {{totalPages}}</p>
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
@@ -247,7 +247,7 @@
     </div>
   </div>
 
-  <div class="toast-container position-static">
+  <div class="toast-cont">
     <div *ngIf="dup_ok" class="top-0 end-0 p-3">
       <div role="alert" class="toast show align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
