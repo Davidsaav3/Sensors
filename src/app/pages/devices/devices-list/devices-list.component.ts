@@ -133,7 +133,7 @@ export class DevicesListComponent implements OnInit{
     this.busqueda.value= '';
     this.totalPages = 5;
     this.currentPage = 1;
-    this.cantPage = 1;
+    this.cantPage = 15;
     this.page= 1;
     this.busqueda.value= '';
     this.busqueda.sel_type= 0;
@@ -173,11 +173,16 @@ export class DevicesListComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
-    let x1= 1;
-    let x2= 100000;
+    let x1= '0';
+    let x2= '0';
+    let y1= '0';
+    let y2= '0';
+
+    let m1= 1;
+    let m2= 100000;
     console.log(this.busqueda.sel_type)
     this.cargando= true;
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}/${ord}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
     .then((response) => response.json())
     .then(data => {
       this.cargando= false;
@@ -185,7 +190,7 @@ export class DevicesListComponent implements OnInit{
       //console.log(this.totalPages)
     })
     this.cargando= true;
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
     .then((response) => response.json())
     .then(data => {
       this.cargando= false;

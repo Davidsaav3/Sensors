@@ -205,42 +205,45 @@ export class SensorsComponent implements OnInit{
   }
 
   duplicate(num: any, type: any){
-    this.contenido3 = {
-      id: num,    
-    }   
-    this.buscar= 'Buscar';
-    let ord= 'ASC';
-    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
-    .then((response) => response.json())
-    .then(data => {
-      let contador = 1;
-      let nombresExistentes = new Set();
-      for (let index = 0; index < data.length; index++) {
-        nombresExistentes.add(data[index].type);
-      }
+    if(!this.edit_change && !this.new_change){
 
-      let type_2= type;
-      console.log(type);
-      while(nombresExistentes.has(type_2)) {
-        type_2 = `${type}_${contador}`;
-        contador++;
-      }
-
-      fetch(`${this.duplicate_sensors}/${num}/${type_2}`, {
-        method: "POST",
-        body: JSON.stringify(this.contenido3),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json())
-      this.dup_ok=true;
-      fetch(this.max_sensors)
-      .then(response => response.json())
+      this.contenido3 = {
+        id: num,    
+      }   
+      this.buscar= 'Buscar';
+      let ord= 'ASC';
+      fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
+      .then((response) => response.json())
       .then(data => {
-        this.id= parseInt(data[0].id);
-        ////console.log(this.id)
-        this.num(this.id)
+        let contador = 1;
+        let nombresExistentes = new Set();
+        for (let index = 0; index < data.length; index++) {
+          nombresExistentes.add(data[index].type);
+        }
+
+        let type_2= type;
+        console.log(type);
+        while(nombresExistentes.has(type_2)) {
+          type_2 = `${type}_${contador}`;
+          contador++;
+        }
+
+        fetch(`${this.duplicate_sensors}/${num}/${type_2}`, {
+          method: "POST",
+          body: JSON.stringify(this.contenido3),
+          headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json())
+        this.dup_ok=true;
+        fetch(this.max_sensors)
+        .then(response => response.json())
+        .then(data => {
+          this.id= parseInt(data[0].id);
+          ////console.log(this.id)
+          this.num(this.id)
+        })
       })
-    })
+    }
   }
 
   eliminar(id_actual: any){
@@ -309,19 +312,21 @@ export class SensorsComponent implements OnInit{
 
 
   num(id_actual: any){
-    this.m2();
-    this.mostrar2=true;
-    fetch(`${this.id_sensors}/${id_actual}`)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data[0];
-    })
-    .catch(error => {
-      console.error(error); 
-    });
-    this.get('xd','ASC');
-    this.tam();
-    this.get('xd','ASC');
+    if(!this.edit_change && !this.new_change){
+       this.m2();
+      this.mostrar2=true;
+      fetch(`${this.id_sensors}/${id_actual}`)
+      .then(response => response.json())
+      .then(data => {
+        this.contenido= data[0];
+      })
+      .catch(error => {
+        console.error(error); 
+      });
+      this.get('xd','ASC');
+      this.tam();
+      this.get('xd','ASC');
+    }
   }
   
   onKeySearch(event: any) {

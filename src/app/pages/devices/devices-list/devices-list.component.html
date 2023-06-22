@@ -40,8 +40,9 @@
 
         <div class="col-6 col-sm-2 col-lg-5 mb-3 d-flex">
           <div>
-            <select (ngModelChange)="get('xd','ASC')"  class="form-select" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
-              <option selected [ngValue]="0">{{ 'sensors.l1' | translate }}</option>
+            <select style="height: 35px; width: 200px;" multiple (ngModelChange)="get('xd','ASC')"  class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
+              <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
+              <option selected [ngValue]="-1">Sin sensores</option>
               <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
                   <option [ngValue]="xd.id">{{xd.type}}</option>
                 </ng-container>
@@ -49,7 +50,7 @@
           </div>
           <div class="ms-3">
             <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-              <option selected [ngValue]="2">{{ 'sensors.l2' | translate }}</option>
+              <option selected [ngValue]="2">Todos</option>
               <option [ngValue]="0">{{ 'sensors.enable' | translate }}</option>
               <option [ngValue]="1">{{ 'sensors.disable' | translate }}</option>
             </select>
@@ -190,12 +191,11 @@
       <div *ngIf="cont" class="row">
         <div class="col-6 d-flex">
           <div>
-            <p class="p-0 mt-1">{{cantPage*(currentPage-1)}} - {{(cantPage)*currentPage}} de {{totalPages}}</p>
+            <p class="p-0 mt-1">{{cantPage*(currentPage-1)}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
-              <option selected [ngValue]="1">1 Resultado por página</option>
-              <option [ngValue]="15">15 Resultados por página</option>
+              <option selected [ngValue]="16">16 Resultados por página</option>
               <option [ngValue]="50">50 Resultados por página</option>
               <option [ngValue]="100">100 Resultados por página</option>
             </select>

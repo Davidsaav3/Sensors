@@ -14,7 +14,7 @@ con.connect(function(err) {
   });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6/:x1/:x2/:y1/:y2", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
   const type2 = parseInt(req.params.type2);  
@@ -23,46 +23,65 @@ con.connect(function(err) {
   const act = (req.params.type4-1)*parseInt(req.params.type5);
   const type6 = req.params.type6;
 
-  console.log("-")
-  console.log(type2)
-  console.log(type3)
+  const x1 = req.params.x1;
+  const x2 = req.params.x2;
+  const y1 = req.params.y1;
+  const y2 = req.params.y2;
 
-  if(type0=='Buscar'){
-    if(type2!=0 || type3!=2){
-      if(type2!=0 && type3!=2){
-        con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
-          if (err) throw err;
-            res.send(result)
-        }); 
-      }
-      else{
-          if(type2!=0){
-            con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
-              if (err) throw err;
-                res.send(result)
-            }); 
-        }
-        if(type3!=2){
-          con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+  console.log(x1)
+  console.log(x2)
+  console.log(y1)
+  console.log(y2)
+
+  if(x1!='0' && x2!='0' && y1!='0' && y2!='0'){
+    let xx1= parseInt(x1);
+    let xx2= parseInt(x2);
+    let yy1= parseInt(y1);
+    let yy2= parseInt(y2);
+
+    con.query(`SELECT * FROM device_configurations WHERE lon BETWEEN ${xx1} AND ${xx2} AND lat BETWEEN ${yy1} AND ${yy2}`, function (err, result) {
+      if (err) throw err;
+        res.send(result)
+    }); 
+  }
+  if(x1=='0' && x2=='0' && y1=='0' && y2=='0'){
+    if(type0=='Buscar'){
+      if(type2!=0 || type3!=2){
+        if(type2!=0 && type3!=2){
+          con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
             if (err) throw err;
               res.send(result)
           }); 
         }
+        else{
+            if(type2!=0){
+              con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
+                if (err) throw err;
+                  res.send(result)
+              }); 
+          }
+          if(type3!=2){
+            con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+              if (err) throw err;
+                res.send(result)
+            }); 
+          }
+        }
+      
       }
-    
+      else{
+        con.query(`SELECT * FROM device_configurations order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+          if (err) throw err;
+            res.send(result)
+        }); 
+      }
     }
     else{
-      con.query(`SELECT * FROM device_configurations order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+        con.query(`SELECT * FROM device_configurations WHERE uid LIKE '%${type0}%' OR alias LIKE '%${type0}%' OR origin LIKE '%${type0}%' OR description_origin LIKE '%${type0}%' OR application_id LIKE '%${type0}%' OR topic_name LIKE '%${type0}%' OR typemeter LIKE '%${type0}%' OR lat LIKE '%${type0}%' OR lon LIKE '%${type0}%' OR cota LIKE '%${type0}%' OR timezone LIKE '%${type0}%' OR enable LIKE '%${type0}%' OR organizationid LIKE '%${type0}%' LIMIT ${tam} OFFSET ${act};`, function (err, result) {
         if (err) throw err;
           res.send(result)
       }); 
     }
-  }
-  else{
-      con.query(`SELECT * FROM device_configurations WHERE uid LIKE '%${type0}%' OR alias LIKE '%${type0}%' OR origin LIKE '%${type0}%' OR description_origin LIKE '%${type0}%' OR application_id LIKE '%${type0}%' OR topic_name LIKE '%${type0}%' OR typemeter LIKE '%${type0}%' OR lat LIKE '%${type0}%' OR lon LIKE '%${type0}%' OR cota LIKE '%${type0}%' OR timezone LIKE '%${type0}%' OR enable LIKE '%${type0}%' OR organizationid LIKE '%${type0}%' LIMIT ${tam} OFFSET ${act};`, function (err, result) {
-      if (err) throw err;
-        res.send(result)
-    }); 
   }
 
   });

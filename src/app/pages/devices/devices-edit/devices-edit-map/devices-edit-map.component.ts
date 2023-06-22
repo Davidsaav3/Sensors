@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable,Renderer2  } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   sharedLon: any = -0.5098796883778505;
   public currentLngLat: mapboxgl.LngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
 
-  constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService) {
+  constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService,private renderer: Renderer2) {
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.sharedLat = data;
     });
@@ -76,6 +76,10 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       this.sharedLon = data;
     });
     this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+
+    setInterval(() => {
+      this.map?.resize();
+    }, 10);
   }
 
   recargar(){
@@ -169,7 +173,8 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
         }
       }
     }
-
+    //let can = document.getElementsByClassName('mapboxgl-canvas');
+    //can.setAttribute('style', 'width: -webkit-fill-available;');
 
     // const markerHtml = document.createElement('div');
     // markerHtml.innerHTML = 'Fernando Herrera'
@@ -179,6 +184,9 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     // })
     //   .setLngLat( this.currentLngLat )
     //   .addTo( this.map );
+
+    const canvas = document.getElementsByTagName('canvas')[0];
+    this.renderer.setStyle(canvas, 'width', '-webkit-fill-available');
   }
 
   ngOnDestroy(): void {

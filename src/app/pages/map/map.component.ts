@@ -31,6 +31,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
 
+  public topLeftCoordinates: string= '';
+  public topRightCoordinates: string= '';
+  public bottomLeftCoordinates: string= '';
+  public bottomRightCoordinates: string= '';
+
   timeout: any = null;
   dup_ok=false;
   dup_not=false;
@@ -41,6 +46,11 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   buscar4= 'Nada';
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data: any;
+
+  x1= '0';
+  x2= '0';
+  y1= '0';
+  y2= '0';
 
   busqueda = {
     value: '', 
@@ -65,6 +75,27 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       enable: 0,
       organizationid: '',
     }]
+  }
+
+  getCornerCoordinates() {
+    let bounds;
+    if(this.map!=null){
+      bounds = this.map.getBounds();
+    }
+    if(bounds!=null){
+      this.x1= bounds.getSouthWest().lng.toFixed(6);
+      this.x2= bounds.getNorthEast().lng.toFixed(6);
+      this.y1= bounds.getSouthWest().lat.toFixed(6);
+      this.y2= bounds.getNorthEast().lat.toFixed(6);
+    }
+    console.log(this.x1)
+    //console.log(this.x2)
+    //console.log(this.y1)
+    //console.log(this.y2)
+
+    setTimeout(() => {
+      this.llamada();
+    }, 1000);
   }
 
   handleClick(event: any) {
@@ -115,6 +146,21 @@ export class MapComponent implements AfterViewInit, OnDestroy{
     );
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.on('click', this.handleClick);
+
+
+    /*this.map.on('moveend', () => {
+      this.getCornerCoordinates();
+    });
+    this.map.on('zoom', () => {
+      this.getCornerCoordinates();
+    });*/
+    this.map.on('zoomend', () => {
+      this.getCornerCoordinates();
+    });
+    /*this.map.on('move', () => {
+      this.getCornerCoordinates();
+    });*/
+
 
     this.map.on('style.load', () => {
       // Insert the layer beneath any symbol layer.
@@ -194,19 +240,7 @@ export class MapComponent implements AfterViewInit, OnDestroy{
       }
     }
 
-
-
     this.mapListeners();
-    //this.readFromLocalStorage();
-    // const markerHtml = document.createElement('div');
-    // markerHtml.innerHTML = 'Fernando Herrera'
-
-    // const marker = new Marker({
-    //   // color: 'red',
-    //   element: markerHtml
-    // })
-    //   .setLngLat( this.currentLngLat )
-    //   .addTo( this.map );
     })
   }
 
@@ -372,10 +406,14 @@ export class MapComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    let x1= 1;
-    let x2= 100000;
-    let x3= 'asc';
-    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}/${x3}`)    
+    this.getCornerCoordinates();
+  }
+
+  llamada(){
+    let m1= 1;
+    let m2= 100000;
+    let m3= 'asc';
+    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}`)    
     .then((response) => response.json())
     .then(data => {
       this.contenido.sensors= data;

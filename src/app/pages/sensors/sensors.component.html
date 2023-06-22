@@ -5,7 +5,8 @@
 				<div class="row d-flex">
 					<div class="col-6 col-sm-6 col-lg-3 mb-3">
 						<div class="input-group w-100">
-							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" readonly *ngIf="edit_change || new_change">
+							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" *ngIf="!edit_change && !new_change">
 							<div class="input-group-append">
 								<button class="btn btn-outline-secondary" type="button" (click)="borrar()"><button type="button" class="btn-close" aria-label="Close"></button></button>
 							</div>
@@ -13,7 +14,7 @@
 					</div>
 				<div class="col-6 col-sm-6 col-lg-9 d-flex " style="justify-content: flex-end;">
 					<div>
-						<button type="button" class="btn btn-info" (click)="m1()">{{ 'sensors.nuevo_sensor' | translate }}</button>
+						<button type="button" class="btn btn-info" (click)="m1()" [ngClass]="{'disabled': edit_change || new_change}">{{ 'sensors.nuevo_sensor' | translate }}</button>
 					</div>
 				</div>
 			</div>	
@@ -100,7 +101,7 @@
 						</tr>
 					</thead>
 					<tbody *ngFor="let quote of data; let i = index">
-						<tr style="cursor: pointer;">
+						<tr style="cursor: pointer;" [ngClass]="{'disabled': edit_change || new_change }">
 							<th (click)="num(quote.id)">{{ quote.orden }}</th>
 
 							<td (click)="num(quote.id)">{{ quote.type }}</td>
@@ -336,7 +337,8 @@
                     <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
                 </div>
                 <div class="col-6">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)">{{ 'sensors.delete' | translate }}</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" disabled *ngIf="edit_change || new_change">{{ 'sensors.delete' | translate }}</button>
+					<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" *ngIf="!edit_change && !new_change">{{ 'sensors.delete' | translate }}</button>
                 </div>
             </div>
           </div>

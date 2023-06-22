@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component , OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataSharingService } from './../../../services/data_sharing.service';
@@ -14,6 +14,11 @@ export class DevicesEditComponent implements OnInit{
   sharedLat: any = '';
   sharedLon: any = '';
   fecha= '';
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    window.resizeBy(-1, 0);
+  }
 
   constructor(private rutaActiva: ActivatedRoute,private router: Router, private dataSharingService: DataSharingService,private DevicesEditMapComponent: DevicesEditMapComponent) { 
     const currentDate = new Date();
@@ -84,14 +89,17 @@ export class DevicesEditComponent implements OnInit{
     enable: 1,
   }
 
+
   ampliar(){
     this.mostrar3=true;
-    this.DevicesEditMapComponent.ampliar();
+    this.dataSharingService.updatesharedAmp(true)
+    this.onResize(0);
   }
 
   desampliar(){
     this.mostrar3=false;
-    this.DevicesEditMapComponent.ampliar();
+    this.dataSharingService.updatesharedAmp(false)
+    this.onResize(0);
   }
 
   ngOnInit(): void {
