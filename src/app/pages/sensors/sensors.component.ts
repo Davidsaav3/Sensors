@@ -85,7 +85,7 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
-    orden: 1,
+    orden: '',
   }
 
   contenido_new = {
@@ -96,7 +96,7 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
-    orden: 1,
+    orden: '',
   }
 
   busqueda = {

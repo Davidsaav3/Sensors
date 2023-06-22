@@ -14,7 +14,7 @@
 
 .toast-cont{
   bottom: 0px;
-  position: sticky;
+  position: fixed;
 }
 
 .mapboxgl-canvas{

@@ -166,9 +166,7 @@ export class DevicesEditComponent implements OnInit{
       .then(response => response.json()) 
       //this.update2();
       this.act_ok= true;
-      setTimeout(() => {
-        this.act_ok= false;
-      }, 2000);
+
 
       this.guardado= true;
       //console.log('Formulario válido');

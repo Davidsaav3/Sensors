@@ -18,8 +18,8 @@
   
 	<div class="floating-range p-2">
 	  <button *ngFor="let colorMarker of markers; let i = index" style="background-color: gray" (click)="flyTo( colorMarker.marker)" class="ps-2 pe-2 d-flex btn btn-infp">
-		<p class="p-0 m-0">deseleccionar punto</p><!--{{ currentLngLat }}-->
-		<button type="button ps-4" class="btn-close" aria-label="Close" (click)="deleteMarker(i)"></button>
+		<p class="p-0 m-0 pe-1" style="color: aliceblue;">Deseleccionar punto</p><!--{{ currentLngLat }}-->
+		<button type="button ps-4" class="btn-close btn-close-white" aria-label="Close" (click)="deleteMarker(i)"></button>
 	  </button>
 	</div>
 	

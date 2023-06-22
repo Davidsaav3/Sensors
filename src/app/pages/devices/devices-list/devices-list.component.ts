@@ -163,49 +163,51 @@ export class DevicesListComponent implements OnInit{
   get(id: any, ord: any){
     this.marcado= id;
 
-    //console.log(this.currentPage)
-    if(id!='xd'){
-      this.buscar1= id;
-    }
-    if(this.busqueda.value==''){
-      this.buscar= 'Buscar';
-    }
-    else{
-      this.buscar= this.busqueda.value;
-    }
-    let x1= '0';
-    let x2= '0';
-    let y1= '0';
-    let y2= '0';
-
-    let m1= 1;
-    let m2= 100000;
-    console.log(this.busqueda.sel_type)
-    this.cargando= true;
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
-    .then((response) => response.json())
-    .then(data => {
-      this.cargando= false;
-      this.totalPages= Math.round(data.length/this.cantPage);
-      //console.log(this.totalPages)
-    })
-    this.cargando= true;
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
-    .then((response) => response.json())
-    .then(data => {
-      this.cargando= false;
-      this.data= data;
-      for (let x of this.data) {
-          fetch(`${this.id_device_sensors_devices}/${x.id}/${this.id1}`)
-          .then(response => response.json())
-          .then(data3 => {
-            x.sensor= data3;
-          })
-          .catch(error => {
-            console.error(error); 
-          });     
+    setTimeout(() =>{
+      //console.log(this.currentPage)
+      if(id!='xd'){
+        this.buscar1= id;
       }
-    })
+      if(this.busqueda.value==''){
+        this.buscar= 'Buscar';
+      }
+      else{
+        this.buscar= this.busqueda.value;
+      }
+      let x1= '0';
+      let x2= '0';
+      let y1= '0';
+      let y2= '0';
+
+      let m1= 1;
+      let m2= 100000;
+      console.log(this.busqueda.sel_type)
+      this.cargando= true;
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      .then((response) => response.json())
+      .then(data => {
+        this.cargando= false;
+        this.totalPages= Math.round(data.length/this.cantPage);
+        //console.log(this.totalPages)
+      })
+      this.cargando= true;
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      .then((response) => response.json())
+      .then(data => {
+        this.cargando= false;
+        this.data= data;
+        for (let x of this.data) {
+            fetch(`${this.id_device_sensors_devices}/${x.id}/${this.id1}`)
+            .then(response => response.json())
+            .then(data3 => {
+              x.sensor= data3;
+            })
+            .catch(error => {
+              console.error(error); 
+            });     
+        }
+      })
+    }, 10);
     
   }
 

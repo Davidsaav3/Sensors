@@ -306,7 +306,8 @@ if (err) throw err;
     const errorvalue = req.body.errorvalue;
     const valuemax = req.body.valuemax;
     const valuemin = req.body.valuemin;
-    con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) VALUES (?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin], function (err, result) {
+    const orden = req.body.orden;
+    con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin,orden) VALUES (?,?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin,orden], function (err, result) {
       if (err) throw err;
         res.send(result)
     });

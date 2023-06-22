@@ -21,7 +21,8 @@ export class DevicesEditListComponent  implements OnInit{
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
-  
+  id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
+
   data: any;
   data6: any= null;
   data7: any= null;
@@ -93,11 +94,13 @@ export class DevicesEditListComponent  implements OnInit{
   }
 
   cambiar(num: any){
-    for (let index = 0; index < this.contenido.sensors.length; index++) {
-      if(num==this.contenido.sensors[num].id){
-        this.contenido.sensors[num].orden= this.contenido1.sensors[this.contenido.sensors[num].id_type_sensor].orden;
-      }
-    }
+    setTimeout(() =>{
+      fetch(`${this.id_sensors}/${this.contenido.sensors[num].id_type_sensor}`)
+      .then(response => response.json())
+      .then(data => {
+        this.contenido.sensors[num].orden= data[0].orden;
+      })
+    }, 10);
   }
 
   get(id: any){

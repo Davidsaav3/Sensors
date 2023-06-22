@@ -70,7 +70,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     setInterval(() => {
       this.map?.resize();
     }, 10);
-    
+  
   }
 
   ampliar(){
@@ -81,6 +81,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
       if(this.no_inicia==false){
+        this.ngOnDestroy();
         this.map = new mapboxgl.Map({
           container: this.divMap?.nativeElement, // container ID
           style: 'mapbox://styles/mapbox/streets-v12', // style URL
@@ -89,6 +90,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       });
       }
       else{
+        this.ngOnDestroy();
         this.map = new mapboxgl.Map({
           container: this.divMap.nativeElement, // container ID
           style: 'mapbox://styles/mapbox/streets-v12', // style URL
