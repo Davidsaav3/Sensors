@@ -1,4 +1,4 @@
-<form class="row cont0 needs-validation" #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)">
+<form class="row cont0 needs-validation" #loginForm="ngForm">
     <div class="row p-0 m-0" >
         <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> <!-- [ngClass]="{'c200': !this.mostrar && this.width<980, 'c20': this.mostrar || this.width>=980}" -->
             <div class="cont1">
@@ -242,8 +242,8 @@
                     <div class="col-md-6 col-12">
                         <div class="row">
                             <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button *ngIf="change==false || this.guardado==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
-						        <button *ngIf="change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">{{ 'sensors.cancel' | translate }}</button>
+                                <button *ngIf="change==false || this.guardado==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.exit' | translate }}</button>
+						        <button *ngIf="change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">Restablecer datos</button>
                             </div>
                             <div class="col-md-6 col-12 mt-1 pb-3">
                                 <button ng-click="ocultar = true" type="button navb" class="btn btn-info navb me-3" style="width: 100%"  (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
@@ -298,19 +298,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.edit.m2.1' | translate }}</h3>
+            <h3 class="modal-title">Restablecer los datos?</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >
-            <p class="not">{{ 'devices.edit.m2.2' | translate }}</p>
+            <p class="not">Esta acción es irréversible.</p>
           </div>
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-5">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="restablecer()">Restablecer datos</button>
                 </div>
                 <div class="col-7">
-					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
+					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !change}">Cancelar</button>
                 </div>
             </div>
           </div>

@@ -164,6 +164,10 @@ export class SensorsComponent implements OnInit{
       })
       .then(response => response.json()) 
       this.guardar_ok= true;
+      setTimeout(() => {
+        this.guardar_ok= false;
+      }, 2000);
+
       this.get('xd','ASC');
       this.get('xd','ASC');
       this.guardado= true;
@@ -183,6 +187,9 @@ export class SensorsComponent implements OnInit{
       })
       .then(response => response.json()) 
       this.alert_new= true;
+      setTimeout(() => {
+        this.alert_new= false;
+      }, 2000);
       this.get('xd','ASC');
       this.tam();
       this.get('xd','ASC');
@@ -235,6 +242,9 @@ export class SensorsComponent implements OnInit{
         })
         .then(response => response.json())
         this.dup_ok=true;
+        setTimeout(() => {
+          this.dup_ok= false;
+        }, 2000);
         fetch(this.max_sensors)
         .then(response => response.json())
         .then(data => {
@@ -258,6 +268,9 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json()) 
     this.mostrar2=false;
     this.alert_delete= true;
+    setTimeout(() => {
+      this.alert_delete= false;
+    }, 2000);
     this.mostrar2= false;
     this.get('xd','ASC');
     this.tam();

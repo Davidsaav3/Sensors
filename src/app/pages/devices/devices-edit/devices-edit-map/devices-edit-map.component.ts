@@ -173,20 +173,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
         }
       }
     }
-    //let can = document.getElementsByClassName('mapboxgl-canvas');
-    //can.setAttribute('style', 'width: -webkit-fill-available;');
 
-    // const markerHtml = document.createElement('div');
-    // markerHtml.innerHTML = 'Fernando Herrera'
-    // const marker = new Marker({
-    //   // color: 'red',
-    //   element: markerHtml
-    // })
-    //   .setLngLat( this.currentLngLat )
-    //   .addTo( this.map );
-
-    const canvas = document.getElementsByTagName('canvas')[0];
-    this.renderer.setStyle(canvas, 'width', '-webkit-fill-available');
   }
 
   ngOnDestroy(): void {

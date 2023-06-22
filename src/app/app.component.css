@@ -4,9 +4,6 @@
   position: relative;
 }
 
-.mapboxgl-canvas{
-  width: -webkit-fill-available;
-}
 
 .floating-range {
   position: relative;

@@ -1,4 +1,4 @@
-<form class="" *ngIf="sin" #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)">
+<form class="" *ngIf="sin" #loginForm="ngForm">
 	<div class="row pb-3">
 		<div class="col-4 col-sm-4">
       <button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
@@ -74,7 +74,7 @@
                 <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
                 <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
               </div>
-            <td class="d-flex pb-0">
+            <td class="pb-0">
               <label class="toggle t2 tt2 mt-1 mb-3">
                 <label style="display: none" [for]="'enable'+i">{{ 'devices.sensors.enable' | translate }}</label>
                 <input (ngModelChange)="updatesharedList()" type="checkbox" [id]="'enable'+i" [name]="'enable'+i" checked [(ngModel)]="item.enable">

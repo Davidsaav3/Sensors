@@ -89,6 +89,11 @@ export class DevicesEditComponent implements OnInit{
     enable: 1,
   }
 
+  restablecer(){
+    this.ngOnInit()
+    this.change= false;
+  }
+
 
   ampliar(){
     this.mostrar3=true;
@@ -161,8 +166,11 @@ export class DevicesEditComponent implements OnInit{
       .then(response => response.json()) 
       //this.update2();
       this.act_ok= true;
-      this.guardado= true;
+      setTimeout(() => {
+        this.act_ok= false;
+      }, 2000);
 
+      this.guardado= true;
       //console.log('Formulario válido');
     } else {
       //console.log('Formulario inválido');

@@ -66,6 +66,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       this.sharedLon = data;
     });
 
+    setInterval(() => {
+      this.map?.resize();
+    }, 10);
     
   }
 

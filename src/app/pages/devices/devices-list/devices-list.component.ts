@@ -214,8 +214,10 @@ export class DevicesListComponent implements OnInit{
   }
 
   previousPage0(): void {
-    this.currentPage= 1;
-    this.ngOnInit();
+    if(this.currentPage!=1){
+      this.currentPage= 1;
+      this.ngOnInit();
+    }
   }
 
   previousPage1(): void {
@@ -260,8 +262,10 @@ export class DevicesListComponent implements OnInit{
   }
 
   nextPage0(): void {
-    this.currentPage= this.totalPages;
-    this.ngOnInit();
+    if(this.currentPage!=this.totalPages){
+      this.currentPage= this.totalPages;
+      this.ngOnInit();
+    }
   }
 
   public cambiarLenguaje() {

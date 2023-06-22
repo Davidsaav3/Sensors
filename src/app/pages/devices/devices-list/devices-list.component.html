@@ -3,7 +3,7 @@
   <div class="p-3 pb-0">
     <div class="row d-flex" style="justify-content: space-around">
 
-        <div class="col-3 col-sm-2 col-lg-1 pe-2">
+        <div class="col-3 col-sm-4 col-lg-1 pe-2">
           <div class="btn-group">
             <button type="button" class="btn" (click)="cont=true">
               <svg *ngIf="!ver_list" (mouseover)="ver_list=true" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list-task mb-1" viewBox="0 0 16 16">
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <div class="col-9 col-sm-6 col-lg-3 mb-3">
+        <div class="col-9 col-sm-8 col-lg-3 mb-3">
           <div class="input-group w-100">
               <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
               <div class="input-group-append">
@@ -38,7 +38,7 @@
         </div>
         
 
-        <div class="col-6 col-sm-2 col-lg-5 mb-3 d-flex">
+        <div class="col-12 col-sm-6 col-lg-5 mb-3 d-flex">
           <div>
             <select style="height: 35px; width: 200px;" multiple (ngModelChange)="get('xd','ASC')"  class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
               <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
@@ -61,7 +61,7 @@
         </div>
 
 
-        <div class="col-12 col-sm-12 col-lg-3 d-flex " style="justify-content: flex-end;">
+        <div class="col-12 col-sm-6 col-lg-3 d-flex " style="justify-content: flex-end;">
           <div>
             <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
           </div>
@@ -141,14 +141,14 @@
                 <tbody>
                   <tr *ngFor="let quote of data; let i = index" style="cursor: pointer;">
                     <th [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.uid }}</th>
-                    <td class="d-none d-md-none d-lg-block" [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.topic_name }}</td>
+                    <td class="d-none d-md-none d-lg-table-cell" [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.topic_name }}</td>
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">{{ quote.application_id }}</td>
 
                     <td [routerLink]="['/devices/edit/', quote.id]" scope="col">
                       <span class="badge rounded-pill text-bg-success d-inline-block" [class]="{'d-none': quote.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.enable' | translate }}</p></span>
                       <span class="badge rounded-pill text-bg-danger d-inline-block" [class]="{'d-none': quote.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ 'sensors.disable' | translate }}</p></span>
                     </td>
-                    <td scope="col" [routerLink]="['/devices/edit/', quote.id]" class="d-none d-lg-none d-xl-block d-flex">
+                    <td scope="col" [routerLink]="['/devices/edit/', quote.id]" class="d-none d-lg-none d-xl-table-cell d-flex">
                       <div *ngFor="let quote2 of quote.sensor" style="display: inline-block; height: min-content;">
                         <span class="badge rounded-pill text-bg-success d-inline-block me-2" [class]="{'d-none': quote2.enable==0}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
                         <span class="badge rounded-pill text-bg-danger d-inline-block me-2" [class]="{'d-none': quote2.enable==1}"><p class="mb-0 d-none d-md-none d-lg-block">{{ quote2.type_name }}</p></span>
@@ -189,7 +189,7 @@
       </div>
       
       <div *ngIf="cont" class="row">
-        <div class="col-6 d-flex">
+        <div class="col-12 col-lg-6 d-flex">
           <div>
             <p class="p-0 mt-1">{{cantPage*(currentPage-1)}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
           </div>
@@ -201,7 +201,7 @@
             </select>
           </div>
         </div>
-        <div class="col-6 d-flex" style="justify-content: flex-end;">
+        <div class="col-12 col-lg-6 d-flex" style="justify-content: flex-end;">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
