@@ -27,7 +27,9 @@ export class NavbarComponent {
   }
 
   public cambiarLenguaje() {
-    this.translate.use(this.activeLang);
+    setTimeout(() =>{
+      this.translate.use(this.activeLang);
+    }, 10);
   }
   
 }

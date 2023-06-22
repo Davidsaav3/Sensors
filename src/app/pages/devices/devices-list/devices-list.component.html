@@ -41,11 +41,18 @@
         <div class="col-12 col-sm-6 col-lg-5 mb-3 d-flex">
           <div>
             <select style="height: 35px; width: 200px;" multiple (ngModelChange)="get('xd','ASC')"  class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
-              <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
-              <option selected [ngValue]="-1">Sin sensores</option>
-              <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
-                  <option [ngValue]="xd.id">{{xd.type}}</option>
-                </ng-container>
+              
+                <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
+                <option [ngValue]="-1">Sin sensores</option>
+                  <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
+                    <option [ngValue]="xd.id">{{xd.type}}</option>
+                  </ng-container>
+
+              <optgroup label="">
+                <option>Activado</option>
+                <option>Desactivado</option>
+              </optgroup>
+
             </select>
           </div>
           <div class="ms-3">
