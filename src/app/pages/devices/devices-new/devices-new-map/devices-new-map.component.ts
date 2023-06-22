@@ -39,6 +39,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   public markers: MarkerAndColor[] = [];
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
+  no_inicia= false;
 
   id_actual= 1;
   contenido = {    
@@ -75,6 +76,42 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   ampliar(){
     this.map?.resize();
   }
+  
+  create(position: any){
+    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
+
+      if(this.no_inicia==false){
+        this.map = new mapboxgl.Map({
+          container: this.divMap?.nativeElement, // container ID
+          style: 'mapbox://styles/mapbox/streets-v12', // style URL
+          center: [position.coords.longitude, position.coords.latitude],
+          zoom: this.zoom, // starting zoom
+      });
+      }
+      else{
+        this.map = new mapboxgl.Map({
+          container: this.divMap.nativeElement, // container ID
+          style: 'mapbox://styles/mapbox/streets-v12', // style URL
+          center: this.currentLngLat,
+          zoom: this.zoom, // starting zoom
+        });
+
+        this.mapListeners();
+        console.log(this.sharedLon)
+        this.currentLngLat= new mapboxgl.LngLat(this.sharedLon,this.sharedLat);
+        console.log(this.currentLngLat)
+        const marker = new mapboxgl.Marker({
+          color: '#0dcaf0',
+          draggable: false
+        }).setLngLat( this.currentLngLat ).addTo( this.map );
+        
+        setTimeout(() =>{this.flyTo( marker );}, 50);
+        console.log(this.currentLngLat)
+      }
+
+    return this.map;
+  }
+  
 
   updatesharedLat() {
     this.dataSharingService.updatesharedLat(this.sharedLat);
@@ -88,14 +125,8 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
     navigator.geolocation.getCurrentPosition(position => { 
-      this.map = new mapboxgl.Map({
-          container: this.divMap?.nativeElement, // container ID
-          style: 'mapbox://styles/mapbox/streets-v12', // style URL
-          center: [position.coords.longitude, position.coords.latitude],
-          zoom: this.zoom, // starting zoom
-      });
+    this.map= this.create(position);
 
-    
     this.map.addControl(
       new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -107,10 +138,13 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       showUserHeading: true
       })
     );
+    
     this.map.addControl(new mapboxgl.NavigationControl());
 
     this.map.on('click', (e) => {
       this.createMarker(e.lngLat.wrap());
+      this.no_inicia= true;
+      this.ngAfterViewInit();
     });
 
     let layerList = document.getElementById('menu');
@@ -131,17 +165,6 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       }
     }
 
-    this.mapListeners();
-    //this.readFromLocalStorage();
-
-    // const markerHtml = document.createElement('div');
-    // markerHtml.innerHTML = 'Fernando Herrera'
-    // const marker = new Marker({
-    //   // color: 'red',
-    //   element: markerHtml
-    // })
-    //   .setLngLat( this.currentLngLat )
-    //   .addTo( this.map );
     });
   }
 
@@ -189,7 +212,6 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     //const color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
     const color= '#0dcaf0';
     const lngLat = marker;
-
     this.addMarker( lngLat, color );
   }
 
@@ -203,7 +225,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
     const marker = new mapboxgl.Marker({
       color: '#0dcaf0',
-      draggable: true
+      draggable: false
     })
       .setLngLat( lngLat )
       .addTo( this.map );
@@ -223,7 +245,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
   deleteMarker( index: number ) {
     this.markers[index].marker.remove();
-    this.markers.splice( index, 1 );
+    this.markers= [];
+    this.dataSharingService.updatesharedLat('');
+    this.dataSharingService.updatesharedLon('');
   }
 
   flyTo( marker: mapboxgl.Marker ) {

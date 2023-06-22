@@ -50,6 +50,8 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
+  no_inicia= false;
+
   id_actual= 1;
   contenido = {    
     id: '',    
@@ -112,13 +114,28 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   create(){
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
-    this.map = new mapboxgl.Map({
-      container: this.divMap.nativeElement, // container ID
-      style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: this.currentLngLat,
-      zoom: this.zoom, // starting zoom
-    });
-    return this.map;
+    if(this.no_inicia==false){
+
+      this.map = new mapboxgl.Map({
+        container: this.divMap.nativeElement, // container ID
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: this.currentLngLat,
+        zoom: this.zoom, // starting zoom
+      });
+      this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+      this.createMarker(this.currentLngLat);
+
+      return this.map;
+    }
+    else{
+      this.map = new mapboxgl.Map({
+        container: this.divMap.nativeElement, // container ID
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: this.currentLngLat,
+        zoom: this.zoom, // starting zoom
+      });
+      return this.map;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -130,7 +147,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     console.log(this.currentLngLat)
     const marker = new mapboxgl.Marker({
       color: '#0dcaf0',
-      draggable: true
+      draggable: false
     }).setLngLat( this.currentLngLat ).addTo( this.map );
 
     setTimeout(() =>{this.flyTo( marker );}, 50);
@@ -154,6 +171,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     this.map.on('click', (e) => {
       this.createMarker(e.lngLat.wrap());
       this.ngAfterViewInit();
+      this.no_inicia= true;
     });
 
     let layerList = document.getElementById('menu');
@@ -232,7 +250,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
 
     const marker = new mapboxgl.Marker({
       color: '#0dcaf0',
-      draggable: true
+      draggable: false
     })
       .setLngLat( lngLat )
       .addTo( this.map );
@@ -252,7 +270,9 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
 
   deleteMarker( index: number ) {
     this.markers[index].marker.remove();
-    this.markers.splice( index, 1 );
+    this.markers= [];
+    this.dataSharingService.updatesharedLat('');
+    this.dataSharingService.updatesharedLon('');
   }
 
   flyTo( marker: mapboxgl.Marker ) {
@@ -266,19 +286,19 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
 
 
   saveToLocalStorage() {
-    const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
+    /*const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
       return {
         color,
         lngLat: marker.getLngLat().toArray()
       }
     });
 
-    localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));
+    localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));*/
 
   }
 
   readFromLocalStorage() {
-    const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
+    /*const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
     const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString ); //! OJO!
 
     plainMarkers.forEach( ({ color, lngLat }) => {
@@ -286,7 +306,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       const coords = new mapboxgl.LngLat( lng, lat );
 
       //this.addMarker( coords, color );
-    })
+    })*/
 
   }
 
