@@ -176,6 +176,8 @@ export class SensorsComponent implements OnInit{
     } else {
       //console.log('Formulario inválido');
     }
+    this.new_change=false;
+    this.edit_change=false;
   }
 
   submitForm2(loginForm: any) {
@@ -205,6 +207,8 @@ export class SensorsComponent implements OnInit{
     } else {
       //console.log('Formulario inválido');
     }
+    this.new_change=false;
+    this.edit_change=false;
   }
   
   resize(): void{
@@ -291,6 +295,9 @@ export class SensorsComponent implements OnInit{
     })
     .then(response => response.json()) 
     this.guardar_ok= true;
+    setTimeout(() => {
+      this.guardar_ok= false;
+    }, 2000);
     this.get('xd','ASC');
     this.get('xd','ASC');
     this.guardado= true;
@@ -298,8 +305,9 @@ export class SensorsComponent implements OnInit{
 
   cerrar(){
     this.mostrar2=false;
-    this.guardar_ok= true;
     this.tam();
+    this.new_change=false;
+    this.edit_change=false;
   }
 
   submit(){
@@ -321,6 +329,8 @@ export class SensorsComponent implements OnInit{
       ////console.log(this.id)
       //this.num(this.id)
     })
+    this.new_change=false;
+    this.edit_change=false;
   }
 
 
@@ -382,5 +392,7 @@ export class SensorsComponent implements OnInit{
     this.mostrar2= false;
     this.mostrar= false;
     this.tam();
+    this.new_change=false;
+    this.edit_change=false;
   }
 }

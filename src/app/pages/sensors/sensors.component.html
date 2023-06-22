@@ -141,7 +141,7 @@
 
 
 	<div class="cc2 cont" *ngIf="mostrar" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
-		<form #loginForm="ngForm" (ngSubmit)="submitForm2(loginForm)" class="row needs-validation p-3"> 
+		<form #loginForm="ngForm" class="row needs-validation p-3"> 
 			<div class="col-12">
 				<div class="row">
 					<div class="col-12">
@@ -213,7 +213,7 @@
 						<button *ngIf="edit_change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
-						<button ng-click="ocultar = true" type="button navb submit" class="btn btn-info navb me-3" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
+						<button (click)="submitForm2(loginForm)" ng-click="ocultar = true" type="button navb submit" class="btn btn-info navb me-3" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
 					</div>	
 				</div>
 			</div>
@@ -224,7 +224,7 @@
 
 
 	<div class="cc2 cont" *ngIf="mostrar2" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
-		<form #loginForm="ngForm" name='myForm' class="row needs-validation p-3" (ngSubmit)="submitForm1(loginForm)"> 
+		<form #loginForm="ngForm" name='myForm' class="row needs-validation p-3"> 
 
 			<div class="col-12">
 				<div class="row">
@@ -304,7 +304,7 @@
 						<button *ngIf="new_change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
-						<button type="button navb submit" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
+						<button (click)="submitForm1(loginForm)" type="button navb submit" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
 					</div>	
 					<div class="col-12 mt-3">
 						<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">{{ 'sensors.erase_sensor' | translate }}</button>
