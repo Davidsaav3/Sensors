@@ -3,6 +3,7 @@ import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataSharingService } from '../../../../services/data_sharing.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 interface MarkerAndColor {
   color: string;

@@ -22,6 +22,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { DataSharingService } from './services/data_sharing.service';
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
   declarations: [
@@ -36,9 +37,10 @@ import { DataSharingService } from './services/data_sharing.service';
     SensorsComponent,
     DevicesNewComponent,
     DevicesEditComponent,
-    DevicesEditListComponent
+    DevicesEditListComponent,
   ],
   imports: [
+    NgSelectModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,

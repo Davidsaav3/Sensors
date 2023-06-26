@@ -157,7 +157,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     sensors : [
       {
         id: 1, 
-        type: '',    
+        name: '',    
         metric: '', 
         description: '',
         errorvalue: 1,
@@ -181,6 +181,21 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     id: '',
   }
 
+  contenido4 = {
+    sensors : [
+      {
+        id: 0, 
+        name: 'Todos los Sensores',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      }]
+  }
+  
+  //selected = [{ id: 0, name: "Seleccionar" }];
+
   borrartodo(){
     this.busqueda.value= '';
     this.totalPages = 5;
@@ -188,7 +203,8 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.cantPage = 15;
     this.page= 1;
     this.busqueda.value= '';
-    this.busqueda.sel_type= 0;
+    this.contenido4.sensors[0].id= 0;
+    //this.busqueda.sel_type= 0;
     this.busqueda.sel_enable= 2;
     this.Page(1);
   }
@@ -209,6 +225,9 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     .then((response) => response.json())
     .then(data => {
       this.contenido1.sensors= data;
+      for (let index = 0; index < data.length; index++) {
+        this.contenido1.sensors[index].name= data[index].type;
+      }
     })
   }
 
@@ -259,9 +278,9 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
       let m1= 1;
       let m2= 100000;
-      console.log(this.busqueda.sel_type)
+      console.log(this.contenido4.sensors[0].id)
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -269,7 +288,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         //console.log(this.totalPages)
       })
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -370,7 +389,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     let x1= 1;
     let x2= 100000;
     this.buscar= 'Buscar';
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
     .then((response) => response.json())
     .then(data => {
       let contador = 1;
@@ -519,7 +538,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.map.on('zoom', () => {
       this.getCornerCoordinates();
     });*/
-    if(this.busqueda.value=='' && this.busqueda.sel_type==0 && this.busqueda.sel_enable==2){
+    if(this.busqueda.value=='' && this.contenido4.sensors[0].id==0 && this.busqueda.sel_enable==2){
       this.map.on('zoomend', () => {
         this.getCornerCoordinates();
       });
@@ -776,7 +795,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     let m1= 1;
     let m2= 100000;
     let m3= 'asc';
-    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.busqueda.sel_type}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}`)    
+    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}`)    
     .then((response) => response.json())
     .then(data4 => {
       this.data= data4;
