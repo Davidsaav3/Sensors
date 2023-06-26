@@ -236,7 +236,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       });
       data.unshift({
         id: -2, 
-        type: 'Ningún sensor',    
+        type: 'Sin sensores',    
         metric: '', 
         description: '',
         errorvalue: 1,
