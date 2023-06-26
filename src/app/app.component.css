@@ -1,11 +1,14 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
-.ng-dropdown-panel{
-  background-color: white;
+::ng-deep .ng-dropdown-panel {  
+  background-color: whitesmoke;;
 }
-.ng-option{
-  background-color: white;
+
+::ng-deep .ng-option{
+  padding: 0.7em;
+  padding-top: 0em
 }
+
 #map {
   width: 100%;
   height: 100%;

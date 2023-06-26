@@ -39,8 +39,8 @@
         
 
         <div class="col-12 col-sm-6 col-lg-5 mb-3 d-flex">
-          <div style="border-radius: 15px; border: 1px black;">
-            <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="body" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: gainsboro;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height: 35px; width: 200px;"></ng-select>
+          <div style="border-radius: 6px; border: 1px solid #464646 ; ">
+            <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: gainsboro;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height: 35px; width: 200px;"></ng-select>
             <!--<select style="height: 35px; width: 200px;" multiple (ngModelChange)="get('xd','ASC')"  class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
                 <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
                 <option [ngValue]="-1">Sin sensores</option>

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './common/navbar.component';
-import { MapComponent } from './pages/map/map.component';
 import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
 import { DevicesNewListComponent } from './pages/devices/devices-new/devices-new_list/devices-new-list.component';
 import { DevicesEditMapComponent } from './pages/devices/devices-edit/devices-edit-map/devices-edit-map.component';
@@ -30,7 +29,6 @@ import { NgSelectModule } from "@ng-select/ng-select";
     DevicesNewListComponent,
     AppComponent,
     NavbarComponent,
-    MapComponent,
     DevicesListComponent,
     DevicesEditMapComponent,
     DevicesComponent,

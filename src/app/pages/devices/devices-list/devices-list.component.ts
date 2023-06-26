@@ -203,8 +203,15 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.cantPage = 15;
     this.page= 1;
     this.busqueda.value= '';
-    this.contenido4.sensors[0].id= 0;
-    //this.busqueda.sel_type= 0;
+    this.contenido4.sensors= [];
+    this.contenido4.sensors.push({
+          id: -1, 
+          name: 'Todos los Sensores',    
+          metric: '', 
+          description: '',
+          errorvalue: 1,
+          valuemax: 1,
+          valuemin: 1,});
     this.busqueda.sel_enable= 2;
     this.Page(1);
   }
@@ -269,11 +276,13 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   c1(){
     this.cont= false;
+    this.getCornerCoordinates();
   }
   c2(){
+    this.getget();
     this.cont= true;
+    this.get('uid','ASC');
   }
-  
 
 
   get(id: any, ord: any){
@@ -563,9 +572,12 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       this.getCornerCoordinates();
     });
     this.map.on('zoom', () => {
-      this.getCornerCoordinates();
+        this.getCornerCoordinates();
+    });      
+    this.map.on('zoom', () => {
+        this.getCornerCoordinates();
     });*/
-    if(this.busqueda.value=='' && this.contenido4.sensors[0].id==0 && this.busqueda.sel_enable==2){
+    if(this.busqueda.value=='' && this.contenido4.sensors[0].id==-1 && this.busqueda.sel_enable==2){
       this.map.on('zoomend', () => {
         this.getCornerCoordinates();
       });
@@ -758,7 +770,8 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         el.innerHTML= `<p class="p-0 m-0">${marker.properties.name}</p>`;
          
         el.addEventListener('click', () => {
-          this.router.navigate(['/devices/edit/', marker.properties.id]);
+          const url = `/devices/edit/${marker.properties.id}`; // Ruta que deseas abrir en la nueva pestaña
+          window.open(url, '_blank');
         });
          
         const coords = new mapboxgl.LngLat( marker.geometry.coordinates1, marker.geometry.coordinates2 );

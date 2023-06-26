@@ -7,7 +7,6 @@ import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.
 import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
 
 import { SensorsComponent } from './pages/sensors/sensors.component';
-import { MapComponent } from './pages/map/map.component';
 const routes: Routes = [
   {
     path:'devices', component: DevicesComponent,
@@ -49,8 +48,6 @@ const routes: Routes = [
     ]
   },
   { path:'sensors', component: SensorsComponent
-  },
-  { path:'map', component: MapComponent
   },
   {
     path:'**',
