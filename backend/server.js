@@ -17,7 +17,7 @@ con.connect(function(err) {
   app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6/:x1/:x2/:y1/:y2", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
-  const type2 = parseInt(req.params.type2);  
+  const type2 = req.params.type2;  
   const type3 = parseInt(req.params.type3);
   const tam = parseInt(req.params.type5);
   const act = (req.params.type4-1)*parseInt(req.params.type5);
@@ -28,10 +28,19 @@ con.connect(function(err) {
   const y1 = req.params.y1;
   const y2 = req.params.y2;
 
-  console.log(x1)
-  console.log(x2)
-  console.log(y1)
-  console.log(y2)
+  //console.log(x1)
+  //console.log(x2)
+  //console.log(y1)
+  //console.log(y2)
+
+  let array= [];
+  var array2 = type2.split(",");
+  for (var i = 0; i < array2.length; i++) {
+    array.push(`(SELECT id_device FROM sensors_devices Where id_type_sensor=${array2[i]})`);
+  }
+  let consulta= array.join(" AND id IN ")
+  console.log(consulta)
+  console.log("-")
 
   if(x1!='0' && x2!='0' && y1!='0' && y2!='0'){
     let xx1= parseInt(x1);
@@ -48,14 +57,14 @@ con.connect(function(err) {
     if(type0=='Buscar'){
       if(type2!=0 || type3!=2){
         if(type2!=0 && type3!=2){
-          con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
+          con.query(`SELECT * FROM device_configurations where id IN ${consulta} AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
             if (err) throw err;
               res.send(result)
           }); 
         }
         else{
             if(type2!=0){
-              con.query(`SELECT * FROM device_configurations where id IN (SELECT id_device FROM sensors_devices Where id_type_sensor=${type2}) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
+              con.query(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
                 if (err) throw err;
                   res.send(result)
               }); 

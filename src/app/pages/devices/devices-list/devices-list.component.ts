@@ -276,11 +276,18 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let y1= '0';
       let y2= '0';
 
+      let array= [];
+      for (let index = 0; index < this.contenido4.sensors.length; index++) {
+        array.push(this.contenido4.sensors[index].id);
+      }
+      var arrayString = array.join(',');
+      console.log(arrayString)
+
       let m1= 1;
       let m2= 100000;
       console.log(this.contenido4.sensors[0].id)
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -288,7 +295,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         //console.log(this.totalPages)
       })
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
