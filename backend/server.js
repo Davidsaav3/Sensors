@@ -40,7 +40,7 @@ con.connect(function(err) {
   }
   let consulta= array.join(" AND id IN ")
   console.log(consulta)
-  console.log("-")
+  console.log(array2)
 
   if(x1!='0' && x2!='0' && y1!='0' && y2!='0'){
     let xx1= parseInt(x1);
@@ -55,20 +55,26 @@ con.connect(function(err) {
   }
   if(x1=='0' && x2=='0' && y1=='0' && y2=='0'){
     if(type0=='Buscar'){
-      if(type2!=0 || type3!=2){
-        if(type2!=0 && type3!=2){
+      if(type2!=-1 || type3!=2){
+        if(type2!=-1 && type3!=2 && type2!=-2){
           con.query(`SELECT * FROM device_configurations where id IN ${consulta} AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
             if (err) throw err;
               res.send(result)
           }); 
         }
         else{
-            if(type2!=0){
+            if(type2!=-1 && type2!=-2){
               con.query(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
                 if (err) throw err;
                   res.send(result)
               }); 
-          }
+            }
+            if(type2==-2){
+              con.query(`SELECT * FROM device_configurations where id NOT IN (SELECT id_device FROM sensors_devices) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
+                if (err) throw err;
+                  res.send(result)
+              }); 
+            }
           if(type3!=2){
             con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
               if (err) throw err;

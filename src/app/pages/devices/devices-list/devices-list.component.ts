@@ -157,7 +157,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     sensors : [
       {
         id: 1, 
-        name: '',    
+        name: 'Todos los esnores',    
         metric: '', 
         description: '',
         errorvalue: 1,
@@ -184,7 +184,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   contenido4 = {
     sensors : [
       {
-        id: 0, 
+        id: -1, 
         name: 'Todos los Sensores',    
         metric: '', 
         description: '',
@@ -224,7 +224,27 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
+
+      data.unshift({
+        id: -1, 
+        type: 'Todos los sensores',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      });
+      data.unshift({
+        id: -2, 
+        type: 'Ningún sensor',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
+      });
       this.contenido1.sensors= data;
+
       for (let index = 0; index < data.length; index++) {
         this.contenido1.sensors[index].name= data[index].type;
       }
