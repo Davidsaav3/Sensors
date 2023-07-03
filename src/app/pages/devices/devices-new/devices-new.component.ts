@@ -38,6 +38,7 @@ export class DevicesNewComponent  implements OnInit{
   ver_rec= false;
   mostrar3= true;
   change= false;
+  grande= false;
 
   contenido1 = {
     sensors : [
@@ -81,6 +82,16 @@ export class DevicesNewComponent  implements OnInit{
     this.DevicesNewMapComponent.ampliar();
   }
 
+  ampliar2(){
+    this.dataSharingService.updatesharedAmp(true);
+    this.mostrar=false;
+  }
+
+  desampliar2(){
+    this.mostrar=true;
+    this.dataSharingService.updatesharedAmp(false);
+  }
+
   ngOnInit(): void {
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.contenido.lat = data;
@@ -103,6 +114,7 @@ export class DevicesNewComponent  implements OnInit{
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
     this.contenido.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
   }
   
   updatesharedLat() {

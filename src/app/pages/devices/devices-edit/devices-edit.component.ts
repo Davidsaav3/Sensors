@@ -97,14 +97,24 @@ export class DevicesEditComponent implements OnInit{
 
   ampliar(){
     this.mostrar3=true;
-    this.dataSharingService.updatesharedAmp(true)
+    this.dataSharingService.updatesharedAmp(true);
     this.onResize(0);
   }
 
   desampliar(){
     this.mostrar3=false;
-    this.dataSharingService.updatesharedAmp(false)
+    this.dataSharingService.updatesharedAmp(false);
     this.onResize(0);
+  }
+
+  ampliar2(){
+    this.dataSharingService.updatesharedAmp(true);
+    this.mostrar=false;
+  }
+
+  desampliar2(){
+    this.mostrar=true;
+    this.dataSharingService.updatesharedAmp(false);
   }
 
   ngOnInit(): void {

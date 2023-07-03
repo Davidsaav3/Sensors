@@ -50,6 +50,7 @@ export class DevicesNewListComponent  implements OnInit{
   paginas: any;
   public hayUsu: Boolean= true;
   duplicados= false;
+  grande= true;
 
   contenido = {
     sensors : [
@@ -88,6 +89,12 @@ export class DevicesNewListComponent  implements OnInit{
     this.desde = 1;
     setTimeout(() => { this.get('xd')}, 50);
     //console.log(this.contenido)
+    setInterval(() => {
+      this.dataSharingService.sharedAmp$.subscribe(data => {
+        this.grande = data;
+        console.log(this.grande)
+      });
+    }, 10);
   }
 
   cambiar(num: any){

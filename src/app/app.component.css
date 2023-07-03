@@ -30,7 +30,8 @@
 }
 
 .toast-cont{
-  bottom: 0px;
+  top: -10px;
+  right: 0px;
   position: fixed;
 }
 

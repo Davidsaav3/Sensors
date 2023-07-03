@@ -35,6 +35,7 @@ export class DevicesEditListComponent  implements OnInit{
   sin= true;
   eliminarlo: any;
   cont= 0;
+  grande= true;
 
   act_not= false;
   act_ok= false;
@@ -89,6 +90,12 @@ export class DevicesEditListComponent  implements OnInit{
   ngOnInit(): void {
     setTimeout(() =>{this.get('xd')}, 50);
     this.desde = 1;
+    setInterval(() => {
+      this.dataSharingService.sharedAmp$.subscribe(data => {
+        this.grande = data;
+        console.log(this.grande)
+      });
+    }, 10);
     //setTimeout(() =>{this.cambiar()}, 100);
   }
 

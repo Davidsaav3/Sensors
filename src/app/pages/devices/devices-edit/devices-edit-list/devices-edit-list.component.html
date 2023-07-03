@@ -1,4 +1,4 @@
-<form class="" *ngIf="sin" #loginForm="ngForm">
+<form class="" *ngIf="sin" #loginForm="ngForm" #miDiv>
 
 	<div class="row pb-0 pt-3 pb-3 d-flex">
 		<div class="col d-flex" style="justify-content: flex-end;">
@@ -14,8 +14,9 @@
 				  <tr>
           <th style="cursor: pointer;" (click)="get('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
 					<th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
-					<th style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
-					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
+
+					<th *ngIf="grande" style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+					<th *ngIf="grande" style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
 
           <th style="cursor: pointer;" (click)="get('nodate')" scope="col">Specific</th>
 					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">Time specific</th>
@@ -47,7 +48,7 @@
                 </ng-container>
               </select>
             </th>
-            <td class="pb-0 input-1">
+            <td *ngIf="grande" class="pb-0 input-1">
               <!--<input type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item.datafield">-->
               <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
@@ -56,7 +57,7 @@
                   <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
               </div>
             </td>
-            <td class="pb-0">
+            <td *ngIf="grande" class="pb-0">
               <div class="form-check">
                 <label style="display: none" [for]="'nodata'+i">{{ 'devices.sensors.nodata' | translate }}</label>
                 <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
