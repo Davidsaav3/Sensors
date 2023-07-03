@@ -2,18 +2,16 @@
 <div id="map" #map>  
   
   <div id="menu">
-	<input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
-	<!-- See a list of Mapbox-hosted public styles at -->
-	<!-- https://docs.mapbox.com/api/maps/styles/#mapbox-styles -->
+	<input id="streets-v12" type="radio" name="rtoggle" value="streets" class="ms-3" checked="checked">
+	<label for="streets-v12">Predeterminado</label>
+	<input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite">
 	<label for="satellite-streets-v12">Satélite</label>
+	<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
+	<label for="outdoors-v12">Relieve</label>
 	<input id="light-v11" type="radio" name="rtoggle" value="light" class="ms-3">
 	<label for="light-v11">Claro</label>
 	<input id="dark-v11" type="radio" name="rtoggle" value="dark" class="ms-3">
 	<label for="dark-v11">Oscuro</label>
-	<input id="streets-v12" type="radio" name="rtoggle" value="streets" class="ms-3">
-	<label for="streets-v12">Mapa</label>
-	<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
-	<label for="outdoors-v12">Terreno</label>
   </div>
 
   <div class="floating-range p-2">

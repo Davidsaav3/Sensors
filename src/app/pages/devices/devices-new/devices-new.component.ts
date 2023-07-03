@@ -54,19 +54,19 @@ export class DevicesNewComponent  implements OnInit{
   }
 
   contenido = {
-    uid: '',    
-    alias: '', 
-    origin: '',
-    description_origin: '',
-    application_id: '',
-    topic_name: '',
-    typemeter: '',
+    uid: null,    
+    alias: null, 
+    origin: null,
+    description_origin: null,
+    application_id: null,
+    topic_name: null,
+    typemeter: null,
     lat: this.sharedLat,
     lon: this.sharedLon,
     cota: 10,
     timezone: '+01:00',
     enable: 0,
-    organizationid: '',
+    organizationid: null,
     createdAt: '',
     updatedAt: '',
   }

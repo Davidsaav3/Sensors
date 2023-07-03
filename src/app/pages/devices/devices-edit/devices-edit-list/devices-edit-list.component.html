@@ -1,25 +1,9 @@
 <form class="" *ngIf="sin" #loginForm="ngForm">
-	<div class="row pb-3">
-		<div class="col-4 col-sm-4">
+
+	<div class="row pb-0 pt-3 pb-3 d-flex">
+		<div class="col d-flex" style="justify-content: flex-end;">
       <button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 		</div>
-		<div class="col-5 col-sm-6 d-flex justify-content-end"> 
-			<div *ngIf="act_ok" class="alert alert-success me-3 py-1" role="alert">
-				{{ 'devices.sensors.e1' | translate }}
-			  </div>
-			  <div *ngIf="act_not" class="alert alert-success me-3 py-1" role="alert">
-          {{ 'devices.sensors.e2' | translate }}
-			  </div>
-			  <div *ngIf="eliminar_ok" class="alert alert-success me-3 py-1" role="alert">
-          {{ 'devices.sensors.e3' | translate }}
-			  </div>
-			  <div *ngIf="eliminar_not" class="alert alert-success me-3 py-1" role="alert">
-          {{ 'devices.sensors.e4' | translate }}
-			  </div>
-		</div>
-		<!--<div class="col-3 col-sm-2">
-			<a type="button" (click)="submitForm(loginForm)" class="btn btn-info">{{ 'sensors.save' | translate }}</a>
-		</div>-->
 	</div>	
 
 	<div class="row">
@@ -32,6 +16,10 @@
 					<th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
 					<th style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
 					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
+
+          <th style="cursor: pointer;" (click)="get('nodate')" scope="col">Specific</th>
+					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">Time specific</th>
+
 					<th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
 					<th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
@@ -43,7 +31,7 @@
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
             <label style="display: none" [for]="'id_device'+i">{{ 'devices.sensors.id_device' | translate }}</label>
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id_device'+i" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
-            <th scope="col2" class="pb-0">
+            <th scope="col2" class="pb-0 input-1">
               <!--<input type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item.orden">-->
               <label style="display: none" [for]="'orden'+i">{{ 'devices.sensors.order' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
@@ -52,14 +40,14 @@
                   <div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'devices.sensors.order' | translate }}.</div>
               </div>
             </th>
-            <th scope="col"class="pb-0"> 
+            <th scope="col"class="pb-0 input-2"> 
               <select (ngModelChange)="this.cambiar(i)" class="form-select" aria-label="Default select example" [id]="'type_name'+i" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
                 <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
                   <option [selected]="xd.id===item.id_type_sensor" value="{{xd.id}}">{{xd.type}}</option>
                 </ng-container>
               </select>
             </th>
-            <td class="pb-0" >
+            <td class="pb-0 input-1">
               <!--<input type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item.datafield">-->
               <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
@@ -68,12 +56,31 @@
                   <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
               </div>
             </td>
-            <td class="pb-0" >
+            <td class="pb-0">
               <div class="form-check">
                 <label style="display: none" [for]="'nodata'+i">{{ 'devices.sensors.nodata' | translate }}</label>
                 <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
                 <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
               </div>
+            </td>
+
+            <td class="pb-0 input-1">
+              <label style="display: none" [for]="'specific'+i">{{ 'devices.sensors.specific' | translate }}</label>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.specific }}" type="text" class="form-control" [id]="'specific'+i" [name]="'specific'+i" [(ngModel)]="item['specific']" type>
+              <div *ngIf="loginForm.submitted && loginForm.controls['specific'].errors" class="text-danger">
+                  <div *ngIf="loginForm.controls['specific'].errors['required']">{{ 'devices.sensors.specific' | translate }} is required.</div>
+                  <div *ngIf="loginForm.controls['specific'].errors['email']">Invalid {{ 'devices.sensors.specific' | translate }}.</div>
+              </div>
+            </td>
+            <td class="pb-0">
+              <label style="display: none" [for]="'time_specific'+i">{{ 'devices.sensors.time_specific' | translate }}</label>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.time_specific }}" type="text" class="form-control" [id]="'time_specific'+i" [name]="'time_specific'+i" [(ngModel)]="item['time_specific']" type>
+              <div *ngIf="loginForm.submitted && loginForm.controls['time_specific'].errors" class="text-danger">
+                  <div *ngIf="loginForm.controls['time_specific'].errors['required']">{{ 'devices.sensors.time_specific' | translate }} is required.</div>
+                  <div *ngIf="loginForm.controls['time_specific'].errors['email']">Invalid {{ 'devices.sensors.time_specific' | translate }}.</div>
+              </div>
+            </td>
+
             <td class="pb-0">
               <label class="toggle t2 tt2 mt-1 mb-3">
                 <label style="display: none" [for]="'enable'+i">{{ 'devices.sensors.enable' | translate }}</label>

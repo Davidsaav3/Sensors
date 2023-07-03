@@ -3,16 +3,14 @@
 	<div class="cc2 cont me-0" [ngClass]="{'c100': this.mostrar3==true || this.width<965, 'c10': this.mostrar3==false}">
 		<div class="p-3 pb-0 pe-2">
 				<div class="row d-flex">
-					<div class="col-6 col-sm-6 col-lg-3 mb-3">
-						<div class="input-group w-100">
+					<div class="col-6 col-sm-6 col-lg-2 mb-3">
+						<div class="w-100 d-flex" style="position: relative;">
 							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" readonly *ngIf="edit_change || new_change">
 							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" *ngIf="!edit_change && !new_change">
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary" type="button" (click)="borrar()"><button type="button" class="btn-close" aria-label="Close"></button></button>
-							</div>
+							<p style="position: absolute; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
 						</div>
 					</div>
-				<div class="col-6 col-sm-6 col-lg-9 d-flex " style="justify-content: flex-end;">
+				<div class="col-6 col-sm-6 col-lg-10 d-flex " style="justify-content: flex-end;">
 					<div>
 						<button type="button" class="btn btn-info" (click)="m1()" [ngClass]="{'disabled': edit_change || new_change}">{{ 'sensors.nuevo_sensor' | translate }}</button>
 					</div>
@@ -71,14 +69,6 @@
 								  </svg>
 								{{ 'sensors.description' | translate }}</th>
 
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col" [ngClass]="{'marcado': marcado == 'errorvalue'}">
-								<svg *ngIf="alt_5_a" (click)="alt_5_a=false;get('errorvalue','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
-								  </svg>
-								  <svg *ngIf="!alt_5_a" (click)="alt_5_a=true;get('errorvalue','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-								  </svg>
-								Valor de error</th>
 							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="text-align: center;" [ngClass]="{'marcado': marcado == 'valuemin'}">
 								<svg *ngIf="alt_6_a" (click)="alt_6_a=false;get('valuemin','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
@@ -86,7 +76,7 @@
 								  <svg *ngIf="!alt_6_a" (click)="alt_6_a=true;get('valuemin','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
-								Min</th>
+								General</th>
 							<th *ngIf="mostrar==false && mostrar2==false" scope="col" [ngClass]="{'marcado': marcado == 'valuemax'}">
 								<svg *ngIf="alt_7_a" (click)="alt_7_a=false;get('valuemax','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
@@ -94,7 +84,7 @@
 								  <svg *ngIf="!alt_7_a" (click)="alt_7_a=true;get('valuemax','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
-								Max</th>							
+								Time general</th>							
 							
 							<th scope="col" style="text-align: center;">{{ 'sensors.duplicate' | translate }}</th>
 							<th scope="col" style="text-align: center;">{{ 'sensors.edit' | translate }}</th>
@@ -108,9 +98,8 @@
 							<td (click)="num(quote.id)">{{ quote.metric }}</td>
 							<td class="d-none d-md-none d-lg-block" (click)="num(quote.id)">{{ quote.description }}</td>
 		
-							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.errorvalue }}</td>
-							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.valuemax }}</td>
-							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.valuemin }}</td>
+							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.correction_general }}</td>
+							<td *ngIf="mostrar==false && mostrar2==false" (click)="num(quote.id)">{{ quote.correction_time_general }}</td>
 
 							<td (mouseout)="ver_dup= 1000" (mouseover)="ver_dup= i" style="text-align: center;" (click)="duplicate(quote.id,quote.type)">                      
 							<svg *ngIf="ver_dup!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
@@ -203,6 +192,23 @@
 							<div *ngIf="loginForm.controls['valuemax'].errors['email']">Invalid {{ 'sensors.value_max' | translate }}.</div>
 						</div>
 					</div><!---->
+
+					<div class="col-md-6 mt-2">
+						<label for="general">{{ 'sensors.general' | translate }}</label>
+						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.correction_general }}" type="text" id="general" class="form-control" name="general" [(ngModel)]="contenido_new['correction_general']" type>
+						<div *ngIf="loginForm.submitted && loginForm.controls['general'].errors" class="text-danger">
+							<div *ngIf="loginForm.controls['general'].errors['required']">{{ 'sensors.general' | translate }} is required.</div>
+							<div *ngIf="loginForm.controls['general'].errors['email']">Invalid {{ 'sensors.general' | translate }}.</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-2">
+						<label for="time_general">{{ 'sensors.time_general' | translate }}</label>
+						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.correction_time_general }}" type="text" id="time_general" class="form-control" name="time_general" [(ngModel)]="contenido_new['correction_time_general']" type>
+						<div *ngIf="loginForm.submitted && loginForm.controls['time_general'].errors" class="text-danger">
+							<div *ngIf="loginForm.controls['time_general'].errors['required']">{{ 'sensors.time_general' | translate }} is required.</div>
+							<div *ngIf="loginForm.controls['time_general'].errors['email']">Invalid {{ 'sensors.time_general' | translate }}.</div>
+						</div>
+					</div><!---->
 				</div>
 			</div>
 
@@ -293,6 +299,24 @@
 							<div *ngIf="loginForm.controls['valuemax'].errors['email']">Invalid {{ 'sensors.value_max' | translate }}.</div>
 						</div>
 					</div>
+
+					<div class="col-md-6 mt-2">
+						<label for="general">{{ 'sensors.general' | translate }}</label>
+						<input (ngModelChange)="new_change=true" value="{{ contenido.correction_general }}" type="text" id="general" class="form-control" name="general" [(ngModel)]="contenido['correction_general']" type>
+						<div *ngIf="loginForm.submitted && loginForm.controls['general'].errors" class="text-danger">
+							<div *ngIf="loginForm.controls['general'].errors['required']">{{ 'sensors.general' | translate }} is required.</div>
+							<div *ngIf="loginForm.controls['general'].errors['email']">Invalid {{ 'sensors.general' | translate }}.</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-2">
+						<label for="time_general">{{ 'sensors.time_general' | translate }}</label>
+						<input (ngModelChange)="new_change=true" value="{{ contenido.correction_time_general }}" type="text" id="time_general" class="form-control" name="time_general" [(ngModel)]="contenido['correction_time_general']" type>
+						<div *ngIf="loginForm.submitted && loginForm.controls['time_general'].errors" class="text-danger">
+							<div *ngIf="loginForm.controls['time_general'].errors['required']">{{ 'sensors.time_general' | translate }} is required.</div>
+							<div *ngIf="loginForm.controls['time_general'].errors['email']">Invalid {{ 'sensors.time_general' | translate }}.</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 

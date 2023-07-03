@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="cc2 cont cont_recto" >
   <div class="p-3 pb-0">
-    <div class="row d-flex" style="justify-content: space-around">
+    <div class="row d-flex">
 
-        <div class="col-3 col-sm-4 col-lg-1 pe-2">
+        <div class="col-lg-3 d-flex">
           <div class="btn-group">
             <button type="button" class="btn" (click)="c2()">
               <svg *ngIf="!ver_list" (mouseover)="ver_list=true" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list-task mb-1" viewBox="0 0 16 16">
@@ -22,62 +22,51 @@
               <svg *ngIf="ver_map" (mouseout)="ver_map=false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-map-fill mb-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z"/>
               </svg>
-
-              
             </button>
           </div>
-        </div>
-
-        <div class="col-9 col-sm-8 col-lg-3 mb-3">
-          <div class="input-group w-100">
-              <input (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" (click)="borrar()"><button type="button" class="btn-close" aria-label="Close"></button></button>
-              </div>
+  
+          <div class="ps-2 w-100" style="position: relative;">
+              <input style="height: 40px;" (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
+              <p style="position: absolute; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
           </div>
         </div>
-        
 
-        <div class="col-12 col-sm-6 col-lg-5 mb-3 d-flex">
-          <div style="border-radius: 6px; border: 1px solid #464646 ; ">
-            <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: gainsboro;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height: 35px; width: 200px;"></ng-select>
-            <!--<select style="height: 35px; width: 200px;" multiple (ngModelChange)="get('xd','ASC')"  class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" [(ngModel)]="busqueda.sel_type" >
-                <option selected [ngValue]="0">{{ 'sensors.l1' | translate }} los sensores</option>
-                <option [ngValue]="-1">Sin sensores</option>
-                  <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
-                    <option [ngValue]="xd.id">{{xd.name}}</option>
-                  </ng-container>
+        <div class="col-lg-9 mb-3 pe-0 ps-0 d-flex" style="justify-content: space-between;">
+          <div class="d-flex">
+            <div style="border-radius: 6px; border: 1px solid #d8d8d8 ; width: 25em; border-top-right-radius: 0em; border-bottom-right-radius: 0em" class="ms-3">
+              <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: gainsboro;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
+            </div>
+            <div class="ms-0">
+              <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+                <option selected [ngValue]="2">Todos</option>
+                <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
+                <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
+              </select>
+            </div>
 
-              <optgroup label="">
-                <option>Activado</option>
-                <option>Desactivado</option>
-              </optgroup>
+            <div class="ms-4" style="width: 15em;">
+              <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+                <option selected [ngValue]="2">Todos los Dispositivos</option>
+                <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
+                <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
+              </select>
+            </div>
 
-            </select>-->
+            <div class="ms-4">
+              <button class="btn btn-outline-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
+            </div>
           </div>
+
           <div class="ms-3">
-            <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-              <option selected [ngValue]="2">Todos</option>
-              <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
-              <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
-            </select>
-          </div>
-          <div class="ms-3">
-            <button class="btn btn-outline-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
-          </div>
-        </div>
-
-
-        <div class="col-12 col-sm-6 col-lg-3 d-flex " style="justify-content: flex-end;">
-          <div>
             <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
           </div>
       </div>
+      
     </div>	
 
   </div>
 
-  <div class="p-4 pt-0" *ngIf="cont==true">
+  <div class="p-4 pt-0 mb-5" *ngIf="cont==true">
     <div class="row">
       <div class="over p-0 " style="height: 75vh;"> 
       
@@ -198,7 +187,7 @@
       <div *ngIf="cont" class="row">
         <div class="col-12 col-lg-6 d-flex">
           <div>
-            <p class="p-0 mt-1">{{cantPage*(currentPage-1)}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
+            <p class="p-0 mt-1">{{((cantPage)*(currentPage-1))+1}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
@@ -252,16 +241,16 @@
     <div class="row" style="height: 78vh;">
       <div id="map" #map style="height: 78vh;">
         <div id="menu">
-          <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite" checked="checked">
+          <input id="streets-v12" type="radio" name="rtoggle" value="streets" class="ms-3" checked="checked">
+          <label for="streets-v12">Predeterminado</label>
+          <input id="satellite-streets-v12" type="radio" name="rtoggle" value="satellite">
           <label for="satellite-streets-v12">Satélite</label>
+          <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
+          <label for="outdoors-v12">Relieve</label>
           <input id="light-v11" type="radio" name="rtoggle" value="light" class="ms-3">
           <label for="light-v11">Claro</label>
           <input id="dark-v11" type="radio" name="rtoggle" value="dark" class="ms-3">
           <label for="dark-v11">Oscuro</label>
-          <input id="streets-v12" type="radio" name="rtoggle" value="streets" class="ms-3">
-          <label for="streets-v12">Mapa</label>
-          <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
-          <label for="outdoors-v12">Terreno</label>
         </div>
       </div>
     </div>

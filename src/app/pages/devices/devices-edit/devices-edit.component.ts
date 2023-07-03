@@ -53,19 +53,19 @@ export class DevicesEditComponent implements OnInit{
   change= false;
 
   contenido = {    
-    id: '',    
-    uid: '',    
-    alias: '', 
-    origin: '',
-    description_origin: '',
-    application_id: '',
-    topic_name: '',
-    typemeter: '',
+    id: null,    
+    uid: null,    
+    alias: null, 
+    origin: null,
+    description_origin: null,
+    application_id: null,
+    topic_name: null,
+    typemeter: null,
     lat: this.sharedLat,
     lon: this.sharedLon,
     cota: 10,
     timezone: '+01:00',
-    organizationid: '',
+    organizationid: null,
     enable: 0,
     updatedAt: ''
   }

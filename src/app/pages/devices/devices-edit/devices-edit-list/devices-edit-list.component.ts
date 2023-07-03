@@ -62,6 +62,8 @@ export class DevicesEditListComponent  implements OnInit{
         valuemax: 1,
         valuemin: 1,
         orden: 1,
+        specific: null,
+        time_specific: null,
       }]
   }
 
@@ -76,6 +78,8 @@ export class DevicesEditListComponent  implements OnInit{
         nodata: true,
         orden: 1,
         type_name: 1,
+        specific: null,
+        time_specific: null,
       }]
   }
 
@@ -177,6 +181,8 @@ export class DevicesEditListComponent  implements OnInit{
       nodata: true,
       orden: 1,
       type_name: 1,
+      specific: null,
+      time_specific: null,
     }
     //this.contenido2.id= this.cont;
     this.contenido.sensors.push(contenido2);

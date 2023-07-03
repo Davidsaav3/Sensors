@@ -86,6 +86,8 @@ export class SensorsComponent implements OnInit{
     valuemax: null,
     valuemin: null,
     orden: '',
+    correction_general: null,
+    correction_time_general: null,
   }
 
   contenido_new = {
@@ -97,6 +99,8 @@ export class SensorsComponent implements OnInit{
     valuemax: null,
     valuemin: null,
     orden: '',
+    correction_general: null,
+    correction_time_general: null,
   }
 
   busqueda = {
