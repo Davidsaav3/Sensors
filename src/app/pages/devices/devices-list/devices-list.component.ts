@@ -45,6 +45,9 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   y1= '0';
   y2= '0';
 
+  mas10= true;
+  menos10= true;
+
   /**/
   
   max_device: string = 'http://localhost:5172/api/max/device_configurations';

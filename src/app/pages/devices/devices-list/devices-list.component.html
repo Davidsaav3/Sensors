@@ -191,6 +191,7 @@
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
+              <option selected [ngValue]="1">1 Resultado por página</option>
               <option selected [ngValue]="16">16 Resultados por página</option>
               <option [ngValue]="50">50 Resultados por página</option>
               <option [ngValue]="100">100 Resultados por página</option>
@@ -205,21 +206,21 @@
                   <span aria-hidden="true"> Primera</span>
                 </a>
               </li>
-              <li class="page-item">
+              <li class="page-item" *ngIf="currentPage-10>0">
                 <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage1()">
                   <span aria-hidden="true">&laquo; 10</span>
                 </a>
               </li>
-              <li class="page-item">
+              <li class="page-item" *ngIf="this.currentPage-1!=0">
                 <a class="page-link" style="cursor: pointer;" (click)="previousPage()">{{ this.currentPage-1 }}</a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" (click)="Page(this.currentPage)">{{ this.currentPage }}</a>
+                <a class="page-link" style="cursor: pointer;" (click)="Page(this.currentPage)"><strong>{{ this.currentPage }}</strong></a>
               </li>
-              <li class="page-item">
+              <li class="page-item" *ngIf="this.currentPage!=totalPages">
                 <a class="page-link" style="cursor: pointer;" (click)="nextPage()">{{ this.currentPage+1 }}</a>
               </li>
-              <li class="page-item">
+              <li class="page-item" *ngIf="currentPage+10<totalPages">
                 <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage1()">
                   <span aria-hidden="true">10 &raquo;</span>
                 </a>
