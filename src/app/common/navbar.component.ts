@@ -13,6 +13,7 @@ export class NavbarComponent {
   dup_ok=false;
   dup_not=false;
   ruta='';
+  ruta2: any;
 
   alert_delete: any= false;
   alert_new: any= false;
@@ -24,6 +25,8 @@ export class NavbarComponent {
   constructor(private translate: TranslateService, public rutaActiva: Router ) {
     this.translate.setDefaultLang(this.activeLang);
     this.ruta= this.rutaActiva.routerState.snapshot.url;
+    this.ruta2 = this.ruta.split('/');
+    console.log(this.ruta2[2])
   }
 
   public cambiarLenguaje() {

@@ -149,7 +149,7 @@ h1,h2,h3,h4,p,a,.btn, span, label{
     padding: 1em;
     border-radius: 10px;
     margin-bottom: 1em;
-    min-height: 87vh;
+    min-height: 86vh;
 }
 
 .cont2{
@@ -157,7 +157,7 @@ h1,h2,h3,h4,p,a,.btn, span, label{
     border-radius: 10px;
     height: max-content;
     margin-bottom: 1em;
-    min-height: 87vh;
+    min-height: 86vh;
 }
 
 .cont3{

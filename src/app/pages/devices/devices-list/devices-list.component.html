@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="cc2 cont cont_recto" >
+<div class="cc2 cont cont_recto">
   <div class="p-3 pb-0">
     <div class="row d-flex">
 
@@ -27,7 +27,7 @@
   
           <div class="ps-2 w-100" style="position: relative;">
               <input style="height: 40px;" (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
-              <p style="position: absolute; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
+              <p style="position: absolute; cursor: pointer; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
           </div>
         </div>
 
@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div class="ms-3">
+          <div class="me-3">
             <button type="button" class="btn btn-info" routerLink="/devices/new/{{this.id}}">{{ 'devices.edit.new_device' | translate }}</button>
           </div>
       </div>
@@ -66,17 +66,17 @@
 
   </div>
 
-  <div class="p-4 pt-0 mb-5" *ngIf="cont==true">
+  <div class="p-4 pt-0 mb-5 w-96" *ngIf="cont==true" style="position: fixed; z-index: 100000; width: -webkit-fill-available">
     <div class="row">
-      <div class="over p-0 " style="height: 75vh;"> 
+      <div class="over p-0 " style="height: 74vh; background-color: #fff;"> 
       
-        <div *ngIf="data.length<=0" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh;"> 
+        <div *ngIf="data.length<=0" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
           <div style="height: min-content;">
             <p style="font-size: x-large;">Dispositivos no encontrados, desactive filtros</p>
           </div>
         </div>
 
-        <div *ngIf="cargando" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh;"> 
+        <div *ngIf="cargando" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
           <div class="spinner-border text-secondary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -184,8 +184,8 @@
         </div>
       </div>
       
-      <div *ngIf="cont" class="row">
-        <div class="col-12 col-lg-6 d-flex">
+      <div *ngIf="cont" class="row" style="background-color: #fff;">
+        <div class="col-12 col-lg-6 d-flex mt-3">
           <div>
             <p class="p-0 mt-1">{{((cantPage)*(currentPage-1))+1}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
           </div>
@@ -237,7 +237,7 @@
 </div>
 
 
-  <div class="p-4 pt-0">
+  <div class="p-4 pt-0 w-96" style="z-index: -10000;" >
     <div class="row" style="height: 78vh;">
       <div id="map" #map style="height: 78vh;">
         <div id="menu">
@@ -256,8 +256,8 @@
     </div>
   </div>
 
-  <div class="toast-cont">
-    <div *ngIf="dup_ok" class="top-0 end-0 p-3">
+  <div class="toast-cont w-96" style="background-color: #fff;">
+    <div *ngIf="dup_ok" class="top-0 end-0 p-3 w-96" style="background-color: #fff;">
       <div role="alert" class="toast show align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
           <div class="toast-body">
@@ -268,7 +268,7 @@
       </div>
     </div>
 
-    <div *ngIf="dup_not" class="top-0 end-0 p-3">
+    <div *ngIf="dup_not" class="top-0 end-0 p-3 w-96" style="background-color: #fff;">
       <div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
           <div class="toast-body">

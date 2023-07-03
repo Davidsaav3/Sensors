@@ -92,7 +92,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   buscar2= 'id';
   buscar3= 'Nada';
   buscar4= 'Nada';
-  cont=true;
+  cont= true;
 
   ver_dup= 10000;
   pencil_dup= 10000;
@@ -275,13 +275,13 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
 
   c1(){
+    //this.getCornerCoordinates();
     this.cont= false;
-    this.getCornerCoordinates();
   }
   c2(){
-    this.getget();
+    //this.getget();
+    //this.get('uid','ASC');
     this.cont= true;
-    this.get('uid','ASC');
   }
 
 

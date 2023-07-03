@@ -7,7 +7,7 @@
 						<div class="w-100 d-flex" style="position: relative;">
 							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" readonly *ngIf="edit_change || new_change">
 							<input (keyup)="onKeySearch($event)" type="text" [(ngModel)]="busqueda.value" class="form-control" placeholder="{{ 'sensors.buscar_sensores' | translate }}" aria-label="Recipient's username" aria-describedby="basic-addon2" *ngIf="!edit_change && !new_change">
-							<p style="position: absolute; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
+							<p style="cursor: pointer; position: absolute; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
 						</div>
 					</div>
 				<div class="col-6 col-sm-6 col-lg-10 d-flex " style="justify-content: flex-end;">
@@ -69,7 +69,7 @@
 								  </svg>
 								{{ 'sensors.description' | translate }}</th>
 
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="text-align: center;" [ngClass]="{'marcado': marcado == 'valuemin'}">
+							<th *ngIf="mostrar==false && mostrar2==false" scope="col"style="cursor: pointer; text-align: center;" [ngClass]="{'marcado': marcado == 'valuemin'}">
 								<svg *ngIf="alt_6_a" (click)="alt_6_a=false;get('valuemin','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -77,11 +77,11 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								General</th>
-							<th *ngIf="mostrar==false && mostrar2==false" scope="col" [ngClass]="{'marcado': marcado == 'valuemax'}">
-								<svg *ngIf="alt_7_a" (click)="alt_7_a=false;get('valuemax','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+							<th *ngIf="mostrar==false && mostrar2==false" style="cursor: pointer;" scope="col" [ngClass]="{'marcado': marcado == 'valuemax'}">
+								<svg *ngIf="alt_7_a" (click)="alt_7_a=false;get('correction_general','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
-								  <svg *ngIf="!alt_7_a" (click)="alt_7_a=true;get('valuemax','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+								  <svg *ngIf="!alt_7_a" (click)="alt_7_a=true;get('correction_time_general','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								Time general</th>							
