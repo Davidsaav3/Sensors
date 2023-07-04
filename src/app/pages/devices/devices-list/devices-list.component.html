@@ -33,12 +33,12 @@
 
         <div class="col-lg-9 mb-3 pe-0 ps-0 d-flex" style="justify-content: space-between;">
           <div class="d-flex">
-            <div style="border-radius: 6px; border: 1px solid #d8d8d8 ; width: 25em; border-top-right-radius: 0em; border-bottom-right-radius: 0em" class="ms-3">
-              <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: gainsboro;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
+            <div style="border-radius: 6px; border: 1px solid #d8d8d8 ; width: 33vw; border-top-right-radius: 0em; border-bottom-right-radius: 0em" class="ms-3">
+              <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
             </div>
             <div class="ms-0">
               <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-                <option selected [ngValue]="2">Todos</option>
+                <option selected [ngValue]="2">{{ 'sensors.all' | translate }}</option>
                 <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
                 <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
               </select>
@@ -46,14 +46,14 @@
 
             <div class="ms-4" style="width: 15em;">
               <select  (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
-                <option selected [ngValue]="2">Todos los Dispositivos</option>
+                <option selected [ngValue]="2">{{ 'sensors.all_devices' | translate }}</option>
                 <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
                 <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
               </select>
             </div>
 
             <div class="ms-4">
-              <button class="btn btn-outline-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
+              <button class="btn btn-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
             </div>
           </div>
 
@@ -66,19 +66,19 @@
 
   </div>
 
-  <div class="p-4 pt-0 mb-5 w-96" *ngIf="cont==true" style="position: fixed; z-index: 1000; width: -webkit-fill-available">
+  <div class="p-4 pt-0 mb-5 w-96" *ngIf="cont==true" style="position: fixed; z-index: 1000; width: 98.5vw">
     <div class="row">
       <div class="over p-0 " style="height: 74vh; background-color: #fff;"> 
       
         <div *ngIf="data.length<=0" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
           <div style="height: min-content;">
-            <p style="font-size: x-large;">Dispositivos no encontrados, desactive filtros</p>
+            <p style="font-size: x-large;">{{ 'no_devices' | translate }}</p>
           </div>
         </div>
 
         <div *ngIf="cargando" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
           <div class="spinner-border text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">{{ 'loading' | translate }}</span>
           </div>
         </div>
 
@@ -114,22 +114,22 @@
                       {{ 'sensors.enable' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="" class="single-line" >
                       {{ 'sensors.sensors' | translate }}</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line" [ngClass]="{'marcado': marcado == 'createdAt'}">
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'createdAt'}">
                       <svg *ngIf="alt_4_a" (click)="alt_4_a=false;get('createdAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
                       <svg *ngIf="!alt_4_a" (click)="alt_4_a=true;get('createdAt','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
-                      Creación</th>
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line" [ngClass]="{'marcado': marcado == 'updatedAt'}">
+                      {{ 'created' | translate }}</th>
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'updatedAt'}">
                       <svg *ngIf="alt_5_a" (click)="alt_5_a=false;get('updatedAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
                       <svg *ngIf="!alt_5_a" (click)="alt_5_a=true;get('updatedAt','DESC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                       </svg>
-                      Modificación</th>
+                      {{ 'mod' | translate }}</th>
                     <th scope="col" style="text-align: center;" style=""class="single-line" >{{ 'sensors.duplicate' | translate }}</th>
                     <th class="d-none d-md-none d-lg-block" style="text-align: center; " class="single-line">{{ 'sensors.edit' | translate }}</th>
                   </tr>
@@ -191,10 +191,10 @@
           </div>
           <div>
             <select (ngModelChange)="get('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
-              <option selected [ngValue]="1">1 Resultado por página</option>
-              <option selected [ngValue]="16">16 Resultados por página</option>
-              <option [ngValue]="50">50 Resultados por página</option>
-              <option [ngValue]="100">100 Resultados por página</option>
+              <option selected [ngValue]="1">1 {{ 'res' | translate }}</option>
+              <option selected [ngValue]="10">10 {{ 'res' | translate }}</option>
+              <option [ngValue]="50">50 {{ 'res' | translate }}</option>
+              <option [ngValue]="100">100 {{ 'res' | translate }}</option>
             </select>
           </div>
         </div>
@@ -203,7 +203,7 @@
             <ul class="pagination">
               <li class="page-item">
                 <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage0()">
-                  <span aria-hidden="true"> Primera</span>
+                  <span aria-hidden="true">{{ 'first' | translate }}</span>
                 </a>
               </li>
               <li class="page-item" *ngIf="currentPage-10>0">
@@ -227,7 +227,7 @@
               </li>
               <li class="page-item">
                 <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage0()">
-                  <span aria-hidden="true">Ultima</span>
+                  <span aria-hidden="true">{{ 'last' | translate }}</span>
                 </a>
               </li>
             </ul>
@@ -243,15 +243,15 @@
       <div id="map" #map style="height: 78vh;">
         <div id="menu">
           <input id="streets-v12" type="radio" name="rtoggle" value="streets" checked="checked">
-          <label for="streets-v12">Predeterminado</label>
+          <label for="streets-v12">{{ 'predeterminado' | translate }}</label>
           <input id="satellite-streets-v12" type="radio" name="rtoggle" class="ms-3" value="satellite">
-          <label for="satellite-streets-v12">Satélite</label>
+          <label for="satellite-streets-v12">{{ 'satelite' | translate }}</label>
           <input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
-          <label for="outdoors-v12">Relieve</label>
+          <label for="outdoors-v12">{{ 'relieve' | translate }}</label>
           <input id="light-v11" type="radio" name="rtoggle" value="light" class="ms-3">
-          <label for="light-v11">Claro</label>
+          <label for="light-v11">{{ 'claro' | translate }}</label>
           <input id="dark-v11" type="radio" name="rtoggle" value="dark" class="ms-3">
-          <label for="dark-v11">Oscuro</label>
+          <label for="dark-v11">{{ 'oscuro' | translate }}</label>
         </div>
       </div>
     </div>

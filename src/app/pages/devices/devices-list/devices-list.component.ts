@@ -64,7 +64,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   totalPages = 5;
   currentPage = 1;
-  cantPage = 16;
+  cantPage = 10;
   data: any[]= [];
   page= 1;
 

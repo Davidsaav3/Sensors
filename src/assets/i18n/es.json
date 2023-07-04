@@ -93,5 +93,30 @@
     "devices.edit.m4.2" : "Hay dos sensores activados en la misma posición.",
     "devices.edit.m5.1" : "Eliminar device ?",
     "devices.edit.m5.2" : "Esta acción no es rebersible. Se borrará definitivamente este Device.",
-    "devices.edit.rest" : "Restablecer posición"
+    "devices.edit.rest" : "Restablecer posición",
+
+    "sensors.general" : "General",
+    "sensors.time_general" : "Tiempo general",
+    "devices.sensors.specific" : "Específico",
+    "devices.sensors.time_specific" : "Tiempo Específico",
+
+    "predeterminado" : "Predeterminado",
+    "satelite" : "Satélite",
+    "relieve" : "Relieve",
+    "claro" : "Claro",
+    "oscuro" : "Oscuro",
+    "deselect" : "Deseleccionar punto",
+    "device" : "Dispositivo",
+    "sensors.all_devices" : "Todos los Dispositivos",
+    "no_devices" : "Dispositivos no encontrados, desactive filtros",
+    "loading" : "Cargando...",
+    "no_sensors" : "Sensores no encontrados, desactive filtros",
+
+    "created" : "Creación",
+    "mod" : "Modificación",
+    "first" : "Primera página",
+    "last" : "Ultima página",
+    "res" : "Resultado por página",
+    "sin" : "Sin sensores"
+
 }

@@ -92,6 +92,30 @@
     "devices.edit.m4.2" : "There are two sensors activated in the same position.",
     "devices.edit.m5.1" : "Delete device ?",
     "devices.edit.m5.2" : "This action is not reversible. This Device will be permanently deleted.",
-    "devices.edit.rest" : "Reset Position"
+    "devices.edit.rest" : "Reset Position",
+
+    "sensors.general" : "General",
+    "sensors.time_general" : "Time general",
+    "devices.sensors.specific" : "Specific",
+    "devices.sensors.time_specific" : "Time Specific",
+
+    "predeterminado" : "Default",
+    "satelite" : "satelite",
+    "relieve" : "Relief",
+    "claro" : "Light",
+    "oscuro" : "Dark",
+    "deselect" : "Deselect point",
+    "device" : "Device",
+    "sensors.all_devices" : "All Devices",
+    "no_devices" : "Devices not found, disable filters",
+    "loading" : "Loading...",
+    "no_sensors" : "Sensors not found, disable filters",
+
+    "created" : "Creation",
+    "mod" : "Modification",
+    "first" : "First page",
+    "last" : "Last page",
+    "res" : "Result per page",
+    "sin" : "without  sensors"
 
 }

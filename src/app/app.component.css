@@ -47,7 +47,11 @@
 }
 
 .marcado{
-  background-color: gainsboro;
+  background-color: #E3E3E3;
+}
+
+th{
+  border-radius: 7px;
 }
 
 .floating-content {
@@ -334,12 +338,11 @@ a{
   }
 
   ::ng-deep .ng-value{
-    background-color: #5c636a;
+    background-color: #E3E3E3;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     padding-left: 0.4em;
     padding-right: 0.4em;
-    color: #fff;
     border-radius: 8px;
     margin: 0.2em;
   }

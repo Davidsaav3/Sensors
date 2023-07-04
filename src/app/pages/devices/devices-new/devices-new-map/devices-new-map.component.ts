@@ -76,8 +76,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   ampliar(){
     this.map?.resize();
   }
+
   
-  create(position: any){
+  create(lon: any, lat: any){
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
       if(this.no_inicia==false){
@@ -85,7 +86,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
         this.map = new mapboxgl.Map({
           container: this.divMap?.nativeElement, // container ID
           style: 'mapbox://styles/mapbox/streets-v12', // style URL
-          center: [position.coords.longitude, position.coords.latitude],
+          center: [lon, lat],
           zoom: this.zoom, // starting zoom
       });
       }
@@ -126,48 +127,65 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
-    navigator.geolocation.getCurrentPosition(position => { 
-    this.map= this.create(position);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => { 
+          this.map= this.create(position.coords.longitude, position.coords.latitude);
+          this.aux();
+        },
+        (error) => {
+          this.map= this.create(-3.7034137886912504,40.41697654880073);
+          console.log("Error al obtener la ubicación:", error);
+          this.aux()
+        }
+      );
+    } 
+    else {
+      this.map= this.create(-3.7034137886912504,40.41697654880073);
+      console.log("Geolocalización no compatible con el navegador.");
+      this.aux();
+    }
 
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-      positionOptions: {
-      enableHighAccuracy: true
-      },
-      // When active the map will receive updates to the device's location as it changes.
-      trackUserLocation: true,
-      // Draw an arrow next to the location dot to indicate which direction the device is heading.
-      showUserHeading: true
-      })
-    );
     
-    this.map.addControl(new mapboxgl.NavigationControl());
+  }
 
-    this.map.on('click', (e) => {
-      this.createMarker(e.lngLat.wrap());
-      this.no_inicia= true;
-      this.ngAfterViewInit();
-    });
-
-    let layerList = document.getElementById('menu');
-    if (layerList != null) {
-      let inputs = layerList.getElementsByTagName('input');
-      if (inputs != null) {
-        const inputArray = Array.from(inputs); // Convertir a array
-        
-        for (const input of inputArray) {
-          input.onclick = (layer: any) => {
-            const layerId = layer.target.id;
-            if (this.map != null) {
-              this.map.setStyle('mapbox://styles/mapbox/' + layerId);
-            }
-          };
+  aux(){
+    if(this.map!=undefined){
+      this.map.addControl(
+        new mapboxgl.GeolocateControl({
+        positionOptions: {
+        enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserHeading: true
+        })
+      );
+      
+      this.map.addControl(new mapboxgl.NavigationControl());
+  
+      this.map.on('click', (e) => {
+        this.createMarker(e.lngLat.wrap());
+        this.no_inicia= true;
+        this.ngAfterViewInit();
+      });
+  
+      let layerList = document.getElementById('menu');
+      if (layerList != null) {
+        let inputs = layerList.getElementsByTagName('input');
+        if (inputs != null) {
+          const inputArray = Array.from(inputs); // Convertir a array
           
+          for (const input of inputArray) {
+            input.onclick = (layer: any) => {
+              const layerId = layer.target.id;
+              if (this.map != null) {
+                this.map.setStyle('mapbox://styles/mapbox/' + layerId);
+              }
+            };
+            
+          }
         }
       }
     }
-
-    });
   }
 
 

@@ -3,20 +3,20 @@
   
 	<div id="menu">
 		<input id="streets-v12" type="radio" name="rtoggle" value="streets" checked="checked">
-		<label for="streets-v12">Predeterminado</label>
+		<label for="streets-v12">{{ 'predeterminado' | translate }}</label>
 		<input id="satellite-streets-v12" type="radio" name="rtoggle" class="ms-3" value="satellite">
-		<label for="satellite-streets-v12">Satélite</label>
+		<label for="satellite-streets-v12">{{ 'satelite' | translate }}</label>
 		<input id="outdoors-v12" type="radio" name="rtoggle" value="outdoors" class="ms-3">
-		<label for="outdoors-v12">Relieve</label>
+		<label for="outdoors-v12">{{ 'relieve' | translate }}</label>
 		<input id="light-v11" type="radio" name="rtoggle" value="light" class="ms-3">
-		<label for="light-v11">Claro</label>
+		<label for="light-v11">{{ 'claro' | translate }}</label>
 		<input id="dark-v11" type="radio" name="rtoggle" value="dark" class="ms-3">
-		<label for="dark-v11">Oscuro</label>
+		<label for="dark-v11">{{ 'oscuro' | translate }}</label>
 	</div>
   
 	<div class="floating-range p-2">
 	  <button *ngFor="let colorMarker of markers; let i = index" style="background-color: gray" (click)="flyTo( colorMarker.marker)" class="ps-2 pe-2 d-flex btn btn-infp">
-		<p class="p-0 m-0 pe-1" style="color: aliceblue;">Deseleccionar punto</p><!--{{ currentLngLat }}-->
+		<p class="p-0 m-0 pe-1" style="color: aliceblue;">{{ 'deselect' | translate }}</p><!--{{ currentLngLat }}-->
 		<button type="button ps-4" class="btn-close btn-close-white" aria-label="Close" (click)="deleteMarker(i)"></button>
 	  </button>
 	</div>

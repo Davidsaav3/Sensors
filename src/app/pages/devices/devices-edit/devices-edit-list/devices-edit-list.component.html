@@ -18,8 +18,8 @@
 					<th *ngIf="grande" style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
 					<th *ngIf="grande" style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
 
-          <th style="cursor: pointer;" (click)="get('nodate')" scope="col">Specific</th>
-					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">Time specific</th>
+          <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
+					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
 
 					<th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
 					<th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
