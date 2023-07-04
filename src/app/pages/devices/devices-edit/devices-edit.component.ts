@@ -38,7 +38,6 @@ export class DevicesEditComponent implements OnInit{
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
-  formattedDateTime= '';
   id_actual= 1;
   activeLang='en';
   width: any;
@@ -161,19 +160,15 @@ export class DevicesEditComponent implements OnInit{
   submitForm(loginForm: any) {
     this.contenido.updatedAt= this.fecha;
     this.getlist();
-    //console.log(this.contenido)
     if (loginForm.valid) {
-      //this.DevicesSensorsListComponent.update2();
       fetch(this.update_device, {
         method: "POST",
         body: JSON.stringify(this.contenido),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
-      //this.update2();
       this.act_ok= true;
       this.guardado= true;
-      //console.log('Formulario válido');
     }
     this.submitList();
   }
@@ -189,7 +184,6 @@ export class DevicesEditComponent implements OnInit{
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    //console.log(this.contenido1.sensors)
     for(let quote of this.contenido1.sensors) {
       fetch(this.post_sensors_devices, {
         method: "POST",
@@ -202,7 +196,6 @@ export class DevicesEditComponent implements OnInit{
   }
 
   eliminar(id_actual: any){
-    //console.log(id_actual)
     var contenido3 = {
       id: id_actual,    
     }

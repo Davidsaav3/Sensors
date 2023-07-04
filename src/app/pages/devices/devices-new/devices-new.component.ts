@@ -38,13 +38,28 @@ export class DevicesNewComponent  implements OnInit{
   data: any;
   activeLang='en';
   mostrar=true;
-  ver_rec= false;
   mostrar3= true;
   change= false;
-  grande= false;
   max= 2;
   buscar='Buscar';
-  buscar1= 'id';
+
+  contenido = {
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
+    lat: this.sharedLat,
+    lon: this.sharedLon,
+    cota: 10,
+    timezone: '+01:00',
+    enable: 0,
+    organizationid: '',
+    createdAt: '',
+    updatedAt: '',
+  }
 
   contenido1 = {
     sensors : [
@@ -58,13 +73,6 @@ export class DevicesNewComponent  implements OnInit{
         orden: 1,
         type_name: 1,
       }]
-  }
-
-  busqueda = {
-    value: '', 
-    sel_type: 0,
-    sensors_2: 2,
-    sel_enable: 2
   }
 
   contenido3 = {
@@ -84,22 +92,11 @@ export class DevicesNewComponent  implements OnInit{
       }]
   }
 
-  contenido = {
-    uid: '',    
-    alias: '', 
-    origin: '',
-    description_origin: '',
-    application_id: '',
-    topic_name: '',
-    typemeter: '',
-    lat: this.sharedLat,
-    lon: this.sharedLon,
-    cota: 10,
-    timezone: '+01:00',
-    enable: 0,
-    organizationid: '',
-    createdAt: '',
-    updatedAt: '',
+  busqueda = {
+    value: '', 
+    sel_type: 0,
+    sensors_2: 2,
+    sel_enable: 2
   }
 
   ampliar(){

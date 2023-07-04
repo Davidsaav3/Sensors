@@ -23,7 +23,6 @@ export class DevicesNewListComponent  implements OnInit{
 
   data: any;
   data6: any= null;
-  data7: any= null;
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
   ver_can= 1000;
@@ -33,20 +32,8 @@ export class DevicesNewListComponent  implements OnInit{
 
   sin= true;
   eliminarlo: any;
-  act_not= false;
-  act_ok= false;
-  eliminar_ok= false;
-  eliminar_not= false;
   mostrar=true;
-
-  textoBusqueda: string = "";
   desde: number= 1;
-  usuarios: any;
-  primero: boolean = true;
-  ultimo: boolean = false;
-  ultimaPage: number= 1;
-  paginas: any;
-  public hayUsu: Boolean= true;
   duplicados= false;
   grande= true;
 
@@ -85,11 +72,9 @@ export class DevicesNewListComponent  implements OnInit{
   ngOnInit(): void {
     this.desde = 1;
     setTimeout(() => { this.get('xd')}, 50);
-    //console.log(this.contenido)
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
         this.grande = data;
-        //console.log(this.grande)
       });
     }, 10);
   }

@@ -27,7 +27,6 @@ export class SensorsComponent implements OnInit{
   update_sensors: string = 'http://localhost:5172/api/update/sensors_types';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
 
-  cargando= false;
   alt_1_a=true;
   alt_1_b=false;
   alt_2_a=true;
@@ -43,10 +42,8 @@ export class SensorsComponent implements OnInit{
   alt_7_a=true;
   alt_7_b=false;
 
+  cargando= false;
   data: any;
-  data2: any;
-  data3: any;
-
   width: any;
   ruta='';
   ver_dup= 1000;
@@ -62,11 +59,6 @@ export class SensorsComponent implements OnInit{
   guardar_ok: any= false;
   guardar_not: any= false;
   dup= false;
-
-  buscar='Buscar';
-  buscar1='type';
-  marcado= 'orden';
-
   guardado= false;
   edit_change= false;
   new_change= false;
@@ -74,6 +66,12 @@ export class SensorsComponent implements OnInit{
   dup_not=false;
   id= 0;
   type_2='';
+
+  buscar='Buscar';
+  buscar1='type';
+  marcado= 'orden';
+
+
 
   contenido = {
     id: '', 
@@ -101,12 +99,12 @@ export class SensorsComponent implements OnInit{
     correction_time_general: null,
   }
 
-  busqueda = {
-    value: '', 
-  }
-
   contenido3 = {
     id: '',
+  }
+
+  busqueda = {
+    value: '', 
   }
 
   ngOnInit(): void {
@@ -172,7 +170,6 @@ export class SensorsComponent implements OnInit{
       this.get('xd','ASC');
       this.get('xd','ASC');
       this.guardado= true;
-      //console.log('Formulario válido');
     }
     this.new_change=false;
     this.edit_change=false;
@@ -201,7 +198,6 @@ export class SensorsComponent implements OnInit{
         this.id= parseInt(data[0].id+1);
         //console.log(this.id) //this.num(this.id)
       })
-      //console.log('Formulario válido');
     }
     this.new_change=false;
     this.edit_change=false;

@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DevicesEditComponent } from '../devices-edit.component';
 import { DataSharingService } from '../../../../services/data_sharing.service';
 
 @Injectable({
@@ -15,19 +14,16 @@ import { DataSharingService } from '../../../../services/data_sharing.service';
 })
 export class DevicesEditListComponent  implements OnInit{
 
-  constructor(private xdxd: DevicesEditComponent,private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
-
+  constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
+  id= parseInt(this.rutaActiva.snapshot.params['id']);
 
   data: any;
-  data6: any= null;
-  data7: any= null;
-
-  id= parseInt(this.rutaActiva.snapshot.params['id']);
+  data1: any= null;
   ver_can= 1000;
   activeLang='en';
   buscar1='orden';
@@ -36,20 +32,7 @@ export class DevicesEditListComponent  implements OnInit{
   eliminarlo: any;
   cont= 0;
   grande= true;
-
-  act_not= false;
-  act_ok= false;
-  eliminar_ok= false;
-  eliminar_not= false;
-  mostrar=true;
-  textoBusqueda: string = "";
   desde: number= 1;
-  usuarios: any;
-  primero: boolean = true;
-  ultimo: boolean = false;
-  ultimaPage: number= 1;
-  paginas: any;
-  hayUsu: Boolean= true;
   duplicados= false;
 
   contenido1 = {
@@ -84,24 +67,22 @@ export class DevicesEditListComponent  implements OnInit{
       }]
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // Inicialización
     setTimeout(() =>{this.get('xd')}, 50);
     this.desde = 1;
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
         this.grande = data;
-        //console.log(this.grande)
       });
     }, 10);
-    //setTimeout(() =>{this.cambiar()}, 100);
   }
 
-  updatesharedList() {
-    //console.log(this.contenido.sensors)
+  updatesharedList() { // Enviar sensores a device-edit
     this.dataSharingService.updatesharedList(this.contenido.sensors);
+    //console.log(this.contenido.sensors)
   }
 
-  cambiar(num: any){
+  cambiar(num: any){ // Asocia un order al sensor segun su type
     setTimeout(() =>{
       fetch(`${this.id_sensors}/${this.contenido.sensors[num].id_type_sensor}`)
       .then(response => response.json())
@@ -111,7 +92,7 @@ export class DevicesEditListComponent  implements OnInit{
     }, 10);
   }
 
-  get(id: any){
+  get(id: any){ // Obtener datos del dispositivo
     if(id!='xd'){
       this.buscar1= id;
     }
@@ -119,7 +100,7 @@ export class DevicesEditListComponent  implements OnInit{
     .then(response => response.json())
     .then(data => {
       this.contenido.sensors= data;
-      if(this.data6!=null){
+      if(this.data1!=null){
         this.sin= false;
       }
     })
@@ -135,16 +116,13 @@ export class DevicesEditListComponent  implements OnInit{
     })
   }
 
-  vari(id: any){
+  vari(id: any){ // Añadir a lista compartida
     this.eliminarlo= id;
-    //console.log(id);
-    //console.log(this.eliminarlo);
     this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
-    //console.log(this.contenido.sensors)
     this.updatesharedList();
   }
 
-  anyadir(){
+  anyadir(){ // Añadir a lista compartida
     let contenido2 = {
       id: this.contenido.sensors.length, 
       enable: 0, 
@@ -157,14 +135,12 @@ export class DevicesEditListComponent  implements OnInit{
       correction_specific: '',
       correction_time_specific: '',
     }
-    //this.contenido2.id= this.cont;
     this.contenido.sensors.push(contenido2);
-    //this.cont++;
     this.sin= true;
     this.updatesharedList();
   }
 
-  eliminar(){
+  eliminar(){ // Elimina sensor de la lista
     this.contenido.sensors= this.contenido.sensors.filter((item) => item == this.eliminarlo)
   }
 

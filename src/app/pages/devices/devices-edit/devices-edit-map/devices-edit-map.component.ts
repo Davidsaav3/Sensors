@@ -71,7 +71,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     enable: 0,
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // Inicializador
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.sharedLat = data;
     });
@@ -85,7 +85,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     }, 10);
   }
 
-  recargar(){
+  recargar(){ // 
     const id_actual= this.rutaActiva.snapshot.params['id']
     fetch(`${this.id_device}/${id_actual}`)
     .then(response => response.json())
@@ -227,7 +227,6 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
 
   createMarker(marker: mapboxgl.LngLat) {
     if ( !this.map ) return;
-    //const color = '#xxxxxx'.replace(/x/g, y=>(Math.random()*16|0).toString(16));
     const color= '#0dcaf0';
     const lngLat = marker;
     this.addMarker( lngLat, color );
