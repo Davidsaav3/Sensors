@@ -53,19 +53,19 @@ export class DevicesEditComponent implements OnInit{
   change= false;
 
   contenido = {    
-    id: null,    
-    uid: null,    
-    alias: null, 
-    origin: null,
-    description_origin: null,
-    application_id: null,
-    topic_name: null,
-    typemeter: null,
+    id: '',    
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
     lat: this.sharedLat,
     lon: this.sharedLon,
     cota: 10,
     timezone: '+01:00',
-    organizationid: null,
+    organizationid: '',
     enable: 0,
     updatedAt: ''
   }
@@ -118,6 +118,7 @@ export class DevicesEditComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataSharingService.updatesharedAmp(false);
     this.get()
     this.getlist();
 

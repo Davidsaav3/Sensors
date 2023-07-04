@@ -63,8 +63,8 @@ export class DevicesEditListComponent  implements OnInit{
         valuemax: 1,
         valuemin: 1,
         orden: 1,
-        specific: null,
-        time_specific: null,
+        correction_specific: '',
+        correction_time_specific: '',
       }]
   }
 
@@ -79,8 +79,8 @@ export class DevicesEditListComponent  implements OnInit{
         nodata: true,
         orden: 1,
         type_name: 1,
-        specific: null,
-        time_specific: null,
+        correction_specific: '',
+        correction_time_specific: '',
       }]
   }
 
@@ -138,37 +138,6 @@ export class DevicesEditListComponent  implements OnInit{
     })
   }
 
-  submitForm(loginForm: any){
-    /*if(loginForm.valid){  
-      this.xdxd.submit();
-      var contenido4 = {
-        id: this.id,   
-      }
-      fetch(this.delete_all_sensors_devices, {
-        method: "POST",
-        body: JSON.stringify(contenido4),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json()) 
-
-      //console.log(this.contenido.sensors)
-
-      console.log('hey')
-      for(let quote of this.contenido.sensors) {
-        fetch(this.post_sensors_devices, {
-          method: "POST",
-          body: JSON.stringify(quote),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        .then(response => response.json()) 
-      }
-      this.act_ok= true;
-      //console.log(this.act_ok)
-      this.get('xd')
-      this.get('xd')
-    }*/
-  }
-
   vari(id: any){
     this.eliminarlo= id;
     console.log(id);
@@ -188,8 +157,8 @@ export class DevicesEditListComponent  implements OnInit{
       nodata: true,
       orden: 1,
       type_name: 1,
-      specific: null,
-      time_specific: null,
+      correction_specific: '',
+      correction_time_specific: '',
     }
     //this.contenido2.id= this.cont;
     this.contenido.sensors.push(contenido2);

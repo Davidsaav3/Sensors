@@ -14,7 +14,7 @@ con.connect(function(err) {
   });
   /* device_configurations /////////////////////////////////////////////////*/
   if (err) throw err;
-  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6/:x1/:x2/:y1/:y2", (req,res)=>{  /*/ GET  /*/
+  app.get("/api/get/device_configurations/:type/:type1/:type2/:type3/:type4/:type5/:type6/:x1/:x2/:y1/:y2/:type7", (req,res)=>{  /*/ GET  /*/
   const type0 = req.params.type;
   const type1 = req.params.type1;
   const type2 = req.params.type2;  
@@ -22,25 +22,38 @@ con.connect(function(err) {
   const tam = parseInt(req.params.type5);
   const act = (req.params.type4-1)*parseInt(req.params.type5);
   const type6 = req.params.type6;
+  const type7 = req.params.type7;
 
   const x1 = req.params.x1;
   const x2 = req.params.x2;
   const y1 = req.params.y1;
   const y2 = req.params.y2;
 
-  //console.log(x1)
-  //console.log(x2)
-  //console.log(y1)
-  //console.log(y2)
-
   let array= [];
   var array2 = type2.split(",");
   for (var i = 0; i < array2.length; i++) {
-    array.push(`(SELECT id_device FROM sensors_devices Where id_type_sensor=${array2[i]})`);
+    if(type7==0){
+      array.push(`(SELECT id_device FROM sensors_devices Where id_type_sensor=${array2[i]} AND enable=0)`);
+    }
+    if(type7==1){
+      array.push(`(SELECT id_device FROM sensors_devices Where id_type_sensor=${array2[i]} AND enable=1)`);
+    }
+    if(type7==2){
+      array.push(`(SELECT id_device FROM sensors_devices Where id_type_sensor=${array2[i]})`);
+    }
   }
-  let consulta= array.join(" AND id IN ")
-  console.log(consulta)
-  console.log(array2)
+  let consulta= '';
+  if(type7==0){
+    consulta= array.join(" OR id IN ")
+  }
+  if(type7==1){
+    consulta= array.join(" AND id IN ")
+  }
+  if(type7==2){
+    consulta= array.join(" AND id IN ")
+  }
+  //console.log(consulta)
+  //console.log(array2)
 
   if(x1!='0' && x2!='0' && y1!='0' && y2!='0'){
     let xx1= parseInt(x1);
@@ -51,12 +64,13 @@ con.connect(function(err) {
     con.query(`SELECT * FROM device_configurations WHERE lon BETWEEN ${xx1} AND ${xx2} AND lat BETWEEN ${yy1} AND ${yy2}`, function (err, result) {
       if (err) throw err;
         res.send(result)
-    }); 
+    });
   }
   if(x1=='0' && x2=='0' && y1=='0' && y2=='0'){
     if(type0=='Buscar'){
       if(type2!=-1 || type3!=2){
         if(type2!=-1 && type3!=2 && type2!=-2){
+          console.log("ZONA 1")
           con.query(`SELECT * FROM device_configurations where id IN ${consulta} AND enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
             if (err) throw err;
               res.send(result)
@@ -64,18 +78,22 @@ con.connect(function(err) {
         }
         else{
             if(type2!=-1 && type2!=-2){
+              console.log("ZONA 2")
+              console.log(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`)
               con.query(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
                 if (err) throw err;
                   res.send(result)
               }); 
             }
             if(type2==-2){
+              console.log("ZONA 3")
               con.query(`SELECT * FROM device_configurations where id NOT IN (SELECT id_device FROM sensors_devices) order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
                 if (err) throw err;
                   res.send(result)
               }); 
             }
           if(type3!=2){
+            console.log("ZONA 4")
             con.query(`SELECT * FROM device_configurations where enable=${type3} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
               if (err) throw err;
                 res.send(result)
@@ -85,6 +103,7 @@ con.connect(function(err) {
       
       }
       else{
+        console.log("ZONA 5")
         con.query(`SELECT * FROM device_configurations order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) {
           if (err) throw err;
             res.send(result)
@@ -92,6 +111,7 @@ con.connect(function(err) {
       }
     }
     else{
+      console.log("ZONA 6")
         con.query(`SELECT * FROM device_configurations WHERE uid LIKE '%${type0}%' OR alias LIKE '%${type0}%' OR origin LIKE '%${type0}%' OR description_origin LIKE '%${type0}%' OR application_id LIKE '%${type0}%' OR topic_name LIKE '%${type0}%' OR typemeter LIKE '%${type0}%' OR lat LIKE '%${type0}%' OR lon LIKE '%${type0}%' OR cota LIKE '%${type0}%' OR timezone LIKE '%${type0}%' OR enable LIKE '%${type0}%' OR organizationid LIKE '%${type0}%' LIMIT ${tam} OFFSET ${act};`, function (err, result) {
         if (err) throw err;
           res.send(result)
@@ -206,8 +226,6 @@ con.connect(function(err) {
   app.get("/api/id_device/sensors_devices/:id/:type", (req,res)=>{  /*/ GET ID_DEVICES  /*/
   const id_device = parseInt(req.params.id);
   const type1 = parseInt(req.params.type);
-  ////console.log(id_device);
-  ////console.log(type1);
 
     con.query(`SELECT orden, enable, id_device, id_type_sensor, id, datafield, nodata, (SELECT type FROM sensors_types as t WHERE s.id_type_sensor = t.id) As type_name FROM sensors_devices as s WHERE id_device = '${id_device}' order by orden`, function (err, result) {
       if (err) throw err;
@@ -221,7 +239,13 @@ if (err) throw err;
   const id_device = req.body.id_device;
   const id_type_sensor = req.body.id_type_sensor;
   const datafield = req.body.datafield;
+  const correction_specific = req.body.correction_specific;
+  const correction_time_specific = req.body.correction_time_specific;
   let nodata = req.body.nodata;
+
+  console.log(correction_specific)
+  console.log(correction_time_specific)
+
   if(nodata==true){
     nodata= 1;
   }
@@ -230,7 +254,7 @@ if (err) throw err;
   }
   console.log(nodata)
 
-    con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata) VALUES (?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata], function (err, result) {
+    con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata,correction_specific,correction_time_specific) VALUES (?,?,?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata,correction_specific,correction_time_specific], function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -240,7 +264,7 @@ if (err) throw err;
   const id1 = parseInt(req.params.id1);
   const id2 = parseInt(req.params.id2);
 
-    con.query("INSERT INTO sensors_devices (orden, enable, id_device, id_type_sensor, datafield, nodata) SELECT orden, enable, ?, id_type_sensor, datafield, nodata FROM sensors_devices WHERE id_device = ?",[id2,id1], function (err, result) {
+    con.query("INSERT INTO sensors_devices (orden, enable, id_device, id_type_sensor, datafield, nodata,correction_specific,correction_time_specific) SELECT orden, enable, ?, id_type_sensor, datafield, nodata,correction_specific,correction_time_specific FROM sensors_devices WHERE id_device = ?",[id2,id1], function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -308,7 +332,7 @@ if (err) throw err;
   const id01 = parseInt(req.params.id);
   const type = req.params.type;
 
-  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin) SELECT ?,metric,description,errorvalue,valuemax,valuemin FROM sensors_types WHERE id=?;",[type,id01], function (err, result) {
+  con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin,correction_general,correction_time_general) SELECT ?,metric,description,errorvalue,valuemax,valuemin,correction_general,correction_time_general FROM sensors_types WHERE id=?;",[type,id01], function (err, result) {
     if (err) throw err;
       res.send(result)
   });
@@ -322,7 +346,9 @@ if (err) throw err;
     const valuemax = req.body.valuemax;
     const valuemin = req.body.valuemin;
     const orden = req.body.orden;
-    con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin,orden) VALUES (?,?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin,orden], function (err, result) {
+    const correction_general= req.body.correction_general;
+    const correction_time_general= req.body.correction_time_general;
+    con.query("INSERT INTO sensors_types (type,metric,description,errorvalue,valuemax,valuemin,orden,correction_general,correction_time_general) VALUES (?,?,?,?,?,?,?,?,?)",[type, metric, description,errorvalue,valuemax,valuemin,orden,correction_general,correction_time_general], function (err, result) {
       if (err) throw err;
         res.send(result)
     });
@@ -337,8 +363,13 @@ if (err) throw err;
     valuemax = req.body.valuemax;
     valuemin = req.body.valuemin;
     id99 = req.body.id;
+    correction_general= req.body.correction_general;
+    correction_time_general= req.body.correction_time_general;
 
-    con.query("UPDATE sensors_types SET type=?,metric=?,description=?,errorvalue=?,valuemax=?,valuemin=? WHERE id= ?",[type9, metric, description,errorvalue,valuemax,valuemin,id99], function (err, result) {
+    console.log(correction_general);
+    console.log(correction_time_general);
+
+    con.query("UPDATE sensors_types SET type=?,metric=?,description=?,errorvalue=?,valuemax=?,valuemin=?,correction_general=?,correction_time_general=? WHERE id= ?",[type9, metric, description,errorvalue,valuemax,valuemin,correction_general,correction_time_general,id99], function (err, result) {
       if (err) throw err;
         res.send(result)
         console.log(result)
@@ -354,6 +385,6 @@ if (err) throw err;
   });
 });
 
-  app.listen(5172, ()=>{
-    console.log(`Sirviendo: http://localhost:5172/api/`)
-  })
+app.listen(5172, ()=>{
+  console.log(`Sirviendo: http://localhost:5172/api/`)
+})

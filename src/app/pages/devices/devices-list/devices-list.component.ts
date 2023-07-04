@@ -172,6 +172,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   busqueda = {
     value: '', 
     sel_type: 0,
+    sensors_2: 2,
     sel_enable: 2
   }
 
@@ -216,6 +217,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
           valuemax: 1,
           valuemin: 1,});
     this.busqueda.sel_enable= 2;
+    this.busqueda.sensors_2= 2;
     this.Page(1);
   }
 
@@ -319,7 +321,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let m2= 100000;
       console.log(this.contenido4.sensors[0].id)
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -327,7 +329,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         //console.log(this.totalPages)
       })
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -578,28 +580,65 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       /*this.map.on('move', () => {
         this.getCornerCoordinates();
       });*/
-  
+
+      /* XD */
+
+     
+
+      /* XD */
   
       this.map.on('style.load', () => {
-        // Insert the layer beneath any symbol layer.
-        let layers;
-        if (this.map != null) {
-          layers = this.map.getStyle().layers;
-        }
-        let labelLayerId;
-        if (layers !== undefined) {
-          const labelLayer = layers.find(
-            (layer) => layer.type === 'symbol' && layer.layout && layer.layout['text-field']
-          );
-          if (labelLayer) {
-            labelLayerId = labelLayer.id;
-          }
-        } 
-  
-        // The 'building' layer in the Mapbox Streets
-        // vector tileset contains building height data
-        // from OpenStreetMap.
+
         if(this.map!=null){
+        this.map.addSource('places', {
+          'type': 'geojson',
+          'data': {
+            'type': 'FeatureCollection',
+            'features': [
+              {
+              'type': 'Feature',
+              'properties': {
+                'description': 
+                `
+                  <strong>Dispositivo 1</strong>
+                  <p>Uid: Hola</p>
+                  <p>Uid: Hola</p>
+                  <div style="display: inline-block; height: min-content;">
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                  </div>
+                `
+              },
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [-77.007481, 38.876516]
+              }
+              }
+            ]
+          }
+        });
+        }
+
+        if(this.map!=null){
+          this.map.addLayer({
+            'id': 'places',
+            'type': 'circle',
+            'source': 'places',
+            'paint': {
+            'circle-color': '#4264fb',
+            'circle-radius': 6,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#ffffff'
+            }
+          });
+          /*if(this.map!=null){
           this.map.addLayer(
           {
           'id': 'add-3d-buildings',
@@ -637,8 +676,76 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
           },
           labelLayerId
           );
+        }*/
         }
-         });
+
+
+  
+ 
+        // Create a popup, but don't add it to the map yet.
+        const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
+        
+        if(this.map!=null){
+
+        this.map.on('mouseenter', 'places', (e) => {
+          // Change the cursor style as a UI indicator.
+          if(this.map!=undefined){
+              this.map.getCanvas().style.cursor = 'pointer';
+              
+              if(e!=null && e.features!=null && e.features[0]!=null && e.features[0].geometry!=null && e.features[0].properties!=null){
+                //const coordinates = e.features[0].geometry.coordinates.slice();
+                const coordinates: mapboxgl.LngLatLike = [-77.007481, 38.876516];
+                const description = e.features[0].properties["description"];
+              
+  
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+                  
+                // Populate the popup and set its coordinates
+                // based on the feature found.
+                popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
+              }
+            }
+        });
+            
+          this.map.on('mouseleave', 'places', () => {
+            if(this.map!=undefined){
+              this.map.getCanvas().style.cursor = '';
+              popup.remove();
+            }
+          });
+        }
+
+        // Insert the layer beneath any symbol layer.
+        let layers;
+        if (this.map != null) {
+          layers = this.map.getStyle().layers;
+        }
+        let labelLayerId;
+        if (layers !== undefined) {
+          const labelLayer = layers.find(
+            (layer) => layer.type === 'symbol' && layer.layout && layer.layout['text-field']
+          );
+          if (labelLayer) {
+            labelLayerId = labelLayer.id;
+          }
+        } 
+
+
+  
+        // The 'building' layer in the Mapbox Streets
+        // vector tileset contains building height data
+        // from OpenStreetMap.
+      
+
+      });
   
       let layerList = document.getElementById('menu');
       if (layerList != null) {

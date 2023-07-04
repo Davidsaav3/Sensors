@@ -55,19 +55,19 @@ export class DevicesNewComponent  implements OnInit{
   }
 
   contenido = {
-    uid: null,    
-    alias: null, 
-    origin: null,
-    description_origin: null,
-    application_id: null,
-    topic_name: null,
-    typemeter: null,
+    uid: '',    
+    alias: '', 
+    origin: '',
+    description_origin: '',
+    application_id: '',
+    topic_name: '',
+    typemeter: '',
     lat: this.sharedLat,
     lon: this.sharedLon,
     cota: 10,
     timezone: '+01:00',
     enable: 0,
-    organizationid: null,
+    organizationid: '',
     createdAt: '',
     updatedAt: '',
   }
@@ -93,6 +93,7 @@ export class DevicesNewComponent  implements OnInit{
   }
 
   ngOnInit(): void {
+    this.dataSharingService.updatesharedAmp(false);
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.contenido.lat = data;
     });
@@ -122,9 +123,6 @@ export class DevicesNewComponent  implements OnInit{
   }
   updatesharedLon() {
     this.dataSharingService.updatesharedLon(this.contenido.lon);
-  }
-
-  submit(){
   }
 
   submitList() {

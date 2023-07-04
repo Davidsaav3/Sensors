@@ -337,6 +337,11 @@ a{
     width: 30px !important;
   }
 
+  .mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+
   ::ng-deep .ng-value{
     background-color: #E3E3E3;
     padding-top: 0.2em;

@@ -37,7 +37,7 @@
               <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
             </div>
             <div class="ms-0">
-              <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+              <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="get('xd','ASC')" class="form-select" aria-label="Default select example" id="sensors_2" name="sensors_2" [(ngModel)]="busqueda.sensors_2">
                 <option selected [ngValue]="2">{{ 'sensors.all' | translate }}</option>
                 <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
                 <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
