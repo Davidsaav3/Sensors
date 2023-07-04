@@ -9,7 +9,6 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['../../app.component.css']
 })
 
-
 export class SensorsComponent implements OnInit{
 
   @HostListener('window:resize')
@@ -29,7 +28,6 @@ export class SensorsComponent implements OnInit{
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
 
   cargando= false;
-
   alt_1_a=true;
   alt_1_b=false;
   alt_2_a=true;
@@ -67,7 +65,6 @@ export class SensorsComponent implements OnInit{
 
   buscar='Buscar';
   buscar1='type';
-
   marcado= 'orden';
 
   guardado= false;
@@ -126,9 +123,7 @@ export class SensorsComponent implements OnInit{
 
     const myToastEl = document.getElementById('myToast')
     if(myToastEl!=null){
-      myToastEl.addEventListener('hidden.bs.toast', () => {
-        // do something...
-        })
+      myToastEl.addEventListener('hidden.bs.toast', () => {})
     }
   }
 
@@ -145,14 +140,15 @@ export class SensorsComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
+
     this.cargando= true;
     fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
     .then((response) => response.json())
     .then(quotesData => {
       this.cargando= false
       this.data = quotesData
-   }
-  );
+    }
+    );
   }
 
   public cambiarLenguaje() {
@@ -176,10 +172,7 @@ export class SensorsComponent implements OnInit{
       this.get('xd','ASC');
       this.get('xd','ASC');
       this.guardado= true;
-
       //console.log('Formulario válido');
-    } else {
-      //console.log('Formulario inválido');
     }
     this.new_change=false;
     this.edit_change=false;
@@ -206,12 +199,9 @@ export class SensorsComponent implements OnInit{
       .then(response => response.json())
       .then(data => {
         this.id= parseInt(data[0].id+1);
-        ////console.log(this.id)
-        //this.num(this.id)
+        //console.log(this.id) //this.num(this.id)
       })
       //console.log('Formulario válido');
-    } else {
-      //console.log('Formulario inválido');
     }
     this.new_change=false;
     this.edit_change=false;
@@ -237,14 +227,12 @@ export class SensorsComponent implements OnInit{
         for (let index = 0; index < data.length; index++) {
           nombresExistentes.add(data[index].type);
         }
-
         let type_2= type;
-        console.log(type);
+        //console.log(type);
         while(nombresExistentes.has(type_2)) {
           type_2 = `${type}_${contador}`;
           contador++;
         }
-
         this.m1();
         //this.mostrar2=true;
         fetch(`${this.id_sensors}/${num}`)
@@ -258,42 +246,17 @@ export class SensorsComponent implements OnInit{
         this.get('xd','ASC');
         this.tam();
         this.get('xd','ASC');
-
         //
         fetch(this.max_sensors)
         .then(response => response.json())
         .then(data => {
           this.id= parseInt(data[0].id);
-          ////console.log(this.id)
+          //console.log(this.id)
           this.contenido_new.id= data[0].id;
           this.contenido_new.type= type_2;
         })
-
         this.edit_change= true;
         this.dup= true;
-
-        /*this.dup_ok=true;
-        setTimeout(() => {
-          this.dup_ok= false;
-        }, 2000);
-
-        fetch(`${this.duplicate_sensors}/${num}/${type_2}`, {
-          method: "POST",
-          body: JSON.stringify(this.contenido3),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        .then(response => response.json())
-        this.dup_ok=true;
-        setTimeout(() => {
-          this.dup_ok= false;
-        }, 2000);
-        fetch(this.max_sensors)
-        .then(response => response.json())
-        .then(data => {
-          this.id= parseInt(data[0].id);
-          ////console.log(this.id)
-          this.num(this.id)
-        })*/
       })
     }
   }
@@ -364,13 +327,12 @@ export class SensorsComponent implements OnInit{
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id+1);
-      ////console.log(this.id)
+      //console.log(this.id)
       //this.num(this.id)
     })
     this.new_change=false;
     this.edit_change=false;
   }
-
 
   num(id_actual: any){
     if(!this.edit_change && !this.new_change){
@@ -401,7 +363,6 @@ export class SensorsComponent implements OnInit{
     }, 500);
   }
 
-
   tam(){
     if (this.mostrar==true || this.mostrar2==true) {
       this.mostrar3= false;
@@ -410,7 +371,6 @@ export class SensorsComponent implements OnInit{
       this.mostrar3= true;
     }
   }
-
 
   borrar(){
     this.busqueda.value= '';

@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['../../app.component.css']
 })
 export class DevicesComponent {
-
   public activeLang = 'es';
 
   constructor(private translate: TranslateService) {
@@ -17,6 +16,4 @@ export class DevicesComponent {
   public cambiarLenguaje() {
     this.translate.use(this.activeLang);
   }
-
-
 }

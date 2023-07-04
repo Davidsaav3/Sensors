@@ -1,9 +1,8 @@
 <app-navbar></app-navbar>
 <form class="row cont0 needs-validation" #loginForm="ngForm">
     <div class="row p-0 m-0" >
-        <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> <!-- [ngClass]="{'c200': !this.mostrar && this.width<980, 'c20': this.mostrar || this.width>=980}" -->
+        <div *ngIf="mostrar3" class="p-0" [ngClass]="{'c200': !this.mostrar, 'c20': this.mostrar}"> 
             <div class="cont1">
-
                 <div class="row c1">
                     <div class="col-12">
                         <div class="row pb-3">
@@ -87,9 +86,8 @@
                                     <div *ngIf="loginForm.controls['topic_name'].errors['email']">Invalid {{ 'devices.edit.topic' | translate }}.</div>
                                 </div>
                             </div>
-                               
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="origin">{{ 'devices.edit.origin' | translate }}</label>
@@ -108,25 +106,18 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-                
                 </div>
-
                 <div class="row c2">
                     <div class="col-12 "> 
                         <app-devices-edit-list></app-devices-edit-list>
                     </div> 
                 </div>
-                
-
             </div>
         </div>
 
         <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3, 'c20': this.mostrar3}">
-            <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- [ngClass]="{'c200': !this.mostrar3 && this.width<980, 'c20': this.mostrar3 || this.width>=980}" -->
-
+            <div class="cont2 ms-lg-3 ms-0 ms-md-0" >
                 <div class="c4 d-flex justify-content-between">
                     <div class="col-3" (click)="recargar()" style="cursor: pointer;">
                         <svg *ngIf="!ver_rec" (mouseover)="ver_rec=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
@@ -231,31 +222,29 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
     <div class="row p-0 m-0">
         <div class="col-12 p-0">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="row">
-                            <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button *ngIf="change==false || this.guardado==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.exit' | translate }}</button>
-						        <button *ngIf="change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">Restablecer datos</button>
-                            </div>
-                            <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button ng-click="ocultar = true" type="button navb" class="btn btn-info navb me-3" style="width: 100%"  (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="row">
                         <div class="col-md-6 col-12 mt-1 pb-3">
-                            <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal9">{{ 'devices.edit.erase_disp' | translate }}</button>
+                            <button *ngIf="change==false || this.guardado==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.exit' | translate }}</button>
+                            <button *ngIf="change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">Restablecer datos</button>
+                        </div>
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button ng-click="ocultar = true" type="button navb" class="btn btn-info navb me-3" style="width: 100%"  (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
+                    <div class="col-md-6 col-12 mt-1 pb-3">
+                        <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal9">{{ 'devices.edit.erase_disp' | translate }}</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -263,83 +252,69 @@
 
 <div class="toast-cont">
     <div *ngIf="act_ok" class="top-0 end-0 p-3">
-      <div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">
-            {{ 'devices.edit.e1' | translate }}
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body"> {{ 'devices.edit.e1' | translate }}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-      </div>
+        </div>
     </div>
-
     <div *ngIf="act_not" class="top-0 end-0 p-3">
-      <div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">
-            {{ 'devices.edit.e2' | translate }}
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+            <div class="toast-body">{{ 'devices.edit.e2' | translate }}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-
-
-
-
-
-
-
-
+</div>
 
 
 <div class="modal fade" id="exampleModal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">Restablecer los datos?</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">Esta acción es irréversible.</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-7">
-                    <button style="width: max-content;" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="restablecer()">Restablecer datos</button>
-                </div>
-                <div class="col-5">
-					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !change}">Cancelar</button>
+            <div class="modal-header" style="border-bottom: 0px;">
+                <h3 class="modal-title">Restablecer los datos?</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <p class="not">Esta acción es irréversible.</p>
+            </div>
+            <div class="modal-footer" style="border-top: 0px;">
+                <div class="row">
+                    <div class="col-7">
+                        <button style="width: max-content;" type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="restablecer()">Restablecer datos</button>
+                    </div>
+                    <div class="col-5">
+                        <button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !change}">Cancelar</button>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 
 <div class="modal fade" id="exampleModal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.edit.m1.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'devices.edit.m1.2' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" routerLink="/devices">{{ 'sensors.delete' | translate }}</button>
+            <div class="modal-header" style="border-bottom: 0px;">
+                <h3 class="modal-title">{{ 'devices.edit.m1.1' | translate }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <p class="not">{{ 'devices.edit.m1.2' | translate }}</p>
+            </div>
+            <div class="modal-footer" style="border-top: 0px;">
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" routerLink="/devices">{{ 'sensors.delete' | translate }}</button>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 

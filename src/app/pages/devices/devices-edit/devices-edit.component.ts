@@ -31,14 +31,14 @@ export class DevicesEditComponent implements OnInit{
     this.fecha= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
-  formattedDateTime= '';
   delete_device: string = 'http://localhost:5172/api/delete/device_configurations';
   update_device: string = 'http://localhost:5172/api/update/device_configurations';
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
-
   id= parseInt(this.rutaActiva.snapshot.params['id']);
+
+  formattedDateTime= '';
   id_actual= 1;
   activeLang='en';
   width: any;
@@ -47,7 +47,6 @@ export class DevicesEditComponent implements OnInit{
   mostrar3= true;
   ver_rec= false;
   guardado= false;
-
   act_ok= false;
   act_not= false;
   change= false;
@@ -94,7 +93,6 @@ export class DevicesEditComponent implements OnInit{
     this.change= false;
   }
 
-
   ampliar(){
     this.mostrar3=true;
     this.dataSharingService.updatesharedAmp(true);
@@ -125,7 +123,6 @@ export class DevicesEditComponent implements OnInit{
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.contenido.lat = data;
     });
-
     this.dataSharingService.sharedLon$.subscribe(data => {
       this.contenido.lon = data;
     });
@@ -138,8 +135,6 @@ export class DevicesEditComponent implements OnInit{
       this.contenido1.sensors= data;
     });
   }
-
-
 
   get(){
     fetch(`${this.id_device}/${this.id}`)
@@ -166,7 +161,7 @@ export class DevicesEditComponent implements OnInit{
   submitForm(loginForm: any) {
     this.contenido.updatedAt= this.fecha;
     this.getlist();
-    console.log(this.contenido)
+    //console.log(this.contenido)
     if (loginForm.valid) {
       //this.DevicesSensorsListComponent.update2();
       fetch(this.update_device, {
@@ -177,39 +172,33 @@ export class DevicesEditComponent implements OnInit{
       .then(response => response.json()) 
       //this.update2();
       this.act_ok= true;
-
-
       this.guardado= true;
       //console.log('Formulario válido');
-    } else {
-      //console.log('Formulario inválido');
     }
     this.submitList();
   }
 
   submitList() {
-      var contenido4 = {
-        id: this.id,   
-      }
-      fetch(this.delete_all_sensors_devices, {
+    var contenido4 = {
+      id: this.id,   
+    }
+
+    fetch(this.delete_all_sensors_devices, {
+      method: "POST",
+      body: JSON.stringify(contenido4),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    .then(response => response.json()) 
+    //console.log(this.contenido1.sensors)
+    for(let quote of this.contenido1.sensors) {
+      fetch(this.post_sensors_devices, {
         method: "POST",
-        body: JSON.stringify(contenido4),
+        body: JSON.stringify(quote),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
-
-      console.log(this.contenido1.sensors)
-
-      console.log('hey')
-      for(let quote of this.contenido1.sensors) {
-        fetch(this.post_sensors_devices, {
-          method: "POST",
-          body: JSON.stringify(quote),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-        .then(response => response.json()) 
-      }
-      return;
+    }
+    return;
   }
 
   eliminar(id_actual: any){
@@ -226,19 +215,6 @@ export class DevicesEditComponent implements OnInit{
     this.router.navigate(['/devices']);
   }
 
-  submit(){
-    //this.DevicesSensorsListComponent.update2();
-    /*fetch(this.update_device, {
-      method: "POST",
-      body: JSON.stringify(this.contenido),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    //this.update2();
-    this.act_ok= true;
-    this.guardado= true;*/
-  }
-
   recargar(){
     const id_actual= this.rutaActiva.snapshot.params['id']
     fetch(`${this.id_device}/${id_actual}`)
@@ -253,19 +229,4 @@ export class DevicesEditComponent implements OnInit{
       console.error(error); 
     });
   }
-
-  /*enable(){
-    fetch('http://localhost:5172/api/enable/device_configurations', {
-      method: "POST",
-      body: JSON.stringify(this.contenido2),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.contenido2= data;
-    })
-    .catch(error => {
-      console.error(error); 
-    });  
-  }*/
 }

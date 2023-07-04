@@ -49,7 +49,7 @@ export class DevicesEditListComponent  implements OnInit{
   ultimo: boolean = false;
   ultimaPage: number= 1;
   paginas: any;
-  public hayUsu: Boolean= true;
+  hayUsu: Boolean= true;
   duplicados= false;
 
   contenido1 = {
@@ -84,23 +84,20 @@ export class DevicesEditListComponent  implements OnInit{
       }]
   }
 
-
-
-  
   ngOnInit(): void {
     setTimeout(() =>{this.get('xd')}, 50);
     this.desde = 1;
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
         this.grande = data;
-        console.log(this.grande)
+        //console.log(this.grande)
       });
     }, 10);
     //setTimeout(() =>{this.cambiar()}, 100);
   }
 
   updatesharedList() {
-    console.log(this.contenido.sensors)
+    //console.log(this.contenido.sensors)
     this.dataSharingService.updatesharedList(this.contenido.sensors);
   }
 
@@ -140,10 +137,10 @@ export class DevicesEditListComponent  implements OnInit{
 
   vari(id: any){
     this.eliminarlo= id;
-    console.log(id);
-    console.log(this.eliminarlo);
+    //console.log(id);
+    //console.log(this.eliminarlo);
     this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo)
-    console.log(this.contenido.sensors)
+    //console.log(this.contenido.sensors)
     this.updatesharedList();
   }
 

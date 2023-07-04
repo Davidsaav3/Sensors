@@ -21,7 +21,8 @@
                                         </ng-container>
                                         <ng-container *ngIf="this.activeLang=='en'">
                                             <span class="labels t1" data-on="Enable" data-off="Disable"></span>
-                                        </ng-container>                                    </label>
+                                        </ng-container>                                    
+                                    </label>
                                 </div>   
                             </div> 
                             <div class="col-1" style="cursor: pointer; display: flex; justify-content: flex-end;">
@@ -62,7 +63,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="typemeter">{{ 'devices.edit.typemeter' | translate }}</label>
@@ -88,9 +88,7 @@
                                     <div *ngIf="loginForm.controls['topic_name'].errors['email']">Invalid {{ 'devices.edit.topic' | translate }}.</div>
                                 </div>
                             </div>
-                               
                         </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="origin">{{ 'devices.edit.origin' | translate }}</label>
@@ -109,23 +107,18 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                
                 </div>
-
                 <div class="row c2">
                     <div class="col-12 "> 
                         <app-devices-new-list></app-devices-new-list>
                     </div> 
                 </div>
-                
-
-            </div> <!-- end Devices -->
+            </div>
         </div>
 
         <div *ngIf="mostrar" class="p-0" [ngClass]="{'c200': !this.mostrar3, 'c20': this.mostrar3}">
-            <div class="cont2 ms-lg-3 ms-0 ms-md-0" > <!-- Devices -->
+            <div class="cont2 ms-lg-3 ms-0 ms-md-0"> 
 
                 <div class="c4 d-flex justify-content-between">
                     <div class="col-3" style="cursor: pointer;">
@@ -227,40 +220,28 @@
                         </div>
                     </div>
                 </div>
-
             </div> 
         </div>
-
     </div>
-
 
     <div class="row p-0 m-0">
         <div class="col-12 p-0"> 
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="row">
-                            <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button *ngIf="change==false" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
-						        <button *ngIf="change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal13">{{ 'sensors.cancel' | translate }}</button>
-                            </div>
-                            <div class="col-md-6 col-12 mt-1 pb-3">
-                                <button type="button navb" class="btn btn-info navb me-3" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
-                            </div>
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button *ngIf="change==false" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
+						    <button *ngIf="change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal13">{{ 'sensors.cancel' | translate }}</button>
+                        </div>
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button type="button navb" class="btn btn-info navb me-3" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
 </form>
-
-
-
-
-
-
-
-
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -313,23 +294,23 @@
 <div class="modal fade" id="exampleModal13" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.edit.m2.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'devices.edit.m2.2' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-5">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
-                </div>
-                <div class="col-7">
-					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
+            <div class="modal-header" style="border-bottom: 0px;">
+                <h3 class="modal-title">{{ 'devices.edit.m2.1' | translate }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <p class="not">{{ 'devices.edit.m2.2' | translate }}</p>
+            </div>
+            <div class="modal-footer" style="border-top: 0px;">
+                <div class="row">
+                    <div class="col-5">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
+                    </div>
+                    <div class="col-7">
+                        <button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="submitForm(loginForm)" [ngClass]="{'disabled': !change}">{{ 'sensors.save' | translate }}</button>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>

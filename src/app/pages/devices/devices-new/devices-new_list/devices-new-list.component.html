@@ -12,26 +12,22 @@
 			<table class="table table-hover">
 				<thead>
 				  <tr>
-          <th style="cursor: pointer;" (click)="get('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
-					<th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
-
-					<th *ngIf="grande" style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
-					<th *ngIf="grande" style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
-
-          <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
-					<th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
-
-					<th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
-					<th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
+            <th style="cursor: pointer;" (click)="get('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
+            <th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
+            <th *ngIf="grande" style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+            <th *ngIf="grande" style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
+            <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
+            <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
+            <th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
+            <th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
 				</thead>
 				<tbody style="background-color: rgb(255, 255, 255); height: min-content;" *ngFor="let item of contenido.sensors;let i=index">
           <tr style="overflow-y: scroll;">
-            <!--{{i}}{{item.id}}-->
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
 						<input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
+            
             <th scope="col2" class="pb-0">
-              <!--<input type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item.orden">-->
               <label style="display: none" [for]="'orden'+i">{{ 'devices.sensors.order' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
               <div *ngIf="loginForm.submitted && loginForm.controls['orden'].errors" class="text-danger">
@@ -39,6 +35,7 @@
                   <div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'devices.sensors.order' | translate }}.</div>
               </div>
             </th>
+
             <th scope="col" class="pb-0"> 
 							<select (ngModelChange)="this.cambiar(i)" class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
 							<ng-container *ngFor="let xd of contenido1.sensors;let j=index">
@@ -46,70 +43,70 @@
 							</ng-container>
 							</select>
 						</th>
-              <td class="pb-0" *ngIf="grande">
-                <!--<input type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item.datafield">-->
-                <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
-                <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
-                <div *ngIf="loginForm.submitted && loginForm.controls['datafield'].errors" class="text-danger">
-                    <div *ngIf="loginForm.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
-                    <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
-                </div>
-              </td>
-              <td class="pb-0" *ngIf="grande">
-                <div class="form-check">
-                  <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" id="flexCheckDefault" value="{{item.nodata}}" aria-label="Checkbox for following text input" id="nodata" [name]="'nodata'+i" [(ngModel)]="item.nodata">
-                  <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
-                </div>              
-              </td>
 
-              <td class="pb-0">
-                <label style="display: none" [for]="'specific'+i">{{ 'devices.sensors.specific' | translate }}</label>
-                <input (ngModelChange)="updatesharedList()" value="{{ item.specific }}" type="text" class="form-control" [id]="'specific'+i" [name]="'specific'+i" [(ngModel)]="item['specific']" type>
-                <div *ngIf="loginForm.submitted && loginForm.controls['specific'].errors" class="text-danger">
-                    <div *ngIf="loginForm.controls['specific'].errors['required']">{{ 'devices.sensors.specific' | translate }} is required.</div>
-                    <div *ngIf="loginForm.controls['specific'].errors['email']">Invalid {{ 'devices.sensors.specific' | translate }}.</div>
-                </div>
-              </td>
-              <td class="pb-0">
-                <label style="display: none" [for]="'time_specific'+i">{{ 'devices.sensors.time_specific' | translate }}</label>
-                <input (ngModelChange)="updatesharedList()" value="{{ item.time_specific }}" type="text" class="form-control" [id]="'time_specific'+i" [name]="'time_specific'+i" [(ngModel)]="item['time_specific']" type>
-                <div *ngIf="loginForm.submitted && loginForm.controls['time_specific'].errors" class="text-danger">
-                    <div *ngIf="loginForm.controls['time_specific'].errors['required']">{{ 'devices.sensors.time_specific' | translate }} is required.</div>
-                    <div *ngIf="loginForm.controls['time_specific'].errors['email']">Invalid {{ 'devices.sensors.time_specific' | translate }}.</div>
-                </div>          
-              </td>
+            <td class="pb-0" *ngIf="grande">
+              <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
+              <div *ngIf="loginForm.submitted && loginForm.controls['datafield'].errors" class="text-danger">
+                  <div *ngIf="loginForm.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
+                  <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
+              </div>
+            </td>
 
-              <td class=" pb-0">
-							<label class="toggle t2 tt2 mt-1 mb-3">
-								<input (ngModelChange)="updatesharedList()" type="checkbox" [name]="'enable'+i" checked [(ngModel)]="item.enable">
-								<span class="slider"></span>
+            <td class="pb-0" *ngIf="grande">
+              <div class="form-check">
+                <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" id="flexCheckDefault" value="{{item.nodata}}" aria-label="Checkbox for following text input" id="nodata" [name]="'nodata'+i" [(ngModel)]="item.nodata">
+                <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
+              </div>              
+            </td>
+
+            <td class="pb-0">
+              <label style="display: none" [for]="'specific'+i">{{ 'devices.sensors.specific' | translate }}</label>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.specific }}" type="text" class="form-control" [id]="'specific'+i" [name]="'specific'+i" [(ngModel)]="item['specific']" type>
+              <div *ngIf="loginForm.submitted && loginForm.controls['specific'].errors" class="text-danger">
+                  <div *ngIf="loginForm.controls['specific'].errors['required']">{{ 'devices.sensors.specific' | translate }} is required.</div>
+                  <div *ngIf="loginForm.controls['specific'].errors['email']">Invalid {{ 'devices.sensors.specific' | translate }}.</div>
+              </div>
+            </td>
+
+            <td class="pb-0">
+              <label style="display: none" [for]="'time_specific'+i">{{ 'devices.sensors.time_specific' | translate }}</label>
+              <input (ngModelChange)="updatesharedList()" value="{{ item.time_specific }}" type="text" class="form-control" [id]="'time_specific'+i" [name]="'time_specific'+i" [(ngModel)]="item['time_specific']" type>
+              <div *ngIf="loginForm.submitted && loginForm.controls['time_specific'].errors" class="text-danger">
+                  <div *ngIf="loginForm.controls['time_specific'].errors['required']">{{ 'devices.sensors.time_specific' | translate }} is required.</div>
+                  <div *ngIf="loginForm.controls['time_specific'].errors['email']">Invalid {{ 'devices.sensors.time_specific' | translate }}.</div>
+              </div>          
+            </td>
+
+            <td class=" pb-0">
+              <label class="toggle t2 tt2 mt-1 mb-3">
+                <input (ngModelChange)="updatesharedList()" type="checkbox" [name]="'enable'+i" checked [(ngModel)]="item.enable">
+                <span class="slider"></span>
                 <ng-container *ngIf="this.activeLang=='es'">
-                  <span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
-              </ng-container>
-              <ng-container *ngIf="this.activeLang=='en'">
-                  <span class="labels t2" data-on="Enable" data-off="Disable"></span>
-              </ng-container>     							</label>
-              </td>
-              <td  (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;" class="pb-0"  (click)="vari(item.id)"><!--data-bs-target="#exampleModal3" data-bs-toggle="modal"-->
-                  <svg *ngIf="ver_can!=i" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
-                      <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
-                  </svg>
-                  <svg *ngIf="ver_can==i"xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
-                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
-                  </svg>
-                  <!--<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
-                    <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
-                  </svg>-->
-              </td>
-            </tr>
+                <span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
+                </ng-container>
+                <ng-container *ngIf="this.activeLang=='en'">
+                    <span class="labels t2" data-on="Enable" data-off="Disable"></span>
+                </ng-container>     							
+              </label>
+            </td>
+
+            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;" class="pb-0"  (click)="vari(item.id)"><!--data-bs-target="#exampleModal3" data-bs-toggle="modal"-->
+                <svg *ngIf="ver_can!=i" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                    <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                </svg>
+                <svg *ngIf="ver_can==i"xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                  <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+                </svg>
+            </td>
+
+          </tr>
 				</tbody>
 			  </table>
 			  </div>
 		</div> 
 	</div>	
-
 </form>
-
 
 <div class="text-center" *ngIf="!sin">
 	<h3>{{ 'devices.sensors.add' | translate }}</h3>
@@ -117,49 +114,49 @@
 </div>
 
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.sensors.m1.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'devices.sensors.m1.2' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">{{ 'sensors.delete' | translate }}</button>
-                </div>
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 0px;">
+          <h3 class="modal-title">{{ 'devices.sensors.m1.1' | translate }}</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <p class="not">{{ 'devices.sensors.m1.2' | translate }}</p>
+        </div>
+        <div class="modal-footer" style="border-top: 0px;">
+          <div class="row">
+            <div class="col-6">
+              <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
             </div>
-          </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">{{ 'sensors.delete' | translate }}</button>
+            </div>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" [class]="{'show ':duplicados}" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'devices.sensors.m2.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: 0px;">
+        <h3 class="modal-title">{{ 'devices.sensors.m2.1' | translate }}</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        <p class="not">{{ 'devices.sensors.m122' | translate }}</p>
+      </div>
+      <div class="modal-footer" style="border-top: 0px;">
+        <div class="row">
+          <div class="col-6">
+              <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
           </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'devices.sensors.m122' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-info">{{ 'sensors.acept' | translate }}</button>
-                </div>
-            </div>
+          <div class="col-6">
+            <button type="button" data-bs-dismiss="modal" class="btn btn-info">{{ 'sensors.acept' | translate }}</button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 </div>

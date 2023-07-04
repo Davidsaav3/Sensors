@@ -29,7 +29,7 @@ export class DataSharingService {
   }
 
   updatesharedAmp(sharedAmp: any) {
-    console.log(sharedAmp)
+    //console.log(sharedAmp)
     this.sharedAmp.next(sharedAmp);
   }
 

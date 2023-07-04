@@ -37,15 +37,12 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   public bottomLeftCoordinates: string= '';
   public bottomRightCoordinates: string= '';
 
-  private url: string = 'http://localhost:5172/api/get/device_configurations';
   data4: any;
   geojson: any;
-
   x1= '0';
   x2= '0';
   y1= '0';
   y2= '0';
-
   mas10= true;
   menos10= true;
 
@@ -199,8 +196,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       }]
   }
   
-  //selected = [{ id: 0, name: "Seleccionar" }];
-
   borrartodo(){
     this.busqueda.value= '';
     this.totalPages = 5;
@@ -210,13 +205,14 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.busqueda.value= '';
     this.contenido4.sensors= [];
     this.contenido4.sensors.push({
-          id: -1, 
-          name: 'Todos los Sensores',    
-          metric: '', 
-          description: '',
-          errorvalue: 1,
-          valuemax: 1,
-          valuemin: 1,});
+      id: -1, 
+      name: 'Todos los Sensores',    
+      metric: '', 
+      description: '',
+      errorvalue: 1,
+      valuemax: 1,
+      valuemin: 1,
+    });
     this.busqueda.sel_enable= 2;
     this.busqueda.sensors_2= 2;
     this.Page(1);
@@ -229,7 +225,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id)+1;
-      ////console.log(this.id);
+      //console.log(this.id);
     })
 
     let buscar= 'Buscar';
@@ -237,7 +233,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
-
       data.unshift({
         id: -1, 
         type: 'Todos los sensores',    
@@ -247,6 +242,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         valuemax: 1,
         valuemin: 1,
       });
+
       data.unshift({
         id: -2, 
         type: 'Sin sensores',    
@@ -256,8 +252,8 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         valuemax: 1,
         valuemin: 1,
       });
-      this.contenido1.sensors= data;
 
+      this.contenido1.sensors= data;
       for (let index = 0; index < data.length; index++) {
         this.contenido1.sensors[index].name= data[index].type;
       }
@@ -266,35 +262,26 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   ngOnInit(): void {
     this.getget();
-
     if(this.cont==true){
       this.get('uid','ASC');
     }
     else{
       this.getCornerCoordinates();
     }
-  
-    
-    /**/
-
   }
 
-
   c1(){
-    //this.getCornerCoordinates();
+    this.getCornerCoordinates();
     this.cont= false;
   }
   c2(){
-    //this.getget();
-    //this.get('uid','ASC');
+    this.getget();
+    this.get('uid','ASC');
     this.cont= true;
   }
 
-
   get(id: any, ord: any){
-    
     this.marcado= id;
-
     setTimeout(() =>{
       //console.log(this.currentPage)
       if(id!='xd'){
@@ -316,13 +303,11 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         array.push(this.contenido4.sensors[index].id);
       }
       var arrayString = array.join(',');
-      console.log(arrayString)
-
+      //console.log(arrayString)
       let m1= 1;
       let m2= 100000;
-      console.log(this.contenido4.sensors[0].id)
+      //console.log(this.contenido4.sensors[0].id)
       this.cargando= true;
-      console.log(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {
@@ -345,9 +330,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
             .catch(error => {
               console.error(error); 
             });  
-            
             //
-
             let color= '#198754';
             if(quote.enable==0){
               color= '#dc3545';
@@ -362,7 +345,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         }
       })
     }, 10);
-    
   }
 
   get pageRange(): number[] {
@@ -424,7 +406,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }
   }
 
-
   duplicate(num: any,uid: any){
     this.contenido3 = {
       id: num,    
@@ -447,7 +428,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         contador++;
       }
       //console.log(data);
-
       this.contenido3 = {
         id: num,    
       }
@@ -469,7 +449,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       })
       this.dup_ok=true;
       this.router.navigate(['/devices/edit/', this.id]);
-
     })
 
   }
@@ -500,9 +479,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.busqueda.value= '';
   }
 
-
   /**/
-
 
   getCornerCoordinates() {
     let bounds;
@@ -515,11 +492,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       this.y1= bounds.getSouthWest().lat.toFixed(6);
       this.y2= bounds.getNorthEast().lat.toFixed(6);
     }
-    console.log(this.x1)
-    //console.log(this.x2)
-    //console.log(this.y1)
-    //console.log(this.y2)
-
     setTimeout(() => {
       this.llamada();
     }, 1000);
@@ -530,21 +502,17 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     if(this.map!=null){
       features = this.map.queryRenderedFeatures(event.point);
     }
-    // Verificar si se hizo clic en un marcador
     let markerFeatures;
     if(features!=null){
       markerFeatures = features.filter(feature => feature.layer.type === 'symbol' && feature.layer.source === 'markers');
     }
     if (markerFeatures!=null && markerFeatures.length > 0) {
-      // Se hizo clic en un marcador
       let marker = markerFeatures[0];
-      // Realizar acciones con el marcador seleccionado
       let markerId;
       if(marker.properties!=null && marker.properties["id"]!=null){
-        markerId = marker.properties["id"]; // Obtener el ID o información del marcador
-        console.log('Clic en el marcador:', markerId);
+        markerId = marker.properties["id"]; 
+        //console.log('Clic en el marcador:', markerId);
       }
-
     }
   }
 
@@ -555,16 +523,13 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         positionOptions: {
         enableHighAccuracy: true
         },
-        // When active the map will receive updates to the device's location as it changes.
         trackUserLocation: true,
-        // Draw an arrow next to the location dot to indicate which direction the device is heading.
         showUserHeading: true
         })
       );
       this.map.addControl(new mapboxgl.NavigationControl());
       this.map.on('click', this.handleClick);
-  
-  
+
       /*this.map.on('moveend', () => {
         this.getCornerCoordinates();
       });
@@ -583,12 +548,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         this.getCornerCoordinates();
       });*/
 
-      /* XD */
-
-     
-
-      /* XD */
-  
       this.map.on('style.load', () => {
 
         if(this.map!=null){
@@ -627,8 +586,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
             ]
           }
         });
-
-     
         }
 
         if(this.map!=null){
@@ -683,8 +640,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
           );
         }*/
         }
-
-
         let layers;
         if (this.map != null) {
           layers = this.map.getStyle().layers;
@@ -717,32 +672,28 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
           }
         }
       }
-  
       this.mapListeners();
-
     }
   }
 
   ngAfterViewInit(): void {
-
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => { 
           this.map = new mapboxgl.Map({
-              container: this.divMap?.nativeElement, // container ID
-              style: 'mapbox://styles/mapbox/streets-v12', // style URL
+              container: this.divMap?.nativeElement, 
+              style: 'mapbox://styles/mapbox/streets-v12',
               center: [position.coords.longitude, position.coords.latitude],
-              zoom: this.zoom, // starting zoom
+              zoom: this.zoom, 
           });
           this.aux();
         },
         (error) => {
           this.map = new mapboxgl.Map({
-            container: this.divMap?.nativeElement, // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            container: this.divMap?.nativeElement, 
+            style: 'mapbox://styles/mapbox/streets-v12', 
             center: [-3.7034137886912504,40.41697654880073],
-            zoom: this.zoom, // starting zoom
+            zoom: this.zoom, 
         });
           console.log("Error al obtener la ubicación:", error);
           this.aux()
@@ -751,14 +702,16 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     } 
     else {
       this.map = new mapboxgl.Map({
-        container: this.divMap?.nativeElement, // container ID
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        container: this.divMap?.nativeElement, 
+        style: 'mapbox://styles/mapbox/streets-v12', 
         center: [-3.7034137886912504,40.41697654880073],
-        zoom: this.zoom, // starting zoom
-    });      console.log("Geolocalización no compatible con el navegador.");
+        zoom: this.zoom, 
+    });      
+      console.log("Geolocalización no compatible con el navegador.");
       this.aux();
     }
   }
+
 
   ngOnDestroy(): void {
     this.map?.remove();
@@ -766,57 +719,46 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   mapListeners() {
     if ( !this.map ) throw 'Mapa no inicializado';
-
     this.map.on('zoom', (ev) => {
       this.zoom = this.map!.getZoom();
     });
-
     this.map.on('zoomend', (ev) => {
       if ( this.map!.getZoom() < 18 ) return;
       this.map!.zoomTo(18);
     });
-
     this.map.on('move', () => {
       this.currentLngLat = this.map!.getCenter();
     });
-
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false
-      });
+    });
       
-      if(this.map!=null){
-
+    if(this.map!=null){
       this.map.on('mouseenter', 'places', (e) => {
-        if(this.map!=undefined){
-            this.map.getCanvas().style.cursor = 'pointer';
-            
-            if(e!=null && e.features!=null && e.features[0]!=null && e.features[0].geometry!=null && e.features[0].properties!=null){
-
-              const coordinates: mapboxgl.LngLatLike = [-0.509498,38.385271];
-              const description = e.features[0].properties["description"];
-
-              //console.log(this.geojson.features[0].coordinates1)
-              //const coordinates: mapboxgl.LngLatLike = [this.geojson.features[0].coordinates1,this.geojson.features[0].coordinates2];
-              //const description = this.geojson.features[0].properties.description;
-            
-              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-              }
-                
-              popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
-            }
-          }
-      });
+      if(this.map!=undefined){
+          this.map.getCanvas().style.cursor = 'pointer';
           
-        this.map.on('mouseleave', 'places', () => {
-          if(this.map!=undefined){
-            this.map.getCanvas().style.cursor = '';
-            popup.remove();
+          if(e!=null && e.features!=null && e.features[0]!=null && e.features[0].geometry!=null && e.features[0].properties!=null){
+            const coordinates: mapboxgl.LngLatLike = [-0.509498,38.385271];
+            const description = e.features[0].properties["description"];
+            //console.log(this.geojson.features[0].coordinates1)
+            //const coordinates: mapboxgl.LngLatLike = [this.geojson.features[0].coordinates1,this.geojson.features[0].coordinates2];
+            //const description = this.geojson.features[0].properties.description;
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
           }
-        });
-      }
-
+        }
+      });
+      this.map.on('mouseleave', 'places', () => {
+        if(this.map!=undefined){
+          this.map.getCanvas().style.cursor = '';
+          popup.remove();
+        }
+      });
+    }
   }
 
   zoomIn() {
@@ -837,78 +779,63 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   createMarker(marker: mapboxgl.LngLat) {
     let enable=1;
     if ( !this.map ) return;
-
     let color= '#198754';
     if(enable==0){
       color= '#dc3545';
     }
-
     const lngLat = marker;
     let name='Punto nuevo';
     this.addMarker( lngLat, color ,name,enable);
   }
 
-  function(){
-    console.log("Hola")
-  }
-
-
   addMarker( lngLat: mapboxgl.LngLat, color: string , name: string, enable: number) {
     if ( !this.map ) return;
-
-    
-
     const marker = new mapboxgl.Marker({
       color: color,
       draggable: false,
     })
-      .setLngLat( lngLat )
-      .addTo( this.map );  
-      marker.on('click', function() {
-        console.log("Hola")
-      });
-
+    .setLngLat( lngLat )
+    .addTo( this.map );  
+    marker.on('click', function() {
+    });
 
       this.geojson = {
         'id': 'FeatureCollection',
         'type': 'FeatureCollection',
         'features': [
-        {
-        'type': 'Feature',
-        'properties': {
-          'id': enable,
-          'color': color,
-          'name': name,
-          'description': 
-                `
-                  <strong>Dispositivo 1</strong>
-                  <p>Uid: Hola</p>
-                  <p>Uid: Hola</p>
-                  <div style="display: inline-block; height: min-content;">
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                  </div>
-                `
-        },
-        'geometry': {
-        'type': 'Point',
-        'coordinates1': lngLat.lng,
-        'coordinates2': lngLat.lat,
-        }
-        }
-        ]
+          {
+          'type': 'Feature',
+          'properties': {
+            'id': enable,
+            'color': color,
+            'name': name,
+            'description': 
+                  `<strong>Dispositivo 1</strong>
+                    <p>Uid: Hola</p>
+                    <p>Uid: Hola</p>
+                    <div style="display: inline-block; height: min-content;">
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                    </div>
+                  `
+          },
+          'geometry': {
+          'type': 'Point',
+          'coordinates1': lngLat.lng,
+          'coordinates2': lngLat.lat,
+          }
+          }
+          ]
         };
          
-        // Add markers to the map.
         for (const marker of this.geojson.features) {
-        // Create a DOM element for each marker.
         const el = document.createElement('div');
         el.className = 'marker';
         el.style.backgroundSize = '100%';
@@ -916,24 +843,17 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         el.innerHTML= `<p class="p-0 m-0">${marker.properties.name}</p>`;
          
         el.addEventListener('click', () => {
-          const url = `/devices/edit/${marker.properties.id}`; // Ruta que deseas abrir en la nueva pestaña
+          const url = `/devices/edit/${marker.properties.id}`; 
           window.open(url, '_blank');
         });
          
         const coords = new mapboxgl.LngLat( marker.geometry.coordinates1, marker.geometry.coordinates2 );
-        // Add markers to the map.
         new mapboxgl.Marker(el)
         .setLngLat(coords)
         .addTo(this.map);
       }
-
-    
     this.markers.push({ color, marker, name, enable});
-    //this.saveToLocalStorage();
-
     marker.on('dragend', () => this.saveToLocalStorage() );
-
-    // dragend
   }
 
   deleteMarker( index: number ) {
@@ -942,14 +862,11 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   }
 
   flyTo( marker: mapboxgl.Marker ) {
-
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat()
     });
-
   }
-
 
   saveToLocalStorage() {
     const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
@@ -958,15 +875,12 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         lngLat: marker.getLngLat().toArray()
       }
     });
-
     localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));
-
   }
 
   readFromLocalStorage() {
     const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
-    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString ); //! OJO!
-
+    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString );
     plainMarkers.forEach( ({ color, lngLat }) => {
       const [ lng, lat ] = lngLat;
       const coords = new mapboxgl.LngLat( lng, lat );
@@ -974,14 +888,13 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let enable=1;
       this.addMarker( coords,color,name,enable);
     })
-
   }
 
   llamada(){
     let m1= 1;
     let m2= 100000;
     let m3= 'asc';
-    fetch(`${this.url}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}`)    
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
     .then((response) => response.json())
     .then(data4 => {
       this.data= data4;
@@ -1000,6 +913,5 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       }
     })
   }
-
   
 }

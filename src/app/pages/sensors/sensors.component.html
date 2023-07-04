@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <div class="m-0 p-0 row d-flex" [ngClass]="{'rev': this.width<965, '': this.width>=965}">
+
 	<div class="cc2 cont me-0" [ngClass]="{'c100': this.mostrar3==true || this.width<965, 'c10': this.mostrar3==false}">
 		<div class="p-3 pb-0 pe-2">
 				<div class="row d-flex">
@@ -19,19 +20,16 @@
 		</div>
 
 		<div class="row flex-row-reverse pe-3" style="height: 76vh;">
-
 			<div *ngIf="cargando" class="col-12 pe-0 over d-flex" style="justify-content: center; align-content: center;align-items: center; max-height: 77vh;"> 
 				<div class="spinner-border text-secondary" role="status">
 					<span class="visually-hidden">{{ 'loading' | translate }}</span>
 				</div>
 			</div>
-
 			<div *ngIf="data!=null && data.length<=0" class="col-12 pe-0 over d-flex" style="justify-content: center; align-content: center;align-items: center; max-height: 77vh;"> 
 				<div style="height: min-content;">
 				  <p style="font-size: x-large;">{{ 'no_sensors' | translate }}</p>
 				</div>
 			</div>
-
 			<div *ngIf="data!=null && data.length>0" class="col-12 pe-0 over" style="max-height: 77vh;"> 
 				<table class="table table-hover">
 					<thead>
@@ -127,16 +125,16 @@
 		</div> 
 	</div>
 
-
-
 	<div class="cc2 cont" *ngIf="mostrar" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
 		<form #loginForm="ngForm" class="row needs-validation p-3"> 
 			<div class="col-12">
 				<div class="row">
+					
 					<div class="col-12">
 						<h1 *ngIf="dup">Duplicar {{contenido_new.type}}</h1>
 						<h1 *ngIf="!dup">{{ 'sensors.nuevo_sensor' | translate }}</h1>
 					</div>
+
 					<div class="col-12 pt-3 form-group">
 						<label for="type">{{ 'sensors.type' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.type }}" type="text" id="type" class="form-control" name="type" [(ngModel)]="contenido_new['type']" required type>
@@ -145,6 +143,7 @@
 							<div *ngIf="loginForm.controls['type'].errors['email']">Invalid {{ 'sensors.type' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-12 mt-2">
 						<label for="metric">{{ 'sensors.metric' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.metric }}" type="text" id="metric" class="form-control" name="metric" [(ngModel)]="contenido_new['metric']" required type>
@@ -153,6 +152,7 @@
 							<div *ngIf="loginForm.controls['metric'].errors['email']">Invalid {{ 'sensors.metric' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-12 mt-2">
 						<label for="description">{{ 'sensors.description' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.description }}" type="text" id="description" class="form-control" name="description" [(ngModel)]="contenido_new['description']" type>
@@ -161,6 +161,7 @@
 							<div *ngIf="loginForm.controls['description'].errors['email']">Invalid {{ 'sensors.description' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-12 mt-2">
 						<label for="orden">{{ 'sensors.order' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.orden }}" type="text" id="orden" class="form-control" name="orden" [(ngModel)]="contenido_new['orden']" type>
@@ -169,6 +170,7 @@
 							<div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'sensors.order' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-12 mt-5">
 						<label for="errorvalue">{{ 'sensors.error_value' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.errorvalue }}" type="text" id="errorvalue" class="form-control" name="errorvalue" [(ngModel)]="contenido_new['errorvalue']" type>
@@ -177,6 +179,7 @@
 							<div *ngIf="loginForm.controls['errorvalue'].errors['email']">Invalid {{ 'sensors.error_value' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="valuemin">{{ 'sensors.value_min' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.valuemin }}" type="text" id="valuemin" class="form-control" name="valuemin" [(ngModel)]="contenido_new['valuemin']" type>
@@ -185,6 +188,7 @@
 							<div *ngIf="loginForm.controls['valuemin'].errors['email']">Invalid {{ 'sensors.value_min' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="valuemax">{{ 'sensors.value_max' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.valuemax }}" type="text" id="valuemax" class="form-control" name="valuemax" [(ngModel)]="contenido_new['valuemax']" type>
@@ -192,7 +196,7 @@
 							<div *ngIf="loginForm.controls['valuemax'].errors['required']">{{ 'sensors.value_max' | translate }} is required.</div>
 							<div *ngIf="loginForm.controls['valuemax'].errors['email']">Invalid {{ 'sensors.value_max' | translate }}.</div>
 						</div>
-					</div><!---->
+					</div>
 
 					<div class="col-md-6 mt-2">
 						<label for="general">{{ 'sensors.general' | translate }}</label>
@@ -202,6 +206,7 @@
 							<div *ngIf="loginForm.controls['general'].errors['email']">Invalid {{ 'sensors.general' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="time_general">{{ 'sensors.time_general' | translate }}</label>
 						<input (ngModelChange)="edit_change=true" value="{{ contenido_new.correction_time_general }}" type="text" id="time_general" class="form-control" name="time_general" [(ngModel)]="contenido_new['correction_time_general']" type>
@@ -209,7 +214,8 @@
 							<div *ngIf="loginForm.controls['time_general'].errors['required']">{{ 'sensors.time_general' | translate }} is required.</div>
 							<div *ngIf="loginForm.controls['time_general'].errors['email']">Invalid {{ 'sensors.time_general' | translate }}.</div>
 						</div>
-					</div><!---->
+					</div>
+
 				</div>
 			</div>
 
@@ -224,22 +230,19 @@
 					</div>	
 				</div>
 			</div>
-
 		</form>
 	</div>
 
-
-
 	<div class="cc2 cont" *ngIf="mostrar2" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
 		<form #loginForm="ngForm" name='myForm' class="row needs-validation p-3"> 
-
 			<div class="col-12">
 				<div class="row">
+
 					<div class="col-12">
 						<h1>{{ 'sensors.of' | translate }} {{ contenido.type }}</h1>
 					</div>
-
 					<input ng-class="myForm.input.$valid ? '' : 'has-danger'" (ngModelChange)="new_change=true"  type="text" class="form-control d-none" #campo="ngModel" id="type" name="type" value="{{ contenido.type }}" [(ngModel)]="contenido.id">
+					
 					<div class="col-12 pt-3">
 						<div class="form-group">
 							<label for="type">{{ 'sensors.type' | translate }}</label>
@@ -250,6 +253,7 @@
 							</div>
 						</div>			
 					</div>
+
 					<div class="col-12 mt-2">
 						<div class="form-group">
 							<label for="metric">{{ 'sensors.metric' | translate }}</label>
@@ -260,6 +264,7 @@
 							</div>
 						</div>		
 					</div>
+
 					<div class="col-md-12 mt-2">
 						<label for="description">{{ 'sensors.description' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido.description }}" type="text" id="description" class="form-control" name="description" [(ngModel)]="contenido['description']" type>
@@ -268,6 +273,7 @@
 							<div *ngIf="loginForm.controls['description'].errors['email']">Invalid {{ 'sensors.description' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-12 mt-2">
 						<label for="orden">{{ 'sensors.order' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido_new.orden }}" type="text" id="orden" class="form-control" name="orden" [(ngModel)]="contenido['orden']" type>
@@ -276,6 +282,7 @@
 							<div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'sensors.order' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-12 mt-5">
 						<label for="errorvalue">{{ 'sensors.error_value' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido.errorvalue }}" type="text" id="errorvalue" class="form-control" name="errorvalue" [(ngModel)]="contenido['errorvalue']" type>
@@ -284,6 +291,7 @@
 							<div *ngIf="loginForm.controls['errorvalue'].errors['email']">Invalid {{ 'sensors.error_value' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="valuemin">{{ 'sensors.value_min' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido.valuemin }}" type="text" id="valuemin" class="form-control" name="valuemin" [(ngModel)]="contenido['valuemin']" type>
@@ -292,6 +300,7 @@
 							<div *ngIf="loginForm.controls['valuemin'].errors['email']">Invalid {{ 'sensors.value_min' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="valuemax">{{ 'sensors.value_max' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido.valuemax }}" type="text" id="valuemax" class="form-control" name="valuemax" [(ngModel)]="contenido['valuemax']" type>
@@ -309,6 +318,7 @@
 							<div *ngIf="loginForm.controls['general'].errors['email']">Invalid {{ 'sensors.general' | translate }}.</div>
 						</div>
 					</div>
+
 					<div class="col-md-6 mt-2">
 						<label for="time_general">{{ 'sensors.time_general' | translate }}</label>
 						<input (ngModelChange)="new_change=true" value="{{ contenido.correction_time_general }}" type="text" id="time_general" class="form-control" name="time_general" [(ngModel)]="contenido['correction_time_general']" type>
@@ -317,10 +327,9 @@
 							<div *ngIf="loginForm.controls['time_general'].errors['email']">Invalid {{ 'sensors.time_general' | translate }}.</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
-
 
 			<div class="col-12 mt-5">
 				<div class="row">
@@ -336,39 +345,34 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</form>
 	</div>
-	
 </div>
-
-
-
-
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">{{ 'sensors.m1.1' | translate }}</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" >
-            <p class="not">{{ 'sensors.m1.2' | translate }}</p>
-          </div>
-          <div class="modal-footer" style="border-top: 0px;">
-            <div class="row">
-                <div class="col-6">
-                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" disabled *ngIf="edit_change || new_change">{{ 'sensors.delete' | translate }}</button>
-					<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" *ngIf="!edit_change && !new_change">{{ 'sensors.delete' | translate }}</button>
-                </div>
-            </div>
-          </div>
+			<div class="modal-header" style="border-bottom: 0px;">
+				<h3 class="modal-title">{{ 'sensors.m1.1' | translate }}</h3>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" >
+				<p class="not">{{ 'sensors.m1.2' | translate }}</p>
+			</div>
+			<div class="modal-footer" style="border-top: 0px;">
+				<div class="row">
+					<div class="col-6">
+						<button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
+					</div>
+					<div class="col-6">
+						<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" disabled *ngIf="edit_change || new_change">{{ 'sensors.delete' | translate }}</button>
+						<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar(contenido.id)" *ngIf="!edit_change && !new_change">{{ 'sensors.delete' | translate }}</button>
+                	</div>
+            	</div>
+          	</div>
         </div>
-      </div>
+    </div>
 </div>
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -395,10 +399,9 @@
       </div>
 </div>
 
+<div class="toast-cont">
 
-  <div class="toast-cont">
-
-		<div *ngIf="dup_ok" class="top-0 right-0 p-3">
+	<div *ngIf="dup_ok" class="top-0 right-0 p-3">
 		<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
 			<div class="d-flex">
 			<div class="toast-body">
@@ -407,83 +410,82 @@
 			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 			</div>
 		</div>
-		</div>
+	</div>
 
-		<div *ngIf="dup_not" class="top-0 end-0 p-3">
+	<div *ngIf="dup_not" class="top-0 end-0 p-3">
 		<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
 			<div class="d-flex">
+				<div class="toast-body">
+					{{ 'sensors.e8' | translate }}
+				</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="alert_delete" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">
+				{{ 'sensors.e3' | translate }}
+				</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="not_delete" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">
+				{{ 'sensors.e6' | translate }}
+				</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="alert_new" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">
+				{{ 'sensors.e4' | translate }}
+				</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="not_new" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+				<div class="toast-body">
+				{{ 'sensors.e5' | translate }}
+				</div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="guardar_ok" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
 			<div class="toast-body">
-				{{ 'sensors.e8' | translate }}
+				{{ 'sensors.e2' | translate }}
 			</div>
 			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 			</div>
 		</div>
-		</div>
-
-		<div *ngIf="alert_delete" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="d-flex">
-					<div class="toast-body">
-					{{ 'sensors.e3' | translate }}
-					</div>
-					<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-				</div>
-			</div>
-		</div>
+	</div>
 	
-		<div *ngIf="not_delete" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="d-flex">
-					<div class="toast-body">
-					{{ 'sensors.e6' | translate }}
-					</div>
-					<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-				</div>
+	<div *ngIf="guardar_not" class="top-0 end-0 p-3">
+		<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			<div class="d-flex">
+			<div class="toast-body">
+				{{ 'sensors.e1' | translate }}
+			</div>
+			<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 			</div>
 		</div>
-
-		<div *ngIf="alert_new" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="d-flex">
-					<div class="toast-body">
-					{{ 'sensors.e4' | translate }}
-					</div>
-					<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-				</div>
-			</div>
-		</div>
-  
-		<div *ngIf="not_new" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-				<div class="d-flex">
-					<div class="toast-body">
-					{{ 'sensors.e5' | translate }}
-					</div>
-					<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-				</div>
-			</div>
-		</div>
-
-		<div *ngIf="guardar_ok" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-			  <div class="d-flex">
-				<div class="toast-body">
-				  {{ 'sensors.e2' | translate }}
-				</div>
-				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-			  </div>
-			</div>
-		</div>
-	  
-		<div *ngIf="guardar_not" class="top-0 end-0 p-3">
-			<div role="alert" class="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
-			  <div class="d-flex">
-				<div class="toast-body">
-				  {{ 'sensors.e1' | translate }}
-				</div>
-				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-			  </div>
-			</div>
-		</div>
-
-  </div>
+	</div>
+</div>

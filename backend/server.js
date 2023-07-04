@@ -52,8 +52,6 @@ con.connect(function(err) {
   if(type7==2){
     consulta= array.join(" AND id IN ")
   }
-  //console.log(consulta)
-  //console.log(array2)
 
   if(x1!='0' && x2!='0' && y1!='0' && y2!='0'){
     let xx1= parseInt(x1);
@@ -79,7 +77,6 @@ con.connect(function(err) {
         else{
             if(type2!=-1 && type2!=-2){
               console.log("ZONA 2")
-              console.log(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`)
               con.query(`SELECT * FROM device_configurations where id IN ${consulta} order by ${type1} ${type6} LIMIT ${tam} OFFSET ${act}`, function (err, result) { /////////////////////////////////////////////////////////
                 if (err) throw err;
                   res.send(result)
@@ -197,7 +194,6 @@ con.connect(function(err) {
   if (err) throw err;
   app.post("/api/delete/device_configurations", (req,res)=>{  /*/ DELETE  /*/
     var id09 = req.body.id;
-    //console.log(id09)
     con.query("DELETE FROM device_configurations WHERE id= ?", id09, function (err, result) {
       if (err) throw err;
         res.send(result)
@@ -243,17 +239,12 @@ if (err) throw err;
   const correction_time_specific = req.body.correction_time_specific;
   let nodata = req.body.nodata;
 
-  console.log(correction_specific)
-  console.log(correction_time_specific)
-
   if(nodata==true){
     nodata= 1;
   }
   else{
     nodata= 0; 
   }
-  console.log(nodata)
-
     con.query("INSERT INTO sensors_devices (orden, enable,id_device,id_type_sensor,datafield,nodata,correction_specific,correction_time_specific) VALUES (?,?,?,?,?,?,?,?)",[orden,enable,id_device,id_type_sensor,datafield,nodata,correction_specific,correction_time_specific], function (err, result) {
       if (err) throw err;
         res.send(result)
@@ -366,13 +357,9 @@ if (err) throw err;
     correction_general= req.body.correction_general;
     correction_time_general= req.body.correction_time_general;
 
-    console.log(correction_general);
-    console.log(correction_time_general);
-
     con.query("UPDATE sensors_types SET type=?,metric=?,description=?,errorvalue=?,valuemax=?,valuemin=?,correction_general=?,correction_time_general=? WHERE id= ?",[type9, metric, description,errorvalue,valuemax,valuemin,correction_general,correction_time_general,id99], function (err, result) {
       if (err) throw err;
         res.send(result)
-        console.log(result)
     });
   });
   if (err) throw err;
