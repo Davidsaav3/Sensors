@@ -127,9 +127,9 @@ export class DevicesNewComponent  implements OnInit{
     .then(response => response.json())
     .then(data => {
       this.max= parseInt(data[0].id)+1;    
-      console.log(this.id)
-      console.log(this.max)
-  
+      //console.log(this.id)
+      //console.log(this.max)
+    
       if(this.id<this.max){
         this.state= 1;
       }
@@ -153,10 +153,11 @@ export class DevicesNewComponent  implements OnInit{
         this.contenido3 = {
           id: this.id.toString(),    
         }
+
         let x1= 1;
         let x2= 100000;
         this.buscar= 'Buscar';
-        fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+        fetch(`${this.get_device}/Buscar/uid/-1/2/1/100000/ASC/0/0/0/0/2`)
         .then((response) => response.json())
         .then(data => {
           let contador = 1;
@@ -164,9 +165,10 @@ export class DevicesNewComponent  implements OnInit{
           for (let index = 0; index < data.length; index++) {
             nombresExistentes.add(data[index].uid);
           }
-          let uid_2= data[0].uid;
+    
+          let uid_2= this.contenido['uid'];
           while(nombresExistentes.has(uid_2)) {
-            uid_2 = `${data[0].uid}_${contador}`;
+            uid_2 = `${this.contenido['uid']}_${contador}`;
             contador++;
           }
           console.log(uid_2)
@@ -187,7 +189,7 @@ export class DevicesNewComponent  implements OnInit{
     this.dataSharingService.sharedList$.subscribe(data => {
       this.contenido1.sensors= data;
     });
-    console.log(this.contenido1.sensors);
+    //console.log(this.contenido1.sensors);
     /*fetch(this.url)
     .then((response) => response.json())
     .then((quotesData) => (this.data = quotesData));*/
@@ -221,7 +223,7 @@ export class DevicesNewComponent  implements OnInit{
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(response => response.json()) 
-        console.log(this.contenido1.sensors)
+        //console.log(this.contenido1.sensors)
       }
 
       if(this.state==0){
@@ -235,9 +237,9 @@ export class DevicesNewComponent  implements OnInit{
         }
       }
       if(this.state==1){
-        console.log("HOLA")
+        //console.log("HOLA")
         for(let quote of this.contenido1.sensors) {
-          console.log(quote)
+          //console.log(quote)
           quote.id_device= this.max;
           fetch(this.post_sensors_devices, {
             method: "POST",
@@ -246,7 +248,7 @@ export class DevicesNewComponent  implements OnInit{
           })
           .then(response => response.json()) 
         }
-        console.log(this.contenido1.sensors)
+        //console.log(this.contenido1.sensors)
       }
 
       //console.log(this.contenido1.sensors)
@@ -265,7 +267,7 @@ export class DevicesNewComponent  implements OnInit{
       this.contenido1.sensors= data;
     });
     
-    console.log(this.contenido)
+    //console.log(this.contenido)
     if (loginForm.valid) {
       fetch(this.post_device, {
         method: "POST",

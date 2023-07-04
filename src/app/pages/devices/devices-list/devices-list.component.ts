@@ -322,6 +322,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let m2= 100000;
       console.log(this.contenido4.sensors[0].id)
       this.cargando= true;
+      console.log(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {

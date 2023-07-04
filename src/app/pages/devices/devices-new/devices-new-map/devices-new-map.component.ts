@@ -37,9 +37,14 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   public map?: mapboxgl.Map;
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
   public markers: MarkerAndColor[] = [];
+  state= 1;
+
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
+  max_device: string = 'http://localhost:5172/api/max/device_configurations';
+
   id= parseInt(this.rutaActiva.snapshot.params['id']);
   no_inicia= false;
+  max= 1;
 
   id_actual= 1;
   contenido = {    
@@ -60,6 +65,21 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    fetch(this.max_device)
+    .then(response => response.json())
+    .then(data => {
+      this.max= parseInt(data[0].id)+1;    
+      console.log(this.id)
+      console.log(this.max)
+    
+      if(this.id<this.max){
+        this.state= 1;
+      }
+      if(this.id>=this.max){
+        this.state= 0;
+      }
+    })
+
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.sharedLat = data;
     });
