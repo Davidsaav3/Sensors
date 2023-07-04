@@ -13,6 +13,7 @@ export class DevicesNewComponent  implements OnInit{
 
   sharedLat: any = '';
   sharedLon: any = '';
+  state= 0; //0 new //1 duplicate
 
   constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesNewMapComponent: DevicesNewMapComponent) { 
     const currentDate = new Date();
@@ -29,6 +30,9 @@ export class DevicesNewComponent  implements OnInit{
   post_device: string = 'http://localhost:5172/api/post/device_configurations';
   delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
+  max_device: string = 'http://localhost:5172/api/max/device_configurations';
+  id_device: string = 'http://localhost:5172/api/id/device_configurations';
+  get_device: string = 'http://localhost:5172/api/get/device_configurations';
 
   data: any;
   activeLang='en';
@@ -39,6 +43,7 @@ export class DevicesNewComponent  implements OnInit{
   mostrar3= true;
   change= false;
   grande= false;
+  max= 2;
 
   contenido1 = {
     sensors : [
@@ -51,6 +56,31 @@ export class DevicesNewComponent  implements OnInit{
         nodata: true,
         orden: 1,
         type_name: 1,
+      }]
+  }
+
+  
+  busqueda = {
+    value: '', 
+    sel_type: 0,
+    sensors_2: 2,
+    sel_enable: 2
+  }
+  buscar='Buscar';
+  buscar1= 'id';
+  contenido3 = {
+    id: '',
+  }
+  contenido4 = {
+    sensors : [
+      {
+        id: -1, 
+        name: 'Todos los Sensores',    
+        metric: '', 
+        description: '',
+        errorvalue: 1,
+        valuemax: 1,
+        valuemin: 1,
       }]
   }
 
@@ -93,6 +123,60 @@ export class DevicesNewComponent  implements OnInit{
   }
 
   ngOnInit(): void {
+    fetch(this.max_device)
+    .then(response => response.json())
+    .then(data => {
+      this.max= parseInt(data[0].id)+1;    
+      console.log(this.id)
+      console.log(this.max)
+  
+      if(this.id<this.max){
+        this.state= 1;
+      }
+      if(this.id>=this.max){
+        this.state= 0;
+      }
+      //this.contenido.id= this.max;
+      if(this.state==1){
+        fetch(`${this.id_device}/${this.id}`)
+        .then(response => response.json())
+        .then(data => {
+          this.contenido= data[0];
+        })
+        .catch(error => {
+          console.error(error); 
+        }); 
+        this.change= true;
+
+        //
+
+        this.contenido3 = {
+          id: this.id.toString(),    
+        }
+        let x1= 1;
+        let x2= 100000;
+        this.buscar= 'Buscar';
+        fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+        .then((response) => response.json())
+        .then(data => {
+          let contador = 1;
+          let nombresExistentes = new Set();
+          for (let index = 0; index < data.length; index++) {
+            nombresExistentes.add(data[index].uid);
+          }
+          let uid_2= data[0].uid;
+          while(nombresExistentes.has(uid_2)) {
+            uid_2 = `${data[0].uid}_${contador}`;
+            contador++;
+          }
+          console.log(uid_2)
+          this.contenido.uid= uid_2;
+        })
+
+        
+      }
+    })
+
     this.dataSharingService.updatesharedAmp(false);
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.contenido.lat = data;
@@ -129,22 +213,43 @@ export class DevicesNewComponent  implements OnInit{
       var contenido4 = {
         id: this.id,   
       }
-      fetch(this.delete_all_sensors_devices, {
-        method: "POST",
-        body: JSON.stringify(contenido4),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json()) 
-      console.log(this.contenido1.sensors)
-      for(let quote of this.contenido1.sensors) {
-        fetch(this.post_sensors_devices, {
+
+      if(this.state==0){
+        fetch(this.delete_all_sensors_devices, {
           method: "POST",
-          body: JSON.stringify(quote),
+          body: JSON.stringify(contenido4),
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(response => response.json()) 
+        console.log(this.contenido1.sensors)
       }
-      console.log(this.contenido1.sensors)
+
+      if(this.state==0){
+        for(let quote of this.contenido1.sensors) {
+          fetch(this.post_sensors_devices, {
+            method: "POST",
+            body: JSON.stringify(quote),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          })
+          .then(response => response.json()) 
+        }
+      }
+      if(this.state==1){
+        console.log("HOLA")
+        for(let quote of this.contenido1.sensors) {
+          console.log(quote)
+          quote.id_device= this.max;
+          fetch(this.post_sensors_devices, {
+            method: "POST",
+            body: JSON.stringify(quote),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          })
+          .then(response => response.json()) 
+        }
+        console.log(this.contenido1.sensors)
+      }
+
+      //console.log(this.contenido1.sensors)
       this.router.navigate(['/devices']);
       return;
   }
