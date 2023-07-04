@@ -39,6 +39,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   private url: string = 'http://localhost:5172/api/get/device_configurations';
   data4: any;
+  geojson: any;
 
   x1= '0';
   x2= '0';
@@ -596,34 +597,37 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
             'type': 'FeatureCollection',
             'features': [
               {
-              'type': 'Feature',
-              'properties': {
-                'description': 
-                `
-                  <strong>Dispositivo 1</strong>
-                  <p>Uid: Hola</p>
-                  <p>Uid: Hola</p>
-                  <div style="display: inline-block; height: min-content;">
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
-                    </span>
-                  </div>
-                `
-              },
-              'geometry': {
-                'type': 'Point',
-                'coordinates': [-77.007481, 38.876516]
+                'type': 'Feature',
+                'properties': {
+                  'description': 
+                  `
+                    <strong>Dispositivo 1</strong>
+                    <p>Uid: Hola</p>
+                    <p>Uid: Hola</p>
+                    <div style="display: inline-block; height: min-content;">
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                      <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                      </span>
+                    </div>
+                  `
+                },
+                'geometry': {
+                  'type': 'Point',
+                  'coordinates': [-0.509498,38.385271]
+                }
               }
-              }
+
             ]
           }
         });
+
+     
         }
 
         if(this.map!=null){
@@ -680,50 +684,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         }
 
 
-  
- 
-        // Create a popup, but don't add it to the map yet.
-        const popup = new mapboxgl.Popup({
-        closeButton: false,
-        closeOnClick: false
-        });
-        
-        if(this.map!=null){
-
-        this.map.on('mouseenter', 'places', (e) => {
-          // Change the cursor style as a UI indicator.
-          if(this.map!=undefined){
-              this.map.getCanvas().style.cursor = 'pointer';
-              
-              if(e!=null && e.features!=null && e.features[0]!=null && e.features[0].geometry!=null && e.features[0].properties!=null){
-                //const coordinates = e.features[0].geometry.coordinates.slice();
-                const coordinates: mapboxgl.LngLatLike = [-77.007481, 38.876516];
-                const description = e.features[0].properties["description"];
-              
-  
-                // Ensure that if the map is zoomed out such that multiple
-                // copies of the feature are visible, the popup appears
-                // over the copy being pointed to.
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                }
-                  
-                // Populate the popup and set its coordinates
-                // based on the feature found.
-                popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
-              }
-            }
-        });
-            
-          this.map.on('mouseleave', 'places', () => {
-            if(this.map!=undefined){
-              this.map.getCanvas().style.cursor = '';
-              popup.remove();
-            }
-          });
-        }
-
-        // Insert the layer beneath any symbol layer.
         let layers;
         if (this.map != null) {
           layers = this.map.getStyle().layers;
@@ -737,14 +697,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
             labelLayerId = labelLayer.id;
           }
         } 
-
-
-  
-        // The 'building' layer in the Mapbox Streets
-        // vector tileset contains building height data
-        // from OpenStreetMap.
-      
-
       });
   
       let layerList = document.getElementById('menu');
@@ -827,6 +779,43 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       this.currentLngLat = this.map!.getCenter();
     });
 
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+      });
+      
+      if(this.map!=null){
+
+      this.map.on('mouseenter', 'places', (e) => {
+        if(this.map!=undefined){
+            this.map.getCanvas().style.cursor = 'pointer';
+            
+            if(e!=null && e.features!=null && e.features[0]!=null && e.features[0].geometry!=null && e.features[0].properties!=null){
+
+              const coordinates: mapboxgl.LngLatLike = [-0.509498,38.385271];
+              const description = e.features[0].properties["description"];
+
+              //console.log(this.geojson.features[0].coordinates1)
+              //const coordinates: mapboxgl.LngLatLike = [this.geojson.features[0].coordinates1,this.geojson.features[0].coordinates2];
+              //const description = this.geojson.features[0].properties.description;
+            
+              while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+              }
+                
+              popup.setLngLat(coordinates).setHTML(description).addTo(this.map);
+            }
+          }
+      });
+          
+        this.map.on('mouseleave', 'places', () => {
+          if(this.map!=undefined){
+            this.map.getCanvas().style.cursor = '';
+            popup.remove();
+          }
+        });
+      }
+
   }
 
   zoomIn() {
@@ -879,7 +868,8 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       });
 
 
-      const geojson = {
+      this.geojson = {
+        'id': 'FeatureCollection',
         'type': 'FeatureCollection',
         'features': [
         {
@@ -887,7 +877,24 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         'properties': {
           'id': enable,
           'color': color,
-          'name': name
+          'name': name,
+          'description': 
+                `
+                  <strong>Dispositivo 1</strong>
+                  <p>Uid: Hola</p>
+                  <p>Uid: Hola</p>
+                  <div style="display: inline-block; height: min-content;">
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                    <span class="badge rounded-pill text-bg-success d-inline-block me-2">
+                      <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                    </span>
+                  </div>
+                `
         },
         'geometry': {
         'type': 'Point',
@@ -899,7 +906,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         };
          
         // Add markers to the map.
-        for (const marker of geojson.features) {
+        for (const marker of this.geojson.features) {
         // Create a DOM element for each marker.
         const el = document.createElement('div');
         el.className = 'marker';
