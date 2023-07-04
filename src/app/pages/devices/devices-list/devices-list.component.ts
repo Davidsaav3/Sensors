@@ -544,132 +544,160 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }
   }
 
+  aux(){
+    if(this.map!=undefined){
+      this.map.addControl(
+        new mapboxgl.GeolocateControl({
+        positionOptions: {
+        enableHighAccuracy: true
+        },
+        // When active the map will receive updates to the device's location as it changes.
+        trackUserLocation: true,
+        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+        showUserHeading: true
+        })
+      );
+      this.map.addControl(new mapboxgl.NavigationControl());
+      this.map.on('click', this.handleClick);
+  
+  
+      /*this.map.on('moveend', () => {
+        this.getCornerCoordinates();
+      });
+      this.map.on('zoom', () => {
+          this.getCornerCoordinates();
+      });      
+      this.map.on('zoom', () => {
+          this.getCornerCoordinates();
+      });*/
+      if(this.busqueda.value=='' && this.contenido4.sensors[0].id==-1 && this.busqueda.sel_enable==2){
+        this.map.on('zoomend', () => {
+          this.getCornerCoordinates();
+        });
+      }
+      /*this.map.on('move', () => {
+        this.getCornerCoordinates();
+      });*/
+  
+  
+      this.map.on('style.load', () => {
+        // Insert the layer beneath any symbol layer.
+        let layers;
+        if (this.map != null) {
+          layers = this.map.getStyle().layers;
+        }
+        let labelLayerId;
+        if (layers !== undefined) {
+          const labelLayer = layers.find(
+            (layer) => layer.type === 'symbol' && layer.layout && layer.layout['text-field']
+          );
+          if (labelLayer) {
+            labelLayerId = labelLayer.id;
+          }
+        } 
+  
+        // The 'building' layer in the Mapbox Streets
+        // vector tileset contains building height data
+        // from OpenStreetMap.
+        if(this.map!=null){
+          this.map.addLayer(
+          {
+          'id': 'add-3d-buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 15,
+          'paint': {
+          'fill-extrusion-color': '#aaa',
+          
+          // Use an 'interpolate' expression to
+          // add a smooth transition effect to
+          // the buildings as the user zooms in.
+          'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          15,
+          0,
+          15.05,
+          ['get', 'height']
+          ],
+          'fill-extrusion-base': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          15,
+          0,
+          15.05,
+          ['get', 'min_height']
+          ],
+          'fill-extrusion-opacity': 0.6
+          }
+          },
+          labelLayerId
+          );
+        }
+         });
+  
+      let layerList = document.getElementById('menu');
+      if (layerList != null) {
+        let inputs = layerList.getElementsByTagName('input');
+        if (inputs != null) {
+          const inputArray = Array.from(inputs); // Convertir a array
+          
+          for (const input of inputArray) {
+            input.onclick = (layer: any) => {
+              const layerId = layer.target.id;
+              if (this.map != null) {
+                this.map.setStyle('mapbox://styles/mapbox/' + layerId);
+              }
+            };
+            
+          }
+        }
+      }
+  
+      this.mapListeners();
+
+    }
+  }
+
   ngAfterViewInit(): void {
 
     if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
 
-    navigator.geolocation.getCurrentPosition(position => { 
-      this.map = new mapboxgl.Map({
-          container: this.divMap?.nativeElement, // container ID
-          style: 'mapbox://styles/mapbox/streets-v12', // style URL
-          center: [position.coords.longitude, position.coords.latitude],
-          zoom: this.zoom, // starting zoom
-      });
-
-    this.map.addControl(
-      new mapboxgl.GeolocateControl({
-      positionOptions: {
-      enableHighAccuracy: true
-      },
-      // When active the map will receive updates to the device's location as it changes.
-      trackUserLocation: true,
-      // Draw an arrow next to the location dot to indicate which direction the device is heading.
-      showUserHeading: true
-      })
-    );
-    this.map.addControl(new mapboxgl.NavigationControl());
-    this.map.on('click', this.handleClick);
-
-
-    /*this.map.on('moveend', () => {
-      this.getCornerCoordinates();
-    });
-    this.map.on('zoom', () => {
-        this.getCornerCoordinates();
-    });      
-    this.map.on('zoom', () => {
-        this.getCornerCoordinates();
-    });*/
-    if(this.busqueda.value=='' && this.contenido4.sensors[0].id==-1 && this.busqueda.sel_enable==2){
-      this.map.on('zoomend', () => {
-        this.getCornerCoordinates();
-      });
-    }
-    /*this.map.on('move', () => {
-      this.getCornerCoordinates();
-    });*/
-
-
-    this.map.on('style.load', () => {
-      // Insert the layer beneath any symbol layer.
-      let layers;
-      if (this.map != null) {
-        layers = this.map.getStyle().layers;
-      }
-      let labelLayerId;
-      if (layers !== undefined) {
-        const labelLayer = layers.find(
-          (layer) => layer.type === 'symbol' && layer.layout && layer.layout['text-field']
-        );
-        if (labelLayer) {
-          labelLayerId = labelLayer.id;
-        }
-      } 
-
-      // The 'building' layer in the Mapbox Streets
-      // vector tileset contains building height data
-      // from OpenStreetMap.
-      if(this.map!=null){
-        this.map.addLayer(
-        {
-        'id': 'add-3d-buildings',
-        'source': 'composite',
-        'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 15,
-        'paint': {
-        'fill-extrusion-color': '#aaa',
-        
-        // Use an 'interpolate' expression to
-        // add a smooth transition effect to
-        // the buildings as the user zooms in.
-        'fill-extrusion-height': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15,
-        0,
-        15.05,
-        ['get', 'height']
-        ],
-        'fill-extrusion-base': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15,
-        0,
-        15.05,
-        ['get', 'min_height']
-        ],
-        'fill-extrusion-opacity': 0.6
-        }
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => { 
+          this.map = new mapboxgl.Map({
+              container: this.divMap?.nativeElement, // container ID
+              style: 'mapbox://styles/mapbox/streets-v12', // style URL
+              center: [position.coords.longitude, position.coords.latitude],
+              zoom: this.zoom, // starting zoom
+          });
+          this.aux();
         },
-        labelLayerId
-        );
-      }
-       });
-
-    let layerList = document.getElementById('menu');
-    if (layerList != null) {
-      let inputs = layerList.getElementsByTagName('input');
-      if (inputs != null) {
-        const inputArray = Array.from(inputs); // Convertir a array
-        
-        for (const input of inputArray) {
-          input.onclick = (layer: any) => {
-            const layerId = layer.target.id;
-            if (this.map != null) {
-              this.map.setStyle('mapbox://styles/mapbox/' + layerId);
-            }
-          };
-          
+        (error) => {
+          this.map = new mapboxgl.Map({
+            container: this.divMap?.nativeElement, // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [-3.7034137886912504,40.41697654880073],
+            zoom: this.zoom, // starting zoom
+        });
+          console.log("Error al obtener la ubicación:", error);
+          this.aux()
         }
-      }
+      );
+    } 
+    else {
+      this.map = new mapboxgl.Map({
+        container: this.divMap?.nativeElement, // container ID
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: [-3.7034137886912504,40.41697654880073],
+        zoom: this.zoom, // starting zoom
+    });      console.log("Geolocalización no compatible con el navegador.");
+      this.aux();
     }
-
-    this.mapListeners();
-    })
   }
 
   ngOnDestroy(): void {
