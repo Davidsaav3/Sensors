@@ -134,7 +134,8 @@
 			<div class="col-12">
 				<div class="row">
 					<div class="col-12">
-						<h1>{{ 'sensors.nuevo_sensor' | translate }}</h1>
+						<h1 *ngIf="dup">Duplicar {{contenido_new.type}}</h1>
+						<h1 *ngIf="!dup">{{ 'sensors.nuevo_sensor' | translate }}</h1>
 					</div>
 					<div class="col-12 pt-3 form-group">
 						<label for="type">{{ 'sensors.type' | translate }}</label>

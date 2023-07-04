@@ -63,6 +63,7 @@ export class SensorsComponent implements OnInit{
   not_new: any= false;
   guardar_ok: any= false;
   guardar_not: any= false;
+  dup= false;
 
   buscar='Buscar';
   buscar1='type';
@@ -185,6 +186,7 @@ export class SensorsComponent implements OnInit{
   }
 
   submitForm2(loginForm: any) {
+    this.dup= false;
     if (loginForm.valid) {
       fetch(this.post_sensors, {
         method: "POST",
@@ -243,6 +245,38 @@ export class SensorsComponent implements OnInit{
           contador++;
         }
 
+        this.m1();
+        //this.mostrar2=true;
+        fetch(`${this.id_sensors}/${num}`)
+        .then(response => response.json())
+        .then(data => {
+          this.contenido_new= data[0];
+        })
+        .catch(error => {
+          console.error(error); 
+        });
+        this.get('xd','ASC');
+        this.tam();
+        this.get('xd','ASC');
+
+        //
+        fetch(this.max_sensors)
+        .then(response => response.json())
+        .then(data => {
+          this.id= parseInt(data[0].id);
+          ////console.log(this.id)
+          this.contenido_new.id= data[0].id;
+          this.contenido_new.type= type_2;
+        })
+
+        this.edit_change= true;
+        this.dup= true;
+
+        /*this.dup_ok=true;
+        setTimeout(() => {
+          this.dup_ok= false;
+        }, 2000);
+
         fetch(`${this.duplicate_sensors}/${num}/${type_2}`, {
           method: "POST",
           body: JSON.stringify(this.contenido3),
@@ -259,7 +293,7 @@ export class SensorsComponent implements OnInit{
           this.id= parseInt(data[0].id);
           ////console.log(this.id)
           this.num(this.id)
-        })
+        })*/
       })
     }
   }
@@ -387,6 +421,7 @@ export class SensorsComponent implements OnInit{
     this.mostrar= true;
     this.mostrar2= false;
     this.tam();
+    this.dup= false;
   }
   m2(){
     this.mostrar2= true;
