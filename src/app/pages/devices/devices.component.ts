@@ -12,11 +12,11 @@ interface MarkerAndColor {
 (mapboxgl as any).accessToken= 'pk.eyJ1IjoiZGF2aWRzYWF2MyIsImEiOiJjbGl1cmZ4NG8wMTZqM2ZwNW1pcW85bGo4In0.ye1F3KfhnRZruosNYoAYYQ';
 
 @Component({
-  selector: 'app-devices-list',
-  templateUrl: './devices-list.component.html',
+  selector: 'app-devices',
+  templateUrl: './devices.component.html',
   styleUrls: ['../../app.component.css']
 })
-export class DevicesListComponent implements AfterViewInit, OnDestroy{
+export class DevicesComponent implements AfterViewInit, OnDestroy{
 
   @ViewChild('map') divMap?: ElementRef;
   constructor(private router: Router) { }
