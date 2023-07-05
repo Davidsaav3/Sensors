@@ -45,25 +45,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   no_inicia= false;
   max= 1;
 
-  id_actual= 1;
-  contenido = {    
-    id: '',    
-    uid: '',    
-    alias: '', 
-    origin: '',
-    description_origin: '',
-    application_id: '',
-    topic_name: '',
-    typemeter: '',
-    lat: 0,
-    lon: 0,
-    cota: 10,
-    timezone: '+01:00',
-    organizationid: '',
-    enable: 0,
-  }
-
-  ngOnInit(): void {
+  ngOnInit(): void { // Inicializador
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
@@ -88,12 +70,12 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     }, 10);
   }
 
-  ampliar(){
+  ampliar(){ // Redimesiona mapa
     this.map?.resize();
   }
 
-  create(lon: any, lat: any){
-    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
+  createMap(lon: any, lat: any){ // Crear mapa
+    if ( !this.divMap ) throw 'No hay mapa';
 
       if(this.no_inicia==false){
         this.ngOnDestroy();
@@ -125,36 +107,36 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     return this.map;
   }
   
-  updatesharedLat() {
+  updatesharedLat() { // Actualizar Latitud
     this.dataSharingService.updatesharedLat(this.sharedLat);
   }
 
-  updatesharedLon() {
+  updatesharedLon() { // ctualizar Longitud
     this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
-  ngAfterViewInit(): void {
-    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
+  ngAfterViewInit(): void { // Despues de ngOnInit
+    if ( !this.divMap ) throw 'No hay mapa';
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => { 
-          this.map= this.create(position.coords.longitude, position.coords.latitude);
+          this.map= this.createMap(position.coords.longitude, position.coords.latitude);
           this.aux();
         },
         (error) => {
-          this.map= this.create(-3.7034137886912504,40.41697654880073);
-          console.log("Error al obtener la ubicación:", error);
+          this.map= this.createMap(-3.7034137886912504,40.41697654880073);
+          console.log("Error geo", error);
           this.aux()
         }
       );
     } 
     else {
-      this.map= this.create(-3.7034137886912504,40.41697654880073);
-      console.log("Geolocalización no compatible con el navegador.");
+      this.map= this.createMap(-3.7034137886912504,40.41697654880073);
+      console.log("Geo no compatible");
       this.aux();
     }
   }
 
-  aux(){
+  aux(){ // Auxiliar de ngAfterViewInit
     if(this.map!=undefined){
       this.map.addControl(
         new mapboxgl.GeolocateControl({
@@ -177,7 +159,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       if (layerList != null) {
         let inputs = layerList.getElementsByTagName('input');
         if (inputs != null) {
-          const inputArray = Array.from(inputs); // Convertir a array
+          const inputArray = Array.from(inputs); 
           
           for (const input of inputArray) {
             input.onclick = (layer: any) => {
@@ -192,11 +174,11 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { // Destructor del mapa
     this.map?.remove();
   }
 
-  mapListeners() {
+  mapListeners() { // Zoom y Move del mapa
     if ( !this.map ) throw 'Mapa no inicializado';
     this.map.on('zoom', (ev) => {
       this.zoom = this.map!.getZoom();
@@ -211,30 +193,16 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  zoomIn() {
-    this.map?.zoomIn();
-  }
-
-  zoomOut() {
-    this.map?.zoomOut();
-  }
-
-  zoomChanged( value: string ) {
-    this.zoom = Number(value);
-    this.map?.zoomTo( this.zoom );
-  }
-
   /* /////////////////////////// */
 
-  createMarker(marker: mapboxgl.LngLat) {
+  createMarker(marker: mapboxgl.LngLat) { // Añade chincheta 1
     if ( !this.map ) return;
     const color= '#0dcaf0';
     const lngLat = marker;
     this.addMarker( lngLat, color );
   }
 
-
-  addMarker( lngLat: mapboxgl.LngLat, color: string ) {
+  addMarker( lngLat: mapboxgl.LngLat, color: string ) { // Añade chincheta 2
     if ( !this.map ) return;
     this.markers = [];
     this.markers.splice( 0, 1 );
@@ -255,21 +223,21 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     this.updatesharedLon();
   }
 
-  deleteMarker( index: number ) {
+  deleteMarker( index: number ) { // Quita chincheta
     this.markers[index].marker.remove();
     this.markers= [];
     this.dataSharingService.updatesharedLat('');
     this.dataSharingService.updatesharedLon('');
   }
 
-  flyTo( marker: mapboxgl.Marker ) {
+  flyTo( marker: mapboxgl.Marker ) { // Va a una localización
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat()
     });
   }
 
-  saveToLocalStorage() {
+  saveToLocalStorage() { // Guarda datos
     const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
       return {
         color,
@@ -279,9 +247,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));
   }
 
-  readFromLocalStorage() {
+  readFromLocalStorage() { // Recupera datos
     const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
-    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString ); //! OJO!
+    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString );
     plainMarkers.forEach( ({ color, lngLat }) => {
       const [ lng, lat ] = lngLat;
       const coords = new mapboxgl.LngLat( lng, lat );

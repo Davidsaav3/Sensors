@@ -1,7 +1,5 @@
 import { Component , OnInit, HostListener} from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-sensors',
@@ -14,9 +12,8 @@ export class SensorsComponent implements OnInit{
   @HostListener('window:resize')
   public activeLang = 'es';
 
-  constructor(private translate: TranslateService, public rutaActiva: Router) {
+  constructor(public rutaActiva: Router) {
     this.resize();
-    this.translate.setDefaultLang(this.activeLang);
   }
 
   duplicate_sensors: string = 'http://localhost:5172/api/duplicate/sensors_types';
@@ -71,8 +68,6 @@ export class SensorsComponent implements OnInit{
   buscar1='type';
   marcado= 'orden';
 
-
-
   contenido = {
     id: '', 
     type: '',    
@@ -107,27 +102,14 @@ export class SensorsComponent implements OnInit{
     value: '', 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { // Inicializador
     this.get('orden','ASC');
     this.tam();
     this.get('orden','ASC');
-
-    const toastElList = Array.from(document.querySelectorAll('.toast'));
-    const toastList = toastElList.map(toastEl => new bootstrap.Toast(toastEl, {
-      animation: true,
-      autohide: true,
-      delay: 3000,
-    }));
-
-    const myToastEl = document.getElementById('myToast')
-    if(myToastEl!=null){
-      myToastEl.addEventListener('hidden.bs.toast', () => {})
-    }
   }
 
-  get(id: any,ord: any){
+  get(id: any,ord: any){ // Obtener lista sensores
     this.marcado= id;
-
     this.ruta= this.rutaActiva.routerState.snapshot.url;
     if(id!='xd'){
       this.buscar1= id;
@@ -138,24 +120,17 @@ export class SensorsComponent implements OnInit{
     else{
       this.buscar= this.busqueda.value;
     }
-
     this.cargando= true;
     fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
     .then((response) => response.json())
     .then(quotesData => {
       this.cargando= false
       this.data = quotesData
-    }
-    );
+    });
   }
 
-  public cambiarLenguaje() {
-    this.translate.use(this.activeLang);
-  }
-
-  submitForm1(loginForm: any) {
+  submitEdit(loginForm: any) {
     if (loginForm.valid) {
-      //console.log(this.update_sensors)
       fetch(this.update_sensors, {
         method: "POST",
         body: JSON.stringify(this.contenido),
@@ -175,7 +150,7 @@ export class SensorsComponent implements OnInit{
     this.edit_change=false;
   }
 
-  submitForm2(loginForm: any) {
+  submitNew(loginForm: any) {
     this.dup= false;
     if (loginForm.valid) {
       fetch(this.post_sensors, {
@@ -196,18 +171,17 @@ export class SensorsComponent implements OnInit{
       .then(response => response.json())
       .then(data => {
         this.id= parseInt(data[0].id+1);
-        //console.log(this.id) //this.num(this.id)
       })
     }
     this.new_change=false;
     this.edit_change=false;
   }
   
-  resize(): void{
+  resize(): void{ // Redimensionar pantalla
     this.width = window.innerWidth;
   }
 
-  duplicate(num: any, type: any){
+  duplicate(num: any, type: any){ // Duplicar sensor
     if(!this.edit_change && !this.new_change){
 
       this.contenido3 = {
@@ -229,7 +203,7 @@ export class SensorsComponent implements OnInit{
           type_2 = `${type}_${contador}`;
           contador++;
         }
-        this.m1();
+        this.abrirNuevo();
         //this.mostrar2=true;
         fetch(`${this.id_sensors}/${num}`)
         .then(response => response.json())
@@ -257,7 +231,7 @@ export class SensorsComponent implements OnInit{
     }
   }
 
-  eliminar(id_actual: any){
+  eliminar(id_actual: any){ // Eliminar sensor
     var contenido2 = {
       id: id_actual,    
     }
@@ -278,13 +252,12 @@ export class SensorsComponent implements OnInit{
     this.get('xd','ASC');
   }
 
-  ocultar(){
+  ocultar(){ 
     this.alert_delete= false;
     this.alert_new= false;
   }
 
-  update(){
-    //console.log(this.update_sensors)
+  update(){ // Guardar sensor
     fetch(this.update_sensors, {
       method: "POST",
       body: JSON.stringify(this.contenido),
@@ -300,39 +273,16 @@ export class SensorsComponent implements OnInit{
     this.guardado= true;
   }
 
-  cerrar(){
+  cerrar(){ 
     this.mostrar2=false;
     this.tam();
     this.new_change=false;
     this.edit_change=false;
   }
 
-  submit(){
-    fetch(this.post_sensors, {
-      method: "POST",
-      body: JSON.stringify(this.contenido_new),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    this.alert_new= true;
-    this.get('xd','ASC');
-    this.tam();
-    this.get('xd','ASC');
-
-    fetch(this.max_sensors)
-    .then(response => response.json())
-    .then(data => {
-      this.id= parseInt(data[0].id+1);
-      //console.log(this.id)
-      //this.num(this.id)
-    })
-    this.new_change=false;
-    this.edit_change=false;
-  }
-
-  num(id_actual: any){
+  num(id_actual: any){ // Num
     if(!this.edit_change && !this.new_change){
-       this.m2();
+       this.abrirEditar();
       this.mostrar2=true;
       fetch(`${this.id_sensors}/${id_actual}`)
       .then(response => response.json())
@@ -348,7 +298,7 @@ export class SensorsComponent implements OnInit{
     }
   }
   
-  onKeySearch(event: any) {
+  onKeySearch(event: any) { // Busqueda por texto
     clearTimeout(this.timeout);
     var $this = this;
     this.timeout = setTimeout(function () {
@@ -359,7 +309,7 @@ export class SensorsComponent implements OnInit{
     }, 500);
   }
 
-  tam(){
+  tam(){  // Logica abrir y cerrar tarjetas
     if (this.mostrar==true || this.mostrar2==true) {
       this.mostrar3= false;
     }
@@ -368,22 +318,24 @@ export class SensorsComponent implements OnInit{
     }
   }
 
-  borrar(){
+  borrar(){ // Borrar busqueda
     this.busqueda.value= '';
     this.get('xd','ASC');
   }
 
-  m1(){
+  abrirNuevo(){ // Abrir Nuevo sensor
     this.mostrar= true;
     this.mostrar2= false;
     this.tam();
     this.dup= false;
   }
-  m2(){
+
+  abrirEditar(){ // Abrir Editar sensor
     this.mostrar2= true;
     this.mostrar= false;
   }
-  m3(){
+
+  cerrarTodo(){ // Cerrar todas las pestañas
     this.mostrar2= false;
     this.mostrar= false;
     this.tam();

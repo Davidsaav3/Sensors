@@ -22,7 +22,7 @@
             <th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
 				</thead>
-				<tbody style="background-color: rgb(255, 255, 255); height: min-content;" *ngFor="let item of contenido.sensors;let i=index">
+				<tbody style="background-color: rgb(255, 255, 255); height: min-content;" *ngFor="let item of devices.sensors;let i=index">
           <tr style="overflow-y: scroll;">
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
 						<input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" id="id_device" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
@@ -38,7 +38,7 @@
 
             <th scope="col" class="pb-0"> 
 							<select (ngModelChange)="this.cambiar(i)" class="form-select" aria-label="Default select example" id="type_name" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
-							<ng-container *ngFor="let xd of contenido1.sensors;let j=index">
+							<ng-container *ngFor="let xd of sensors.sensors;let j=index">
 								<option [selected]="xd.id===item.id_type_sensor" value="{{xd.id}}">{{xd.type}}</option>
 							</ng-container>
 							</select>
@@ -91,7 +91,7 @@
               </label>
             </td>
 
-            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;" class="pb-0"  (click)="vari(item.id)"><!--data-bs-target="#exampleModal3" data-bs-toggle="modal"-->
+            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;" class="pb-0"  (click)="vari(item.id)">
                 <svg *ngIf="ver_can!=i" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                     <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
                 </svg>

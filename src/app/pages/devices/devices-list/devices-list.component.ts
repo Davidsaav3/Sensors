@@ -9,11 +9,6 @@ interface MarkerAndColor {
   enable: number; 
 }
 
-interface PlainMarker {
-  color: string;
-  lngLat: number[]
-}
-
 (mapboxgl as any).accessToken= 'pk.eyJ1IjoiZGF2aWRzYWF2MyIsImEiOiJjbGl1cmZ4NG8wMTZqM2ZwNW1pcW85bGo4In0.ye1F3KfhnRZruosNYoAYYQ';
 
 @Component({
@@ -22,29 +17,24 @@ interface PlainMarker {
   styleUrls: ['../../../app.component.css']
 })
 export class DevicesListComponent implements AfterViewInit, OnDestroy{
-  @ViewChild('map') divMap?: ElementRef;
 
-  constructor(private router: Router) {
-  }
+  @ViewChild('map') divMap?: ElementRef;
+  constructor(private router: Router) { }
 
   public zoom: number = 10;
   public map?: mapboxgl.Map;
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(-0.5098796883778505, 38.3855908932305);
   public markers: MarkerAndColor[] = [];
-
   public topLeftCoordinates: string= '';
   public topRightCoordinates: string= '';
   public bottomLeftCoordinates: string= '';
   public bottomRightCoordinates: string= '';
 
-  data4: any;
   geojson: any;
   x1= '0';
   x2= '0';
   y1= '0';
   y2= '0';
-  mas10= true;
-  menos10= true;
 
   /**/
   
@@ -57,14 +47,33 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   cargando= false;
   marcado= 'uid';
-  showToastFlag1: boolean = false;
-  showToastFlag2: boolean = false;
-
   totalPages = 5;
   currentPage = 1;
   cantPage = 10;
   data: any[]= [];
   page= 1;
+
+  ruta='';
+  id1= 'orden';
+  mostrar=true;
+  id= 1;
+  data3: any;
+  mostrar1= true;
+  mostrar2= false;
+  timeout: any = null;
+  dup_ok=false;
+  dup_not=false;
+  buscar='Buscar';
+  buscar1= 'id';
+  buscar2= 'id';
+  buscar3= 'Nada';
+  buscar4= 'Nada';
+  cont= true;
+  ver_dup= 10000;
+  pencil_dup= 10000;
+  pencil_dup1= false;
+  ver_list=false;
+  ver_map=false;
 
   alt_1_a=true;
   alt_1_b=false;
@@ -77,94 +86,32 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
   alt_5_a=true;
   alt_5_b=false;
 
-  ruta='';
-  id1= 'orden';
-  mostrar=true;
-  id= 1;
-  data3: any;
-  mostrar1= true;
-  mostrar2= false;
-
-  timeout: any = null;
-  dup_ok=false;
-  dup_not=false;
-  buscar='Buscar';
-  buscar1= 'id';
-  buscar2= 'id';
-  buscar3= 'Nada';
-  buscar4= 'Nada';
-  cont= true;
-
-  ver_dup= 10000;
-  pencil_dup= 10000;
-  pencil_dup1= false;
-
-  ver_list=false;
-  ver_map=false;
-
-  contenido = {
-    sensors : [
-      {
-        id: '',    
-        enable: '', 
-        id_device: '',
-        id_type_sensor: '',
-        datafield: '',
-        nodata: '',
-        orden: '',
-        createdAt: '',        
-        updatedAt: '',
-        type_name: '',
-        sensor : [
-          {
-            id: '1',    
-            enable: 1, 
-            type_name: '',
-          },
-        ]
-      }]
-  }
-
-  contenido2 = {
+  select_sensors_1 = {
     sensors : [{
-      id: '',    
-      uid: '',    
-      alias: '', 
-      origin: '',
-      description_origin: '',
-      application_id: '',
-      topic_name: '',
-      typemeter: '',
-      lat: 0,
-      lon: 0,
-      cota: 10,
-      timezone: '+01:00',
-      enable: 0,
-      organizationid: '',
+      id: 1, 
+      name: 'Todos los esnores',    
+      metric: '', 
+      description: '',
+      errorvalue: 1,
+      valuemax: 1,
+      valuemin: 1,
     }]
   }
 
-  data2 = {
-    sensors : [
-      {
-        id: '1',    
-        enable: 1, 
-        type_name: '',
-      },
-    ]
+  select_sensors_2 = {
+    sensors : [{
+      id: -1, 
+      name: 'Todos los Sensores',    
+      metric: '', 
+      description: '',
+      errorvalue: 1,
+      valuemax: 1,
+      valuemin: 1,
+    }]
   }
 
-  contenido1 = {
-    sensors : [
-      {
-        id: 1, 
-        name: 'Todos los esnores',    
-        metric: '', 
-        description: '',
-        errorvalue: 1,
-        valuemax: 1,
-        valuemin: 1,
-      }]
+  aux1 = {
+    id: '',
   }
 
   busqueda = {
@@ -174,37 +121,25 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     sel_enable: 2
   }
 
-
-  update = {
-    id_device: '1'
-  };
-
-  contenido3 = {
-    id: '',
-  }
-
-  contenido4 = {
-    sensors : [
-      {
-        id: -1, 
-        name: 'Todos los Sensores',    
-        metric: '', 
-        description: '',
-        errorvalue: 1,
-        valuemax: 1,
-        valuemin: 1,
-      }]
+  ngOnInit(): void { // Inicialización
+    this.getget();
+    if(this.cont==true){
+      this.get('uid','ASC');
+    }
+    else{
+      this.getCornerCoordinates();
+    }
   }
   
-  borrartodo(){
+  clearSearch(){ // Eliminar filtros
     this.busqueda.value= '';
     this.totalPages = 5;
     this.currentPage = 1;
     this.cantPage = 15;
     this.page= 1;
     this.busqueda.value= '';
-    this.contenido4.sensors= [];
-    this.contenido4.sensors.push({
+    this.select_sensors_2.sensors= [];
+    this.select_sensors_2.sensors.push({
       id: -1, 
       name: 'Todos los Sensores',    
       metric: '', 
@@ -218,14 +153,13 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     this.Page(1);
   }
 
-  getget(){
+  getget(){ 
     this.ruta= this.router.routerState.snapshot.url;
     this.get('uid','ASC');
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
       this.id= parseInt(data[0].id)+1;
-      //console.log(this.id);
     })
 
     let buscar= 'Buscar';
@@ -253,37 +187,26 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         valuemin: 1,
       });
 
-      this.contenido1.sensors= data;
+      this.select_sensors_1.sensors= data;
       for (let index = 0; index < data.length; index++) {
-        this.contenido1.sensors[index].name= data[index].type;
+        this.select_sensors_1.sensors[index].name= data[index].type;
       }
     })
   }
 
-  ngOnInit(): void {
-    this.getget();
-    if(this.cont==true){
-      this.get('uid','ASC');
-    }
-    else{
-      this.getCornerCoordinates();
-    }
-  }
-
-  c1(){
+  openMap(){ // Abrir mapa
     this.getCornerCoordinates();
     this.cont= false;
   }
-  c2(){
+  openList(){ // Abrir lista
     this.getget();
     this.get('uid','ASC');
     this.cont= true;
   }
 
-  get(id: any, ord: any){
+  get(id: any, ord: any){ 
     this.marcado= id;
     setTimeout(() =>{
-      //console.log(this.currentPage)
       if(id!='xd'){
         this.buscar1= id;
       }
@@ -299,14 +222,14 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let y2= '0';
 
       let array= [];
-      for (let index = 0; index < this.contenido4.sensors.length; index++) {
-        array.push(this.contenido4.sensors[index].id);
+      for (let index = 0; index < this.select_sensors_2.sensors.length; index++) {
+        array.push(this.select_sensors_2.sensors[index].id);
       }
       var arrayString = array.join(',');
       //console.log(arrayString)
       let m1= 1;
       let m2= 100000;
-      //console.log(this.contenido4.sensors[0].id)
+      //console.log(this.select_sensors_2.sensors[0].id)
       this.cargando= true;
       fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
@@ -347,73 +270,14 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }, 10);
   }
 
-  get pageRange(): number[] {
-    return Array(this.totalPages).fill(0).map((_, index) => index + 1);
-  }
-
-  previousPage0(): void {
-    if(this.currentPage!=1){
-      this.currentPage= 1;
-      this.ngOnInit();
-    }
-  }
-
-  previousPage1(): void {
-    if (this.currentPage-10 > 1) {
-      this.currentPage= this.currentPage-10;
-      this.ngOnInit();
-    }
-    else{
-      this.currentPage= 1;
-      this.ngOnInit();
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.ngOnInit();
-    }
-  }
-
-  Page(num: any): void {
-    this.currentPage= num;
-    this.ngOnInit();
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.ngOnInit();
-    }
-  }
-
-  nextPage1(): void {
-    if (this.currentPage+10 < this.totalPages) {
-      this.currentPage= this.currentPage+10;
-      this.ngOnInit();
-    }
-    else{
-      this.currentPage= this.totalPages;
-      this.ngOnInit();
-    }
-  }
-
-  nextPage0(): void {
-    if(this.currentPage!=this.totalPages){
-      this.currentPage= this.totalPages;
-      this.ngOnInit();
-    }
-  }
-
-  duplicate(num: any,uid: any){
-    this.contenido3 = {
+  duplicate(num: any,uid: any){ // Duplicar dispositivo
+    this.aux1 = {
       id: num,    
     }
     let x1= 1;
     let x2= 100000;
     this.buscar= 'Buscar';
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
     .then((response) => response.json())
     .then(data => {
       let contador = 1;
@@ -428,12 +292,12 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         contador++;
       }
       //console.log(data);
-      this.contenido3 = {
+      this.aux1 = {
         id: num,    
       }
       fetch(`${this.url3}/${num}/${uid_2}`, {
         method: "POST",
-        body: JSON.stringify(this.contenido3),
+        body: JSON.stringify(this.aux1),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json())
@@ -453,19 +317,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
 
   }
 
-  obtener(id_actual: any){
-    fetch(`${this.id_device_sensors_devices}/${id_actual}/${this.id1}`)
-    .then(response => response.json())
-    .then(data3 => {
-      this.contenido.sensors[id_actual].sensor.push(data3);
-    })
-    .catch(error => {
-      console.error(error); 
-    });
-
-  }
-
-  onKeySearch(event: any) {
+  onKeySearch(event: any) { // Busqueda por texto
     clearTimeout(this.timeout);
     var $this = this;
     this.timeout = setTimeout(function () {
@@ -475,13 +327,106 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }, 500);
   }
 
-  borrar(){
+  deleteText(){ // Limpiar cuadro de texto
     this.busqueda.value= '';
   }
 
   /**/
 
-  getCornerCoordinates() {
+  firstPage(): void { // Primera pagina
+    if(this.currentPage!=1){
+      this.currentPage= 1;
+      this.ngOnInit();
+    }
+  }
+
+  previousPage10(): void { // 10 paginas mas
+    if (this.currentPage-10 > 1) {
+      this.currentPage= this.currentPage-10;
+      this.ngOnInit();
+    }
+    else{
+      this.currentPage= 1;
+      this.ngOnInit();
+    }
+  }
+
+  previousPage(): void { // Pagina anterior
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.ngOnInit();
+    }
+  }
+
+  Page(num: any): void {
+    this.currentPage= num;
+    this.ngOnInit();
+  }
+
+  nextPage(): void { // Pagina siguiente
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.ngOnInit();
+    }
+  }
+
+  nextPage10(): void { // 10 paginas menos
+    if (this.currentPage+10 < this.totalPages) {
+      this.currentPage= this.currentPage+10;
+      this.ngOnInit();
+    }
+    else{
+      this.currentPage= this.totalPages;
+      this.ngOnInit();
+    }
+  }
+
+  lastPage(): void { // Ultima pagina
+    if(this.currentPage!=this.totalPages){
+      this.currentPage= this.totalPages;
+      this.ngOnInit();
+    }
+  }
+
+  /**/
+
+  ngAfterViewInit(): void { // Después de ngOnInit
+    if ( !this.divMap ) throw 'No hay mapa';
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => { 
+          this.map = new mapboxgl.Map({
+              container: this.divMap?.nativeElement, 
+              style: 'mapbox://styles/mapbox/streets-v12',
+              center: [position.coords.longitude, position.coords.latitude],
+              zoom: this.zoom, 
+          });
+          this.auxInit();
+        },
+        (error) => {
+          this.map = new mapboxgl.Map({
+            container: this.divMap?.nativeElement, 
+            style: 'mapbox://styles/mapbox/streets-v12', 
+            center: [-3.7034137886912504,40.41697654880073],
+            zoom: this.zoom, 
+        });
+          console.log("Error geo", error);
+          this.auxInit()
+        }
+      );
+    } 
+    else {
+      this.map = new mapboxgl.Map({
+        container: this.divMap?.nativeElement, 
+        style: 'mapbox://styles/mapbox/streets-v12', 
+        center: [-3.7034137886912504,40.41697654880073],
+        zoom: this.zoom, 
+    });      
+      console.log("Geo no compatible");
+      this.auxInit();
+    }
+  }
+
+  getCornerCoordinates() { // Obtener cordenadas
     let bounds;
     if(this.map!=null){
       bounds = this.map.getBounds();
@@ -493,11 +438,11 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       this.y2= bounds.getNorthEast().lat.toFixed(6);
     }
     setTimeout(() => {
-      this.llamada();
+      this.getDevices();
     }, 1000);
   }
 
-  handleClick(event: any) {
+  handleClick(event: any) { // Marcar posición
     let features;
     if(this.map!=null){
       features = this.map.queryRenderedFeatures(event.point);
@@ -511,12 +456,11 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       let markerId;
       if(marker.properties!=null && marker.properties["id"]!=null){
         markerId = marker.properties["id"]; 
-        //console.log('Clic en el marcador:', markerId);
       }
     }
   }
 
-  aux(){
+  auxInit(){ // Auxiliar de Init
     if(this.map!=undefined){
       this.map.addControl(
         new mapboxgl.GeolocateControl({
@@ -539,7 +483,7 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       this.map.on('zoom', () => {
           this.getCornerCoordinates();
       });*/
-      if(this.busqueda.value=='' && this.contenido4.sensors[0].id==-1 && this.busqueda.sel_enable==2){
+      if(this.busqueda.value=='' && this.select_sensors_2.sensors[0].id==-1 && this.busqueda.sel_enable==2){
         this.map.on('zoomend', () => {
           this.getCornerCoordinates();
         });
@@ -676,48 +620,11 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }
   }
 
-  ngAfterViewInit(): void {
-    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => { 
-          this.map = new mapboxgl.Map({
-              container: this.divMap?.nativeElement, 
-              style: 'mapbox://styles/mapbox/streets-v12',
-              center: [position.coords.longitude, position.coords.latitude],
-              zoom: this.zoom, 
-          });
-          this.aux();
-        },
-        (error) => {
-          this.map = new mapboxgl.Map({
-            container: this.divMap?.nativeElement, 
-            style: 'mapbox://styles/mapbox/streets-v12', 
-            center: [-3.7034137886912504,40.41697654880073],
-            zoom: this.zoom, 
-        });
-          console.log("Error al obtener la ubicación:", error);
-          this.aux()
-        }
-      );
-    } 
-    else {
-      this.map = new mapboxgl.Map({
-        container: this.divMap?.nativeElement, 
-        style: 'mapbox://styles/mapbox/streets-v12', 
-        center: [-3.7034137886912504,40.41697654880073],
-        zoom: this.zoom, 
-    });      
-      console.log("Geolocalización no compatible con el navegador.");
-      this.aux();
-    }
-  }
-
-
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { // Elimina mapa
     this.map?.remove();
   }
 
-  mapListeners() {
+  mapListeners() { // Listeners del mapa
     if ( !this.map ) throw 'Mapa no inicializado';
     this.map.on('zoom', (ev) => {
       this.zoom = this.map!.getZoom();
@@ -761,34 +668,9 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }
   }
 
-  zoomIn() {
-    this.map?.zoomIn();
-  }
+  /* */
 
-  zoomOut() {
-    this.map?.zoomOut();
-  }
-
-  zoomChanged( value: string ) {
-    this.zoom = Number(value);
-    this.map?.zoomTo( this.zoom );
-  }
-
-  /* /////////////////////////// */
-
-  createMarker(marker: mapboxgl.LngLat) {
-    let enable=1;
-    if ( !this.map ) return;
-    let color= '#198754';
-    if(enable==0){
-      color= '#dc3545';
-    }
-    const lngLat = marker;
-    let name='Punto nuevo';
-    this.addMarker( lngLat, color ,name,enable);
-  }
-
-  addMarker( lngLat: mapboxgl.LngLat, color: string , name: string, enable: number) {
+  addMarker( lngLat: mapboxgl.LngLat, color: string , name: string, enable: number) { // Añadir chincheta
     if ( !this.map ) return;
     const marker = new mapboxgl.Marker({
       color: color,
@@ -853,48 +735,18 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
         .addTo(this.map);
       }
     this.markers.push({ color, marker, name, enable});
-    marker.on('dragend', () => this.saveToLocalStorage() );
   }
 
-  deleteMarker( index: number ) {
+  deleteMarker( index: number ) { // Eliminar chincheta
     this.markers[index].marker.remove();
     this.markers.splice( index, 1 );
   }
 
-  flyTo( marker: mapboxgl.Marker ) {
-    this.map?.flyTo({
-      zoom: 14,
-      center: marker.getLngLat()
-    });
-  }
-
-  saveToLocalStorage() {
-    const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
-      return {
-        color,
-        lngLat: marker.getLngLat().toArray()
-      }
-    });
-    localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));
-  }
-
-  readFromLocalStorage() {
-    const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
-    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString );
-    plainMarkers.forEach( ({ color, lngLat }) => {
-      const [ lng, lat ] = lngLat;
-      const coords = new mapboxgl.LngLat( lng, lat );
-      let name='David';
-      let enable=1;
-      this.addMarker( coords,color,name,enable);
-    })
-  }
-
-  llamada(){
+  getDevices(){ // Obtener dispositivos
     let m1= 1;
     let m2= 100000;
     let m3= 'asc';
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.contenido4.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
+    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
     .then((response) => response.json())
     .then(data4 => {
       this.data= data4;
@@ -913,5 +765,4 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
       }
     })
   }
-  
 }

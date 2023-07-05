@@ -6,7 +6,7 @@
         <div class="col-lg-3 d-flex">
           <div class="btn-group">
 
-            <button type="button" class="btn" (click)="c2()">
+            <button type="button" class="btn" (click)="openList()">
               <svg *ngIf="!ver_list" (mouseover)="ver_list=true" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list-task mb-1" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
                 <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
@@ -17,7 +17,7 @@
               </svg>
             </button>
 
-            <button type="button" class="btn" (click)="c1()">
+            <button type="button" class="btn" (click)="openMap()">
               <svg *ngIf="!ver_map" (mouseover)="ver_map=true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-map mb-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"></path>
               </svg>
@@ -30,7 +30,7 @@
   
           <div class="ps-2 w-100" style="position: relative;">
               <input style="height: 40px;" (keyup)="onKeySearch($event)" [(ngModel)]="busqueda.value" type="text" class="form-control" placeholder="{{ 'sensors.buscar_dispositivos' | translate }}" aria-label="Recipient's username" aria-DESCcribedby="basic-addon2">
-              <p style="position: absolute; cursor: pointer; top: 7px; right: 7px;" class="" type="" (click)="borrar()" class="btn-close" aria-label="Close"></p>
+              <p style="position: absolute; cursor: pointer; top: 7px; right: 7px;" class="" type="" (click)="deleteText()" class="btn-close" aria-label="Close"></p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
           <div class="d-flex">
 
             <div style="border-radius: 6px; border: 1px solid #d8d8d8 ; width: 33vw; border-top-right-radius: 0em; border-bottom-right-radius: 0em" class="ms-3">
-              <ng-select [items]="contenido1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="contenido4.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
+              <ng-select [items]="select_sensors_1.sensors" (ngModelChange)="get('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="select_sensors_2.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
             </div>
 
             <div class="ms-0">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="ms-4">
-              <button class="btn btn-secondary" type="button" (click)="borrartodo()">{{ 'sensors.erase' | translate }}</button>
+              <button class="btn btn-secondary" type="button" (click)="clearSearch()">{{ 'sensors.erase' | translate }}</button>
             </div>
           </div>
 
@@ -218,12 +218,12 @@
           <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage0()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="firstPage()">
                   <span aria-hidden="true">{{ 'first' | translate }}</span>
                 </a>
               </li>
               <li class="page-item" *ngIf="currentPage-10>0">
-                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage1()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="previousPage10()">
                   <span aria-hidden="true">&laquo; 10</span>
                 </a>
               </li>
@@ -237,12 +237,12 @@
                 <a class="page-link" style="cursor: pointer;" (click)="nextPage()">{{ this.currentPage+1 }}</a>
               </li>
               <li class="page-item" *ngIf="currentPage+10<totalPages">
-                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage1()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage10()">
                   <span aria-hidden="true">10 &raquo;</span>
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="nextPage0()">
+                <a class="page-link" style="cursor: pointer;" aria-label="Next" (click)="lastPage()">
                   <span aria-hidden="true">{{ 'last' | translate }}</span>
                 </a>
               </li>

@@ -2,7 +2,7 @@
 
 	<div class="row pb-0 pt-3 pb-3 d-flex">
 		<div class="col d-flex" style="justify-content: flex-end;">
-      <button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
+      <button type="button" (click)="addSensor()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 		</div>
 	</div>	
 
@@ -13,18 +13,18 @@
 
 				<thead>
 				  <tr>
-            <th style="cursor: pointer;" (click)="get('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
-            <th style="cursor: pointer;" (click)="get('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
-            <th *ngIf="grande" style="cursor: pointer;" (click)="get('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
-            <th *ngIf="grande" style="cursor: pointer;" (click)="get('nodate')" scope="col">Nodata</th>
-            <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
-            <th style="cursor: pointer;" (click)="get('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
-            <th style="cursor: pointer;" (click)="get('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
+            <th style="cursor: pointer;" (click)="getDevices('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
+            <th style="cursor: pointer;" (click)="getDevices('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
+            <th *ngIf="grande" style="cursor: pointer;" (click)="getDevices('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+            <th *ngIf="grande" style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">Nodata</th>
+            <th style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
+            <th style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
+            <th style="cursor: pointer;" (click)="getDevices('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
             <th scope="col" style="text-align: center;">{{ 'sensors.delete' | translate }}</th>
 				  </tr>
 				</thead>
 
-				<tbody style="background-color: rgb(255, 255, 255);" *ngFor="let item of contenido.sensors;let i=index">
+				<tbody style="background-color: rgb(255, 255, 255);" *ngFor="let item of sensors.sensors;let i=index">
           <tr class="pb-0" style="overflow-y: scroll;">
             <label style="display: none" [for]="'id'+i">{{ 'devices.sensors.id' | translate }}</label>
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
@@ -42,8 +42,8 @@
             </th>
 
             <th scope="col"class="pb-0 input-2"> 
-              <select (ngModelChange)="this.cambiar(i)" class="form-select" aria-label="Default select example" [id]="'type_name'+i" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
-                <ng-container *ngFor="let xd of contenido1.sensors;let j=index">
+              <select (ngModelChange)="this.getOrden(i)" class="form-select" aria-label="Default select example" [id]="'type_name'+i" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
+                <ng-container *ngFor="let xd of select_sensors.sensors;let j=index">
                   <option [selected]="xd.id===item.id_type_sensor" value="{{xd.id}}">{{xd.type}}</option>
                 </ng-container>
               </select>
@@ -98,7 +98,7 @@
               </label>
             </td>
 
-            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="vari(item.id)"><!--data-bs-target="#exampleModal3" data-bs-toggle="modal"-->
+            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="addShareSensor(item.id)">
               <svg *ngIf="ver_can!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                 <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
               </svg>
@@ -117,7 +117,7 @@
 
 <div class="text-center" *ngIf="!sin">
 	<h3>{{ 'devices.sensors.add' | translate }}</h3>
-	<button type="button" (click)="anyadir()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
+	<button type="button" (click)="addSensor()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 </div>
 
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,7 +136,7 @@
               <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
             </div>
             <div class="col-6">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()">{{ 'sensors.delete' | translate }}</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteSensor()">{{ 'sensors.delete' | translate }}</button>
             </div>
         </div>
       </div>

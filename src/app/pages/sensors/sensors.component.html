@@ -13,7 +13,7 @@
 					</div>
 				<div class="col-6 col-sm-6 col-lg-10 d-flex " style="justify-content: flex-end;">
 					<div>
-						<button type="button" class="btn btn-info" (click)="m1()" [ngClass]="{'disabled': edit_change || new_change}">{{ 'sensors.nuevo_sensor' | translate }}</button>
+						<button type="button" class="btn btn-info" (click)="abrirNuevo()" [ngClass]="{'disabled': edit_change || new_change}">{{ 'sensors.nuevo_sensor' | translate }}</button>
 					</div>
 				</div>
 			</div>	
@@ -222,11 +222,11 @@
 			<div class="col-12 mt-5">
 				<div class="row">
 					<div class="col-6 mt-3">
-						<button *ngIf="edit_change==false" type="button navb" class="btn btn-secondary text-light navb" (click)="m3()" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
+						<button *ngIf="edit_change==false" type="button navb" class="btn btn-secondary text-light navb" (click)="cerrarTodo()" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
 						<button *ngIf="edit_change==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
-						<button (click)="submitForm2(loginForm)" ng-click="ocultar = true" type="button navb submit" class="btn btn-info navb me-3" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
+						<button (click)="submitNew(loginForm)" ng-click="ocultar = true" type="button navb submit" class="btn btn-info navb me-3" style="width: 100%" [ngClass]="{'disabled': !edit_change}">{{ 'sensors.save' | translate }}</button>
 					</div>	
 				</div>
 			</div>
@@ -338,7 +338,7 @@
 						<button *ngIf="new_change==true && this.guardado==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal1">{{ 'sensors.cancel' | translate }}</button>
 					</div>
 					<div class="col-6 mt-3">
-						<button (click)="submitForm1(loginForm)" type="button navb submit" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button><!--(click)="update()"-->
+						<button (click)="submitEdit(loginForm)" type="button navb submit" class="btn btn-info" style="width: 100%" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button>
 					</div>	
 					<div class="col-12 mt-3">
 						<button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal">{{ 'sensors.erase_sensor' | translate }}</button>
@@ -388,7 +388,7 @@
           <div class="modal-footer" style="border-top: 0px;">
             <div class="row">
                 <div class="col-5">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="m3()">{{ 'sensors.exit' | translate }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarTodo()">{{ 'sensors.exit' | translate }}</button>
                 </div>
                 <div class="col-7">
 					<button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="update()" [ngClass]="{'disabled': !new_change}">{{ 'sensors.save' | translate }}</button>

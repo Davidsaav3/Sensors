@@ -20,24 +20,20 @@ export class DevicesNewListComponent  implements OnInit{
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
-
-  data: any;
-  data6: any= null;
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
+  data6: any= null;
   ver_can= 1000;
   activeLang='en';
   buscar1='orden';
   buscar2='id';
-
   sin= true;
   eliminarlo: any;
-  mostrar=true;
-  desde: number= 1;
+  desde= 1;
   duplicados= false;
   grande= true;
 
-  contenido = {
+  devices = {
     sensors : [
       {
         id: 1, 
@@ -53,7 +49,7 @@ export class DevicesNewListComponent  implements OnInit{
       }]
   }
 
-  contenido1 = {
+  sensors = {
     sensors : [
       {
         id: 1, 
@@ -81,16 +77,16 @@ export class DevicesNewListComponent  implements OnInit{
 
   cambiar(num: any){
     setTimeout(() =>{
-      fetch(`${this.id_sensors}/${this.contenido.sensors[num].id_type_sensor}`)
+      fetch(`${this.id_sensors}/${this.devices.sensors[num].id_type_sensor}`)
       .then(response => response.json())
       .then(data => {
-        this.contenido.sensors[num].orden= data[0].orden;
+        this.devices.sensors[num].orden= data[0].orden;
       })
     }, 10);
   }
 
   updatesharedList() {
-    this.dataSharingService.updatesharedList(this.contenido.sensors);
+    this.dataSharingService.updatesharedList(this.devices.sensors);
   }
 
   get(id: any){
@@ -100,7 +96,7 @@ export class DevicesNewListComponent  implements OnInit{
     fetch(`${this.id_device_sensors_devices}/${this.id}/${this.buscar1}`)
     .then(response => response.json())
     .then(data => {
-      this.contenido.sensors= data;
+      this.devices.sensors= data;
       if(this.data6!=null){
         this.sin= false;
       }
@@ -113,18 +109,18 @@ export class DevicesNewListComponent  implements OnInit{
     fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
-      this.contenido1.sensors= data;
+      this.sensors.sensors= data;
     })
   }
 
   vari(id: any){
     this.eliminarlo= id;
-    this.contenido.sensors= this.contenido.sensors.filter((item) => item.id != this.eliminarlo);
+    this.devices.sensors= this.devices.sensors.filter((item) => item.id != this.eliminarlo);
     this.updatesharedList();
   }
 
   anyadir(){
-    let contenido2 = {
+    let devices_aux = {
       id: 1, 
       enable: 0, 
       id_device: this.id,
@@ -136,12 +132,12 @@ export class DevicesNewListComponent  implements OnInit{
       specific: null,
       time_specific: null,
     }
-    this.contenido.sensors.push(contenido2);
+    this.devices.sensors.push(devices_aux);
     this.sin= true;
     this.updatesharedList();
   }
   
   eliminar(){
-    this.contenido.sensors= this.contenido.sensors.filter((item) => item == this.eliminarlo)
+    this.devices.sensors= this.devices.sensors.filter((item) => item == this.eliminarlo)
   }
 }

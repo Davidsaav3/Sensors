@@ -1,18 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable,Renderer2  } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { DataSharingService } from '../../../../services/data_sharing.service';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 interface MarkerAndColor {
   color: string;
   marker: mapboxgl.Marker;
-}
-
-interface PlainMarker {
-  color: string;
-  lngLat: number[]
 }
 
 (mapboxgl as any).accessToken= 'pk.eyJ1IjoiZGF2aWRzYWF2MyIsImEiOiJjbGl1cmZ4NG8wMTZqM2ZwNW1pcW85bGo4In0.ye1F3KfhnRZruosNYoAYYQ';
@@ -33,14 +26,13 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   sharedLon: any = -0.5098796883778505;
   currentLngLat: mapboxgl.LngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
 
-  constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService,private renderer: Renderer2) {
+  constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService,private renderer: Renderer2) {
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.sharedLat = data;
     });
     this.dataSharingService.sharedLon$.subscribe(data => {
       this.sharedLon = data;
     }); 
-    //this.recargar()
     setTimeout(() => { this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);}, 50);
    }
 
@@ -52,24 +44,6 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   map?: mapboxgl.Map;
   markers: MarkerAndColor[] = [];
   no_inicia= false;
-  id_actual= 1;
-
-  contenido = {    
-    id: '',    
-    uid: '',    
-    alias: '', 
-    origin: '',
-    description_origin: '',
-    application_id: '',
-    topic_name: '',
-    typemeter: '',
-    lat: 1,
-    lon: 1,
-    cota: 10,
-    timezone: '+01:00',
-    organizationid: '',
-    enable: 0,
-  }
 
   ngOnInit(): void { // Inicializador
     this.dataSharingService.sharedLat$.subscribe(data => {
@@ -79,81 +53,21 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       this.sharedLon = data;
     });
     this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
-
     setInterval(() => {
       this.map?.resize();
     }, 10);
   }
 
-  recargar(){ // 
-    const id_actual= this.rutaActiva.snapshot.params['id']
-    fetch(`${this.id_device}/${id_actual}`)
-    .then(response => response.json())
-    .then(data => {
-      this.contenido= data;
-      this.sharedLat= data[0].lat;
-      this.sharedLon= data[0].lon;
-      this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
-    })
-    .catch(error => {
-      console.error(error); 
-    });
-  }
-
-  ampliar(){
-    this.map?.resize();
-  }
-
-  updatesharedLat() {
-    this.dataSharingService.updatesharedLat(this.sharedLat);
-  }
-  updatesharedLon() {
-    this.dataSharingService.updatesharedLon(this.sharedLon);
-  }
-
-  create(){
-    if ( !this.divMap ) throw 'El elemento HTML no fue encontrado';
-
-    if(this.no_inicia==false){
-      this.ngOnDestroy();
-      this.map = new mapboxgl.Map({
-        container: this.divMap.nativeElement,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: this.currentLngLat,
-        zoom: this.zoom,
-      });
-      this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
-      this.createMarker(this.currentLngLat);
-
-      return this.map;
-    }
-    else{
-      this.ngOnDestroy();
-      this.map = new mapboxgl.Map({
-        container: this.divMap.nativeElement,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: this.currentLngLat,
-        zoom: this.zoom,
-      });
-      return this.map;
-    }
-  }
-
-  ngAfterViewInit(): void {
-    this.map= this.create();
-
-    this.mapListeners();
-    //this.sharedLon)
+  ngAfterViewInit(): void { // Despues de ngOnInit
+    this.map= this.createMap();
     this.currentLngLat= new mapboxgl.LngLat(this.sharedLon,this.sharedLat);
-    //console.log(this.currentLngLat)
     const marker = new mapboxgl.Marker({
       color: '#0dcaf0',
       draggable: false
     }).setLngLat( this.currentLngLat ).addTo( this.map );
 
     setTimeout(() =>{this.flyTo( marker );}, 50);
-    //console.log(this.currentLngLat)
-    //this.readFromLocalStorage();
+
     this.map.addControl(
       new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -188,57 +102,59 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
         }
       }
     }
-
   }
 
-  ngOnDestroy(): void {
+  updatesharedLat() { // Actualizar Latitud
+    this.dataSharingService.updatesharedLat(this.sharedLat);
+  }
+  updatesharedLon() { // Actualizar Longitud
+    this.dataSharingService.updatesharedLon(this.sharedLon);
+  }
+
+  createMap(){
+    if ( !this.divMap ) throw 'No hay mapa';
+
+    if(this.no_inicia==false){
+      this.ngOnDestroy();
+      this.map = new mapboxgl.Map({
+        container: this.divMap.nativeElement,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: this.currentLngLat,
+        zoom: this.zoom,
+      });
+      this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+      this.createMarker(this.currentLngLat);
+
+      return this.map;
+    }
+    else{
+      this.ngOnDestroy();
+      this.map = new mapboxgl.Map({
+        container: this.divMap.nativeElement,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: this.currentLngLat,
+        zoom: this.zoom,
+      });
+      return this.map;
+    }
+  }
+
+  ngOnDestroy(): void { // Eliminar mapa
     this.map?.remove();
   }
 
-  mapListeners() {
-    if ( !this.map ) throw 'Mapa no inicializado';
-
-    this.map.on('zoom', (ev) => {
-      this.zoom = this.map!.getZoom();
-    });
-    this.map.on('zoomend', (ev) => {
-      if ( this.map!.getZoom() < 18 ) return;
-      this.map!.zoomTo(18);
-    });
-    this.map.on('move', () => {
-      this.currentLngLat = this.map!.getCenter();
-    });
-  }
-
-  zoomIn() {
-    this.map?.zoomIn();
-  }
-
-  zoomOut() {
-    this.map?.zoomOut();
-  }
-
-  zoomChanged( value: string ) {
-    this.zoom = Number(value);
-    this.map?.zoomTo( this.zoom );
-  }
-
-  /* /////////////////////////// */
-
-  createMarker(marker: mapboxgl.LngLat) {
+  createMarker(marker: mapboxgl.LngLat) { // Crear chincheta 1
     if ( !this.map ) return;
     const color= '#0dcaf0';
     const lngLat = marker;
     this.addMarker( lngLat, color );
   }
 
-  addMarker( lngLat: mapboxgl.LngLat, color: string ) {
+  addMarker( lngLat: mapboxgl.LngLat, color: string ) { // Crear chincheta 2
     if ( !this.map ) return;
 
     this.markers = [];
-    //this.markers[0].marker.remove();
     this.markers.splice( 0, 1 );
-
     const marker = new mapboxgl.Marker({
       color: '#0dcaf0',
       draggable: false
@@ -247,8 +163,6 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     .addTo( this.map );
 
     this.markers.push({ color, marker, });
-    //this.saveToLocalStorage();
-    //marker.on('dragend', () => this.saveToLocalStorage() );
     this.sharedLat= lngLat.lat;
     this.sharedLon= lngLat.lng;
 
@@ -256,39 +170,17 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     this.updatesharedLon();
   }
 
-  deleteMarker( index: number ) {
+  deleteMarker( index: number ) { // Eliminar chincheta
     this.markers[index].marker.remove();
     this.markers= [];
     this.dataSharingService.updatesharedLat('');
     this.dataSharingService.updatesharedLon('');
   }
 
-  flyTo( marker: mapboxgl.Marker ) {
+  flyTo( marker: mapboxgl.Marker ) { // Ir a un punto del mapa
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat()
     });
   }
-
-  saveToLocalStorage() {
-    /*const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
-      return {
-        color,
-        lngLat: marker.getLngLat().toArray()
-      }
-    });
-    localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));*/
-  }
-
-  readFromLocalStorage() {
-    /*const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
-    const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString ); //! OJO!
-    plainMarkers.forEach( ({ color, lngLat }) => {
-      const [ lng, lat ] = lngLat;
-      const coords = new mapboxgl.LngLat( lng, lat );
-      //this.addMarker( coords, color );
-    })*/
-  }
-
-
 }

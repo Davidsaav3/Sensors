@@ -1,253 +1,241 @@
+  .input-1{
+    width: 15%;
+  }
+  .input-2{
+    width: 30%;
+  }
 
-::ng-deep .ng-dropdown-panel {  
-  background-color: whitesmoke;;
-}
+  #map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
 
-::ng-deep .ng-option{
-  padding: 0.7em;
-  padding-top: 0em
-}
+  .floating-range {
+    position: relative;
+    bottom: 0px;
+    z-index: 999;
+    width: 40%;
+  }
 
-.input-1{
-  width: 15%;
-}
-.input-2{
-  width: 30%;
-}
+  .toast-cont{
+    top: -10px;
+    right: 0px;
+    position: fixed;
+  }
 
-#map {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+  .mapboxgl-canvas{
+    width: 100%;
+  }
 
+  .form-range::-moz-range-thumb{
+    background-color: #6c757d;
+  }
+  .form-range::-webkit-slider-thumb{
+    background-color: #6c757d;
+  }
 
-.floating-range {
-  position: relative;
-  bottom: 0px;
-  z-index: 999;
-  width: 40%;
-}
+  .marcado{
+    background-color: #E3E3E3;
+  }
 
-.toast-cont{
-  top: -10px;
-  right: 0px;
-  position: fixed;
-}
+  th{
+    border-radius: 7px;
+  }
 
-.mapboxgl-canvas{
-  width: 100%;
-}
+  .floating-content {
+    display: flex;
+  }
 
-.form-range::-moz-range-thumb{
-  background-color: #6c757d;
-}
-.form-range::-webkit-slider-thumb{
-  background-color: #6c757d;
-}
+  #menu {
+    position: relative;
+    width: max-content;
+    padding: 10px;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    border-bottom-right-radius: 15px;
+  }
 
-.marcado{
-  background-color: #E3E3E3;
-}
+  .list-group {
+    z-index: 999;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    height: 85%;
+  }
 
-th{
-  border-radius: 7px;
-}
+  .botoncito {
+    z-index: 1000;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+  }
 
-.floating-content {
-  display: flex;
-}
-
-#menu {
-  position: relative;
-  width: max-content;
-  padding: 10px;
-  top: 0px;
-  left: 0px;
-  z-index: 999;
-  border-bottom-right-radius: 15px;
-}
-
-.list-group {
-  z-index: 999;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  cursor: pointer;
-  height: 85%;
-}
-
-
-.botoncito {
-  z-index: 1000;
-  position: absolute;
-  top: 30px;
-  left: 20px;
-}
-
-.nav{
-    margin: 1em;
-}
-.cc2{
-  margin: 1em;
-  margin-top: 0em;
-}
-
-h1,h2,h3,h4,p,a,.btn, span, label{
-  font-weight: 500;
-} 
-
-.navb{
-    width: 49%;
-}
-
-.cont{
-    background-color: white;
-    border-radius: 10px;
-    height: 88vh;
-}
-.cont_recto{
-  border-top-left-radius: 0px;
-}
-
-.cont0{
+  .nav{
+      margin: 1em;
+  }
+  .cc2{
     margin: 1em;
     margin-top: 0em;
-    margin-bottom: 0em;
-}
-
-.c10{
-  width: 68.5%;
-}
-
-.c100{
-  width: 98.5%;
-}
-
-.sensores_2_20{
-  width: 26.5%;
-}
-.sensores_2_100{
-  width: 96%;
-}
-
-.c20{
-  width: 50%;
-}
-
-.c200{
-  width: 100%;
-}
-
-.single-line {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.rev{
-  flex-direction: column-reverse;
-}
-
-.cont1{
-    background-color: white;
-    padding: 1em;
-    border-radius: 10px;
-    margin-bottom: 1em;
-    min-height: 86vh;
-}
-
-.cont2{
-    background-color: white;
-    border-radius: 10px;
-    height: max-content;
-    margin-bottom: 1em;
-    min-height: 86vh;
-}
-
-.cont3{
-    padding: 1em;
-    padding-top: 0em;
-    background-color: white;
-    border-radius: 10px;
-    height: min-content;
-    margin-bottom: 1em;
-}
-
-.over{
-    overflow-y: scroll; 
-}
-
-thead{
-    background-color: #F2F2F2;
-    border-radius: 10px;
-}
-
-.half{
-    width: 50%;
-}
-
-app-devices-edit{
-    display: flex;
-}
-
-a{
-    text-decoration: none;
-    color: #000;
-}
-
-.c1{
-    height: min-content;
-}
-
-.c2{
-    padding-top: 1em;
-    height: max-content;
-}
-
-.c3{
-    height: fit-content;
-}
-
-.c4{
-    padding: 1em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    height: fit-content;
-}
-
-.c5{
-    height: 70vh;
-}
-
-.c6{
-    padding: 1em;    
-    padding-top: 0.5em;
-    padding-bottom: 1em;
-}
-
-.nuevo{
-    border-radius: 10px;
-    background-color: #F2F2F2;
-    padding: 1em;
-    margin: 0.01em;
-    margin-bottom: 1em;
-}
-
-.not{
-    font-size: large;
-}
-
-/* SWITCH */
-.toggle {
-    position: relative;
-    display: inline-block;
-    width: var(--width);
-    height: var(--height);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    border-radius: var(--height);
-    cursor: pointer;
   }
+
+  h1,h2,h3,h4,p,a,.btn, span, label{
+    font-weight: 500;
+  } 
+
+  .navb{
+      width: 49%;
+  }
+
+  .cont{
+      background-color: white;
+      border-radius: 10px;
+      height: 88vh;
+  }
+  
+  .cont_recto{
+    border-top-left-radius: 0px;
+  }
+
+  .cont0{
+      margin: 1em;
+      margin-top: 0em;
+      margin-bottom: 0em;
+  }
+
+  .c10{
+    width: 68.5%;
+  }
+
+  .c100{
+    width: 98.5%;
+  }
+
+  .sensores_2_20{
+    width: 26.5%;
+  }
+  .sensores_2_100{
+    width: 96%;
+  }
+
+  .c20{
+    width: 50%;
+  }
+
+  .c200{
+    width: 100%;
+  }
+
+  .single-line {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .rev{
+    flex-direction: column-reverse;
+  }
+
+  .cont1{
+      background-color: white;
+      padding: 1em;
+      border-radius: 10px;
+      margin-bottom: 1em;
+      min-height: 86vh;
+  }
+
+  .cont2{
+      background-color: white;
+      border-radius: 10px;
+      height: max-content;
+      margin-bottom: 1em;
+      min-height: 86vh;
+  }
+
+  .cont3{
+      padding: 1em;
+      padding-top: 0em;
+      background-color: white;
+      border-radius: 10px;
+      height: min-content;
+      margin-bottom: 1em;
+  }
+
+  .over{
+      overflow-y: scroll; 
+  }
+
+  thead{
+      background-color: #F2F2F2;
+      border-radius: 10px;
+  }
+
+  .half{
+      width: 50%;
+  }
+
+  app-devices-edit{
+      display: flex;
+  }
+
+  a{
+      text-decoration: none;
+      color: #000;
+  }
+
+  .c1{
+      height: min-content;
+  }
+
+  .c2{
+      padding-top: 1em;
+      height: max-content;
+  }
+
+  .c3{
+      height: fit-content;
+  }
+
+  .c4{
+      padding: 1em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      height: fit-content;
+  }
+
+  .c5{
+      height: 70vh;
+  }
+
+  .c6{
+      padding: 1em;    
+      padding-top: 0.5em;
+      padding-bottom: 1em;
+  }
+
+  .nuevo{
+      border-radius: 10px;
+      background-color: #F2F2F2;
+      padding: 1em;
+      margin: 0.01em;
+      margin-bottom: 1em;
+  }
+
+  .not{
+      font-size: large;
+  }
+
+  .toggle {
+      position: relative;
+      display: inline-block;
+      width: var(--width);
+      height: var(--height);
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+      border-radius: var(--height);
+      cursor: pointer;
+    }
 
   .tt1 {
     --width: 130px;
@@ -324,32 +312,9 @@ a{
     transition: all 0.4s ease-in-out;
   }
 
-  ::ng-deep .ng-select .ng-clear-wrapper .ng-clear {
-    font-size: 40px !important;
-    color: #969696;
-    right: 7px;
-    line-height: 0.7 !important;
-  }
-
-  ::ng-deep .ng-select .ng-clear-wrapper {
-    height: 34px;
-    line-height: 0.5;
-    width: 30px !important;
-  }
-
   .mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  }
-
-  ::ng-deep .ng-value{
-    background-color: #E3E3E3;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-    border-radius: 8px;
-    margin: 0.2em;
   }
 
   .toggle .labels::before {
@@ -368,4 +333,36 @@ a{
 
   .toggle input:checked~.labels::before {
     opacity: 1;
+  }
+
+  
+  ::ng-deep .ng-select .ng-clear-wrapper .ng-clear {
+    font-size: 40px !important;
+    color: #969696;
+    right: 7px;
+    line-height: 0.7 !important;
+  }
+
+  ::ng-deep .ng-select .ng-clear-wrapper {
+    height: 34px;
+    line-height: 0.5;
+    width: 30px !important;
+  }
+
+  ::ng-deep .ng-value{
+    background-color: #E3E3E3;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+    border-radius: 8px;
+    margin: 0.2em;
+  }
+
+  ::ng-deep .ng-dropdown-panel {  
+    background-color: whitesmoke;;
+  }
+  ::ng-deep .ng-option{
+    padding: 0.7em;
+    padding-top: 0em
   }
