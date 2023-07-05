@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { DevicesComponent } from './devices/devices.component';
+import { DevicesComponent } from './pages/devices/devices.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
-import { MapComponent } from './pages/map/map.component';
 
 const routes: Routes = [
   {
     path:'devices', component: DevicesComponent
   },
-  { path:'sensors', component: SensorsComponent
-  },
-  { path:'map', component: MapComponent
+  { 
+    path:'sensors', component: SensorsComponent
   },
   {
     path:'**',

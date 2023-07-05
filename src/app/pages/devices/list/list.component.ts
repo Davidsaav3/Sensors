@@ -1,18 +1,18 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { DataSharingService } from '../../../../services/data_sharing.service';
+import { DataSharingService } from '../../../services/data_sharing.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-devices-new-list',
-  templateUrl: './devices-new-list.component.html',
-  styleUrls: ['../../../../app.component.css']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['../../../app.component.css']
 })
-export class DevicesNewListComponent  implements OnInit{
+export class ListComponent  implements OnInit{
 
   constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
@@ -22,34 +22,21 @@ export class DevicesNewListComponent  implements OnInit{
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
-  data6: any= null;
+  data1: any= null;
   ver_can= 1000;
   activeLang='en';
   buscar1='orden';
   buscar2='id';
   sin= true;
   eliminarlo: any;
+  cont= 0;
+  grande= true;
   desde= 1;
   duplicados= false;
-  grande= true;
 
-  devices = {
-    sensors : [
-      {
-        id: 1, 
-        enable: 0, 
-        id_device: this.id,
-        id_type_sensor: 1,
-        datafield: '',
-        nodata: true,
-        orden: 1,
-        type_name: 1,
-        specific: null,
-        time_specific: null,
-      }]
-  }
+  /* EDIT */
 
-  sensors = {
+  select_sensors = {
     sensors : [
       {
         id: 1, 
@@ -60,14 +47,34 @@ export class DevicesNewListComponent  implements OnInit{
         valuemax: 1,
         valuemin: 1,
         orden: 1,
-        specific: null,
-        time_specific: null,
+        correction_specific: '',
+        correction_time_specific: '',
       }]
   }
 
-  ngOnInit(): void {
+  sensors = {
+    sensors : [
+      {
+        id: 1, 
+        enable: 0, 
+        id_device: this.id,
+        id_type_sensor: 1,
+        datafield: '',
+        nodata: true,
+        orden: 1,
+        type_name: 1,
+        correction_specific: '',
+        correction_time_specific: '',
+      }]
+  }
+
+  /* NEW */
+
+  
+
+  ngOnInit(): void { // Inicialización
+    setTimeout(() =>{this.getDevices('xd')}, 50);
     this.desde = 1;
-    setTimeout(() => { this.get('xd')}, 50);
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
         this.grande = data;
@@ -75,29 +82,30 @@ export class DevicesNewListComponent  implements OnInit{
     }, 10);
   }
 
-  cambiar(num: any){
+  updatesharedList() { // Enviar sensores a device-edit
+    this.dataSharingService.updatesharedList(this.sensors.sensors);
+  }
+
+  getOrden(num: any){ // Asocia un order al sensor segun su type
     setTimeout(() =>{
-      fetch(`${this.id_sensors}/${this.devices.sensors[num].id_type_sensor}`)
+      fetch(`${this.id_sensors}/${this.sensors.sensors[num].id_type_sensor}`)
       .then(response => response.json())
       .then(data => {
-        this.devices.sensors[num].orden= data[0].orden;
+        this.sensors.sensors[num].orden= data[0].orden;
       })
     }, 10);
+    
   }
 
-  updatesharedList() {
-    this.dataSharingService.updatesharedList(this.devices.sensors);
-  }
-
-  get(id: any){
+  getDevices(id: any){ // Obtener datos del dispositivo
     if(id!='xd'){
       this.buscar1= id;
     }
     fetch(`${this.id_device_sensors_devices}/${this.id}/${this.buscar1}`)
     .then(response => response.json())
     .then(data => {
-      this.devices.sensors= data;
-      if(this.data6!=null){
+      this.sensors.sensors= data;
+      if(this.data1!=null){
         this.sin= false;
       }
     })
@@ -109,19 +117,19 @@ export class DevicesNewListComponent  implements OnInit{
     fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
-      this.sensors.sensors= data;
+      this.select_sensors.sensors= data;
     })
   }
 
-  vari(id: any){
+  addShareSensor(id: any){ // Añadir a lista compartida
     this.eliminarlo= id;
-    this.devices.sensors= this.devices.sensors.filter((item) => item.id != this.eliminarlo);
+    this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.eliminarlo)
     this.updatesharedList();
   }
 
-  anyadir(){
-    let devices_aux = {
-      id: 1, 
+  addSensor(){ // Añadir a lista compartida
+    let sensors_aux = {
+      id: this.sensors.sensors.length, 
       enable: 0, 
       id_device: this.id,
       id_type_sensor: 1,
@@ -129,15 +137,16 @@ export class DevicesNewListComponent  implements OnInit{
       nodata: true,
       orden: 1,
       type_name: 1,
-      specific: null,
-      time_specific: null,
+      correction_specific: '',
+      correction_time_specific: '',
     }
-    this.devices.sensors.push(devices_aux);
+    this.sensors.sensors.push(sensors_aux);
     this.sin= true;
     this.updatesharedList();
   }
-  
-  eliminar(){
-    this.devices.sensors= this.devices.sensors.filter((item) => item == this.eliminarlo)
+
+  deleteSensor(){ // Elimina sensor de la lista
+    this.sensors.sensors= this.sensors.sensors.filter((item) => item == this.eliminarlo)
   }
+
 }

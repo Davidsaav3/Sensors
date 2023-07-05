@@ -5,8 +5,8 @@ import { DevicesComponent } from './pages/devices/devices.component';
 import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
 import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
-
 import { SensorsComponent } from './pages/sensors/sensors.component';
+
 const routes: Routes = [
   {
     path:'devices', component: DevicesComponent,
@@ -47,7 +47,8 @@ const routes: Routes = [
       },
     ]
   },
-  { path:'sensors', component: SensorsComponent
+  { 
+    path:'sensors', component: SensorsComponent
   },
   {
     path:'**',
