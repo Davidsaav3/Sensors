@@ -270,53 +270,6 @@ export class DevicesListComponent implements AfterViewInit, OnDestroy{
     }, 10);
   }
 
-  duplicate(num: any,uid: any){ // Duplicar dispositivo
-    this.aux1 = {
-      id: num,    
-    }
-    let x1= 1;
-    let x2= 100000;
-    this.buscar= 'Buscar';
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${x1}/${x2}`)
-    .then((response) => response.json())
-    .then(data => {
-      let contador = 1;
-      let nombresExistentes = new Set();
-      for (let index = 0; index < data.length; index++) {
-        nombresExistentes.add(data[index].uid);
-      }
-
-      let uid_2= uid;
-      while(nombresExistentes.has(uid_2)) {
-        uid_2 = `${uid}_${contador}`;
-        contador++;
-      }
-      //console.log(data);
-      this.aux1 = {
-        id: num,    
-      }
-      fetch(`${this.url3}/${num}/${uid_2}`, {
-        method: "POST",
-        body: JSON.stringify(this.aux1),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json())
-  
-      fetch(this.max_device)
-      .then(response => response.json())
-      .then(data => {
-        fetch(`${this.duplicate_sensors_devices}/${num}/${parseInt(data[0].id)+1}`)
-        .then((response) => response.json())
-        .then(data => {
-          this.data= data;
-        })
-      })
-      this.dup_ok=true;
-      this.router.navigate(['/devices/edit/', this.id]);
-    })
-
-  }
-
   onKeySearch(event: any) { // Busqueda por texto
     clearTimeout(this.timeout);
     var $this = this;
