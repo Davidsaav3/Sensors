@@ -8,11 +8,11 @@ import { DataSharingService } from '../../../services/data_sharing.service';
 })
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
+  selector: 'app-devices',
+  templateUrl: './devices.component.html',
   styleUrls: ['../../../app.component.css']
 })
-export class ListComponent  implements OnInit{
+export class DevicesComponent  implements OnInit{
 
   constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';

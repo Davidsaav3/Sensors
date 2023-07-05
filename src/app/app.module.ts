@@ -9,14 +9,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from "@ng-select/ng-select";
 
 import { NavbarComponent } from './common/navbar.component';
-import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
+import { DevicesListComponent } from './pages/devices/devices-list.component';
 import { DevicesEditMapComponent } from './pages/devices/devices-edit/devices-edit-map/devices-edit-map.component';
 import { DevicesNewMapComponent } from './pages/devices/devices-new/devices-new-map/devices-new-map.component';
-import { DevicesComponent } from './pages/devices/devices.component';
+import { DeviceComponent } from './pages/device.component';
 import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
-import { ListComponent } from './pages/devices/list/list.component';
+import { DevicesComponent } from './pages/devices/devices/devices.component';
 import { DataSharingService } from './services/data_sharing.service';
 
 
@@ -31,7 +31,7 @@ import { DataSharingService } from './services/data_sharing.service';
     SensorsComponent,
     DevicesNewComponent,
     DevicesEditComponent,
-    ListComponent,
+    DeviceComponent,
   ],
   imports: [
     NgSelectModule,

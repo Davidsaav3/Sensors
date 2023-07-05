@@ -14,7 +14,7 @@ interface MarkerAndColor {
 @Component({
   selector: 'app-devices-list',
   templateUrl: './devices-list.component.html',
-  styleUrls: ['../../../app.component.css']
+  styleUrls: ['../../app.component.css']
 })
 export class DevicesListComponent implements AfterViewInit, OnDestroy{
 

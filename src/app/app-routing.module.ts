@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DevicesComponent } from './pages/devices/devices.component';
+import { DeviceComponent } from './pages/device.component';
 import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
-import { DevicesListComponent } from './pages/devices/devices-list/devices-list.component';
+import { DevicesListComponent } from './pages/devices/devices-list.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
 
 const routes: Routes = [
   {
-    path:'devices', component: DevicesComponent,
+    path:'devices', component: DeviceComponent,
     children: [
       {
         path: '',
@@ -37,13 +37,13 @@ const routes: Routes = [
           },
           {
             path: '**',
-            component: DevicesComponent
+            component: DeviceComponent
           }
         ]
       },
       {
         path: '**',
-        component: DevicesComponent
+        component: DeviceComponent
       },
     ]
   },
