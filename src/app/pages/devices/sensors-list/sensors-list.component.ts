@@ -12,29 +12,23 @@ import { DataSharingService } from '../../../services/data_sharing.service';
   templateUrl: './sensors-list.component.html',
   styleUrls: ['../../../app.component.css']
 })
+
 export class SensorsListComponent  implements OnInit{
 
   constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
-  post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
-  delete_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
   id_device_sensors_devices: string = 'http://localhost:5172/api/id_device/sensors_devices';
   id_sensors: string = 'http://localhost:5172/api/id/sensors_types';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
-  data1: any= null;
   view_can= 1000;
   activeLang='en';
-  search1='orden';
-  search2='id';
-  without= true;
+  search_1='orden';
+  search_2='id';
+  show_map= true;
   delete_it: any;
-  cont= 0;
-  large= true;
-  from= 1;
-  duplicates= false;
-
-  /* EDIT */
+  show_large= true;
+  duplicate= false;
 
   select_sensors = {
     sensors : [
@@ -68,22 +62,13 @@ export class SensorsListComponent  implements OnInit{
       }]
   }
 
-  /* NEW */
-
-  
-
   ngOnInit(): void { // Inicialización
-    setTimeout(() =>{this.getDevices('xd')}, 50);
-    this.from = 1;
+    setTimeout(() =>{this.getDevices('id')}, 50);
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
-        this.large = data;
+        this.show_large = data;
       });
     }, 10);
-  }
-
-  updatesharedList() { // Enviar sensores a device-edit
-    this.dataSharingService.updatesharedList(this.sensors.sensors);
   }
 
   getOrden(num: any){ // Asocia un order al sensor segun su type
@@ -98,33 +83,24 @@ export class SensorsListComponent  implements OnInit{
   }
 
   getDevices(id: any){ // Obtener datos del dispositivo
-    if(id!='xd'){
-      this.search1= id;
+    if(id!='id'){
+      this.search_1= id;
     }
-    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.search1}`)
+    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.search_1}`)
     .then(response => response.json())
     .then(data => {
       this.sensors.sensors= data;
-      if(this.data1!=null){
-        this.without= false;
-      }
     })
     .catch(error => {
       console.error(error); 
     });
-    let buscar= 'Buscar';
-    let ord= 'ASC';
-    fetch(`${this.get_sensors}/${buscar}/${this.search2}/${ord}`)
+    let search_1= 'Buscar';
+    let order= 'ASC';
+    fetch(`${this.get_sensors}/${search_1}/${this.search_2}/${order}`)
     .then((response) => response.json())
     .then(data => {
       this.select_sensors.sensors= data;
     })
-  }
-
-  addShareSensor(id: any){ // Añadir a lista compartida
-    this.delete_it= id;
-    this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.delete_it)
-    this.updatesharedList();
   }
 
   addSensor(){ // Añadir a lista compartida
@@ -141,12 +117,21 @@ export class SensorsListComponent  implements OnInit{
       correction_time_specific: '',
     }
     this.sensors.sensors.push(sensors_aux);
-    this.without= true;
+    this.show_map= true;
     this.updatesharedList();
   }
 
   deleteSensor(){ // Elimina sensor de la lista
     this.sensors.sensors= this.sensors.sensors.filter((item) => item == this.delete_it)
+  }
+
+  addShareSensor(id: any){ // Añadir a lista compartida
+    this.delete_it= id;
+    this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.delete_it)
+    this.updatesharedList();
+  }
+  updatesharedList() { // Enviar sensores a device-edit
+    this.dataSharingService.updatesharedList(this.sensors.sensors);
   }
 
 }

@@ -8,20 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['../app.component.css']
 })
 export class NavbarComponent {
-  public activeLang = 'es';
+  activeLang = 'es';
 
   dup_ok=false;
   dup_not=false;
   rute='';
   rute2: any;
 
-  constructor(private translate: TranslateService, public rutaActiva: Router ) {
+  constructor(private translate: TranslateService,public rutaActiva: Router ) {
     this.translate.setDefaultLang(this.activeLang);
     this.rute= this.rutaActiva.routerState.snapshot.url;
     this.rute2 = this.rute.split('/');
   }
 
-  public changeLenguaje() {
+  changeLenguaje() {
     setTimeout(() =>{
       this.translate.use(this.activeLang);
     }, 10);

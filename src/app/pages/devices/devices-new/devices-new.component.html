@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <form class="row cont0 needs-validation mt-0" #loginForm="ngForm">
     <div class="row p-0 m-0">
-        <div *ngIf="show3" class="p-0" [ngClass]="{'c200': !this.show, 'c20': this.show}">
+        <div *ngIf="show_map" class="p-0" [ngClass]="{'c200': !this.show_form, 'c20': this.show_form}">
             <div class="cont1">
 
                 <div class="row c1">
@@ -26,10 +26,10 @@
                                 </div>   
                             </div> 
                             <div class="col-1" style="cursor: pointer; display: flex; justify-content: flex-end;">
-                                <svg class="text-right" *ngIf="show" (click)="showForm()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                                <svg class="text-right" *ngIf="show_form" (click)="showForm()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
                                 </svg>
-                                <svg class="text-right" *ngIf="!show" (click)="hideForm()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                                <svg class="text-right" *ngIf="!show_form" (click)="hideForm()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
                                 </svg>
                             </div> 
@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <div *ngIf="show" class="p-0" [ngClass]="{'c200': !this.show3, 'c20': this.show3}">
+        <div *ngIf="show_form" class="p-0" [ngClass]="{'c200': !this.show_map, 'c20': this.show_map}">
             <div class="cont2 ms-lg-3 ms-0 ms-md-0"> 
 
                 <div class="c4 d-flex justify-content-between">
@@ -128,10 +128,10 @@
                         <h5 class="text-center">{{device.alias}}</h5>
                     </div>
                     <div class="col-3" style="cursor: pointer; cursor: pointer; display: flex; justify-content: flex-end;">
-                        <svg class="text-right" *ngIf="show3" (click)="showMap()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                        <svg class="text-right" *ngIf="show_map" (click)="showMap()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
                         </svg>
-                        <svg class="text-right" *ngIf="!show3" (click)="hideMap()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                        <svg class="text-right" *ngIf="!show_map" (click)="hideMap()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
                         </svg>
                     </div>  

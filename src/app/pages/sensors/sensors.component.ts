@@ -16,7 +16,6 @@ export class SensorsComponent implements OnInit{
     this.resize();
   }
 
-  duplicateSensor_sensors: string = 'http://localhost:5172/api/duplicateSensor/sensors_types';
   max_sensors: string = 'http://localhost:5172/api/max/sensors_types';
   get_sensors: string = 'http://localhost:5172/api/get/sensors_types';
   post_sensors: string = 'http://localhost:5172/api/post/sensors_types';
@@ -47,8 +46,8 @@ export class SensorsComponent implements OnInit{
   pencil_dup= 1000;
   timeout: any = null;
   show=false;
-  show2= false;
-  show3= true;
+  show_2= false;
+  show_3= true;
   alert_delete: any= false;
   alert_new: any= false;
   not_delete: any= false;
@@ -64,9 +63,9 @@ export class SensorsComponent implements OnInit{
   id= 0;
   type_2='';
 
-  buscar='Buscar';
-  buscar1='type';
-  marcado= 'orden';
+  search_1='Buscar';
+  search_2='type';
+  mark= 'orden';
 
   sensors = {
     id: '', 
@@ -105,23 +104,22 @@ export class SensorsComponent implements OnInit{
   ngOnInit(): void { // Inicializador
     this.getSensors('orden','ASC');
     this.openClouse();
-    this.getSensors('orden','ASC');
   }
 
   getSensors(id: any,ord: any){ // Obtener todos los sensores
-    this.marcado= id;
+    this.mark= id;
     this.rute= this.rutaActiva.routerState.snapshot.url;
-    if(id!='xd'){
-      this.buscar1= id;
+    if(id!='id'){
+      this.search_2= id;
     }
     if(this.search.value==''){
-      this.buscar= 'Buscar';
+      this.search_1= 'Buscar';
     }
     else{
-      this.buscar= this.search.value;
+      this.search_1= this.search.value;
     }
     this.charging= true;
-    fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
+    fetch(`${this.get_sensors}/${this.search_1}/${this.search_2}/${ord}`)
     .then((response) => response.json())
     .then(quotesData => {
       this.charging= false
@@ -132,9 +130,7 @@ export class SensorsComponent implements OnInit{
   editSensor(loginForm: any) { // Guardar datos de sensores editado
     if (loginForm.valid) {
       fetch(this.update_sensors, {
-        method: "POST",
-        body: JSON.stringify(this.sensors),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+        method: "POST",body: JSON.stringify(this.sensors),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
       this.save_ok= true;
@@ -142,8 +138,9 @@ export class SensorsComponent implements OnInit{
         this.save_ok= false;
       }, 2000);
 
-      this.getSensors('xd','ASC');
-      this.getSensors('xd','ASC');
+      setTimeout(() => {
+        this.getSensors('id','ASC');
+      }, 50);
       this.saved= true;
     }
     this.new_change=false;
@@ -154,18 +151,18 @@ export class SensorsComponent implements OnInit{
     this.dup= false;
     if (loginForm.valid) {
       fetch(this.post_sensors, {
-        method: "POST",
-        body: JSON.stringify(this.sensors_new),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+        method: "POST",body: JSON.stringify(this.sensors_new),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
       this.alert_new= true;
       setTimeout(() => {
         this.alert_new= false;
       }, 2000);
-      this.getSensors('xd','ASC');
+
+      setTimeout(() => {
+        this.getSensors('id','ASC');
+      }, 50);
       this.openClouse();
-      this.getSensors('xd','ASC');
   
       fetch(this.max_sensors)
       .then(response => response.json())
@@ -183,13 +180,12 @@ export class SensorsComponent implements OnInit{
 
   duplicateSensor(num: any, type: any){ // Duplicar sensor
     if(!this.edit_change && !this.new_change){
-
       this.aux_1 = {
         id: num,    
       }   
-      this.buscar= 'Buscar';
+      this.search_1= 'Buscar';
       let ord= 'ASC';
-      fetch(`${this.get_sensors}/${this.buscar}/${this.buscar1}/${ord}`)
+      fetch(`${this.get_sensors}/${this.search_1}/${this.search_2}/${ord}`)
       .then((response) => response.json())
       .then(data => {
         let contador = 1;
@@ -198,13 +194,11 @@ export class SensorsComponent implements OnInit{
           nombresExistentes.add(data[index].type);
         }
         let type_2= type;
-        //console.log(type);
         while(nombresExistentes.has(type_2)) {
           type_2 = `${type}_${contador}`;
           contador++;
         }
         this.openNew();
-        //this.show2=true;
         fetch(`${this.id_sensors}/${num}`)
         .then(response => response.json())
         .then(data => {
@@ -213,15 +207,15 @@ export class SensorsComponent implements OnInit{
         .catch(error => {
           console.error(error); 
         });
-        this.getSensors('xd','ASC');
+        setTimeout(() => {
+          this.getSensors('id','ASC');
+        }, 50);
         this.openClouse();
-        this.getSensors('xd','ASC');
         //
         fetch(this.max_sensors)
         .then(response => response.json())
         .then(data => {
           this.id= parseInt(data[0].id);
-          //console.log(this.id)
           this.sensors_new.id= data[0].id;
           this.sensors_new.type= type_2;
         })
@@ -236,20 +230,19 @@ export class SensorsComponent implements OnInit{
       id: id_actual,    
     }
     fetch(this.delete_sensors, {
-      method: "POST",
-      body: JSON.stringify(sensors2),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
+      method: "POST",body: JSON.stringify(sensors2),headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    this.show2=false;
+    this.show_2=false;
     this.alert_delete= true;
     setTimeout(() => {
       this.alert_delete= false;
     }, 2000);
-    this.show2= false;
-    this.getSensors('xd','ASC');
+    this.show_2= false;
+    setTimeout(() => {
+      this.getSensors('id','ASC');
+    }, 50);
     this.openClouse();
-    this.getSensors('xd','ASC');
   }
 
   hide(){ 
@@ -258,16 +251,16 @@ export class SensorsComponent implements OnInit{
   }
 
   update(){ // Guardar sensores en el popup de salir sin guardar
-   if(this.show==true && this.show2==false){
+   if(this.show==true && this.show_2==false){
     this.newSensor(this.sensors_new);
    }
-   if(this.show==false && this.show2==true){
+   if(this.show==false && this.show_2==true){
     this.editSensor(this.sensors);
    }
   }
 
   clouse(){ 
-    this.show2=false;
+    this.show_2=false;
     this.openClouse();
     this.new_change=false;
     this.edit_change=false;
@@ -276,7 +269,7 @@ export class SensorsComponent implements OnInit{
   orderColumn(id_actual: any){ // Ordenar columnas
     if(!this.edit_change && !this.new_change){
        this.openEdit();
-      this.show2=true;
+      this.show_2=true;
       fetch(`${this.id_sensors}/${id_actual}`)
       .then(response => response.json())
       .then(data => {
@@ -285,9 +278,10 @@ export class SensorsComponent implements OnInit{
       .catch(error => {
         console.error(error); 
       });
-      this.getSensors('xd','ASC');
+      setTimeout(() => {
+        this.getSensors('id','ASC');
+      }, 50);
       this.openClouse();
-      this.getSensors('xd','ASC');
     }
   }
   
@@ -296,40 +290,40 @@ export class SensorsComponent implements OnInit{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.getSensors('xd','ASC');
+        $this.getSensors('id','ASC');
         $this.openClouse();
       }
     }, 500);
   }
 
   openClouse(){  // Logica abrir y cerrar tarjetas
-    if (this.show==true || this.show2==true) {
-      this.show3= false;
+    if (this.show==true || this.show_2==true) {
+      this.show_3= false;
     }
     else{
-      this.show3= true;
+      this.show_3= true;
     }
   }
 
   deleteSearch(){ // Borrar search
     this.search.value= '';
-    this.getSensors('xd','ASC');
+    this.getSensors('id','ASC');
   }
 
   openNew(){ // Abrir Nuevo sensor
     this.show= true;
-    this.show2= false;
+    this.show_2= false;
     this.openClouse();
     this.dup= false;
   }
 
   openEdit(){ // Abrir Editar sensor
-    this.show2= true;
+    this.show_2= true;
     this.show= false;
   }
 
   clouseAll(){ // Cerrar todas las pestañas
-    this.show2= false;
+    this.show_2= false;
     this.show= false;
     this.openClouse();
     this.new_change=false;

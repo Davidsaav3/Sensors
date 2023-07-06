@@ -29,29 +29,28 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
 
   @ViewChild('map') divMap?: ElementRef;
-  id_device: string = 'http://localhost:5172/api/id/device_configurations';
   max_device: string = 'http://localhost:5172/api/max/device_configurations';
 
+  state= 1;
   sharedLat: any = 38.3855908932305;
   sharedLon: any = -0.5098796883778505;
-  public zoom: number = 10;
-  public map?: mapboxgl.Map;
-  public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
-  public markers: MarkerAndColor[] = [];
-  state= 1;
+  zoom: number = 10;
+  map?: mapboxgl.Map;
+  currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
+  markers: MarkerAndColor[] = [];
   id= parseInt(this.rutaActiva.snapshot.params['id']);
   start= false;
-  max= 1;
+  id_max= 1;
   
   ngOnInit(): void { // Inicializador
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
-      this.max= parseInt(data[0].id)+1;    
-      if(this.id<this.max){
+      this.id_max= parseInt(data[0].id)+1;    
+      if(this.id<this.id_max){
         this.state= 1;
       }
-      if(this.id>=this.max){
+      if(this.id>=this.id_max){
         this.state= 0;
       }
     })
@@ -65,51 +64,6 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       if (this.map) 
         this.map.resize();
     }, 50);
-  }
-
-  showMap(){ // Redimesiona mapa
-    if (this.map)
-      this.map.resize();
-  }
-
-  createMap(lon: any, lat: any){ // Crear mapa
-    if ( !this.divMap ) throw 'No hay mapa';
-
-      if(this.start==false){
-        this.ngOnDestroy();
-        this.map = new mapboxgl.Map({
-          container: this.divMap?.nativeElement,
-          style: 'mapbox://styles/mapbox/streets-v12',
-          center: [lon, lat],
-          zoom: this.zoom,
-      });
-      }
-      else{
-        this.ngOnDestroy();
-        this.map = new mapboxgl.Map({
-          container: this.divMap.nativeElement, 
-          style: 'mapbox://styles/mapbox/streets-v12', 
-          center: this.currentLngLat,
-          zoom: this.zoom,
-        });
-
-        this.mapListeners();
-        this.currentLngLat= new mapboxgl.LngLat(this.sharedLon,this.sharedLat);
-        const marker = new mapboxgl.Marker({
-          color: '#0dcaf0',
-          draggable: false
-        }).setLngLat( this.currentLngLat ).addTo( this.map );
-      
-        setTimeout(() =>{this.flyTo( marker );}, 50);
-      }
-    return this.map;
-  }
-  
-  updatesharedLat() { // Actualizar Latitud
-    this.dataSharingService.updatesharedLat(this.sharedLat);
-  }
-  updatesharedLon() { // ctualizar Longitud
-    this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
   ngAfterViewInit(): void { // Despues de ngOnInit
@@ -172,8 +126,53 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     }
   }
 
+  createMap(lon: any, lat: any){ // Crear mapa
+    if ( !this.divMap ) throw 'No hay mapa';
+
+      if(this.start==false){
+        this.ngOnDestroy();
+        this.map = new mapboxgl.Map({
+          container: this.divMap?.nativeElement,
+          style: 'mapbox://styles/mapbox/streets-v12',
+          center: [lon, lat],
+          zoom: this.zoom,
+      });
+      }
+      else{
+        this.ngOnDestroy();
+        this.map = new mapboxgl.Map({
+          container: this.divMap.nativeElement, 
+          style: 'mapbox://styles/mapbox/streets-v12', 
+          center: this.currentLngLat,
+          zoom: this.zoom,
+        });
+
+        this.mapListeners();
+        this.currentLngLat= new mapboxgl.LngLat(this.sharedLon,this.sharedLat);
+        const marker = new mapboxgl.Marker({
+          color: '#0dcaf0',
+          draggable: false
+        }).setLngLat( this.currentLngLat ).addTo( this.map );
+      
+        setTimeout(() =>{this.goMarker( marker );}, 50);
+      }
+    return this.map;
+  }
+  
   ngOnDestroy(): void { // Destructor del mapa
     this.map?.remove();
+  }
+
+  showMap(){ // Redimesiona mapa
+    if (this.map)
+      this.map.resize();
+  }
+  
+  updatesharedLat() { // Actualizar Latitud
+    this.dataSharingService.updatesharedLat(this.sharedLat);
+  }
+  updatesharedLon() { // ctualizar Longitud
+    this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 
   mapListeners() { // Zoom y Move del mapa
@@ -228,7 +227,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     this.dataSharingService.updatesharedLon('');
   }
 
-  flyTo( marker: mapboxgl.Marker ) { // Va a una localización
+  goMarker( marker: mapboxgl.Marker ) { // Va a una localización
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat()

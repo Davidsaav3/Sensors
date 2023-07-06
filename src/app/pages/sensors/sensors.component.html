@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="m-0 p-0 row d-flex" [ngClass]="{'rev': this.width<965, '': this.width>=965}">
 
-	<div class="cc2 cont me-0" [ngClass]="{'c100': this.show3==true || this.width<965, 'c10': this.show3==false}">
+	<div class="cc2 cont me-0" [ngClass]="{'c100': this.show_3==true || this.width<965, 'c10': this.show_3==false}">
 		<div class="p-3 pb-0 pe-2">
 				<div class="row d-flex">
 					<div class="col-6 col-sm-6 col-lg-2 mb-3">
@@ -34,7 +34,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'orden'}">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'mark': mark == 'orden'}">
 								<svg *ngIf="alt_1_a" (click)="alt_1_a=false;getSensors('orden','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								</svg>
@@ -42,7 +42,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								</svg>
 								{{ 'sensors.order' | translate }}</th>
-							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'type'}">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'mark': mark == 'type'}">
 								<svg *ngIf="alt_2_a" (click)="alt_2_a=false;getSensors('type','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -50,7 +50,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								{{ 'sensors.type' | translate }}</th>
-							<th scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'metric'}">
+							<th scope="col" style="cursor: pointer;" [ngClass]="{'mark': mark == 'metric'}">
 								<svg *ngIf="alt_3_a" (click)="alt_3_a=false;getSensors('metric','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -58,7 +58,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								{{ 'sensors.metric' | translate }}</th>
-							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" [ngClass]="{'marcado': marcado == 'description'}">
+							<th class="d-none d-md-none d-lg-block" scope="col" style="cursor: pointer;" [ngClass]="{'mark': mark == 'description'}">
 								<svg *ngIf="alt_4_a" (click)="alt_4_a=false;getSensors('description','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -67,7 +67,7 @@
 								  </svg>
 								{{ 'sensors.description' | translate }}</th>
 
-							<th *ngIf="show==false && show2==false" scope="col"style="cursor: pointer; text-align: center;" [ngClass]="{'marcado': marcado == 'valuemin'}">
+							<th *ngIf="show==false && show_2==false" scope="col"style="cursor: pointer; text-align: center;" [ngClass]="{'mark': mark == 'valuemin'}">
 								<svg *ngIf="alt_6_a" (click)="alt_6_a=false;getSensors('valuemin','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -75,7 +75,7 @@
 									<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
 								  </svg>
 								  {{ 'sensors.general' | translate }}</th>
-							<th *ngIf="show==false && show2==false" style="cursor: pointer;" scope="col" [ngClass]="{'marcado': marcado == 'valuemax'}">
+							<th *ngIf="show==false && show_2==false" style="cursor: pointer;" scope="col" [ngClass]="{'mark': mark == 'valuemax'}">
 								<svg *ngIf="alt_7_a" (click)="alt_7_a=false;getSensors('correction_general','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
 									<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
 								  </svg>
@@ -96,8 +96,8 @@
 							<td (click)="orderColumn(quote.id)">{{ quote.metric }}</td>
 							<td class="d-none d-md-none d-lg-block" (click)="orderColumn(quote.id)">{{ quote.description }}</td>
 		
-							<td *ngIf="show==false && show2==false" (click)="orderColumn(quote.id)">{{ quote.correction_general }}</td>
-							<td *ngIf="show==false && show2==false" (click)="orderColumn(quote.id)">{{ quote.correction_time_general }}</td>
+							<td *ngIf="show==false && show_2==false" (click)="orderColumn(quote.id)">{{ quote.correction_general }}</td>
+							<td *ngIf="show==false && show_2==false" (click)="orderColumn(quote.id)">{{ quote.correction_time_general }}</td>
 
 							<td (mouseout)="view_dup= 1000" (mouseover)="view_dup= i" style="text-align: center;" (click)="duplicateSensor(quote.id,quote.type)">                      
 							<svg *ngIf="view_dup!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard-plus" viewBox="0 0 16 16">
@@ -233,7 +233,7 @@
 		</form>
 	</div>
 
-	<div class="cc2 cont" *ngIf="show2" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
+	<div class="cc2 cont" *ngIf="show_2" [ngClass]="{'sensores_2_100': this.width<965, 'sensores_2_20': this.width>=965}">
 		<form #loginForm="ngForm" name='myForm' class="row needs-validation p-3"> 
 			<div class="col-12">
 				<div class="row">
@@ -379,7 +379,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header" style="border-bottom: 0px;">
-            <h3 class="modal-title">xd {{ 'sensors.m2.1' | translate }}</h3>
+            <h3 class="modal-title">{{ 'sensors.m2.1' | translate }}</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" >

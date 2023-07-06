@@ -29,10 +29,10 @@ export class DevicesNewComponent  implements OnInit{
 
   data: any;
   activeLang='en';
-  show=true;
-  show3= true;
+  show_form=true;
+  show_map= true;
   change= false;
-  max= 2;
+  id_max= 2;
 
   device = {
     uid: '',    
@@ -83,11 +83,11 @@ export class DevicesNewComponent  implements OnInit{
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
-      this.max= parseInt(data[0].id)+1;    
-      if(this.id<this.max){
+      this.id_max= parseInt(data[0].id)+1;    
+      if(this.id<this.id_max){
         this.state= 1;
       }
-      if(this.id>=this.max){
+      if(this.id>=this.id_max){
         this.state= 0;
       }
 
@@ -132,30 +132,6 @@ export class DevicesNewComponent  implements OnInit{
     });
     this.createDate();
   }
-  
-  showMap(){ // Ampliar mapa
-    this.show3=true;
-    this.DevicesNewMapComponent.showMap();
-  }
-  hideMap(){ // Desamplair mapa
-    this.show3=false;
-    this.DevicesNewMapComponent.showMap();
-  }
-  showForm(){ // Ampliar formulario
-    this.dataSharingService.updatesharedAmp(true);
-    this.show=false;
-  }
-  hideForm(){ // Desamplair formulario
-    this.show=true;
-    this.dataSharingService.updatesharedAmp(false);
-  }
-  
-  updatesharedLat() { // Actualiza Latitud
-    this.dataSharingService.updatesharedLat(this.device.lat);
-  }
-  updatesharedLon() { // Actualiza Longitud
-    this.dataSharingService.updatesharedLon(this.device.lon);
-  }
 
   newSensor() { // Guardar sensores
       var select_sensors = {
@@ -163,9 +139,7 @@ export class DevicesNewComponent  implements OnInit{
       }
       if(this.state==0){
         fetch(this.delete_all_sensors_devices, {
-          method: "POST",
-          body: JSON.stringify(select_sensors),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
+          method: "POST",body: JSON.stringify(select_sensors),headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(response => response.json()) 
       }
@@ -173,20 +147,16 @@ export class DevicesNewComponent  implements OnInit{
       if(this.state==0){
         for(let quote of this.sensors.sensors) {
           fetch(this.post_sensors_devices, {
-            method: "POST",
-            body: JSON.stringify(quote),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+            method: "POST",body: JSON.stringify(quote),headers: {"Content-type": "application/json; charset=UTF-8"}
           })
           .then(response => response.json()) 
         }
       }
       if(this.state==1){
         for(let quote of this.sensors.sensors) {
-          quote.id_device= this.max;
+          quote.id_device= this.id_max;
           fetch(this.post_sensors_devices, {
-            method: "POST",
-            body: JSON.stringify(quote),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+            method: "POST",body: JSON.stringify(quote),headers: {"Content-type": "application/json; charset=UTF-8"}
           })
           .then(response => response.json()) 
         }
@@ -208,15 +178,37 @@ export class DevicesNewComponent  implements OnInit{
     
     if (loginForm.valid) {
       fetch(this.post_device, {
-        method: "POST",
-        body: JSON.stringify(this.device),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+        method: "POST",body: JSON.stringify(this.device),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
     }
     this.newSensor();
   }
-
+  
+  showMap(){ // Ampliar mapa
+    this.show_map=true;
+    this.DevicesNewMapComponent.showMap();
+  }
+  hideMap(){ // Desamplair mapa
+    this.show_map=false;
+    this.DevicesNewMapComponent.showMap();
+  }
+  showForm(){ // Ampliar formulario
+    this.dataSharingService.updatesharedAmp(true);
+    this.show_form=false;
+  }
+  hideForm(){ // Desamplair formulario
+    this.show_form=true;
+    this.dataSharingService.updatesharedAmp(false);
+  }
+  
+  updatesharedLat() { // Actualiza Latitud
+    this.dataSharingService.updatesharedLat(this.device.lat);
+  }
+  updatesharedLon() { // Actualiza Longitud
+    this.dataSharingService.updatesharedLon(this.device.lon);
+  }
+  
   createDate(){ // Formato de fecha
     const currentDate = new Date();
     const year = currentDate.getFullYear();

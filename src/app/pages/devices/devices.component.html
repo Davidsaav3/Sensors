@@ -16,7 +16,6 @@
                 <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
               </svg>
             </button>
-
             <button type="button" class="btn" (click)="openMap()">
               <svg *ngIf="!view_map" (mouseover)="view_map=true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-map mb-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"></path>
@@ -38,11 +37,11 @@
           <div class="d-flex">
 
             <div style="border-radius: 6px; border: 1px solid #d8d8d8 ; width: 33vw; border-top-right-radius: 0em; border-bottom-right-radius: 0em" class="ms-3">
-              <ng-select [items]="select_sensors_1.sensors" (ngModelChange)="orderDevices('xd','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="select_sensors_2.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
+              <ng-select [items]="select_sensors_1.sensors" (ngModelChange)="orderDevices('id','ASC')" bindLabel="name" appendTo="ng-select" [multiple]="true" [(ngModel)]="select_sensors_2.sensors" style="background-color: #E3E3E3;" class="selectpicker" aria-label="Default select example" id="sel_type" name="sel_type" style="height:fit-content;"></ng-select>
             </div>
 
             <div class="ms-0">
-              <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="orderDevices('xd','ASC')" class="form-select" aria-label="Default select example" id="sensors_2" name="sensors_2" [(ngModel)]="busqueda.sensors_2">
+              <select style="border-top-left-radius: 0em; border-bottom-left-radius: 0em;" (ngModelChange)="orderDevices('id','ASC')" class="form-select" aria-label="Default select example" id="sensors_2" name="sensors_2" [(ngModel)]="busqueda.sensors_2">
                 <option selected [ngValue]="2">{{ 'sensors.all' | translate }}</option>
                 <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
                 <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
@@ -50,7 +49,7 @@
             </div>
 
             <div class="ms-4" style="width: 15em;">
-              <select  (ngModelChange)="orderDevices('xd','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
+              <select  (ngModelChange)="orderDevices('id','ASC')" class="form-select" aria-label="Default select example" id="sel_enable" name="sel_enable" [(ngModel)]="busqueda.sel_enable">
                 <option selected [ngValue]="2">{{ 'sensors.all_devices' | translate }}</option>
                 <option [ngValue]="1">{{ 'sensors.enable' | translate }}</option>
                 <option [ngValue]="0">{{ 'sensors.disable' | translate }}</option>
@@ -71,7 +70,7 @@
     </div>	
   </div>
 
-  <div class="p-4 pt-0 mb-5 w-96" *ngIf="cont==true" style="position: fixed; z-index: 1000; width: 98.5vw">
+  <div class="p-4 pt-0 mb-5 w-96" *ngIf="open_map_list==true" style="position: fixed; z-index: 1000; width: 98.5vw">
     <div class="row">
       <div class="over p-0 " style="height: 74vh; background-color: #fff;"> 
       
@@ -81,7 +80,7 @@
           </div>
         </div>
 
-        <div *ngIf="cargando" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
+        <div *ngIf="charging" class="col-12 d-flex" style="justify-content: center; align-content: center;align-items: center; height: 74vh; background-color: white;"> 
           <div class="spinner-border text-secondary" role="status">
             <span class="visually-hidden">{{ 'loading' | translate }}</span>
           </div>
@@ -92,7 +91,7 @@
                 <thead>
                   <tr>
 
-                    <th style="cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'uid'}" scope="col">
+                    <th style="cursor: pointer;" class="single-line" [ngClass]="{'mark': mark == 'uid'}" scope="col">
                       <svg *ngIf="alt_1_a" (click)="alt_1_a=false;orderDevices('uid','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -101,7 +100,7 @@
                       </svg>{{ 'devices.edit.uid' | translate }}
                     </th>
 
-                    <th class="d-none d-md-none d-lg-block" [ngClass]="{'marcado': marcado == 'topic_name'}" style="cursor: pointer;" class="single-line"  scope="col">
+                    <th class="d-none d-md-none d-lg-block" [ngClass]="{'mark': mark == 'topic_name'}" style="cursor: pointer;" class="single-line"  scope="col">
                       <svg *ngIf="alt_2_a" (click)="alt_2_a=false;orderDevices('topic_name','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -110,7 +109,7 @@
                       </svg>{{ 'devices.edit.topic' | translate }}
                     </th>
 
-                    <th style="cursor: pointer; " class="single-line" [ngClass]="{'marcado': marcado == 'application_id'}" scope="col">
+                    <th style="cursor: pointer; " class="single-line" [ngClass]="{'mark': mark == 'application_id'}" scope="col">
                       <svg *ngIf="alt_3_a" (click)="alt_3_a=false;orderDevices('application_id','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -124,7 +123,7 @@
                     <th class="d-none d-md-none d-lg-block" style="" class="single-line" >{{ 'sensors.sensors' | translate }}
                     </th>
 
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'createdAt'}">
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'mark': mark == 'createdAt'}">
                       <svg *ngIf="alt_4_a" (click)="alt_4_a=false;orderDevices('createdAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -133,7 +132,7 @@
                       </svg>{{ 'created' | translate }}
                     </th>
 
-                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'marcado': marcado == 'updatedAt'}">
+                    <th class="d-none d-md-none d-lg-block" style="text-align: center; cursor: pointer;" class="single-line" [ngClass]="{'mark': mark == 'updatedAt'}">
                       <svg *ngIf="alt_5_a" (click)="alt_5_a=false;orderDevices('updatedAt','ASC')" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                         <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                       </svg>
@@ -200,13 +199,13 @@
         </div>
       </div>
       
-      <div *ngIf="cont" class="row" style="background-color: #fff;">
+      <div *ngIf="open_map_list" class="row" style="background-color: #fff;">
         <div class="col-12 col-lg-6 d-flex mt-3">
           <div>
-            <p class="p-0 mt-1">{{((cantPage)*(currentPage-1))+1}} - {{(cantPage)*currentPage}} de {{totalPages*cantPage}}</p>
+            <p class="p-0 mt-1">{{((quantPage)*(currentPage-1))+1}} - {{(quantPage)*currentPage}} de {{totalPages*quantPage}}</p>
           </div>
           <div>
-            <select (ngModelChange)="orderDevices('xd','ASC')"  class="form-select ms-3" aria-label="Default select example" id="cantPage" name="cantPage" [(ngModel)]="this.cantPage" >
+            <select (ngModelChange)="orderDevices('id','ASC')"  class="form-select ms-3" aria-label="Default select example" id="quantPage" name="quantPage" [(ngModel)]="this.quantPage" >
               <option selected [ngValue]="1">1 {{ 'res' | translate }}</option>
               <option selected [ngValue]="10">10 {{ 'res' | translate }}</option>
               <option [ngValue]="50">50 {{ 'res' | translate }}</option>

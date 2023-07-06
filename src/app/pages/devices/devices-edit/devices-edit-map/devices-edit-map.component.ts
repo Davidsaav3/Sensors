@@ -67,7 +67,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       draggable: false
     }).setLngLat( this.currentLngLat ).addTo( this.map );
 
-    setTimeout(() =>{this.flyTo( marker );}, 50);
+    setTimeout(() =>{this.goMarker( marker );}, 50);
 
     this.map.addControl(
       new mapboxgl.GeolocateControl({
@@ -105,13 +105,6 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     }
   }
 
-  updatesharedLat() { // Actualizar Latitud
-    this.dataSharingService.updatesharedLat(this.sharedLat);
-  }
-  updatesharedLon() { // Actualizar Longitud
-    this.dataSharingService.updatesharedLon(this.sharedLon);
-  }
-
   createMap(){
     if ( !this.divMap ) throw 'No hay mapa';
 
@@ -138,10 +131,6 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
       });
       return this.map;
     }
-  }
-
-  ngOnDestroy(): void { // Eliminar mapa
-    this.map?.remove();
   }
 
   createMarker(marker: mapboxgl.LngLat) { // Crear chincheta 1
@@ -178,10 +167,21 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     this.dataSharingService.updatesharedLon('');
   }
 
-  flyTo( marker: mapboxgl.Marker ) { // Ir a un punto del mapa
+  goMarker( marker: mapboxgl.Marker ) { // Ir a un punto del mapa
     this.map?.flyTo({
       zoom: 14,
       center: marker.getLngLat()
     });
+  }
+
+  ngOnDestroy(): void { // Eliminar mapa
+    this.map?.remove();
+  }
+
+  updatesharedLat() { // Actualizar Latitud
+    this.dataSharingService.updatesharedLat(this.sharedLat);
+  }
+  updatesharedLon() { // Actualizar Longitud
+    this.dataSharingService.updatesharedLon(this.sharedLon);
   }
 }
