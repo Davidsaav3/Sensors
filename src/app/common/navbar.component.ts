@@ -12,24 +12,16 @@ export class NavbarComponent {
 
   dup_ok=false;
   dup_not=false;
-  ruta='';
-  ruta2: any;
-
-  alert_delete: any= false;
-  alert_new: any= false;
-  not_delete: any= false;
-  not_new: any= false;
-  guardar_ok: any= false;
-  guardar_not: any= false;
+  rute='';
+  rute2: any;
 
   constructor(private translate: TranslateService, public rutaActiva: Router ) {
     this.translate.setDefaultLang(this.activeLang);
-    this.ruta= this.rutaActiva.routerState.snapshot.url;
-    this.ruta2 = this.ruta.split('/');
-    console.log(this.ruta2[2])
+    this.rute= this.rutaActiva.routerState.snapshot.url;
+    this.rute2 = this.rute.split('/');
   }
 
-  public cambiarLenguaje() {
+  public changeLenguaje() {
     setTimeout(() =>{
       this.translate.use(this.activeLang);
     }, 10);

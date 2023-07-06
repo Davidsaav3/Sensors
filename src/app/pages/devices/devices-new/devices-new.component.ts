@@ -16,7 +16,7 @@ export class DevicesNewComponent  implements OnInit{
   state= 0; //0 new //1 duplicate
 
   constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesNewMapComponent: DevicesNewMapComponent) { 
-    this.date();
+    this.createDate();
   }
 
   post_device: string = 'http://localhost:5172/api/post/device_configurations';
@@ -29,13 +29,12 @@ export class DevicesNewComponent  implements OnInit{
 
   data: any;
   activeLang='en';
-  mostrar=true;
-  mostrar3= true;
+  show=true;
+  show3= true;
   change= false;
   max= 2;
-  buscar='Buscar';
 
-  contenido = {
+  device = {
     uid: '',    
     alias: '', 
     origin: '',
@@ -53,7 +52,7 @@ export class DevicesNewComponent  implements OnInit{
     updatedAt: '',
   }
 
-  contenido1 = {
+  sensors = {
     sensors : [
       {
         id: 1, 
@@ -67,7 +66,7 @@ export class DevicesNewComponent  implements OnInit{
       }]
   }
 
-  contenido4 = {
+  select_sensors = {
     sensors : [
       {
         id: -1, 
@@ -78,33 +77,6 @@ export class DevicesNewComponent  implements OnInit{
         valuemax: 1,
         valuemin: 1,
       }]
-  }
-
-  busqueda = {
-    value: '', 
-    sel_type: 0,
-    sensors_2: 2,
-    sel_enable: 2
-  }
-
-  ampliar(){ // Ampliar mapa
-    this.mostrar3=true;
-    this.DevicesNewMapComponent.ampliar();
-  }
-
-  desampliar(){ // Desamplair mapa
-    this.mostrar3=false;
-    this.DevicesNewMapComponent.ampliar();
-  }
-
-  ampliar2(){ // Ampliar formulario
-    this.dataSharingService.updatesharedAmp(true);
-    this.mostrar=false;
-  }
-
-  desampliar2(){ // Desamplair formulario
-    this.mostrar=true;
-    this.dataSharingService.updatesharedAmp(false);
   }
 
   ngOnInit(): void { // Inicializador
@@ -123,7 +95,7 @@ export class DevicesNewComponent  implements OnInit{
         fetch(`${this.id_device}/${this.id}`)
         .then(response => response.json())
         .then(data => {
-          this.contenido= data[0];
+          this.device= data[0];
         })
         .catch(error => {
           console.error(error); 
@@ -139,50 +111,67 @@ export class DevicesNewComponent  implements OnInit{
             nombresExistentes.add(data[index].uid);
           }
     
-          let uid_2= this.contenido['uid'];
+          let uid_2= this.device['uid'];
           while(nombresExistentes.has(uid_2)) {
-            uid_2 = `${this.contenido['uid']}_${contador}`;
+            uid_2 = `${this.device['uid']}_${contador}`;
             contador++;
           }
-          this.contenido.uid= uid_2;
+          this.device.uid= uid_2;
         })
       }
     })
     this.dataSharingService.updatesharedAmp(false);
     this.dataSharingService.sharedLat$.subscribe(data => {
-      this.contenido.lat = data;
+      this.device.lat = data;
     });
     this.dataSharingService.sharedLon$.subscribe(data => {
-      this.contenido.lon = data;
+      this.device.lon = data;
     });
     this.dataSharingService.sharedList$.subscribe(data => {
-      this.contenido1.sensors= data;
+      this.sensors.sensors= data;
     });
-    this.date();
+    this.createDate();
+  }
+  
+  showMap(){ // Ampliar mapa
+    this.show3=true;
+    this.DevicesNewMapComponent.showMap();
+  }
+  hideMap(){ // Desamplair mapa
+    this.show3=false;
+    this.DevicesNewMapComponent.showMap();
+  }
+  showForm(){ // Ampliar formulario
+    this.dataSharingService.updatesharedAmp(true);
+    this.show=false;
+  }
+  hideForm(){ // Desamplair formulario
+    this.show=true;
+    this.dataSharingService.updatesharedAmp(false);
   }
   
   updatesharedLat() { // Actualiza Latitud
-    this.dataSharingService.updatesharedLat(this.contenido.lat);
+    this.dataSharingService.updatesharedLat(this.device.lat);
   }
   updatesharedLon() { // Actualiza Longitud
-    this.dataSharingService.updatesharedLon(this.contenido.lon);
+    this.dataSharingService.updatesharedLon(this.device.lon);
   }
 
-  submitSensors() { // Guardar sensores
-      var contenido4 = {
+  newSensor() { // Guardar sensores
+      var select_sensors = {
         id: this.id,   
       }
       if(this.state==0){
         fetch(this.delete_all_sensors_devices, {
           method: "POST",
-          body: JSON.stringify(contenido4),
+          body: JSON.stringify(select_sensors),
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(response => response.json()) 
       }
 
       if(this.state==0){
-        for(let quote of this.contenido1.sensors) {
+        for(let quote of this.sensors.sensors) {
           fetch(this.post_sensors_devices, {
             method: "POST",
             body: JSON.stringify(quote),
@@ -192,7 +181,7 @@ export class DevicesNewComponent  implements OnInit{
         }
       }
       if(this.state==1){
-        for(let quote of this.contenido1.sensors) {
+        for(let quote of this.sensors.sensors) {
           quote.id_device= this.max;
           fetch(this.post_sensors_devices, {
             method: "POST",
@@ -206,29 +195,29 @@ export class DevicesNewComponent  implements OnInit{
       return;
   }
 
-  submitDevice(loginForm: any) { // Guardar Dispositivos
+  newDevice(loginForm: any) { // Guardar Dispositivos
     this.dataSharingService.sharedLat$.subscribe(data => {
-      this.contenido.lat = data;
+      this.device.lat = data;
     });
     this.dataSharingService.sharedLon$.subscribe(data => {
-      this.contenido.lon = data;
+      this.device.lon = data;
     });
     this.dataSharingService.sharedList$.subscribe(data => {
-      this.contenido1.sensors= data;
+      this.sensors.sensors= data;
     });
     
     if (loginForm.valid) {
       fetch(this.post_device, {
         method: "POST",
-        body: JSON.stringify(this.contenido),
+        body: JSON.stringify(this.device),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
     }
-    this.submitSensors();
+    this.newSensor();
   }
 
-  date(){ // Formato de fecha
+  createDate(){ // Formato de fecha
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -236,7 +225,7 @@ export class DevicesNewComponent  implements OnInit{
     const hours = String(currentDate.getHours()).padStart(2, '0');
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
-    this.contenido.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    this.device.createdAt= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 }
 

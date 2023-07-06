@@ -1,4 +1,4 @@
-<form class="" *ngIf="sin" #loginForm="ngForm" #miDiv>
+<form class="" *ngIf="without" #loginForm="ngForm" #miDiv>
 
 	<div class="row pb-0 pt-3 pb-3 d-flex">
 		<div class="col d-flex" style="justify-content: flex-end;">
@@ -14,8 +14,8 @@
 				  <tr>
             <th style="cursor: pointer;" (click)="getDevices('orden')" scope="col">{{ 'devices.sensors.order' | translate }}</th>
             <th style="cursor: pointer;" (click)="getDevices('type_name')" scope="col">{{ 'devices.sensors.type' | translate }}</th>
-            <th *ngIf="grande" style="cursor: pointer;" (click)="getDevices('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
-            <th *ngIf="grande" style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">Nodata</th>
+            <th *ngIf="large" style="cursor: pointer;" (click)="getDevices('datafield')" scope="col">{{ 'devices.sensors.datafield' | translate }}</th>
+            <th *ngIf="large" style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">Nodata</th>
             <th style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">{{ 'devices.sensors.specific' | translate }}</th>
             <th style="cursor: pointer;" (click)="getDevices('nodate')" scope="col">{{ 'devices.sensors.time_specific' | translate }}</th>
             <th style="cursor: pointer;" (click)="getDevices('enable')" scope="col">{{ 'sensors.enable' | translate }}</th>
@@ -48,7 +48,7 @@
               </select>
             </th>
 
-            <td *ngIf="grande" class="pb-0 input-1">
+            <td *ngIf="large" class="pb-0 input-1">
               <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
               <div *ngIf="loginForm.submitted && loginForm.controls['datafield'].errors" class="text-danger">
@@ -57,7 +57,7 @@
               </div>
             </td>
 
-            <td *ngIf="grande" class="pb-0">
+            <td *ngIf="large" class="pb-0">
               <div class="form-check">
                 <label style="display: none" [for]="'nodata'+i">{{ 'devices.sensors.nodata' | translate }}</label>
                 <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
@@ -97,11 +97,11 @@
               </label>
             </td>
 
-            <td (mouseout)="ver_can= 1000" (mouseover)="ver_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="addShareSensor(item.id)">
-              <svg *ngIf="ver_can!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+            <td (mouseout)="view_can= 1000" (mouseover)="view_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="addShareSensor(item.id)">
+              <svg *ngIf="view_can!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                 <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
               </svg>
-              <svg *ngIf="ver_can==i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+              <svg *ngIf="view_can==i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
                 <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
               </svg>
             </td>
@@ -114,7 +114,7 @@
 	</div>	
 </form>
 
-<div class="text-center" *ngIf="!sin">
+<div class="text-center" *ngIf="!without">
 	<h3>{{ 'devices.sensors.add' | translate }}</h3>
 	<button type="button" (click)="addSensor()" class="btn btn-info">{{ 'devices.sensors.new' | translate }}</button>
 </div>
@@ -143,7 +143,7 @@
   </div>
 </div>
 
-<div class="modal fade" [class]="{'show ':duplicados}" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" [class]="{'show ':duplicates}" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: 0px;">

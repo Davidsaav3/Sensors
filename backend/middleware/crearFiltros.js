@@ -24,7 +24,7 @@ const crearFiltros = (filtros,arrayOpciones) =>{
     try {
         filtrosFormateados = JSON.parse(filtrado);
     } catch (e) {
-        ////console.log(e);
+        //console.log(e);
     }  
     return filtrosFormateados;
 }

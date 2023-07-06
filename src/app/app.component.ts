@@ -15,7 +15,7 @@ export class AppComponent {
     this.translate.setDefaultLang(this.activeLang);
   }
 
-  public cambiarLenguaje(lang: any) {
+  public changeLenguaje(lang: any) {
     this.activeLang = lang;
     this.translate.use(lang);
   }

@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { DataSharingService } from '../../../../services/data_sharing.service';
 
 interface MarkerAndColor {
@@ -27,7 +26,7 @@ interface PlainMarker {
 })
 
 export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
-  constructor(private rutaActiva: ActivatedRoute,private router: Router,private dataSharingService: DataSharingService) { }
+  constructor(private rutaActiva: ActivatedRoute,private dataSharingService: DataSharingService) { }
 
   @ViewChild('map') divMap?: ElementRef;
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
@@ -39,12 +38,11 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   public map?: mapboxgl.Map;
   public currentLngLat: mapboxgl.LngLat = new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
   public markers: MarkerAndColor[] = [];
-
   state= 1;
   id= parseInt(this.rutaActiva.snapshot.params['id']);
-  no_inicia= false;
+  start= false;
   max= 1;
-
+  
   ngOnInit(): void { // Inicializador
     fetch(this.max_device)
     .then(response => response.json())
@@ -57,27 +55,27 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
         this.state= 0;
       }
     })
-
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.sharedLat = data;
     });
     this.dataSharingService.sharedLon$.subscribe(data => {
       this.sharedLon = data;
     });
-
     setInterval(() => {
-      this.map?.resize();
-    }, 10);
+      if (this.map) 
+        this.map.resize();
+    }, 50);
   }
 
-  ampliar(){ // Redimesiona mapa
-    this.map?.resize();
+  showMap(){ // Redimesiona mapa
+    if (this.map)
+      this.map.resize();
   }
 
   createMap(lon: any, lat: any){ // Crear mapa
     if ( !this.divMap ) throw 'No hay mapa';
 
-      if(this.no_inicia==false){
+      if(this.start==false){
         this.ngOnDestroy();
         this.map = new mapboxgl.Map({
           container: this.divMap?.nativeElement,
@@ -110,7 +108,6 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
   updatesharedLat() { // Actualizar Latitud
     this.dataSharingService.updatesharedLat(this.sharedLat);
   }
-
   updatesharedLon() { // ctualizar Longitud
     this.dataSharingService.updatesharedLon(this.sharedLon);
   }
@@ -120,23 +117,23 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => { 
           this.map= this.createMap(position.coords.longitude, position.coords.latitude);
-          this.aux();
+          this.auxInit();
         },
         (error) => {
           this.map= this.createMap(-3.7034137886912504,40.41697654880073);
           console.log("Error geo", error);
-          this.aux()
+          this.auxInit()
         }
       );
     } 
     else {
       this.map= this.createMap(-3.7034137886912504,40.41697654880073);
       console.log("Geo no compatible");
-      this.aux();
+      this.auxInit();
     }
   }
 
-  aux(){ // Auxiliar de ngAfterViewInit
+  auxInit(){ // Auxiliar de ngAfterViewInit
     if(this.map!=undefined){
       this.map.addControl(
         new mapboxgl.GeolocateControl({
@@ -149,9 +146,10 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
       );
       
       this.map.addControl(new mapboxgl.NavigationControl());
+
       this.map.on('click', (e) => {
         this.createMarker(e.lngLat.wrap());
-        this.no_inicia= true;
+        this.start= true;
         this.ngAfterViewInit();
       });
   
@@ -214,9 +212,9 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     .setLngLat( lngLat )
     .addTo( this.map );
     this.markers.push({ color, marker, });
-    this.saveToLocalStorage();
+    this.saveStorage();
 
-    marker.on('dragend', () => this.saveToLocalStorage() );
+    marker.on('dragend', () => this.saveStorage() );
     this.sharedLat= lngLat.lat;
     this.sharedLon= lngLat.lng;
     this.updatesharedLat();
@@ -237,7 +235,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     });
   }
 
-  saveToLocalStorage() { // Guarda datos
+  saveStorage() { // Guarda datos
     const plainMarkers: PlainMarker[] = this.markers.map( ({ color, marker }) => {
       return {
         color,
@@ -247,7 +245,7 @@ export class DevicesNewMapComponent implements AfterViewInit, OnDestroy{
     localStorage.setItem('plainMarkers', JSON.stringify( plainMarkers ));
   }
 
-  readFromLocalStorage() { // Recupera datos
+  readStorage() { // Recupera datos
     const plainMarkersString = localStorage.getItem('plainMarkers') ?? '[]';
     const plainMarkers: PlainMarker[] = JSON.parse( plainMarkersString );
     plainMarkers.forEach( ({ color, lngLat }) => {

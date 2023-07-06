@@ -23,16 +23,16 @@ export class SensorsListComponent  implements OnInit{
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
   data1: any= null;
-  ver_can= 1000;
+  view_can= 1000;
   activeLang='en';
-  buscar1='orden';
-  buscar2='id';
-  sin= true;
-  eliminarlo: any;
+  search1='orden';
+  search2='id';
+  without= true;
+  delete_it: any;
   cont= 0;
-  grande= true;
-  desde= 1;
-  duplicados= false;
+  large= true;
+  from= 1;
+  duplicates= false;
 
   /* EDIT */
 
@@ -74,10 +74,10 @@ export class SensorsListComponent  implements OnInit{
 
   ngOnInit(): void { // Inicialización
     setTimeout(() =>{this.getDevices('xd')}, 50);
-    this.desde = 1;
+    this.from = 1;
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
-        this.grande = data;
+        this.large = data;
       });
     }, 10);
   }
@@ -99,14 +99,14 @@ export class SensorsListComponent  implements OnInit{
 
   getDevices(id: any){ // Obtener datos del dispositivo
     if(id!='xd'){
-      this.buscar1= id;
+      this.search1= id;
     }
-    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.buscar1}`)
+    fetch(`${this.id_device_sensors_devices}/${this.id}/${this.search1}`)
     .then(response => response.json())
     .then(data => {
       this.sensors.sensors= data;
       if(this.data1!=null){
-        this.sin= false;
+        this.without= false;
       }
     })
     .catch(error => {
@@ -114,7 +114,7 @@ export class SensorsListComponent  implements OnInit{
     });
     let buscar= 'Buscar';
     let ord= 'ASC';
-    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
+    fetch(`${this.get_sensors}/${buscar}/${this.search2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       this.select_sensors.sensors= data;
@@ -122,8 +122,8 @@ export class SensorsListComponent  implements OnInit{
   }
 
   addShareSensor(id: any){ // Añadir a lista compartida
-    this.eliminarlo= id;
-    this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.eliminarlo)
+    this.delete_it= id;
+    this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.delete_it)
     this.updatesharedList();
   }
 
@@ -141,12 +141,12 @@ export class SensorsListComponent  implements OnInit{
       correction_time_specific: '',
     }
     this.sensors.sensors.push(sensors_aux);
-    this.sin= true;
+    this.without= true;
     this.updatesharedList();
   }
 
   deleteSensor(){ // Elimina sensor de la lista
-    this.sensors.sensors= this.sensors.sensors.filter((item) => item == this.eliminarlo)
+    this.sensors.sensors= this.sensors.sensors.filter((item) => item == this.delete_it)
   }
 
 }

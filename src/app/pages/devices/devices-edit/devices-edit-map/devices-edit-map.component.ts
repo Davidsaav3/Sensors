@@ -43,7 +43,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   zoom: number = 10;
   map?: mapboxgl.Map;
   markers: MarkerAndColor[] = [];
-  no_inicia= false;
+  start= false;
 
   ngOnInit(): void { // Inicializador
     this.dataSharingService.sharedLat$.subscribe(data => {
@@ -54,8 +54,9 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     });
     this.currentLngLat= new mapboxgl.LngLat(this.sharedLon, this.sharedLat);
     setInterval(() => {
-      this.map?.resize();
-    }, 10);
+      if(this.map!=undefined)
+        this.map.resize();
+    }, 50);
   }
 
   ngAfterViewInit(): void { // Despues de ngOnInit
@@ -82,7 +83,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
     this.map.on('click', (e) => {
       this.createMarker(e.lngLat.wrap());
       this.ngAfterViewInit();
-      this.no_inicia= true;
+      this.start= true;
     });
 
     let layerList = document.getElementById('menu');
@@ -114,7 +115,7 @@ export class DevicesEditMapComponent implements AfterViewInit, OnDestroy{
   createMap(){
     if ( !this.divMap ) throw 'No hay mapa';
 
-    if(this.no_inicia==false){
+    if(this.start==false){
       this.ngOnDestroy();
       this.map = new mapboxgl.Map({
         container: this.divMap.nativeElement,

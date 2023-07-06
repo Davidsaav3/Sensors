@@ -55,25 +55,20 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
 
   ruta='';
   id1= 'orden';
-  mostrar=true;
   id= 1;
   data3: any;
-  mostrar1= true;
-  mostrar2= false;
   timeout: any = null;
   dup_ok=false;
   dup_not=false;
   buscar='Buscar';
-  buscar1= 'id';
-  buscar2= 'id';
-  buscar3= 'Nada';
-  buscar4= 'Nada';
+  search1= 'id';
+  search2= 'id';
   cont= true;
-  ver_dup= 10000;
+  view_dup= 10000;
   pencil_dup= 10000;
   pencil_dup1= false;
-  ver_list=false;
-  ver_map=false;
+  view_list=false;
+  view_map=false;
 
   alt_1_a=true;
   alt_1_b=false;
@@ -122,16 +117,16 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
   }
 
   ngOnInit(): void { // Inicialización
-    this.getget();
+    this.getorderDevices();
     if(this.cont==true){
-      this.get('uid','ASC');
+      this.orderDevices('uid','ASC');
     }
     else{
       this.getCornerCoordinates();
     }
   }
   
-  clearSearch(){ // Eliminar filtros
+  deleteSearch(){ // Eliminar filtros
     this.busqueda.value= '';
     this.totalPages = 5;
     this.currentPage = 1;
@@ -153,9 +148,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     this.Page(1);
   }
 
-  getget(){ 
+  getorderDevices(){ 
     this.ruta= this.router.routerState.snapshot.url;
-    this.get('uid','ASC');
+    this.orderDevices('uid','ASC');
     fetch(this.max_device)
     .then(response => response.json())
     .then(data => {
@@ -164,7 +159,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
 
     let buscar= 'Buscar';
     let ord= 'ASC';
-    fetch(`${this.get_sensors}/${buscar}/${this.buscar2}/${ord}`)
+    fetch(`${this.get_sensors}/${buscar}/${this.search2}/${ord}`)
     .then((response) => response.json())
     .then(data => {
       data.unshift({
@@ -199,16 +194,16 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     this.cont= false;
   }
   openList(){ // Abrir lista
-    this.getget();
-    this.get('uid','ASC');
+    this.getorderDevices();
+    this.orderDevices('uid','ASC');
     this.cont= true;
   }
 
-  get(id: any, ord: any){ 
+  orderDevices(id: any, ord: any){ 
     this.marcado= id;
     setTimeout(() =>{
       if(id!='xd'){
-        this.buscar1= id;
+        this.search1= id;
       }
       if(this.busqueda.value==''){
         this.buscar= 'Buscar';
@@ -231,7 +226,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       let m2= 100000;
       //console.log(this.select_sensors_2.sensors[0].id)
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.search1}/${arrayString}/${this.busqueda.sel_enable}/${m1}/${m2}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -239,7 +234,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
         //console.log(this.totalPages)
       })
       this.cargando= true;
-      fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${arrayString}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
+      fetch(`${this.get_device}/${this.buscar}/${this.search1}/${arrayString}/${this.busqueda.sel_enable}/${this.currentPage}/${this.cantPage}/${ord}/${x1}/${x2}/${y1}/${y2}/${this.busqueda.sensors_2}`)
       .then((response) => response.json())
       .then(data => {
         this.cargando= false;
@@ -275,7 +270,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     var $this = this;
     this.timeout = setTimeout(function () {
       if (event.keyCode != 13) {
-        $this.get('xd','ASC');
+        $this.orderDevices('xd','ASC');
       }
     }, 500);
   }
@@ -395,24 +390,6 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     }, 1000);
   }
 
-  handleClick(event: any) { // Marcar posición
-    let features;
-    if(this.map!=null){
-      features = this.map.queryRenderedFeatures(event.point);
-    }
-    let markerFeatures;
-    if(features!=null){
-      markerFeatures = features.filter(feature => feature.layer.type === 'symbol' && feature.layer.source === 'markers');
-    }
-    if (markerFeatures!=null && markerFeatures.length > 0) {
-      let marker = markerFeatures[0];
-      let markerId;
-      if(marker.properties!=null && marker.properties["id"]!=null){
-        markerId = marker.properties["id"]; 
-      }
-    }
-  }
-
   auxInit(){ // Auxiliar de Init
     if(this.map!=undefined){
       this.map.addControl(
@@ -425,7 +402,6 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
         })
       );
       this.map.addControl(new mapboxgl.NavigationControl());
-      this.map.on('click', this.handleClick);
 
       /*this.map.on('moveend', () => {
         this.getCornerCoordinates();
@@ -699,7 +675,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     let m1= 1;
     let m2= 100000;
     let m3= 'asc';
-    fetch(`${this.get_device}/${this.buscar}/${this.buscar1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
+    fetch(`${this.get_device}/${this.buscar}/${this.search1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
     .then((response) => response.json())
     .then(data4 => {
       this.data= data4;
