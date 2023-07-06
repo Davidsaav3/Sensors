@@ -26,7 +26,7 @@ export class DevicesEditComponent implements OnInit{
   deleteDevice_device: string = 'http://localhost:5172/api/delete/device_configurations';
   update_device: string = 'http://localhost:5172/api/update/device_configurations';
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
-  deleteDevice_all_sensors_devices: string = 'http://localhost:5172/api/deleteDevice_all/sensors_devices';
+  deleteDevice_all_sensors_devices: string = 'http://localhost:5172/api/delete_all/sensors_devices';
   post_sensors_devices: string = 'http://localhost:5172/api/post/sensors_devices';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
@@ -96,10 +96,10 @@ export class DevicesEditComponent implements OnInit{
     });
   }
 
-  editDevices(loginForm: any) { // Guardar Dispositivo
+  editDevices(form: any) { // Guardar Dispositivo
     this.devices.updatedAt= this.date;
     this.getShsareSensors();
-    if (loginForm.valid) {
+    if (form.valid) {
       fetch(this.update_device, {
         method: "POST",body: JSON.stringify(this.devices),headers: {"Content-type": "application/json; charset=UTF-8"}
       })

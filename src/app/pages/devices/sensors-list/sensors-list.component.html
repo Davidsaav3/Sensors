@@ -1,4 +1,4 @@
-<form class="" *ngIf="show_map" #loginForm="ngForm" #miDiv>
+<form class="" *ngIf="show_map" #form="ngForm" #miDiv>
 
 	<div class="row pb-0 pt-3 pb-3 d-flex">
 		<div class="col d-flex" style="justify-content: flex-end;">
@@ -34,9 +34,8 @@
             <th scope="col2" class="pb-0 input-1">
               <label style="display: none" [for]="'orden'+i">{{ 'devices.sensors.order' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
-              <div *ngIf="loginForm.submitted && loginForm.controls['orden'].errors" class="text-danger">
-                  <div *ngIf="loginForm.controls['orden'].errors['required']">{{ 'devices.sensors.order' | translate }} is required.</div>
-                  <div *ngIf="loginForm.controls['orden'].errors['email']">Invalid {{ 'devices.sensors.order' | translate }}.</div>
+              <div *ngIf="form.submitted && form.controls['orden'].errors" class="text-danger">
+                  <div *ngIf="form.controls['orden'].errors['required']">{{ 'devices.sensors.order' | translate }} is required.</div>
               </div>
             </th>
 
@@ -51,9 +50,8 @@
             <td *ngIf="show_large" class="pb-0 input-1">
               <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
-              <div *ngIf="loginForm.submitted && loginForm.controls['datafield'].errors" class="text-danger">
-                  <div *ngIf="loginForm.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
-                  <div *ngIf="loginForm.controls['datafield'].errors['email']">Invalid {{ 'devices.sensors.datafield' | translate }}.</div>
+              <div *ngIf="form.submitted && form.controls['datafield'].errors" class="text-danger">
+                  <div *ngIf="form.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
               </div>
             </td>
 
@@ -68,18 +66,16 @@
             <td class="pb-0 input-1">
               <label style="display: none" [for]="'correction_specific'+i">{{ 'devices.sensors.specific' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.correction_specific }}" type="text" class="form-control" [id]="'correction_specific'+i" [name]="'correction_specific'+i" [(ngModel)]="item['correction_specific']" type>
-              <div *ngIf="loginForm.submitted && loginForm.controls['correction_specific'].errors" class="text-danger">
-                  <div *ngIf="loginForm.controls['correction_specific'].errors['required']">{{ 'devices.sensors.specific' | translate }} is required.</div>
-                  <div *ngIf="loginForm.controls['correction_specific'].errors['email']">Invalid {{ 'devices.sensors.specific' | translate }}.</div>
+              <div *ngIf="form.submitted && form.controls['correction_specific'].errors" class="text-danger">
+                  <div *ngIf="form.controls['correction_specific'].errors['required']">{{ 'devices.sensors.specific' | translate }} is required.</div>
               </div>
             </td>
 
             <td class="pb-0">
               <label style="display: none" [for]="'correction_time_specific'+i">{{ 'devices.sensors.time_specific' | translate }}</label>
               <input (ngModelChange)="updatesharedList()" value="{{ item.correction_time_specific }}" type="text" class="form-control" [id]="'correction_time_specific'+i" [name]="'time_specific'+i" [(ngModel)]="item['correction_time_specific']" type>
-              <div *ngIf="loginForm.submitted && loginForm.controls['correction_time_specific'].errors" class="text-danger">
-                  <div *ngIf="loginForm.controls['correction_time_specific'].errors['required']">{{ 'devices.sensors.time_specific' | translate }} is required.</div>
-                  <div *ngIf="loginForm.controls['correction_time_specific'].errors['email']">Invalid {{ 'devices.sensors.time_specific' | translate }}.</div>
+              <div *ngIf="form.submitted && form.controls['correction_time_specific'].errors" class="text-danger">
+                  <div *ngIf="form.controls['correction_time_specific'].errors['required']">{{ 'devices.sensors.time_specific' | translate }} is required.</div>
               </div>
             </td>
 

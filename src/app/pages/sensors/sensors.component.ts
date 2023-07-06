@@ -127,8 +127,8 @@ export class SensorsComponent implements OnInit{
     });
   }
 
-  editSensor(loginForm: any) { // Guardar datos de sensores editado
-    if (loginForm.valid) {
+  editSensor(form: any) { // Guardar datos de sensores editado
+    if (form.valid) {
       fetch(this.update_sensors, {
         method: "POST",body: JSON.stringify(this.sensors),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
@@ -147,9 +147,9 @@ export class SensorsComponent implements OnInit{
     this.edit_change=false;
   }
 
-  newSensor(loginForm: any) { // Guardar datos de sensores nuevo
+  newSensor(form: any) { // Guardar datos de sensores nuevo
     this.dup= false;
-    if (loginForm.valid) {
+    if (form.valid) {
       fetch(this.post_sensors, {
         method: "POST",body: JSON.stringify(this.sensors_new),headers: {"Content-type": "application/json; charset=UTF-8"}
       })

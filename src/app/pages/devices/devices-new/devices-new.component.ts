@@ -165,7 +165,7 @@ export class DevicesNewComponent  implements OnInit{
       return;
   }
 
-  newDevice(loginForm: any) { // Guardar Dispositivos
+  newDevice(form: any) { // Guardar Dispositivos
     this.dataSharingService.sharedLat$.subscribe(data => {
       this.device.lat = data;
     });
@@ -176,7 +176,7 @@ export class DevicesNewComponent  implements OnInit{
       this.sensors.sensors= data;
     });
     
-    if (loginForm.valid) {
+    if (form.valid) {
       fetch(this.post_device, {
         method: "POST",body: JSON.stringify(this.device),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
