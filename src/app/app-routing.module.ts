@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DeviceComponent } from './pages/device.component';
-import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
-import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
+import { DevicesNewEditComponent } from './pages/devices/devices-new-edit/devices-new-edit.component';
 import { DevicesComponent } from './pages/devices/devices.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
 
@@ -20,11 +19,11 @@ const routes: Routes = [
         children: [
           {
             path: ':id',
-            component: DevicesEditComponent
+            component: DevicesNewEditComponent
           },
           {
             path: '**',
-            component: DevicesEditComponent
+            component: DevicesNewEditComponent
           }
         ]
       },
@@ -33,7 +32,7 @@ const routes: Routes = [
         children: [
           {
             path: ':id',
-            component: DevicesEditComponent
+            component: DevicesNewEditComponent
           },
           {
             path: '**',

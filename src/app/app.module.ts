@@ -12,12 +12,10 @@ import { NavbarComponent } from './common/navbar.component';
 import { DevicesComponent } from './pages/devices/devices.component';
 import { DevicesMapComponent } from './pages/devices/devices-map/devices-map.component';
 import { DeviceComponent } from './pages/device.component';
-import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
-import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
+import { DevicesNewEditComponent } from './pages/devices/devices-new-edit/devices-new-edit.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
 import { SensorsListComponent } from './pages/devices/sensors-list/sensors-list.component';
 import { DataSharingService } from './services/data_sharing.service';
-
 
 @NgModule({
   declarations: [
@@ -27,8 +25,7 @@ import { DataSharingService } from './services/data_sharing.service';
     DevicesComponent,
     SensorsListComponent,
     SensorsComponent,
-    DevicesNewComponent,
-    DevicesEditComponent,
+    DevicesNewEditComponent,
     DeviceComponent,
   ],
   imports: [
