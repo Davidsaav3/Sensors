@@ -23,7 +23,7 @@ export class DevicesEditComponent implements OnInit{
     this.createDate();
   }
 
-  deleteDevice_device: string = 'http://localhost:5172/api/deleteDevice/device_configurations';
+  deleteDevice_device: string = 'http://localhost:5172/api/delete/device_configurations';
   update_device: string = 'http://localhost:5172/api/update/device_configurations';
   id_device: string = 'http://localhost:5172/api/id/device_configurations';
   deleteDevice_all_sensors_devices: string = 'http://localhost:5172/api/deleteDevice_all/sensors_devices';
@@ -129,11 +129,12 @@ export class DevicesEditComponent implements OnInit{
   }
 
   deleteDevice(id_actual: any){ // Eliminar Dispositivo
-    var devices3 = {
+    var devices = {
       id: id_actual,    
     }
+    console.log(devices.id)
     fetch(this.deleteDevice_device, {
-      method: "POST",body: JSON.stringify(devices3),headers: {"Content-type": "application/json; charset=UTF-8"}
+      method: "POST",body: JSON.stringify(devices),headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
     this.router.navigate(['/devices']);

@@ -50,7 +50,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
   charging= false;
   mark= 'uid';
   data: any[]= [];
-  ruta='';
+  rute='';
   id_1= 'orden';
   id= 1;
   timeout: any = null;
@@ -211,7 +211,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
   }
 
   getorderDevices(){ 
-    this.ruta= this.router.routerState.snapshot.url;
+    this.rute= this.router.routerState.snapshot.url;
     this.orderDevices('uid','ASC');
     fetch(this.max_device)
     .then(response => response.json())
@@ -673,8 +673,8 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
     let m3= 'asc';
     fetch(`${this.get_device}/${this.search_0}/${this.search_1}/${this.select_sensors_2.sensors[0].id}/${this.busqueda.sel_enable}/${m1}/${m2}/${m3}/${this.x1}/${this.x2}/${this.y1}/${this.y2}/${this.busqueda.sensors_2}`)   
     .then((response) => response.json())
-    .then(data4 => {
-      this.data= data4;
+    .then(data => {
+      this.data= data;
       for(let quote of this.data) {
         let color= '#198754';
         if(quote.enable==0){

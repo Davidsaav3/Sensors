@@ -66,7 +66,7 @@ export class SensorsListComponent  implements OnInit{
     setTimeout(() =>{this.getDevices('id')}, 50);
     setInterval(() => {
       this.dataSharingService.sharedAmp$.subscribe(data => {
-        this.show_large = data;
+        this.show_large= data;
       });
     }, 10);
   }

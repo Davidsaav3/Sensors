@@ -24,6 +24,10 @@
     position: fixed;
   }
 
+  .btn :hover{
+    border-color: white
+  }
+
   .mapboxgl-canvas{
     width: 100%;
   }
@@ -35,7 +39,7 @@
     background-color: #6c757d;
   }
 
-  .marcado{
+  .mark{
     background-color: #E3E3E3;
   }
 

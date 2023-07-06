@@ -6,7 +6,7 @@
         <div class="col-lg-3 d-flex">
           <div class="btn-group">
 
-            <button type="button" class="btn" (click)="openList()">
+            <button type="button" class="btn hov" (click)="openList()">
               <svg *ngIf="!view_list" (mouseover)="view_list=true" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list-task mb-1" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
                 <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
@@ -16,7 +16,7 @@
                 <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
               </svg>
             </button>
-            <button type="button" class="btn" (click)="openMap()">
+            <button type="button" class="btn hov" (click)="openMap()">
               <svg *ngIf="!view_map" (mouseover)="view_map=true" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-map mb-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.502.502 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103zM10 1.91l-4-.8v12.98l4 .8V1.91zm1 12.98 4-.8V1.11l-4 .8v12.98zm-6-.8V1.11l-4 .8v12.98l4-.8z"></path>
               </svg>
@@ -215,7 +215,7 @@
         </div>
         <div class="col-12 col-lg-6 d-flex" style="justify-content: flex-end;">
           <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination mt-3 mb-0">
               <li class="page-item">
                 <a class="page-link" style="cursor: pointer;" aria-label="Previous" (click)="firstPage()">
                   <span aria-hidden="true">{{ 'first' | translate }}</span>
