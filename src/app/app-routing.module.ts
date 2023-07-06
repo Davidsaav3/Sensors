@@ -20,11 +20,11 @@ const routes: Routes = [
         children: [
           {
             path: ':id',
-            component: DevicesNewComponent
+            component: DevicesEditComponent
           },
           {
             path: '**',
-            component: DevicesNewComponent
+            component: DevicesEditComponent
           }
         ]
       },

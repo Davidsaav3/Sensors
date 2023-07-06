@@ -7,7 +7,9 @@
                     <div class="col-12">
                         <div class="row pb-3">
                             <div class="col-8 d-flex"> 
-                                <h2 class="pe-3">{{ 'device' | translate }} {{devices.uid}}</h2>
+                                <h2 class="pe-3" *ngIf="state==0 && this.rute2[2]=='new'">{{ 'devices.edit.new_device' | translate }}</h2>
+                                <!----><h2 class="pe-3" *ngIf="state==1 && this.rute2[2]=='new'">Duplicar {{ devices['uid'] }}</h2>
+                                <!----><h2 class="pe-3" *ngIf="this.rute2[2]=='edit'">{{ 'device' | translate }} {{devices.uid}}</h2>
                             </div>
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
@@ -35,6 +37,7 @@
 
                         <div class="row">
                             <div class="col-md-3">
+                                <!----><input value="{{ devices['createdAt'] }}" type="text" id="createdAt" class="form-control d-none" name="createdAt" [(ngModel)]="devices['createdAt']" type>
 
                                 <label for="uid">{{ 'devices.edit.uid' | translate }}</label>
                                 <input (ngModelChange)="changed=true" value="{{ devices.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="devices['uid']" required type>
@@ -110,7 +113,9 @@
 
         <div *ngIf="show_map" class="p-0" [ngClass]="{'c200': !this.show_form, 'c20': this.show_form}">
             <div class="cont2 ms-lg-3 ms-0 ms-md-0" >
-                <div class="c4 d-flex justify-content-between">
+                
+                
+                <div *ngIf="this.rute2[2]=='edit'" class="c4 d-flex justify-content-between">
                     <div class="col-3" (click)="recharge()" style="cursor: pointer;">
                         <svg *ngIf="!view_rec" (mouseover)="view_rec=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
@@ -130,6 +135,23 @@
                         </svg>
                     </div>  
                 </div>	
+                <div *ngIf="this.rute2[2]=='new'" class="c4 d-flex justify-content-between">
+                    <div class="col-3" style="cursor: pointer;">
+                       
+                    </div>
+                    <div class="col-6" > 
+                        <h5 class="text-center">{{devices.alias}}</h5>
+                    </div>
+                    <div class="col-3" style="cursor: pointer; cursor: pointer; display: flex; justify-content: flex-end;">
+                        <svg class="text-right" *ngIf="show_form" (click)="hideForm()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"></path>
+                        </svg>
+                        <svg class="text-right" *ngIf="!show_form" (click)="showForm()" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707zM15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707z"/>
+                        </svg>
+                    </div>  
+                </div>	
+
 
                 <div class="c5 p-0 m-0" style="width: 100%;">
                     <app-devices-map style="width: 100%;"></app-devices-map>
@@ -216,21 +238,38 @@
 
     <div class="row p-0 m-0">
         <div class="col-12 p-0">
-            <div class="row">
-                <div class="col-md-6 col-12">
+            <div *ngIf="this.rute2[2]=='edit'" class="">
+                <div class="">
                     <div class="row">
-                        <div class="col-md-6 col-12 mt-1 pb-3">
-                            <button *ngIf="changed==false || this.saved==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.exit' | translate }}</button>
-                            <button *ngIf="changed==true && this.saved==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">Restablecer datos</button>
+                        <div class="col-md-6 col-12">
+                            <div class="row">
+                                <div class="col-md-6 col-12 mt-1 pb-3">
+                                    <button *ngIf="changed==false || this.saved==true" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.exit' | translate }}</button>
+                                    <button *ngIf="changed==true && this.saved==false" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal8">Restablecer datos</button>
+                                </div>
+                                <div class="col-md-6 col-12 mt-1 pb-3">
+                                    <button ng-click="ocultar = true" type="button navb" class="btn btn-info navb me-3" style="width: 100%"  (click)="editDevices(form)" [ngClass]="{'disabled': !changed}">{{ 'sensors.save' | translate }}</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-12 mt-1 pb-3">
-                            <button ng-click="ocultar = true" type="button navb" class="btn btn-info navb me-3" style="width: 100%"  (click)="editDevices(form)" [ngClass]="{'disabled': !changed}">{{ 'sensors.save' | translate }}</button>
+                        <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
+                            <div class="col-md-6 col-12 mt-1 pb-3">
+                                <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal9">{{ 'devices.edit.erase_disp' | translate }}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-12 d-flex" style="justify-content: flex-end;">
-                    <div class="col-md-6 col-12 mt-1 pb-3">
-                        <button type="button" class="btn btn-danger navb me-3" data-bs-toggle="modal" style="width: 100%" data-bs-target="#exampleModal9">{{ 'devices.edit.erase_disp' | translate }}</button>
+            </div>
+            <div *ngIf="this.rute2[2]=='new'" class="row">
+                <div class="col-md-6 col-12">
+                    <div class="row">
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button *ngIf="changed==false" type="button navb" class="btn btn-secondary text-light navb" routerLink="/devices" style="width: 100%">{{ 'sensors.cancel' | translate }}</button>
+						    <button *ngIf="changed==true" type="button navb" class="btn btn-secondary text-light navb" style="width: 100%" data-bs-toggle="modal" data-bs-target="#exampleModal13">{{ 'sensors.cancel' | translate }}</button>
+                        </div>
+                        <div class="col-md-6 col-12 mt-1 pb-3">
+                            <button type="button navb" class="btn btn-info navb me-3" style="width: 100%" (click)="newDevice(form)" [ngClass]="{'disabled': !changed}">{{ 'sensors.save' | translate }}</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,6 +338,80 @@
                     </div>
                     <div class="col-6">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteDevice(devices.id)" routerLink="/devices">{{ 'sensors.delete' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">{{ 'devices.edit.m5.1' | translate }}</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">{{ 'devices.edit.m5.1' | translate }}</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-danger">{{ 'sensors.delete' | translate }}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header" style="border-bottom: 0px;">
+            <h3 class="modal-title">{{ 'devices.edit.m3.1' | translate }}</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" >
+            <p class="not">{{ 'devices.edit.m3.2' | translate }}</p>
+          </div>
+          <div class="modal-footer" style="border-top: 0px;">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-secondary text-light" data-bs-dismiss="modal">{{ 'sensors.cancel' | translate }}</button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-info">{{ 'sensors.acept' | translate }}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="modal fade" id="exampleModal13" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0px;">
+                <h3 class="modal-title">{{ 'devices.edit.m2.1' | translate }}</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <p class="not">{{ 'devices.edit.m2.2' | translate }}</p>
+            </div>
+            <div class="modal-footer" style="border-top: 0px;">
+                <div class="row">
+                    <div class="col-5">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  routerLink="/devices">{{ 'sensors.exit' | translate }}</button>
+                    </div>
+                    <div class="col-7">
+                        <button type="button navb" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="btn btn-info" style="width: 100%" (click)="newDevice(form)" [ngClass]="{'disabled': !changed}">{{ 'sensors.save' | translate }}</button>
                     </div>
                 </div>
             </div>

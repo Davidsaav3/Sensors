@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component , OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataSharingService } from './../../../services/data_sharing.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,13 @@ export class DevicesNewComponent  implements OnInit{
 
   sharedLat: any = '';
   sharedLon: any = '';
-  state= 0; //0 new //1 duplicate
+  date= '';
+  state= 0; //0 new //1 duplicate // 2 edit
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    window.resizeBy(-1, 0);
+  }
 
   constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesMapComponent: DevicesMapComponent) { 
     this.createDate();
