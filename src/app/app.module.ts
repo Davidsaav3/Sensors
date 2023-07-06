@@ -10,8 +10,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 
 import { NavbarComponent } from './common/navbar.component';
 import { DevicesComponent } from './pages/devices/devices.component';
-import { DevicesEditMapComponent } from './pages/devices/devices-edit/devices-edit-map/devices-edit-map.component';
-import { DevicesNewMapComponent } from './pages/devices/devices-new/devices-new-map/devices-new-map.component';
+import { DevicesMapComponent } from './pages/devices/devices-map/devices-map.component';
 import { DeviceComponent } from './pages/device.component';
 import { DevicesNewComponent } from './pages/devices/devices-new/devices-new.component';
 import { DevicesEditComponent } from './pages/devices/devices-edit/devices-edit.component';
@@ -22,11 +21,10 @@ import { DataSharingService } from './services/data_sharing.service';
 
 @NgModule({
   declarations: [
-    DevicesNewMapComponent,
+    DevicesMapComponent,
     AppComponent,
     NavbarComponent,
     DevicesComponent,
-    DevicesEditMapComponent,
     SensorsListComponent,
     SensorsComponent,
     DevicesNewComponent,

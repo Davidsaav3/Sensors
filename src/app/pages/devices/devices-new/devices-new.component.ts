@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataSharingService } from './../../../services/data_sharing.service';
 import { ActivatedRoute } from '@angular/router';
-import { DevicesNewMapComponent } from './devices-new-map/devices-new-map.component';
+import { DevicesMapComponent } from '../devices-map/devices-map.component';
 
 @Component({
   selector: 'app-devices-new',
@@ -15,7 +15,7 @@ export class DevicesNewComponent  implements OnInit{
   sharedLon: any = '';
   state= 0; //0 new //1 duplicate
 
-  constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesNewMapComponent: DevicesNewMapComponent) { 
+  constructor(private router: Router, private dataSharingService: DataSharingService,private rutaActiva: ActivatedRoute,private DevicesMapComponent: DevicesMapComponent) { 
     this.createDate();
   }
 
@@ -187,11 +187,11 @@ export class DevicesNewComponent  implements OnInit{
   
   showMap(){ // Ampliar mapa
     this.show_map=true;
-    this.DevicesNewMapComponent.showMap();
+    this.DevicesMapComponent.showMap();
   }
   hideMap(){ // Desamplair mapa
     this.show_map=false;
-    this.DevicesNewMapComponent.showMap();
+    this.DevicesMapComponent.showMap();
   }
   showForm(){ // Ampliar formulario
     this.dataSharingService.updatesharedAmp(true);
