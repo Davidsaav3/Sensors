@@ -80,19 +80,6 @@ export class SensorsComponent implements OnInit{
     correction_time_general: null,
   }
 
-  sensors_new = {
-    id: '', 
-    type: '',    
-    metric: '', 
-    description: '',
-    errorvalue: null,
-    valuemax: null,
-    valuemin: null,
-    orden: '',
-    correction_general: null,
-    correction_time_general: null,
-  }
-
   aux_1 = {
     id: '',
   }
@@ -151,7 +138,7 @@ export class SensorsComponent implements OnInit{
     this.dup= false;
     if (form.valid) {
       fetch(this.post_sensors, {
-        method: "POST",body: JSON.stringify(this.sensors_new),headers: {"Content-type": "application/json; charset=UTF-8"}
+        method: "POST",body: JSON.stringify(this.sensors),headers: {"Content-type": "application/json; charset=UTF-8"}
       })
       .then(response => response.json()) 
       this.alert_new= true;
@@ -202,7 +189,7 @@ export class SensorsComponent implements OnInit{
         fetch(`${this.id_sensors}/${num}`)
         .then(response => response.json())
         .then(data => {
-          this.sensors_new= data[0];
+          this.sensors= data[0];
         })
         .catch(error => {
           console.error(error); 
@@ -216,8 +203,8 @@ export class SensorsComponent implements OnInit{
         .then(response => response.json())
         .then(data => {
           this.id= parseInt(data[0].id);
-          this.sensors_new.id= data[0].id;
-          this.sensors_new.type= type_2;
+          this.sensors.id= data[0].id;
+          this.sensors.type= type_2;
         })
         this.edit_change= true;
         this.dup= true;
@@ -252,7 +239,7 @@ export class SensorsComponent implements OnInit{
 
   update(){ // Guardar sensores en el popup de salir sin guardar
    if(this.show==true && this.show_2==false){
-    this.newSensor(this.sensors_new);
+    this.newSensor(this.sensors);
    }
    if(this.show==false && this.show_2==true){
     this.editSensor(this.sensors);
@@ -311,6 +298,19 @@ export class SensorsComponent implements OnInit{
   }
 
   openNew(){ // Abrir Nuevo sensor
+    this.sensors = {
+      id: '', 
+      type: '',    
+      metric: '', 
+      description: '',
+      errorvalue: null,
+      valuemax: null,
+      valuemin: null,
+      orden: '',
+      correction_general: null,
+      correction_time_general: null,
+    }
+    
     this.show= true;
     this.show_2= false;
     this.openClouse();

@@ -1,13 +1,13 @@
 import { Component , OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { DataSharingService } from '../../../services/data_sharing.service';
-import { DevicesMapComponent } from '../devices-map/devices-map.component';
+import { DataSharingService } from '../../services/data_sharing.service';
+import { DevicesMapComponent } from './devices-map/devices-map.component';
 
 @Component({
   selector: 'app-devices-new-edit',
   templateUrl: './devices-new-edit.component.html',
-  styleUrls: ['../../../app.component.css']
+  styleUrls: ['../../app.component.css']
 })
 export class DevicesNewEditComponent implements OnInit{
 

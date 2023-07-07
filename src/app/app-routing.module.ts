@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DeviceComponent } from './pages/device.component';
-import { DevicesNewEditComponent } from './pages/devices/devices-new-edit/devices-new-edit.component';
+import { DevicesNewEditComponent } from './pages/devices-new-edit/devices-new-edit.component';
 import { DevicesComponent } from './pages/devices/devices.component';
 import { SensorsComponent } from './pages/sensors/sensors.component';
 
