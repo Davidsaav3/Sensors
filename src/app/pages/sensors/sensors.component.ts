@@ -45,8 +45,8 @@ export class SensorsComponent implements OnInit{
   view_dup= 1000;
   pencil_dup= 1000;
   timeout: any = null;
+  state= 0;
   show=false;
-  show_2= false;
   show_3= true;
   alert_delete: any= false;
   alert_new: any= false;
@@ -54,10 +54,8 @@ export class SensorsComponent implements OnInit{
   not_new: any= false;
   save_ok: any= false;
   save_not: any= false;
-  dup= false;
   saved= false;
-  edit_change= false;
-  new_change= false;
+  change= false;
   dup_ok=false;
   dup_not=false;
   id= 0;
@@ -130,12 +128,12 @@ export class SensorsComponent implements OnInit{
       }, 50);
       this.saved= true;
     }
-    this.new_change=false;
-    this.edit_change=false;
+    this.change=false;
+    this.change=false;
   }
 
   newSensor(form: any) { // Guardar datos de sensores nuevo
-    this.dup= false;
+    this.state= 1;
     if (form.valid) {
       fetch(this.post_sensors, {
         method: "POST",body: JSON.stringify(this.sensors),headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -157,8 +155,8 @@ export class SensorsComponent implements OnInit{
         this.id= parseInt(data[0].id+1);
       })
     }
-    this.new_change=false;
-    this.edit_change=false;
+    this.change=false;
+    this.change=false;
   }
   
   resize(): void{ // Redimensionar pantalla
@@ -166,7 +164,7 @@ export class SensorsComponent implements OnInit{
   }
 
   duplicateSensor(num: any, type: any){ // Duplicar sensor
-    if(!this.edit_change && !this.new_change){
+    if(!this.change && !this.change){
       this.aux_1 = {
         id: num,    
       }   
@@ -206,8 +204,8 @@ export class SensorsComponent implements OnInit{
           this.sensors.id= data[0].id;
           this.sensors.type= type_2;
         })
-        this.edit_change= true;
-        this.dup= true;
+        this.change= true;
+        this.state= 0;
       })
     }
   }
@@ -220,12 +218,10 @@ export class SensorsComponent implements OnInit{
       method: "POST",body: JSON.stringify(sensors2),headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     .then(response => response.json()) 
-    this.show_2=false;
     this.alert_delete= true;
     setTimeout(() => {
       this.alert_delete= false;
     }, 2000);
-    this.show_2= false;
     setTimeout(() => {
       this.getSensors('id','ASC');
     }, 50);
@@ -238,25 +234,26 @@ export class SensorsComponent implements OnInit{
   }
 
   update(){ // Guardar sensores en el popup de salir sin guardar
-   if(this.show==true && this.show_2==false){
+   if(this.show==true && this.state==1){
     this.newSensor(this.sensors);
    }
-   if(this.show==false && this.show_2==true){
+   if(this.show==false && this.state==2){
     this.editSensor(this.sensors);
    }
   }
 
   clouse(){ 
-    this.show_2=false;
+    this.show= false;
+    this.state=-1;
     this.openClouse();
-    this.new_change=false;
-    this.edit_change=false;
+    this.change=false;
+    this.change=false;
   }
 
   orderColumn(id_actual: any){ // Ordenar columnas
-    if(!this.edit_change && !this.new_change){
+    if(!this.change && !this.change){
        this.openEdit();
-      this.show_2=true;
+      this.state=2;
       fetch(`${this.id_sensors}/${id_actual}`)
       .then(response => response.json())
       .then(data => {
@@ -284,7 +281,7 @@ export class SensorsComponent implements OnInit{
   }
 
   openClouse(){  // Logica abrir y cerrar tarjetas
-    if (this.show==true || this.show_2==true) {
+    if (this.show==true) {
       this.show_3= false;
     }
     else{
@@ -312,21 +309,21 @@ export class SensorsComponent implements OnInit{
     }
     
     this.show= true;
-    this.show_2= false;
     this.openClouse();
-    this.dup= false;
+    this.state= 1;
   }
 
   openEdit(){ // Abrir Editar sensor
-    this.show_2= true;
-    this.show= false;
+    this.show= true;
+    this.state= 2
+    this.show_3= false;
   }
 
   clouseAll(){ // Cerrar todas las pestañas
-    this.show_2= false;
+    this.show_3= false;
     this.show= false;
     this.openClouse();
-    this.new_change=false;
-    this.edit_change=false;
+    this.change=false;
+    this.change=false;
   }
 }
