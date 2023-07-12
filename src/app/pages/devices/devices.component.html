@@ -205,7 +205,7 @@
       <div *ngIf="open_map_list" class="row" style="background-color: #fff;">
         <div class="col-12 col-lg-6 d-flex mt-3">
           <div><!-- totalPages: {{totalPages}} quantPage: {{quantPage}} currentPage: {{currentPage}} -->
-            <p class="p-0 mt-1"> {{((quantPage)*(currentPage-1))+1}} - {{cosa}} de {{total}}</p>
+            <p class="p-0 mt-1">{{((quantPage)*(currentPage-1))+1}} - {{cosa}} de {{total}}</p>
           </div>
           <div>
             <select (ngModelChange)="orderDevices('id','ASC')"  class="form-select ms-3" aria-label="Default select example" id="quantPage" name="quantPage" [(ngModel)]="this.quantPage" >
@@ -235,7 +235,7 @@
               <li class="page-item" *ngIf="this.totalPages>1">
                 <a class="page-link" style="cursor: pointer;" (click)="Page(this.currentPage)"><strong>{{ this.currentPage }}</strong></a>
               </li>
-              <li class="page-item" *ngIf="this.totalPages>1">
+              <li class="page-item" *ngIf="this.currentPage!=totalPages">
                 <a class="page-link" style="cursor: pointer;" (click)="nextPage()">{{ this.currentPage+1 }}</a>
               </li>
               <li class="page-item" *ngIf="currentPage+10<totalPages">

@@ -161,7 +161,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       .then((response) => response.json())
       .then(data => {
         this.charging= false;
-        this.totalPages= Math.round(data.length/this.quantPage);
+        this.totalPages= Math.ceil(data.length/this.quantPage);
         this.total= data.length;
         //console.log(this.totalPages)
       })
