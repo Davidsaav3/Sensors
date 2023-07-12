@@ -152,6 +152,7 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
           this.createMarker(e.lngLat.wrap());
           this.ngAfterViewInit();
           this.start= true;
+          this.updatesharedAct();
         });
     
         let layerList = document.getElementById('menu');
@@ -314,6 +315,10 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
     this.addMarker( lngLat, color );
   }
 
+  updatesharedAct() { // Enviar 
+    this.dataSharingService.updatesharedAct(true);
+  }
+
   addMarker( lngLat: mapboxgl.LngLat, color: string ) { // Crear chincheta 2
     if ( !this.map ) return;
     this.markers = [];
@@ -343,6 +348,7 @@ export class DevicesMapComponent implements AfterViewInit, OnDestroy{
     this.markers= [];
     this.dataSharingService.updatesharedLat('');
     this.dataSharingService.updatesharedLon('');
+    this.updatesharedAct();
   }
 
   goMarker( marker: mapboxgl.Marker ) { // Va a una localización

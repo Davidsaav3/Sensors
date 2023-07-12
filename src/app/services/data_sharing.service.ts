@@ -17,6 +17,9 @@ export class DataSharingService {
   private sharedAmp = new BehaviorSubject<any>(false);
   sharedAmp$ = this.sharedAmp.asObservable();
 
+  private sharedAct = new BehaviorSubject<any>(false);
+  sharedAct$ = this.sharedAct.asObservable();
+
   updatesharedLat(sharedLat: any) {
     this.sharedLat.next(sharedLat);
   }
@@ -27,10 +30,11 @@ export class DataSharingService {
   updatesharedList(sharedList: any) {
     this.sharedList.next(sharedList);
   }
-
   updatesharedAmp(sharedAmp: any) {
-    //console.log(sharedAmp)
     this.sharedAmp.next(sharedAmp);
+  }
+  updatesharedAct(sharedAct: any) {
+    this.sharedAct.next(sharedAct);
   }
 
 }

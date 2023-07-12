@@ -173,6 +173,13 @@ export class DevicesNewEditComponent implements OnInit{
         });
         this.createDate();
     }
+    setInterval(() => {
+      this.dataSharingService.sharedAct$.subscribe(data => {
+        if(data!=false){
+          this.changed= data;
+        }
+      });
+    }, 500);
   }
 
   getDevices(){ // Obtener Dispositivos
@@ -342,7 +349,10 @@ newDevice(form: any) { // Guardar Dispositivos
   }
 
   deleteMarker(){
-
+    this.devices.lat= 0;
+    this.devices.lon= 0;
+    this.devices.cota= 0;
+    this.devices.timezone= '';
   }
 
   createDate(){ // Genera fecha

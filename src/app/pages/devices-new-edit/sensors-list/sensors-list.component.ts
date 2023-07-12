@@ -79,7 +79,7 @@ export class SensorsListComponent  implements OnInit{
         this.sensors.sensors[num].orden= data[0].position;
       })
     }, 10);
-    
+    this.updatesharedAct();
   }
 
   getDevices(id: any){ // Obtener datos del dispositivo
@@ -119,20 +119,27 @@ export class SensorsListComponent  implements OnInit{
     this.sensors.sensors.push(sensors_aux);
     this.show_map= true;
     this.updatesharedList();
+    this.updatesharedAct();
   }
 
   deleteSensor(){ // Elimina sensor de la lista
     this.sensors.sensors= this.sensors.sensors.filter((item) => item == this.delete_it)
+    this.updatesharedAct();
   }
 
   addShareSensor(id: any){ // Añadir a lista compartida
     this.delete_it= id;
     this.sensors.sensors= this.sensors.sensors.filter((item) => item.id != this.delete_it)
     this.updatesharedList();
+    this.updatesharedAct();
   }
   updatesharedList() { // Enviar sensores a device-edit
     console.log(this.sensors.sensors)
     this.dataSharingService.updatesharedList(this.sensors.sensors);
+    this.updatesharedAct();
+  }
+  updatesharedAct() { // Enviar 
+    this.dataSharingService.updatesharedAct(true);
   }
 
 }
