@@ -40,7 +40,7 @@ export class SensorsListComponent  implements OnInit{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
-        orden: 1,
+        position: 0,
         correction_specific: '',
         correction_time_specific: '',
       }]
@@ -76,7 +76,7 @@ export class SensorsListComponent  implements OnInit{
       fetch(`${this.id_sensors}/${this.sensors.sensors[num].id_type_sensor}`)
       .then(response => response.json())
       .then(data => {
-        this.sensors.sensors[num].orden= data[0].orden;
+        this.sensors.sensors[num].orden= data[0].position;
       })
     }, 10);
     

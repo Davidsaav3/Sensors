@@ -367,12 +367,9 @@
 
   ::ng-deep .ng-value{
     background-color: #E3E3E3;
-    padding-top: 0.2em;
+    border-radius: 6px;
+    margin-right: 0.5em;
     padding-bottom: 0.2em;
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-    border-radius: 8px;
-    margin: 0.2em;
   }
 
   ::ng-deep .ng-dropdown-panel {  
@@ -380,11 +377,15 @@
   }
   ::ng-deep .ng-option{
     padding: 0.7em;
-    padding-top: 0em
+    padding-top: 0em;
   }
 
   ::ng-deep .ng-value-icon{
-    font-size: 30px;
-    max-height: 20px;
-    padding-right: 0.3em;
-  }
+    font-size: 22px;
+    padding-left: 0.4em;
+    padding-right: 0.4em; 
+ }
+
+ ::ng-deep .ng-value-label{
+  padding-right: 1em;
+}

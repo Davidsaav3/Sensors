@@ -65,7 +65,7 @@ export class SensorsComponent implements OnInit{
 
   search_1='Buscar';
   search_2='type';
-  mark= 'orden';
+  mark= 'position';
 
   sensors = {
     id: '', 
@@ -75,7 +75,7 @@ export class SensorsComponent implements OnInit{
     errorvalue: null,
     valuemax: null,
     valuemin: null,
-    orden: '',
+    position: 0,
     correction_general: null,
     correction_time_general: null,
   }
@@ -89,7 +89,7 @@ export class SensorsComponent implements OnInit{
   }
 
   ngOnInit(): void { // Inicializador
-    this.getSensors('orden','ASC');
+    this.getSensors('position','ASC');
     this.openClouse();
   }
 
@@ -306,7 +306,7 @@ export class SensorsComponent implements OnInit{
       errorvalue: null,
       valuemax: null,
       valuemin: null,
-      orden: '',
+      position: 0,
       correction_general: null,
       correction_time_general: null,
     }

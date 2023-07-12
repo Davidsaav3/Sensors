@@ -93,6 +93,9 @@ export class DevicesNewEditComponent implements OnInit{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
+        position: 0,
+        correction_general: null,
+        correction_time_general: null,
       }]
   }
 

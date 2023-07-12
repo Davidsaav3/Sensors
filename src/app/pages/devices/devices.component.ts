@@ -86,6 +86,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       errorvalue: 1,
       valuemax: 1,
       valuemin: 1,
+      position: '',
+      correction_general: null,
+      correction_time_general: null,
     }]
   }
 
@@ -98,6 +101,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       errorvalue: 1,
       valuemax: 1,
       valuemin: 1,
+      position: '',
+      correction_general: null,
+      correction_time_general: null,
     }]
   }
 
@@ -204,6 +210,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       errorvalue: 1,
       valuemax: 1,
       valuemin: 1,
+      position: '',
+      correction_general: null,
+      correction_time_general: null,
     });
     this.busqueda.sel_enable= 2;
     this.busqueda.sensors_2= 2;
@@ -232,6 +241,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
+        position: '',
+        correction_general: null,
+        correction_time_general: null,
       });
 
       data.unshift({
@@ -242,6 +254,9 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
         errorvalue: 1,
         valuemax: 1,
         valuemin: 1,
+        position: '',
+        correction_general: null,
+        correction_time_general: null,
       });
 
       this.select_sensors_1.sensors= data;
