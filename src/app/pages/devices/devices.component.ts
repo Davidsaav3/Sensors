@@ -46,6 +46,8 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
   currentPage = 1;
   quantPage = 10;
   page= 1;
+  total= 0;
+  cosa= 0;
 
   charging= false;
   mark= 'uid';
@@ -160,6 +162,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       .then(data => {
         this.charging= false;
         this.totalPages= Math.round(data.length/this.quantPage);
+        this.total= data.length;
         //console.log(this.totalPages)
       })
       this.charging= true;
@@ -189,6 +192,12 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
             let name=quote.uid;
             let enable=parseInt(quote.id);
             this.addMarker( coords, color , name, enable);
+        }
+        if(this.data.length<this.total){
+          this.cosa= this.quantPage*this.currentPage;
+        }
+        else{
+          this.cosa= this.total;
         }
       })
     }, 10);
