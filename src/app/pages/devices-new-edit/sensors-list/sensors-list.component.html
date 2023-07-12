@@ -28,19 +28,19 @@
             <label style="display: none" [for]="'id'+i">{{ 'devices.sensors.id' | translate }}</label>
             <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id'+i" [name]="'id'+i" value="{{i}}" [(ngModel)]="item.id">
             <label style="display: none" [for]="'id_device'+i">{{ 'devices.sensors.id_device' | translate }}</label>
-            <input (ngModelChange)="updatesharedList()" type="text" style="display: none" class="form-control" [id]="'id_device'+i" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
+            <input type="number" min="0" maxlength="11" (ngModelChange)="updatesharedList()" style="display: none" class="form-control" [id]="'id_device'+i" [name]="'id_device'+i" value="{{this.id}}" [(ngModel)]="item.id_device">
           
 
-            <th scope="col2" class="pb-0 input-1">
+            <th scope="col2" class="pb-0 input-0">
               <label style="display: none" [for]="'orden'+i">{{ 'devices.sensors.order' | translate }}</label>
-              <input (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required type>
+              <input type="number" min="0" maxlength="11" (ngModelChange)="updatesharedList()" value="{{ item.orden }}" type="text" class="form-control" [id]="'orden'+i" [name]="'orden'+i" [(ngModel)]="item['orden']" required>
               <div *ngIf="form.submitted && form.controls['orden'].errors" class="text-danger">
                   <div *ngIf="form.controls['orden'].errors['required']">{{ 'devices.sensors.order' | translate }} is required.</div>
               </div>
             </th>
 
-            <th scope="col"class="pb-0 input-2"> 
-              <select (ngModelChange)="this.getOrden(i)" class="form-select" aria-label="Default select example" [id]="'type_name'+i" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
+            <th scope="col"class="pb-0 input-1"> 
+              <select type="number" min="0" maxlength="11" (ngModelChange)="this.getOrden(i)" class="form-select" aria-label="Default select example" [id]="'type_name'+i" [name]="'type_name'+i" [(ngModel)]="item.id_type_sensor" >
                 <ng-container *ngFor="let id of select_sensors.sensors;let j=index">
                   <option [selected]="id.id===item.id_type_sensor" value="{{id.id}}">{{id.type}}</option>
                 </ng-container>
@@ -49,7 +49,7 @@
 
             <td *ngIf="show_large" class="pb-0 input-1">
               <label style="display: none" [for]="'datafield'+i">{{ 'devices.sensors.datafield' | translate }}</label>
-              <input (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
+              <input maxlength="45" (ngModelChange)="updatesharedList()" value="{{ item.datafield }}" type="text" class="form-control" [id]="'datafield'+i" [name]="'datafield'+i" [(ngModel)]="item['datafield']" type>
               <div *ngIf="form.submitted && form.controls['datafield'].errors" class="text-danger">
                   <div *ngIf="form.controls['datafield'].errors['required']">{{ 'devices.sensors.datafield' | translate }} is required.</div>
               </div>
@@ -58,7 +58,7 @@
             <td *ngIf="show_large" class="pb-0">
               <div class="form-check">
                 <label style="display: none" [for]="'nodata'+i">{{ 'devices.sensors.nodata' | translate }}</label>
-                <input (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
+                <input min="0" maxlength="4" (ngModelChange)="updatesharedList()" class="form-check-input" type="checkbox" value="{{item.nodata}}" aria-label="Checkbox for following text input" [id]="'nodata'+i" [name]="'nodata'+i" [(ngModel)]="item.nodata">
                 <label class="form-check-label" for="flexCheckDefault">{{ 'devices.sensors.nodate' | translate }}</label>
               </div>
             </td>
@@ -82,7 +82,7 @@
             <td class="pb-0">
               <label class="toggle t2 tt2 mt-1 mb-3">
                 <label style="display: none" [for]="'enable'+i">{{ 'devices.sensors.enable' | translate }}</label>
-                <input (ngModelChange)="updatesharedList()" type="checkbox" [id]="'enable'+i" [name]="'enable'+i" checked [(ngModel)]="item.enable">
+                <input maxlength="4" (ngModelChange)="updatesharedList()" type="checkbox" [id]="'enable'+i" [name]="'enable'+i" checked [(ngModel)]="item.enable">
                 <span class="slider"></span>
                 <ng-container *ngIf="this.activeLang=='es'">
                   <span class="labels t2" data-on="Activado" data-off="Desactivado"></span>
@@ -93,7 +93,7 @@
               </label>
             </td>
 
-            <td (mouseout)="view_can= 1000" (mouseover)="view_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="addShareSensor(item.id)">
+            <td class="input-00" (mouseout)="view_can= 1000" (mouseover)="view_can= i" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="addShareSensor(item.id)">
               <svg *ngIf="view_can!=i" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
                 <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
               </svg>

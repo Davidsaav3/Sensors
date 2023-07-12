@@ -140,7 +140,7 @@
 
 					<div class="col-12 pt-3 form-group">
 						<label for="type">{{ 'sensors.type' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.type }}" type="text" id="type" class="form-control" name="type" [(ngModel)]="sensors['type']" required type>
+						<input maxlength="45" (ngModelChange)="change=true" value="{{ sensors.type }}" type="text" id="type" class="form-control" name="type" [(ngModel)]="sensors['type']" required type>
 						<div *ngIf="form.submitted && form.controls['type'].errors" class="text-danger">
 							<div *ngIf="form.controls['type'].errors['required']">{{ 'sensors.type' | translate }} is required.</div>
 						</div>
@@ -148,7 +148,7 @@
 
 					<div class="col-6 mt-2">
 						<label for="metric">{{ 'sensors.metric' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.metric }}" type="text" id="metric" class="form-control" name="metric" [(ngModel)]="sensors['metric']" required type>
+						<input maxlength="45" (ngModelChange)="change=true" value="{{ sensors.metric }}" type="text" id="metric" class="form-control" name="metric" [(ngModel)]="sensors['metric']" required type>
 						<div *ngIf="form.submitted && form.controls['metric'].errors" class="text-danger">
 							<div *ngIf="form.controls['metric'].errors['required']">{{ 'sensors.metric' | translate }} is required.</div>
 						</div>
@@ -156,7 +156,7 @@
 
 					<div class="col-md-6 mt-2">
 						<label for="position">{{ 'sensors.order' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.position }}" type="text" id="position" class="form-control" name="position" [(ngModel)]="sensors['position']" type>
+						<input type="number" min="0" maxlength="11" (ngModelChange)="change=true" value="{{ sensors.position }}" id="position" class="form-control" name="position" [(ngModel)]="sensors['position']">
 						<div *ngIf="form.submitted && form.controls['position'].errors" class="text-danger">
 							<div *ngIf="form.controls['position'].errors['required']">{{ 'sensors.order' | translate }} is required.</div>
 						</div>
@@ -164,7 +164,7 @@
 
 					<div class="col-md-12 mt-2">
 						<label for="description">{{ 'sensors.description' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.description }}" type="text" id="description" class="form-control" name="description" [(ngModel)]="sensors['description']" type>
+						<input maxlength="45" (ngModelChange)="change=true" value="{{ sensors.description }}" type="text" id="description" class="form-control" name="description" [(ngModel)]="sensors['description']" type>
 						<div *ngIf="form.submitted && form.controls['description'].errors" class="text-danger">
 							<div *ngIf="form.controls['description'].errors['required']">{{ 'sensors.description' | translate }} is required.</div>
 						</div>
@@ -172,7 +172,7 @@
 
 					<div class="col-md-6 mt-5">
 						<label for="errorvalue">{{ 'sensors.error_value' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.errorvalue }}" type="text" id="errorvalue" class="form-control" name="errorvalue" [(ngModel)]="sensors['errorvalue']" type>
+						<input type="number" min="0" (ngModelChange)="change=true" value="{{ sensors.errorvalue }}" id="errorvalue" class="form-control" name="errorvalue" [(ngModel)]="sensors['errorvalue']" >
 						<div *ngIf="form.submitted && form.controls['errorvalue'].errors" class="text-danger">
 							<div *ngIf="form.controls['errorvalue'].errors['required']">{{ 'sensors.error_value' | translate }} is required.</div>
 						</div>
@@ -188,7 +188,7 @@
 
 					<div class="col-md-6 mt-2">
 						<label for="valuemin">{{ 'sensors.value_min' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.valuemin }}" type="text" id="valuemin" class="form-control" name="valuemin" [(ngModel)]="sensors['valuemin']" type>
+						<input type="number" min="0" (ngModelChange)="change=true" value="{{ sensors.valuemin }}" id="valuemin" class="form-control" name="valuemin" [(ngModel)]="sensors['valuemin']" >
 						<div *ngIf="form.submitted && form.controls['valuemin'].errors" class="text-danger">
 							<div *ngIf="form.controls['valuemin'].errors['required']">{{ 'sensors.value_min' | translate }} is required.</div>
 						</div>
@@ -196,7 +196,7 @@
 
 					<div class="col-md-6 mt-2">
 						<label for="valuemax">{{ 'sensors.value_max' | translate }}</label>
-						<input (ngModelChange)="change=true" value="{{ sensors.valuemax }}" type="text" id="valuemax" class="form-control" name="valuemax" [(ngModel)]="sensors['valuemax']" type>
+						<input type="number" min="0" (ngModelChange)="change=true" value="{{ sensors.valuemax }}" id="valuemax" class="form-control" name="valuemax" [(ngModel)]="sensors['valuemax']" >
 						<div *ngIf="form.submitted && form.controls['valuemax'].errors" class="text-danger">
 							<div *ngIf="form.controls['valuemax'].errors['required']">{{ 'sensors.value_max' | translate }} is required.</div>
 						</div>

@@ -40,6 +40,7 @@ export class DevicesNewEditComponent implements OnInit{
   get_device: string = 'http://localhost:5172/api/get/device_configurations';
   id= parseInt(this.rutaActiva.snapshot.params['id']);
 
+  view_can= false;
   activeLang='en';
   show_map=true;
   show_form= true;
@@ -338,6 +339,10 @@ newDevice(form: any) { // Guardar Dispositivos
     this.dataSharingService.sharedList$.subscribe(data => {
       this.sensors.sensors= data;
     });
+  }
+
+  deleteMarker(){
+
   }
 
   createDate(){ // Genera fecha

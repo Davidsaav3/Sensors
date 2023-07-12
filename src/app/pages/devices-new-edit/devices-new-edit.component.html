@@ -14,7 +14,7 @@
                             <div class="col-3 d-flex justify-content-end"> 
                                 <div class="form-check form-switch">
                                     <label class="toggle tt1 t1">
-                                        <input type="checkbox" (ngModelChange)="changed=true" name="enable" [(ngModel)]="devices.enable">
+                                        <input maxlength="4" type="checkbox" (ngModelChange)="changed=true" name="enable" [(ngModel)]="devices.enable">
                                         <span class="slider"></span>
                                         <ng-container *ngIf="this.activeLang=='es'">
                                             <span class="labels t1" data-on="Activado" data-off="Desactivado"></span>
@@ -40,21 +40,21 @@
                                 <!----><input value="{{ devices['createdAt'] }}" type="text" id="createdAt" class="form-control d-none" name="createdAt" [(ngModel)]="devices['createdAt']" type>
 
                                 <label for="uid">{{ 'devices.edit.uid' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="devices['uid']" required type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.uid }}" type="text" id="uid" class="form-control" name="uid" [(ngModel)]="devices['uid']" required type>
                                 <div *ngIf="form.submitted && form.controls['uid'].errors" class="text-danger">
                                     <div *ngIf="form.controls['uid'].errors['required']">{{ 'devices.edit.uid' | translate }} is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="alias">{{ 'devices.edit.alias' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.alias }}" type="text" id="alias" class="form-control" name="alias" [(ngModel)]="devices['alias']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.alias }}" type="text" id="alias" class="form-control" name="alias" [(ngModel)]="devices['alias']" type>
                                 <div *ngIf="form.submitted && form.controls['alias'].errors" class="text-danger">
                                     <div *ngIf="form.controls['alias'].errors['required']">{{ 'devices.edit.alias' | translate }} is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="organizationid">{{ 'devices.edit.organization' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.organizationid }}" type="text" id="organizationid" class="form-control" name="organizationid" [(ngModel)]="devices['organizationid']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.organizationid }}" type="text" id="organizationid" class="form-control" name="organizationid" [(ngModel)]="devices['organizationid']" type>
                                 <div *ngIf="form.submitted && form.controls['organizationid'].errors" class="text-danger">
                                     <div *ngIf="form.controls['organizationid'].errors['required']">{{ 'devices.edit.organization' | translate }} is required.</div>
                                 </div>
@@ -64,21 +64,21 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="typemeter">{{ 'devices.edit.typemeter' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.typemeter }}" type="text" id="typemeter" class="form-control" name="typemeter" [(ngModel)]="devices['typemeter']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.typemeter }}" type="text" id="typemeter" class="form-control" name="typemeter" [(ngModel)]="devices['typemeter']" type>
                                 <div *ngIf="form.submitted && form.controls['typemeter'].errors" class="text-danger">
                                     <div *ngIf="form.controls['typemeter'].errors['required']">{{ 'devices.edit.typemeter' | translate }} is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="application_id">{{ 'devices.edit.aplication' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.application_id }}" type="text" id="application_id" class="form-control" name="application_id" [(ngModel)]="devices['application_id']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.application_id }}" type="text" id="application_id" class="form-control" name="application_id" [(ngModel)]="devices['application_id']" type>
                                 <div *ngIf="form.submitted && form.controls['application_id'].errors" class="text-danger">
                                     <div *ngIf="form.controls['application_id'].errors['required']">{{ 'devices.edit.aplication' | translate }} is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="topic_name">{{ 'devices.edit.topic' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.topic_name }}" type="text" id="topic_name" class="form-control" name="topic_name" [(ngModel)]="devices['topic_name']" required type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.topic_name }}" type="text" id="topic_name" class="form-control" name="topic_name" [(ngModel)]="devices['topic_name']" required type>
                                 <div *ngIf="form.submitted && form.controls['topic_name'].errors" class="text-danger">
                                     <div *ngIf="form.controls['topic_name'].errors['required']">{{ 'devices.edit.topic' | translate }} is required.</div>
                                 </div>
@@ -88,14 +88,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="origin">{{ 'devices.edit.origin' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.origin }}" type="text" id="origin" class="form-control" name="origin" [(ngModel)]="devices['origin']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.origin }}" type="text" id="origin" class="form-control" name="origin" [(ngModel)]="devices['origin']" type>
                                 <div *ngIf="form.submitted && form.controls['origin'].errors" class="text-danger">
                                     <div *ngIf="form.controls['origin'].errors['required']">{{ 'devices.edit.origin' | translate }} is required.</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label for="description_origin">{{ 'devices.edit.description' | translate }}</label>
-                                <input (ngModelChange)="changed=true" value="{{ devices.description_origin }}" type="text" id="description_origin" class="form-control" name="description_origin" [(ngModel)]="devices['description_origin']" type>
+                                <input maxlength="45" (ngModelChange)="changed=true" value="{{ devices.description_origin }}" type="text" id="description_origin" class="form-control" name="description_origin" [(ngModel)]="devices['description_origin']" type>
                                 <div *ngIf="form.submitted && form.controls['description_origin'].errors" class="text-danger">
                                     <div *ngIf="form.controls['description_origin'].errors['required']">{{ 'devices.edit.description' | translate }} is required.</div>
                                 </div>
@@ -116,15 +116,8 @@
                 
                 
                 <div *ngIf="this.rute2[2]=='edit'" class="c4 d-flex justify-content-between">
-                    <div class="col-3" (click)="recharge()" style="cursor: pointer;">
-                        <svg *ngIf="!view_rec" (mouseover)="view_rec=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
-                        </svg>
-                        <p *ngIf="view_rec" (mouseout)="view_rec=false" class="m-0">{{ 'devices.edit.rest' | translate }}</p>
-                    </div>
                     <div class="col-6" >
-                        <h5 class="text-center">{{devices.alias}}</h5>
+                        <h5 class="">{{devices.alias}}</h5>
                     </div>
                     <div class="col-3" style="cursor: pointer; cursor: pointer; display: flex; justify-content: flex-end;">
                         <svg class="text-right" *ngIf="show_form" (click)="hideForm()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-show" viewBox="0 0 16 16">
@@ -136,11 +129,8 @@
                     </div>  
                 </div>	
                 <div *ngIf="this.rute2[2]=='new'" class="c4 d-flex justify-content-between">
-                    <div class="col-3" style="cursor: pointer;">
-                       
-                    </div>
-                    <div class="col-6" > 
-                        <h5 class="text-center">{{devices.alias}}</h5>
+                    <div class="col-9" > 
+                        <h5 class="">{{devices.alias}}</h5>
                     </div>
                     <div class="col-3" style="cursor: pointer; cursor: pointer; display: flex; justify-content: flex-end;">
                         <svg class="text-right" *ngIf="show_form" (click)="hideForm()" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
@@ -158,7 +148,14 @@
                 </div>
 
                 <div class="row c6">
-                    <div class="col-12 col-lg-6 col-md-12 col-12"> 
+                    <div class="col-1 pt-4" (click)="recharge()" style="cursor: pointer;">
+                        <svg *ngIf="!view_rec" (mouseover)="view_rec=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
+                        </svg>
+                        <p *ngIf="view_rec" (mouseout)="view_rec=false" class="m-0">{{ 'devices.edit.rest' | translate }}</p>
+                    </div>
+                    <div class="col-11 col-lg-6 col-md-11 col-11"> 
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="lat">{{ 'devices.edit.lat' | translate }}</label>
@@ -183,7 +180,7 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="col-12 col-lg-6 col-md-12 col-12"> 
+                    <div class="col-11 col-lg-4 col-md-11 col-11"> 
                         <label for="timezone" class="form-label m-0">{{ 'devices.edit.zone' | translate }}</label>
                         <select class="form-select" aria-label="Default select example"(ngModelChange)="changed=true" value="{{ devices.timezone }}" type="text" id="timezone" class="form-control" name="timezone" [(ngModel)]="devices['timezone']" type>
                             <option value="Eniwetok, Kwajalein">Eniwetok, Kwajalein</option>
@@ -230,6 +227,14 @@
                         <div *ngIf="form.submitted && form.controls['timezone'].errors" class="text-danger">
                             <div *ngIf="form.controls['timezone'].errors['required']">{{ 'devices.edit.zone' | translate }} is required.</div>
                         </div>
+                    </div>
+                    <div class="col-1 col-lg-1 col-md-1 col-1 pt-4" style="cursor: pointer; text-align: center; padding-top: 0.7em;"(click)="deleteMarker()">
+                        <svg *ngIf="!view_can" (mouseover)="view_can=true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2" viewBox="0 0 16 16">
+                          <path d="M14 3a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2zM3.215 4.207l1.493 8.957a1 1 0 0 0 .986.836h4.612a1 1 0 0 0 .986-.836l1.493-8.957C11.69 4.689 9.954 5 8 5c-1.954 0-3.69-.311-4.785-.793z"/>
+                        </svg>
+                        <svg *ngIf="view_can" (mouseover)="view_can=false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                          <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+                        </svg>
                     </div>
                 </div>
             </div>
