@@ -1,3 +1,7 @@
+  *{
+    font-family: system-ui;
+  }
+
   .input-1{
     width: 15%;
   }
@@ -52,13 +56,21 @@
   }
 
   #menu {
+    margin: 0.5em;
+    font-size: medium;
+    background-color: #fff;
     position: relative;
     width: max-content;
-    padding: 10px;
+    padding: 5px;
     top: 0px;
     left: 0px;
     z-index: 999;
-    border-bottom-right-radius: 15px;
+    border-radius: 5px;
+    border: 1px #afafaf solid;
+  }
+
+  #menu input{
+    margin-right: 0.5em;
   }
 
   .list-group {
@@ -369,4 +381,10 @@
   ::ng-deep .ng-option{
     padding: 0.7em;
     padding-top: 0em
+  }
+
+  ::ng-deep .ng-value-icon{
+    font-size: 30px;
+    max-height: 20px;
+    padding-right: 0.3em;
   }

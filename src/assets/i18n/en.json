@@ -94,10 +94,10 @@
     "devices.edit.m5.2" : "This action is not reversible. This Device will be permanently deleted.",
     "devices.edit.rest" : "Reset Position",
 
-    "sensors.general" : "General",
-    "sensors.time_general" : "Time general",
-    "devices.sensors.specific" : "Specific",
-    "devices.sensors.time_specific" : "Time Specific",
+    "sensors.general" : "Correction general",
+    "sensors.time_general" : "Correction time general",
+    "devices.sensors.specific" : "Correction specific",
+    "devices.sensors.time_specific" : "Correction time Specific",
 
     "predeterminado" : "Default",
     "satelite" : "satelite",

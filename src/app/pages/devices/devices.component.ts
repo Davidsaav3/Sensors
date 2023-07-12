@@ -410,7 +410,7 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
       });*/
       if(this.busqueda.value=='' && this.select_sensors_2.sensors[0].id==-1 && this.busqueda.sel_enable==2){
         this.map.on('zoomend', () => {
-          this.getCornerCoordinates();
+          //this.getCornerCoordinates();
         });
       }
       /*this.map.on('move', () => {
@@ -431,17 +431,17 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
                   'description': 
                   `
                     <strong>Dispositivo 1</strong>
-                    <p>Uid: Hola</p>
-                    <p>Uid: Hola</p>
+                    <p>Uid: </p>
+                    <p>Alias: </p>
                     <div style="display: inline-block; height: min-content;">
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block">CO2</p>
                       </span>
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block">Tmperatura</p>
                       </span>
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block"></p>
                       </span>
                     </div>
                   `
@@ -618,17 +618,16 @@ export class DevicesComponent implements AfterViewInit, OnDestroy{
             'name': name,
             'description': 
                   `<strong>Dispositivo 1</strong>
-                    <p>Uid: Hola</p>
-                    <p>Uid: Hola</p>
+                    <p>Uid: </p>
                     <div style="display: inline-block; height: min-content;">
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block">CO2</p>
                       </span>
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block">Tmperatura</p>
                       </span>
                       <span class="badge rounded-pill text-bg-success d-inline-block me-2">
-                        <p class="mb-0 d-none d-md-none d-lg-block">Disp 1</p>
+                        <p class="mb-0 d-none d-md-none d-lg-block"></p>
                       </span>
                     </div>
                   `

@@ -95,10 +95,10 @@
     "devices.edit.m5.2" : "Esta acción no es rebersible. Se borrará definitivamente este Device.",
     "devices.edit.rest" : "Restablecer posición",
 
-    "sensors.general" : "General",
-    "sensors.time_general" : "Tiempo general",
-    "devices.sensors.specific" : "Específico",
-    "devices.sensors.time_specific" : "Tiempo Específico",
+    "sensors.general" : "Correción general",
+    "sensors.time_general" : "Correción tiempo general",
+    "devices.sensors.specific" : "Correción específico",
+    "devices.sensors.time_specific" : "Correción tiempo Específico",
 
     "predeterminado" : "Predeterminado",
     "satelite" : "Satélite",
